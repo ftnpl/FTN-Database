@@ -1,0 +1,3 @@
+nl2sql.pl v1.0  
+Perl script that loads an FTN nodelist into a MySql database
+See README for more info.
