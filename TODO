@@ -1,4 +1,7 @@
-To do:  nl2sql.pl    9/19/01
+To do:  nl2sql.pl    9/25/01
+
+- rename nltst to nltst.sh, to allow for later versions such as nltst.cmd
+  or nltsts.bat etc for use on OS's besides linux
 
 - instead of having to give the full file name, add the capability of 
 finding the most recent version (by day number) when given a base name
