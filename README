@@ -12,11 +12,6 @@ processing.  This version uses only standard Perl
 
 Files
 ----------------
-createftndbtst.pl   Perl script that creates a test ftn mysql database
-
-nl2sql.*.errors   Error output from nl2sql.pl, by nltst.
-nl2sql.*.out      Standard output from nl2sql.pl, by nltst.
-
 nl2sql.pl       Perl script that loads an ftn nodelist into a mysql database
 
 nltable.pl      Perl script to create a nodelist table.
@@ -28,6 +23,12 @@ nltst	    	Example shell script, uses nl2sql.pl with parameters to load
 
 README          This file
 TODO		What needs to be worked on
+
+nl2sql.*.errors   Error output from nl2sql.pl, by nltst.
+nl2sql.*.out      Standard output from nl2sql.pl, by nltst.
+
+ftndbtst.pl     Perl script that creates a test ftn mysql database (get from 
+		ftnpl.sf.net site, if not with this).
 
 ========================
 
