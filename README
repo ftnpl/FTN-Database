@@ -16,7 +16,7 @@ nl2sql.pl       Perl script that loads an ftn nodelist into a mysql database
 
 nltable.pl      Perl script to create a nodelist table.
 
-nltst	    	Example shell script, uses nl2sql.pl with parameters to load
+nltst.sh  	Example shell script, uses nl2sql.pl with parameters to load
 		two nodelist files into an existing mysql database.  The
 		filename & nodelist path variables should be modified as 
 		neccessary for your local setup.  
