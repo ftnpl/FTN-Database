@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 #
-# nl2sql.pl - v1.1 beta
+# nl2sql.pl - v1.1
 # Initial load of a particular FTN St. Louis Format Nodelist
 # into an SQL (Mysql) based database.   
 # Copyright (c) 2001-2004 Robert James Clay.  All Rights Reserved.

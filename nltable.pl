@@ -1,5 +1,5 @@
 #!/usr/bin/perl -w
-# nltable.pl - v1.1 beta 
+# nltable.pl - v1.1
 # Createing a nodelist table for use with information  
 # from a Fidonet/FTN St. Louis Format Nodelist
 # in to an SQL (Mysql) based database.
