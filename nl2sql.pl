@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 #
-# nl2sqlv1.pl 
-# version 1.0 Beta- 5 August 2001 - R.J. Clay
+# nl2sql.pl 
+# version 1.0 Beta- 19 August 2001 - R.J. Clay
 # Initial load of a particular FTN St. Louis Format Nodelist
 # into an SQL (Mysql) based database.   Uses standard Perl.
 # See README for license information.
@@ -12,13 +12,20 @@ use vars qw/ $opt_n $opt_d $opt_h $opt_x /;
 
 #print @INC"\n";
 
+if ($#ARGV < 0) {
+    print STDERR "\nUsage: nl2sql.pl -n nodelistfile -d [domain]...\n";
+    print STDERR "    nodelistfile = path and filename of nodelist file...\n";
+    print STDERR "    [domain] = nodelist domain;  defaults to fidonet.\n\n";
+    exit 1;
+}
+
 getopts('n:d:hx');
 
-if ($opt_h) or ($#ARGV < 0) {
-    print STDERR "usage: nl2sqlv1.pl -n nodelistfile -d [domain]...\n";
-    print STDERR "nodelistfile = path and filename of nodelist file...\n";
-    print STDERR "[domain] = nodelist domain;  defaults to fidonet.\n";
-    exit 1;
+if ($opt_h) {
+    print "\nUsage: nl2sql.pl -n nodelistfile -d [domain]...\n";
+    print "    nodelistfile = path and filename of nodelist file...\n";
+    print "    [domain] = nodelist domain;  defaults to fidonet.\n\n";
+    exit 0;
 }
 
 my ($nodelistfile, $dbh, $sql_stmt, $domain, $type, $num, $name, $loc, 
@@ -47,7 +54,6 @@ if ($opt_d) {
     $domain=$opt_d;
 } else {
     $domain='fidonet';    # domain defaults to fidonet
-#    $domain = 'stn';
 }
 if ($opt_x) {
     print "Domain is '$domain' ..\n";
@@ -81,8 +87,7 @@ $sql_stmt .= "WHERE domain = '$domain' ";
 if ($opt_x) {
     print "The delete statment is:  $sql_stmt ";
 }
-$dbh->do( "$sql_stmt " )
-    or $insert_ok = "0"; 
+$dbh->do( "$sql_stmt " );
 
 
 while(<NODELIST>) {
@@ -97,7 +102,7 @@ while(<NODELIST>) {
     $name =~ tr/'//d;   #take care of single quotes in system name fields
     $loc =~ tr/'//d;   #take care of single quotes in location fields
     $sysop =~ tr/'//d;   #take care of single quotes in sysop name fields
-## now trying to escape them :  doesn't work 5/30
+## now trying to escape them :  doesn't work 5/30/01
 #    $nametmp = $dbh->quote($name);  $name = $nametmp;
 #    $loctmp = $dbh->quote($loc);  $loc = $loctmp;
 
@@ -105,7 +110,6 @@ if (!defined $flags) {
 # if $flags is undefined (i.e., nothing after the baud rate)
     $flags = " ";
 }
-
 
 
     if($type eq "Zone") {	# Zone line
@@ -156,8 +160,7 @@ if ($opt_x) {
 #    if ($opt_x) {
 #        print " $sql_stmt ";
 #    }
-    $dbh->do( "$sql_stmt " )
-        or $insert_ok = "0"; 
+    $dbh->do( "$sql_stmt " );
 
 }
 
