@@ -1,0 +1,30 @@
+To Do:  v1.1 beta    5/04/03
+
+
+nl2sql.pl
+----------
+
+- get quoteing working properly for entry into the database for fields like
+$loc & $name, so do not have to take out char's like single quotes, etc.
+
+- add option to do the table index creation separately?
+
+
+nltable.pl
+-----------
+-
+
+In General
+-----------
+
+- add quiet option, -q, for logging only operation ? 
+
+- add a test nodelist for use with this?...
+
+- the source field in the nodelist table is not enough?; add a new table,
+nladm (?), that for nodelist files lists the filename with extension.
+(& a timestamp?)
+
+
+  
+  

@@ -1,0 +1,38 @@
+nl2sql/modules
+
+Copyright (c) 2001-2002 Robert James Clay.  All Rights Reserved.
+This is free software;  you can redistribute it and/or
+modify it under the same terms as Perl itself.
+
+This subdirectory is for Perl Modules which are required and/or can be used
+with nl2sql.   This can be copies of the modules themselves, or archives of
+them;  or it will be information about where they can be obtained.
+
+
+==================
+Perl Modules
+----------------
+FTN::Utility	Must be a least v0.02, which has the logging subroutine.
+
+Getopt::Std	May already be installed on your system;  if not, one place
+		it may be obtained is at cpan (www.cpan.org).
+
+
+==================
+Files
+----------------
+
+fputl002.zip	FTN::Utility Perl Module, v0.02.  If not present in distribution
+		archive and you do not already have it installed, it can be 
+		obtained from ftnpl.sourceforge.net and other sites.
+
+
+README          This file
+
+========================
+
+Jame
+    Robert J. Clay, jame@users.sf.net
+    http://ftnpl.sourceforge.net
+    Sysop, 1:120/544 (1-586-791-1973), rocasa.dnsalias.org 
+   

@@ -1,11 +1,12 @@
-nl2sql
+nl2sql v1.1 beta
 
-Copyright (c) 2001 Robert James Clay.  All Rights Reserved.
+Copyright (c) 2001-2004 Robert James Clay.  All Rights Reserved.
 This is free software;  you can redistribute it and/or
 modify it under the same terms as Perl itself.
 
 Perl scripts for using an SQL database for fidonet/FTN nodelist
-processing.  This version uses only standard Perl
+processing.  This version uses only standard Perl, and MySQL as
+the database engine.
 
 ==================
 
@@ -16,24 +17,36 @@ nl2sql.pl       Perl script that loads an ftn nodelist into a mysql database
 
 nltable.pl      Perl script to create a nodelist table.
 
-nltst.sh  	Example shell script, uses nl2sql.pl with parameters to load
+nl2sql.sh  	Example shell script, uses nl2sql.pl with parameters to load
 		two nodelist files into an existing mysql database.  The
 		filename & nodelist path variables should be modified as 
 		neccessary for your local setup.  
 
+nltable.sh      Example script to create a nodelist table using nltable.pl.
+
+
+modules/	Directory where any Perl modules distributed with this archive
+		will be, and/or where information about them will be. 
+modules/README  Readme file with information about the neccessary Perl Modules
+		for this archive.
+
+doc/TODO	What needs to be worked on
+doc/Changes	What has been done
+
 README          This file
-TODO		What needs to be worked on
 
-nl2sql.*.errors   Error output from nl2sql.pl, by nltst.
-nl2sql.*.out      Standard output from nl2sql.pl, by nltst.
+nl2sql.*.errors   Error output from nl2sql.pl, by nl2sql.sh.
+nl2sql.*.out      Standard output from nl2sql.pl, by nl2sql.sh.
+nltable.errors   Error output from nltable.pl, by nltable.sh.
+nodelist.log	default name of log file
 
-ftndbtst.pl     Perl script that creates a test ftn mysql database (get from 
-		ftnpl.sf.net site, if not with this).
+ftndbtst.pl     Perl script that creates a test ftn MySQL database (get from 
+		ftnpl.sourceforge.net site, if not with this).
 
 ========================
 
 Jame
     Robert J. Clay, jame@users.sf.net
     http://ftnpl.sourceforge.net
-    Sysop, 1:120/544 (1-810-791-1973), 1:120/545
+    Sysop, 1:120/544 (1-586-791-1973) 
     

@@ -1,0 +1,50 @@
+Changes
+--------
+21 Mar 04 -
+    - updated copyright years to 2004
+    
+11 AUG 03 - 
+   nltable.pl - added a timestamp filed, 'updated'.
+
+04 May 03 -
+   nltable.pl -  doubled possible size of flags field to 64.
+
+ 1 Jan 03 - Corrected year numbers to 2003.
+
+29 June 02
+    nl2sql.pl : Implement finding file (by day number) when given a basename
+    & directory of the nodelist file; this is now the default; use "-e" option
+    to have it match full file name. Use nodelist filename for the 'source'
+    field for each entry into the nodelist table. 
+
+28 Jun 02
+    nl2sql.pl : added $opt_t option for defineing nodelist table name.  Made
+    nl2sql.sh : added option t for defineing nodelist table name.  
+    the tablename a variable, using $opt_t to define at command line.
+    nl2sql.pl & nltable.pl : implemented processing of period character in
+    nodelist table name (mysql does not allow periods in tablenames).
+    nltable.sh : implemented example script for using nltable.pl.
+    README : added references to nltable.sh script
+        
+23 Jun 02
+    nl2sql.pl & nltable.pl : isolated actual call to logging subroutine in
+    utility module to a "log" subroutine.  Isolated database open & closing
+    to openftndb & closeftndb subroutines.
+    
+16 Apr 02 
+    nl2sql.pl:  Corrected message wording for when debug is enabled. 
+    nl2sql.sh:  added a $BINDIR variable for use in the script.
+
+24 Feb 02 - Moved Changes & TODO files to doc/ subdirectory.  Added logging
+    capability, using the logging function in the FTN::Utility module.
+    Added option '-v' for verbose mode.   Added option '-f' to indicate if
+    nodelistfile (option '-n') is exact file name.  Added 'source' field
+    to nltable.pl script.  Added & populated modules subdirectory.
+     
+26 Dec 01 - Added '2002' to copyright statement, & also included the
+    copyright statement in nl2sql.pl, nltable.pl, & nl2sql.sh instead
+    of just in the README.
+
+Nov 2001 - Added Changes file (this file) to working directory.
+
+Aug 2001 Released version 1.0.  Created v1.1 beta branch
