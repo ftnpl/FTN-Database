@@ -1,9 +1,13 @@
-To do:  nl2sql.pl    9/06/01
+To do:  nl2sql.pl    9/19/01
+
+- instead of having to give the full file name, add the capability of 
+finding the most recent version (by day number) when given a base name
 
 - add option to do the table index creation separately?
 
 - add a check for a period in the area (table) name to be added;
-mysql does not allow that because it is used for something else.
+mysql does not allow that because it is used for something else,
+so it will need to be changed to an underscore and/or error'ed out.
 
 - add logging capability
 
