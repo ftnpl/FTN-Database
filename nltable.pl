@@ -50,7 +50,7 @@ if ($opt_n) {
     }
 
 } else {
-    $tblname="nodelist";   # default table name  
+    $tblname="Nodelist";   # default table name  
 }
 
 
