@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 #
 # nl2sql.pl 
-# version 1.0 Beta- 19 August 2001 - R.J. Clay
+# version 1.0 - 25 August 2001 - R.J. Clay
 # Initial load of a particular FTN St. Louis Format Nodelist
 # into an SQL (Mysql) based database.   Uses standard Perl.
 # See README for license information.
@@ -12,19 +12,10 @@ use vars qw/ $opt_n $opt_d $opt_h $opt_x /;
 
 #print @INC"\n";
 
-if ($#ARGV < 0) {
-    print STDERR "\nUsage: nl2sql.pl -n nodelistfile -d [domain]...\n";
-    print STDERR "    nodelistfile = path and filename of nodelist file...\n";
-    print STDERR "    [domain] = nodelist domain;  defaults to fidonet.\n\n";
-    exit 1;
-}
-
 getopts('n:d:hx');
 
 if ($opt_h) {
-    print "\nUsage: nl2sql.pl -n nodelistfile -d [domain]...\n";
-    print "    nodelistfile = path and filename of nodelist file...\n";
-    print "    [domain] = nodelist domain;  defaults to fidonet.\n\n";
+    &help ();	#printing usage/help message
     exit 0;
 }
 
@@ -40,7 +31,9 @@ if ($opt_x) {
 if ($opt_n) {
     $nodelistfile=$opt_n;
 } else {
-    $nodelistfile='nodelist.tst';
+    print "\nThe Nodelist file and it's path must be set... \n";
+    &help();
+    exit (1);	#  exit after displaying usage if not set
 }
 if ($opt_x) {
     print "Nodelist file is '$nodelistfile' ..\n";
@@ -59,7 +52,7 @@ if ($opt_x) {
     print "Domain is '$domain' ..\n";
 }
 
-#set defaults
+#  set defaults
 my $zone = 1;
 my $net  = 0;
 my $node = 0;
@@ -87,6 +80,8 @@ $sql_stmt .= "WHERE domain = '$domain' ";
 if ($opt_x) {
     print "The delete statment is:  $sql_stmt ";
 }
+
+#	Execute the Delete SQL statement
 $dbh->do( "$sql_stmt " );
 
 
@@ -106,11 +101,11 @@ while(<NODELIST>) {
 #    $nametmp = $dbh->quote($name);  $name = $nametmp;
 #    $loctmp = $dbh->quote($loc);  $loc = $loctmp;
 
-if (!defined $flags) {
-# if $flags is undefined (i.e., nothing after the baud rate)
-    $flags = " ";
-}
 
+# if $flags is undefined (i.e., nothing after the baud rate)
+    if (!defined $flags) {
+        $flags = " ";
+    }
 
     if($type eq "Zone") {	# Zone line
 	$zone = $num;
@@ -130,12 +125,14 @@ if (!defined $flags) {
 	$node = $num;
     }
 
-if ($opt_x) {
-# display where in the nodelist we are
-    print "$type,";
-    printf "%-16s", "$zone:$net/$node";
-    print "$sysop\n";
-}
+# display where in the nodelist we are if debug flag is set
+    if ($opt_x) {
+        print "$type,";
+        printf "%-16s", "$zone:$net/$node";
+        print "$sysop\n";
+    }
+
+#	Build Insert Statement
     $sql_stmt = "INSERT INTO nodelist ";
 
     $sql_stmt .= "(type,zone,net,node,point,region,name,";
@@ -157,13 +154,19 @@ if ($opt_x) {
     $sql_stmt .= "'$flags', ";
     $sql_stmt .= "'$domain') ";
 
+#  this will be a debug option, but after start using more
+# complex parameter passing
 #    if ($opt_x) {
 #        print " $sql_stmt ";
 #    }
+
+#	Execute the insert SQL statment
     $dbh->do( "$sql_stmt " );
 
 }
 
+# This will be for the recreate index separately option, yet to be developed
+#
 #   this is from the old syntax for the postgres db
 ## recreate index
 #    $reidx_stmt = "CREATE UNIQUE INDEX nodelist_key ";
@@ -174,10 +177,22 @@ if ($opt_x) {
 #        or $reidx_ok = "0"; 
 
 # disconnect from database
-
 ( $dbh->disconnect )
 	or  die $DBI::errstr;
 
 close NODELIST;
 
 exit();
+
+############################################
+# subroutines
+############################################
+
+# Help message
+############################################
+sub help {
+    print "\nUsage: nl2sql.pl -n nodelistfile [-d domain]...\n";
+    print "    nodelistfile = path and filename of nodelist file...\n";
+    print "    [-d domain] = nodelist domain;  defaults to fidonet.\n\n";
+}
+
