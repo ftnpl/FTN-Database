@@ -1,4 +1,4 @@
-To Do:  v1.1    5/04/03
+To Do:  v1.1   11/23/04
 
 
 nl2sql.pl
@@ -12,7 +12,8 @@ $loc & $name, so do not have to take out char's like single quotes, etc.
 
 nltable.pl
 -----------
--
+- replace use of TableExists function with using sql code
+DROP TABLE IF EXISTS <tablename>;
 
 In General
 -----------
