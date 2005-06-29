@@ -1,8 +1,11 @@
-To Do:  v1.1   11/23/04
+To Do:  v1.1   06/29/05
 
 
 nl2sql.pl
 ----------
+- When there are multiple nodelists of the same name being processed, the
+script is using just one of them;  but not always the most recent one like
+it should. (getnlfilename subroutine)
 
 - get quoteing working properly for entry into the database for fields like
 $loc & $name, so do not have to take out char's like single quotes, etc.

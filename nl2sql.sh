@@ -1,7 +1,7 @@
 #!/bin/sh
 # nl2sql.sh - 1.1  
 #  This is an example test script that loads two nodelists 
-# Copyright (c) 2001-2004 Robert James Clay.  All Rights Reserved.
+# Copyright (c) 2001-2005 Robert James Clay.  All Rights Reserved.
 # This is free software;  you can redistribute it and/or
 # modify it under the same terms as Perl itself.
 #

@@ -3,7 +3,7 @@
 # nl2sql.pl - v1.1
 # Initial load of a particular FTN St. Louis Format Nodelist
 # into an SQL (Mysql) based database.   
-# Copyright (c) 2001-2004 Robert James Clay.  All Rights Reserved.
+# Copyright (c) 2001-2005 Robert James Clay.  All Rights Reserved.
 # This is free software;  you can redistribute it and/or
 # modify it under the same terms as Perl itself.
 
