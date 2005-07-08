@@ -1,8 +1,11 @@
-To Do:  v1.1   06/29/05
+To Do:  v1.1   07/08/05
 
 
 nl2sql.pl
 ----------
+- Script does not seem to handle properly a file that ends in just blank
+lines, instead of content line or a ^Z character.
+
 - When there are multiple nodelists of the same name being processed, the
 script is using just one of them;  but not always the most recent one like
 it should. (getnlfilename subroutine)
