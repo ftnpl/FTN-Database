@@ -2,7 +2,7 @@
 #
 # nl2sql.pl - v1.2
 # Initial load of a particular FTN St. Louis Format Nodelist
-# into an SQL (Mysql) based database.   
+# into an SQL (sqlite) based database.   
 # Copyright (c) 2001-2005 Robert James Clay.  All Rights Reserved.
 # This is free software;  you can redistribute it and/or
 # modify it under the same terms as Perl itself.
@@ -77,7 +77,7 @@ if ($opt_x) {
 #  nodelist table name
 if ($opt_t) {
     if ($opt_t=~/\./) {   # period in proposed table name? 
-	&log("MySql does not allow periods in table names.");
+	&log("sqlite does not allow periods in table names.");
 	$opt_t =~ tr/\./_/;  # change period to underscore
 	$tblname = $opt_t;  # 
 	&log("Changed table name to $tblname.");
@@ -307,7 +307,7 @@ sub getnlfilename {
 }
 
 ############################################
-# open FTN MySQL database for operations
+# open FTN sqlite database for operations
 ############################################
 sub openftndb {
 # Open message database
@@ -324,7 +324,7 @@ sub openftndb {
  
     use DBI;
 
-    ( $dbh = DBI->connect("dbi:mysql:dbname=$dbname", $dbuser, $dbpass) )
+    ( $dbh = DBI->connect("dbi:sqlite:dbname=$dbname", $dbuser, $dbpass) )
 	or die &log($DBI::errstr);
 
 }

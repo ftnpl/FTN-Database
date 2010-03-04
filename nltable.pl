@@ -2,7 +2,7 @@
 # nltable.pl - v1.2
 # Createing a nodelist table for use with information  
 # from a Fidonet/FTN St. Louis Format Nodelist
-# in to an SQL (Mysql) based database.
+# in to an SQL (sqlite) based database.
 # Copyright (c) 2001-2005 Robert James Clay.  All Rights Reserved.
 # This is free software;  you can redistribute it and/or
 # modify it under the same terms as Perl itself.
@@ -41,7 +41,7 @@ if ($opt_v) {
 #  nodelist table name
 if ($opt_n) {
     if ($opt_n=~/\./) {   # period in proposed table name? 
-	&log("MySql does not allow periods in table names.");
+	&log("sqlite does not allow periods in table names.");
 	$opt_n =~ tr/\./_/;  # change period to underscore
 	$tblname = $opt_n;  # 
 	&log("Changed table name to $tblname.");
@@ -147,7 +147,7 @@ sub TableExists {
 
 }
 ############################################
-# open FTN MySQL database for operations
+# open FTN sqlite database for operations
 ############################################
 sub openftndb {
 # Open message database
@@ -163,7 +163,7 @@ sub openftndb {
  
     use DBI;
 
-    ( $dbh = DBI->connect("dbi:mysql:dbname=$dbname", $dbuser, $dbpass) )
+    ( $dbh = DBI->connect("dbi:sqlite:dbname=$dbname", $dbuser, $dbpass) )
 	or die &log($DBI::errstr);
 
 }
