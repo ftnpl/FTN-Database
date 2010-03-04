@@ -6,7 +6,11 @@ modify it under the same terms as Perl itself.
 
 Perl scripts for using an SQL database for fidonet/FTN nodelist
 processing.  This version uses only standard Perl, and SQLite as
-the database engine.
+the database engine.  Note that nl2sql now has its own GIT
+repository, available as follows:
+
+git clone git://ftnpl.git.sourceforge.net/gitroot/ftnpl/nlsql.git (Read Only)
+http://ftnpl.git.sourceforge.net/git/gitweb.cgi?p=ftnpl/nl2sql.git (Browse Online)
 
 ==================
 
