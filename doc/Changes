@@ -1,5 +1,8 @@
 Changes
 --------
+4 Mar 10
+    - Started work on v1.2, using sqlite database instead of mysql
+
 22 Mar 04
     - Merged v1.1 beta back in to main.
 
