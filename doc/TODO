@@ -1,6 +1,26 @@
 To Do:  v1.2   03/04/10
 
 
+- The issue with periods in table names is not limited to mysql, but is 
+a more general issue where it is not a good idea to use them at all.  Redo
+the comments in both scripts regarding that, to generalize it.
+
+- SQLite supports transactions;   add the explicit use of such to both
+scripts?  Or just use the implicit useage of them?
+
+- Since SQLite uses a file for the database;  add a command line parameter
+to the scripts the sets the name & path, but allows for a default name.
+
+- review all usage of subroutine calls, because I think I habitually
+used the "&" calling convention, even though I don't think that 
+the subroutines have any need for direct access to the parameters that
+the script was called with ("@_"), and those parameters are put into
+their own variables as neccessary in any cose.  Reference perldoc perlsub.
+
+- Either just use the FTN::Log module instead of the FTN::Utility module,
+  or expand the existing subroutine in the scripts to use the same code as
+  in the module.
+
 nl2sql.pl
 ----------
 - Script does not seem to handle properly a file that ends in just blank
@@ -16,10 +36,17 @@ $loc & $name, so do not have to take out char's like single quotes, etc.
 - add option to do the table index creation separately?
 
 
-nltable.pl
+nldbadm.pl
 -----------
+
+- creating the ftnnode index had been being done as part of creating the
+nodelist table.  Create a separate subroutine to do that.  That would
+also allow adding being able to recreate the index if requested.
+
 - replace use of TableExists function with using sql code
 DROP TABLE IF EXISTS <tablename>;
+
+- add better error checking.
 
 In General
 -----------
