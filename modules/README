@@ -17,6 +17,9 @@ FTN::Utility	Must be a least v0.02, which has the logging subroutine.
 Getopt::Std	May already be installed on your system;  if not, one place
 		it may be obtained is at cpan (www.cpan.org).
 
+DBD::SQLite	May already be installed on your system;  if not, one place
+		it may be obtained is at cpan (www.cpan.org).
+
 
 ==================
 Files
