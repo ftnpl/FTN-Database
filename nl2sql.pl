@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+#!/usr/bin/perl
 #
 # nl2sql.pl - v1.2
 # Initial load of a particular FTN St. Louis Format Nodelist
@@ -7,6 +7,7 @@
 # This is free software;  you can redistribute it and/or
 # modify it under the same terms as Perl itself.
 
+use warnings;
 use strict;
 use Getopt::Std;
 use vars qw/ $opt_n $opt_f $opt_e $opt_l $opt_d $opt_h $opt_t $opt_v $opt_x /;
