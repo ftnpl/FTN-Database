@@ -44,9 +44,6 @@ nl2sql.*.out      Standard output from nl2sql.pl, by nl2sql.sh.
 nltable.errors   Error output from nltable.pl, by nltable.sh.
 nodelist.log	default name of log file
 
-ftndbtst.pl     Perl script that creates a test ftn MySQL database (get from 
-		ftnpl.sourceforge.net site, if not with this).
-
 ========================
 
 Jame
