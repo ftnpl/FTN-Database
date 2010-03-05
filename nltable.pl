@@ -86,8 +86,7 @@ $sql_stmt .= "baud      CHAR(6) DEFAULT '300' NOT NULL, ";
 $sql_stmt .= "flags     VARCHAR(64) DEFAULT ' ' NOT NULL, ";
 $sql_stmt .= "domain    VARCHAR(8) DEFAULT 'fidonet' NOT NULL, ";
 $sql_stmt .= "source    VARCHAR(16) DEFAULT 'local' NOT NULL, ";
-$sql_stmt .= "updated   TIMESTAMP(14) DEFAULT '' NOT NULL, ";
-$sql_stmt .= "INDEX ftnnode (zone, net, node, point, domain) ";
+$sql_stmt .= "updated   TIMESTAMP(14) DEFAULT '' NOT NULL ";
 $sql_stmt .= ") ";
 
 #print " $sql_stmt ";
@@ -146,6 +145,22 @@ sub TableExists {
     return($result);  #  return result
 
 }
+#############################################
+## Create index on the nodelist table
+#############################################
+#sub createindex {
+## Creating the index with the old mysql
+## version was done as part of the creation
+## of the table itself, using the following
+## info:
+##  $sql_stmt .= "INDEX ftnnode (zone, net, node, point, domain) ";
+## Will now do it as part of a separate subroutine
+## which will also allow it to be used as part
+## of being able to drop & recreate the index
+## if requested.
+
+#}
+
 ############################################
 # open FTN sqlite database for operations
 ############################################
