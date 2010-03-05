@@ -1,7 +1,19 @@
 Changes
 --------
 4 Mar 10
-    - Started work on v1.2, using sqlite database instead of mysql
+    - Change script name of nltable.pl to nldbadm.pl.
+    - Use the warnings pragma instead of the -w perl option.
+    - nltable.pl - Do not create the ftnnode index when creating
+      the nodelist table.
+    - nltable.pl - Updated the line that creates the primary
+      key in the table to what SQLite will accept.
+    - Removed the ftndbtst.pl reference from the README file,
+      as it is not neccessary for use with SQLite.
+    - Added note to README about nl2sql GIT repository.
+    - Update copyright end year from 2005 to 2010.
+    - Change database references from mysql to sqlite.
+    - Started work on v1.2, using sqlite database instead of mysql,
+      bumping version references from 1.1. to 1.2
 
 22 Mar 04
     - Merged v1.1 beta back in to main.
