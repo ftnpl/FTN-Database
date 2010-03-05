@@ -71,7 +71,7 @@ if (&TableExists($tblname)) {
 # build Create Table sql statement
 $sql_stmt = "CREATE TABLE $tblname( ";
 
-$sql_stmt .= "id	INT NOT NULL AUTO_INCREMENT PRIMARY KEY, ";
+$sql_stmt .= "id	INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, ";
 $sql_stmt .= "type      VARCHAR(6) DEFAULT '' NOT NULL, ";
 $sql_stmt .= "zone      SMALLINT  DEFAULT '1' NOT NULL, ";
 $sql_stmt .= "net       SMALLINT  DEFAULT '1' NOT NULL, ";
