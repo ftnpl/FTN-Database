@@ -19,14 +19,15 @@ Files
 ----------------
 nl2sql.pl       Perl script that loads an ftn nodelist into a sqlite database
 
-nltable.pl      Perl script to create a nodelist table.
+nldbadm.pl      Perl script to create a nodelist table and other database
+		administrative functions.
 
 nl2sql.sh  	Example shell script, uses nl2sql.pl with parameters to load
 		two nodelist files into an existing sqlite database.  The
 		filename & nodelist path variables should be modified as 
 		neccessary for your local setup.  
 
-nltable.sh      Example script to create a nodelist table using nltable.pl.
+nltable.sh      Example script to create a nodelist table using nldbadm.pl.
 
 
 modules/	Directory where any Perl modules distributed with this archive
@@ -41,7 +42,7 @@ README          This file
 
 nl2sql.*.errors   Error output from nl2sql.pl, by nl2sql.sh.
 nl2sql.*.out      Standard output from nl2sql.pl, by nl2sql.sh.
-nltable.errors   Error output from nltable.pl, by nltable.sh.
+nltable.errors   Error output from nldbadm.pl, by nltable.sh.
 nodelist.log	default name of log file
 
 ========================

@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# nltable.pl - v1.2
+# nldbadm.pl - v1.2
 # Createing a nodelist table for use with information  
 # from a Fidonet/FTN St. Louis Format Nodelist
 # in to an SQL (sqlite) based database.
@@ -23,7 +23,7 @@ my $Logfile = "stdout";
 getopts('n:hvx');
 
 if($opt_h) {
-    print "\nUsage: nltable.pl [-n nodelisttablename] [-v] [-h]...\n";
+    print "\nUsage: nldbadm.pl [-n nodelisttablename] [-v] [-h]...\n";
     print "nodelisttablename = defaults to \'nodelist\'. \n";
     print "-v                verbose option \n\n";
     exit;

@@ -8,6 +8,6 @@
 BINDIR=/opt/ftn/sql/nl2sql
 NLTABLE=nodelist
 LOGDIR=/var/log/bbsdbpl
-#$BINDIR/nl2sql.pl -n $NLTABLE -v  2>$LOGDIR/nltable.errors
-$BINDIR/nltable.pl -n $NLTABLE -v  2>$LOGDIR/nltable.errors
+#$BINDIR/nldbadm.pl -n $NLTABLE -v  2>$LOGDIR/nltable.errors
+$BINDIR/nldbadm.pl -n $NLTABLE -v  2>$LOGDIR/nltable.errors
 #
