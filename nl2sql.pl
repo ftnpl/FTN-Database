@@ -324,7 +324,7 @@ sub openftndb {
  
     use DBI;
 
-    ( $dbh = DBI->connect("dbi:sqlite:dbname=$dbname", $dbuser, $dbpass) )
+    ( $dbh = DBI->connect("dbi:SQLite:dbname=$dbname", $dbuser, $dbpass) )
 	or die &log($DBI::errstr);
 
 }
