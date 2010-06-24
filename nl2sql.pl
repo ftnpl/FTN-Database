@@ -137,7 +137,7 @@ $dbh->do( "$sql_stmt " )
 	or die &log($DBI::errstr);
 
 if ($opt_v) {	
-    &log("Loading database from nodelist $nlfile.");
+    &log("Loading database from nodelist $nlfile");
 }
 
 while(<NODELIST>) {
