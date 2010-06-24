@@ -12,7 +12,7 @@ use strict;
 use Getopt::Std;
 use vars qw/ $opt_n $opt_f $opt_e $opt_l $opt_d $opt_h $opt_t $opt_v $opt_x /;
 
-use FTN::Utility qw(&logging);
+use FTN::Log qw(&logging);
 
 getopts('n:f:l:d:t:ehvx');
 
@@ -343,7 +343,7 @@ sub closeftndb {
 }
 
 #############################################
-#  log subrouting.  requires FTN::Utility
+#  log subrouting.  requires FTN::Log
 #############################################
 sub log {
 #

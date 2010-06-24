@@ -12,7 +12,7 @@ them;  or it will be information about where they can be obtained.
 ==================
 Perl Modules
 ----------------
-FTN::Utility	Must be a least v0.02, which has the logging subroutine.
+FTN::Log	Must be a least v0.02, for the 'logging' subroutine.
 
 Getopt::Std	May already be installed on your system;  if not, one place
 		it may be obtained is at cpan (www.cpan.org).
@@ -25,7 +25,7 @@ DBD::SQLite	May already be installed on your system;  if not, one place
 Files
 ----------------
 
-fputl002.zip	FTN::Utility Perl Module, v0.02.  If not present in distribution
+fplog002.zip	FTN::Log Perl Module, v0.02.  If not present in distribution
 		archive and you do not already have it installed, it can be 
 		obtained from ftnpl.sourceforge.net and other sites.
 

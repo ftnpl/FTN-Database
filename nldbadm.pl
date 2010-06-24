@@ -12,7 +12,7 @@ use strict;
 use Getopt::Std;
 use vars qw/ $opt_n $opt_h $opt_v $opt_x /;
 
-use FTN::Utility qw(&logging);
+use FTN::Log qw(&logging);
 
 my ($tblname, $dbh, $sql_stmt);
 
@@ -197,7 +197,7 @@ sub closeftndb {
 }
 
 #############################################
-#  logging subrouting.  requires FTN::Utility
+#  logging subrouting.  requires FTN::Log
 #############################################
 sub log {
 #
