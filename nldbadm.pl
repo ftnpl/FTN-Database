@@ -31,21 +31,21 @@ if($opt_h) {
 
 # note that "opt_x" is the debug variable
 if ($opt_x) {
-    &log("Debug flag is set");
+    &logged("Debug flag is set");
 }
 
 # note that "opt_v" is the verbose variable
 if ($opt_v) {
-    &log("Verbose flag is set");
+    &logged("Verbose flag is set");
 }
 
 #  nodelist table name
 if ($opt_n) {
     if ($opt_n=~/\./) {   # period in proposed table name? 
-	&log("sqlite does not allow periods in table names.");
+	&logged("sqlite does not allow periods in table names.");
 	$opt_n =~ tr/\./_/;  # change period to underscore
 	$tblname = $opt_n;  # 
-	&log("Changed table name to $tblname.");
+	&logged("Changed table name to $tblname.");
     } else {	# no period in name 
         $tblname = $opt_n;   #  just assign to variable
     }
@@ -63,9 +63,9 @@ if (&TableExists($tblname)) {
     $sql_stmt = "DROP TABLE $tblname";
     #print " $sql_stmt ";
     $dbh->do( "$sql_stmt " );
-    &log("Dropped existing nodelist table $tblname.");
+    &logged("Dropped existing nodelist table $tblname.");
 } else {
-    &log("Table $tblname does not already exist");
+    &logged("Table $tblname does not already exist");
 }
 
 
@@ -96,7 +96,7 @@ $dbh->do( "$sql_stmt " );
 # disconnect from database
 &closeftndb();
 
-&log("Table $tblname created.");
+&logged("Table $tblname created.");
 
 
 exit();
@@ -112,27 +112,27 @@ sub TableExists {
     
     my($tname) = @_;
 
-    if ($opt_v) {&log("Checking if table '$tblname' already exists")};
+    if ($opt_v) {&logged("Checking if table '$tblname' already exists")};
     
     # prepare statment
     $sql= "SHOW TABLES";
     $sth = $dbh->prepare($sql)
-	or die {&log("Can't prepare $sql:  $dbh->errstr")};
+	or die {&logged("Can't prepare $sql:  $dbh->errstr")};
 	
     # execute statement
     $rv = $sth->execute
-	or die {&log("Can't execute '$sql':  $sth->errstr.")};
+	or die {&logged("Can't execute '$sql':  $sth->errstr.")};
     
     # getting list of table names in database &
     # checking if $tname already in database
     $result = 0;  # false
     while(@row = $sth->fetchrow_array)  {  
     
-	if ($opt_x) {&log("Table $row[0] exists.")};    
+	if ($opt_x) {&logged("Table $row[0] exists.")};    
 
 	if ($row[0] eq $tname) {
 	    $result = 1;  # true
-	    if ($opt_v) {&log("Table $tname found.")};
+	    if ($opt_v) {&logged("Table $tname found.")};
 #	    last FINISHED;   # break out of loop if found;  doesn't work...
 	}	
     }
@@ -141,7 +141,7 @@ sub TableExists {
     #  finished with statement handle
     $rc = $sth->finish;
     
-    if ($opt_x) {&log("TableExists return value is '$result'.")};
+    if ($opt_x) {&logged("TableExists return value is '$result'.")};
     
     return($result);  #  return result
 
@@ -171,7 +171,7 @@ sub openftndb {
 # have been set.  $dbuser must already 
 # have the priveledges to create a table.
 
-    if ($opt_v) {&log("Opening FTN database")};
+    if ($opt_v) {&logged("Opening FTN database")};
 	
     my $dbname = 'ftndbtst';
     my $dbuser = 'sysop';
@@ -180,7 +180,7 @@ sub openftndb {
     use DBI;
 
     ( $dbh = DBI->connect("dbi:SQLite:dbname=$dbname", $dbuser, $dbpass) )
-	or die &log($DBI::errstr);
+	or die &logged($DBI::errstr);
 
 }
 
@@ -189,17 +189,17 @@ sub openftndb {
 ############################################
 sub closeftndb {
 #
-    if ($opt_v) {&log("Closing FTN database")};
+    if ($opt_v) {&logged("Closing FTN database")};
 
     ( $dbh->disconnect )
-	or die &log($DBI::errstr);
+	or die &logged($DBI::errstr);
 	
 }
 
 #############################################
-#  logging subrouting.  requires FTN::Log
+#  logged subroutine.  requires FTN::Log
 #############################################
-sub log {
+sub logged {
 #
     my(@text) = @_;
     my $progid="NLTBL";
