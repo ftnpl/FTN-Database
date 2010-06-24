@@ -1,9 +1,14 @@
-To Do:  v1.2   03/04/10
+To Do:  v1.2   06/23/10
 
+- Change to using the logging subroutine from FTN::Log directly instead of in the
+'&logged' subroutine?  Using what is now the &logged subroutine is left over from
+when the that subroutine actually had the logging code inline instead of being in
+in a separate module like FTN::Log.  Besides anything else;  it's used alot & all 
+of those subroutine calls may be taking a lot of unneccessary extra time.
 
-- The issue with periods in table names is not limited to mysql, but is 
-a more general issue where it is not a good idea to use them at all.  Redo
-the comments in both scripts regarding that, to generalize it.
+- The use of special charactors like periods in table names is a more general issue
+where it is not a good idea to use them at all.  Redo the comments in both scripts
+regarding that, to generalize it.
 
 - SQLite supports transactions;   add the explicit use of such to both
 scripts?  Or just use the implicit useage of them?
@@ -11,19 +16,17 @@ scripts?  Or just use the implicit useage of them?
 - Since SQLite uses a file for the database;  add a command line parameter
 to the scripts the sets the name & path, but allows for a default name.
 
+- Does SQLite require or even need the db user or db password variables?  
+
 - review all usage of subroutine calls, because I think I habitually
 used the "&" calling convention, even though I don't think that 
 the subroutines have any need for direct access to the parameters that
 the script was called with ("@_"), and those parameters are put into
 their own variables as neccessary in any cose.  Reference perldoc perlsub.
 
-- Either just use the FTN::Log module instead of the FTN::Utility module,
-  or expand the existing subroutine in the scripts to use the same code as
-  in the module.
-
 nl2sql.pl
 ----------
-- Script does not seem to handle properly a file that ends in just blank
+- Script does not seem to properly handle a file that ends in just blank
 lines, instead of content line or a ^Z character.
 
 - When there are multiple nodelists of the same name being processed, the
@@ -58,7 +61,3 @@ In General
 - the source field in the nodelist table is not enough?; add a new table,
 nladm (?), that for nodelist files lists the filename with extension.
 (& a timestamp?)
-
-
-  
-  

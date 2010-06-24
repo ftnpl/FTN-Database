@@ -1,5 +1,12 @@
 Changes
 --------
+
+23 Jun 10
+    - Removed period from end of line that logs name of nodelist file.
+    _ For the logging subroutine;  use the FTN:Log module instead of the
+      FTN::Utility module.
+    - Changed name of "&log" subroutine to "&logged".
+      
 4 Mar 10
     - Change script name of nltable.pl to nldbadm.pl.
     - Use the warnings pragma instead of the -w perl option.
