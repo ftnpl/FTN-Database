@@ -315,7 +315,6 @@ sub openftndb {
 #   Assumes that $dbname, $dbuser, & $dbpass
 # have been set.  $dbuser must already 
 # have the priveledges to create a table.
-# See also ftndbtst.pl.
 
     if ($opt_v) {&logged("Opening FTN database")};
 	
