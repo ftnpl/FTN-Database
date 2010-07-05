@@ -24,7 +24,7 @@ getopts('n:hvx');
 
 if($opt_h) {
     print "\nUsage: nldbadm.pl [-n nodelisttablename] [-v] [-h]...\n";
-    print "nodelisttablename = defaults to \'nodelist\'. \n";
+    print "-n                nodelisttablename = defaults to \'nodelist\'. \n";
     print "-v                verbose option \n\n";
     exit;
 }
