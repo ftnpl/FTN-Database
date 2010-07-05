@@ -1,4 +1,4 @@
-To Do:  v1.2   06/23/10
+To Do:  v1.2   07/5/10
 
 - Change to using the logging subroutine from FTN::Log directly instead of in the
 '&logged' subroutine?  Using what is now the &logged subroutine is left over from
@@ -6,19 +6,20 @@ when the that subroutine actually had the logging code inline instead of being i
 in a separate module like FTN::Log.  Besides anything else;  it's used alot & all 
 of those subroutine calls may be taking a lot of unneccessary extra time.
 
+- Add an option to define which type of database to use, defaulting to SQLite.  Can
+use what's supported by the DBI DBD modules:  to start off with, use SQlite, mysql,
+& postgresql.  Use "-D" for the option letter?
+
+- Add command line parameters to define the database name ($dbname), user ($dbuser),
+& password ( $dbpassord) for access to the database.  For SQLite, the db name would
+be the name & path of the db file. If not set on the command line it is set to a default.
+Use "-p" for the db password, "-u" for the db user, and "- ?" for the db name?
+
 - The use of special charactors like periods in table names is a more general issue
 where it is not a good idea to use them at all.  Redo the comments in both scripts
 regarding that, to generalize it.
 
-- SQLite supports transactions;   add the explicit use of such to both
-scripts?  Or just use the implicit useage of them?
-
-- Since SQLite uses a file for the database;  add a command line parameter
-to the scripts the sets the name & path, but allows for a default name.
-
-- Does SQLite require or even need the db user or db password variables?  
-
-- review all usage of subroutine calls, because I think I habitually
+- Review all usage of subroutine calls, because I think I habitually
 used the "&" calling convention, even though I don't think that 
 the subroutines have any need for direct access to the parameters that
 the script was called with ("@_"), and those parameters are put into
@@ -26,6 +27,10 @@ their own variables as neccessary in any cose.  Reference perldoc perlsub.
 
 nl2sql.pl
 ----------
+- Add an option to load just a defined zone, instead of all zones that 
+might be in the node list.  If defined zone is not in the nodelist, then
+nothing ends up getting loaded.  Use "-z" for the option?
+
 - Script does not seem to properly handle a file that ends in just blank
 lines, instead of content line or a ^Z character.
 
@@ -33,31 +38,31 @@ lines, instead of content line or a ^Z character.
 script is using just one of them;  but not always the most recent one like
 it should. (getnlfilename subroutine)
 
-- get quoteing working properly for entry into the database for fields like
+- Get quoteing working properly for entry into the database for fields like
 $loc & $name, so do not have to take out char's like single quotes, etc.
 
-- add option to do the table index creation separately?
+- Add option to do the table index creation separately?
 
 
 nldbadm.pl
 -----------
 
-- creating the ftnnode index had been being done as part of creating the
+- Creating the ftnnode index had been being done as part of creating the
 nodelist table.  Create a separate subroutine to do that.  That would
 also allow adding being able to recreate the index if requested.
 
-- replace use of TableExists function with using sql code
+- Replace use of TableExists function with using sql code
 DROP TABLE IF EXISTS <tablename>;
 
-- add better error checking.
+- Add better error checking.
 
 In General
 -----------
 
-- add quiet option, -q, for logging only operation ? 
+- Add quiet option, -q, for logging only operation ? 
 
-- add a test nodelist for use with this?...
+- Add a test nodelist for use with this?...
 
-- the source field in the nodelist table is not enough?; add a new table,
+- The source field in the nodelist table is not enough ?; add a new table,
 nladm (?), that for nodelist files lists the filename with extension.
 (& a timestamp?)
