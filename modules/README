@@ -1,11 +1,11 @@
-nl2sql/modules
+nl2db/modules
 
 Copyright (c) 2001-2010 Robert James Clay.  All Rights Reserved.
 This is free software;  you can redistribute it and/or
 modify it under the same terms as Perl itself.
 
 This subdirectory is for Perl Modules which are required and/or can be used
-with nl2sql.   This can be copies of the modules themselves, or archives of
+with nl2db.   This can be copies of the modules themselves, or archives of
 them;  or it will be information about where they can be obtained.
 
 

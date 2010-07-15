@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-# nl2sql.pl - v1.2
+# nl2db.pl - v1.2
 # Initial load of a particular FTN St. Louis Format Nodelist
 # into an SQL (sqlite) based database.
 # Copyright (c) 2001-2010 Robert James Clay.  All Rights Reserved.
@@ -264,7 +264,7 @@ exit();
 ############################################
 sub help {
     print
-"\nUsage: nl2sql.pl -n nldir [-f nlfile] [-l logfile] [-d domain] [-e] [-v] [-x]...\n";
+"\nUsage: nl2db.pl -n nldir [-f nlfile] [-l logfile] [-d domain] [-e] [-v] [-x]...\n";
     print "    nldir = nodelist directory...\n";
     print "    nlfile= nodelist filename, defaults to 'nodelist'.\n";
     print "    [-d domain] = nodelist domain;  defaults to 'fidonet'.\n\n";
@@ -360,7 +360,7 @@ sub logged {
 
     #
     my (@text) = @_;
-    my $progid = "nl2sql";
+    my $progid = "nl2db";
 
     &logging( $Logfile, $progid, @text );
 
