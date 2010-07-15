@@ -1,6 +1,9 @@
 Changes
 --------
 
+15 Jul 10
+    - Changed name from nl2sql to nl2db
+
  5 Jul 10
     - nldbadm.pl - Corrected the "-n" help line, to include which option
       is being referred to in the line.

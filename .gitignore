@@ -1,7 +1,7 @@
-nl2sql.ftn.errors
-nl2sql.stn.errors
-nl2sql.ftn.out
-nl2sql.stn.out
+nl2db.ftn.errors
+nl2db.stn.errors
+nl2db.ftn.out
+nl2db.stn.out
 nodelist.log
 modules/ftnplutl.zip
 modules/fputl002.zip    

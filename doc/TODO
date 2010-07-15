@@ -25,7 +25,7 @@ the subroutines have any need for direct access to the parameters that
 the script was called with ("@_"), and those parameters are put into
 their own variables as neccessary in any cose.  Reference perldoc perlsub.
 
-nl2sql.pl
+nl2db.pl
 ----------
 - Add an option to load just a defined zone, instead of all zones that 
 might be in the node list.  If defined zone is not in the nodelist, then

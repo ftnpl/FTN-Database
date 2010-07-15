@@ -1,4 +1,4 @@
-nl2sql v1.2
+nl2db v1.2
 
 Copyright (c) 2001-2010 Robert James Clay.  All Rights Reserved.
 This is free software;  you can redistribute it and/or
@@ -6,23 +6,23 @@ modify it under the same terms as Perl itself.
 
 Perl scripts for using an SQL database for fidonet/FTN nodelist
 processing.  This version uses only standard Perl, and SQLite as
-the database engine.  Note that nl2sql now has its own GIT
+the database engine.  Note that nl2db now has its own GIT
 repository, available as follows:
 
-git clone git://ftnpl.git.sourceforge.net/gitroot/ftnpl/nlsql.git (Read Only)
-http://ftnpl.git.sourceforge.net/git/gitweb.cgi?p=ftnpl/nl2sql.git (Browse Online)
+git clone git://ftnpl.git.sourceforge.net/gitroot/ftnpl/nl2db.git (Read Only)
+http://ftnpl.git.sourceforge.net/git/gitweb.cgi?p=ftnpl/nl2db.git (Browse Online)
 
 ==================
 
 
 Files
 ----------------
-nl2sql.pl       Perl script that loads an ftn nodelist into a sqlite database
+nl2db.pl       Perl script that loads an ftn nodelist into a sqlite database
 
 nldbadm.pl      Perl script to create a nodelist table and other database
 		administrative functions.
 
-nl2sql.sh  	Example shell script, uses nl2sql.pl with parameters to load
+nl2db.sh  	Example shell script, uses nl2db.pl with parameters to load
 		two nodelist files into an existing sqlite database.  The
 		filename & nodelist path variables should be modified as 
 		neccessary for your local setup.  
@@ -40,10 +40,10 @@ doc/Changes	What has been done
 
 README          This file
 
-nl2sql.*.errors   Error output from nl2sql.pl, by nl2sql.sh.
-nl2sql.*.out      Standard output from nl2sql.pl, by nl2sql.sh.
+nl2db.*.errors   Error output from nl2db.pl, by nl2db.sh.
+nl2db.*.out      Standard output from nl2db.pl, by nl2db.sh.
 nltable.errors   Error output from nldbadm.pl, by nltable.sh.
-nodelist.log	default name of log file
+nodelist.log	 Default name of log file
 
 ========================
 
