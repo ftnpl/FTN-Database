@@ -62,16 +62,10 @@ else {
 &openftndb();
 
 # drop the old nodelist table, if it exists.
-if ( &TableExists($tblname) ) {
-    $sql_stmt = "DROP TABLE $tblname";
-
-    #print " $sql_stmt ";
-    $dbh->do("$sql_stmt ");
-    &logged("Dropped existing nodelist table $tblname.");
-}
-else {
-    &logged("Table $tblname does not already exist");
-}
+$sql_stmt = "DROP TABLE IF EXISTS $tblname";
+#print " $sql_stmt ";
+$dbh->do("$sql_stmt ");
+&logged("Dropping existing nodelist table $tblname if it already exists.");
 
 # build Create Table sql statement
 $sql_stmt = "CREATE TABLE $tblname( ";
@@ -104,51 +98,6 @@ $dbh->do("$sql_stmt ");
 
 exit();
 
-############################################
-# TableExists function
-############################################
-sub TableExists {
-
-    # check if table $tname is already in the database
-    my ( $i, $rc, $rv, $sth, $sql, @row, $result );
-
-    my ($tname) = @_;
-
-    if ($opt_v) { &logged("Checking if table '$tblname' already exists") }
-
-    # prepare statment
-    $sql = "SHOW TABLES";
-    $sth = $dbh->prepare($sql)
-      or die { &logged("Can't prepare $sql:  $dbh->errstr") };
-
-    # execute statement
-    $rv = $sth->execute
-      or die { &logged("Can't execute '$sql':  $sth->errstr.") };
-
-    # getting list of table names in database &
-    # checking if $tname already in database
-    $result = 0;    # false
-    while ( @row = $sth->fetchrow_array ) {
-
-        if ($opt_x) { &logged("Table $row[0] exists.") }
-
-        if ( $row[0] eq $tname ) {
-            $result = 1;    # true
-            if ($opt_v) { &logged("Table $tname found.") }
-
-           #	    last FINISHED;   # break out of loop if found;  doesn't work...
-        }
-    }
-  FINISHED:
-
-    #  finished with statement handle
-    $rc = $sth->finish;
-
-    if ($opt_x) { &logged("TableExists return value is '$result'.") }
-
-    return ($result);    #  return result
-
-}
 #############################################
 ## Create index on the nodelist table
 #############################################
