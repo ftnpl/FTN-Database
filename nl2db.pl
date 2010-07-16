@@ -10,13 +10,13 @@
 use warnings;
 use strict;
 use Getopt::Std;
-use vars qw/ $opt_n $opt_f $opt_e $opt_l $opt_d $opt_h $opt_t $opt_v $opt_x $opt_z /;
+use vars qw/ $opt_n $opt_D $opt_u $opt_p $opt_f $opt_e $opt_l $opt_d $opt_h $opt_t $opt_v $opt_x $opt_z /;
 
 use FTN::Log qw(&logging);
 
 our $VERSION = 1.2;
 
-getopts('n:f:l:d:t:ehvxz:');
+getopts('n:D:u:p:f:l:d:t:ehvxz:');
 
 if ($opt_h) {
     &help();    #printing usage/help message
@@ -26,7 +26,8 @@ if ($opt_h) {
 my (
     $nldir, $nlfile, $dbh, $sql_stmt, $domain, $type,
     $num,   $name,   $loc, $nametmp,  $loctmp, $Logfile,
-    $sysop, $phone,  $bps, $flags,    $tblname
+    $sysop, $phone,  $bps, $flags,    $tblname, $dbname,
+    $dbuser, $dbpass
 );
 
 if ($opt_l) {
@@ -49,6 +50,31 @@ if ($opt_v) {
 # note that "opt_x" is the debug variable
 if ($opt_x) {
     &logging($Logfile, $progid, "Debug flag is set");
+}
+
+#    Database name
+if ($opt_D) {
+    $dbname = $opt_D;    # this needs to be at least the filename & can also include a path
+    undef $opt_D;
+}
+else {
+    $dbname = "ftndbtst";    # default database file is in current dir
+}
+#    Database user
+if ($opt_u) {
+    $dbuser = $opt_u;    # Set database user
+    undef $opt_u;
+}
+else {
+    $dbuser = "sysop";    # default user is sysop
+}
+#    Database password
+if ($opt_p) {
+    $dbpass = $opt_p;    # Set database password
+    undef $opt_p;
+}
+else {
+    $dbpass = "ftntstpw";    # default database password
 }
 
 #  setup nodelist file variables
@@ -287,10 +313,13 @@ exit();
 # Help message
 ############################################
 sub help {
-    print "\nUsage: nl2db.pl -n nldir [-f nlfile] [-l logfile] [-d domain] [-e] [-v] [-x] [-z]...\n";
+    print "\nUsage: nl2db.pl -n nldir [-D dbname] [-u dbuser] [-p dbpass] [-f nlfile] [-l logfile] [-d domain] [-e] [-v] [-x] [-z]...\n";
     print "    nldir = nodelist directory...\n";
     print "    nlfile= nodelist filename, defaults to 'nodelist'.\n";
     print "    [-d domain] = nodelist domain;  defaults to 'fidonet'.\n\n";
+    print "    [-D dbname] = database name & path;  defaults to 'ftndbtst'.\n\n";
+    print "    [-u dbuser] = database user;  defaults to 'sysop'.\n\n";
+    print "    [-p dbpass] = database password;  defaults to 'ftntstpw'.\n\n";
     print "    [-l logfile] = log filename (defaults to nodelist.log in current dir)\n";
     print "   -e	If present, then nlfile is exact filename\n";
     print "   -z	If present, then only the defined zone is loaded.\n";
@@ -351,10 +380,6 @@ sub openftndb {
     # have the priveledges to create a table.
 
     if ($opt_v) { &logging($Logfile, $progid, "Opening FTN database") }
-
-    my $dbname = 'ftndbtst';
-    my $dbuser = 'sysop';
-    my $dbpass = 'ftntstpw';
 
     use DBI;
 

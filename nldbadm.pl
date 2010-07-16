@@ -10,13 +10,13 @@
 use warnings;
 use strict;
 use Getopt::Std;
-use vars qw/ $opt_n $opt_h $opt_v $opt_x /;
+use vars qw/ $opt_n $opt_D $opt_u $opt_p $opt_h $opt_v $opt_x /;
 
 use FTN::Log qw(&logging);
 
 our $VERSION = 1.2;
 
-my ( $tblname, $dbh, $sql_stmt );
+my ( $dbname, $dbuser, $dbpass, $tblname, $dbh, $sql_stmt );
 
 my $Logfile = "stdout";
 
@@ -24,11 +24,14 @@ my $progid = "NLTBL";
 
 #print @INC"\n";
 
-getopts('n:hvx');
+getopts('n:D:u:p:hvx');
 
 if ($opt_h) {
-    print "\nUsage: nldbadm.pl [-n nodelisttablename] [-v] [-h]...\n";
+    print "\nUsage: nldbadm.pl [-n nodelisttablename] [-D dbname] [-u dbuser] [-p dbpass] [-v] [-h]...\n";
     print "-n                nodelisttablename = defaults to \'nodelist\'. \n";
+    print "[-D dbname]       database name & path;  defaults to 'ftndbtst'.\n\n";
+    print "[-u dbuser]       database user;  defaults to 'sysop'.\n\n";
+    print "[-p dbpass]       database password;  defaults to 'ftntstpw'.\n\n";
     print "-v                verbose option \n\n";
     exit;
 }
@@ -41,6 +44,31 @@ if ($opt_x) {
 # note that "opt_v" is the verbose variable
 if ($opt_v) {
     &logging($Logfile, $progid, "Verbose flag is set");
+}
+
+#    Database name
+if ($opt_D) {
+    $dbname = $opt_D;    # this needs to be at least the filename & can also include a path
+    undef $opt_D;
+}
+else {
+    $dbname = "ftndbtst";    # default database file is in current dir
+}
+#    Database user
+if ($opt_u) {
+    $dbuser = $opt_u;    # Set database user
+    undef $opt_u;
+}
+else {
+    $dbuser = "sysop";    # default user is sysop
+}
+#    Database password
+if ($opt_p) {
+    $dbpass = $opt_p;    # Set database password
+    undef $opt_p;
+}
+else {
+    $dbpass = "ftntstpw";    # default database password
 }
 
 #  nodelist table name
@@ -130,10 +158,6 @@ sub openftndb {
     # have the priveledges to create a table.
 
     if ($opt_v) { &logging($Logfile, $progid, "Opening FTN database") }
-
-    my $dbname = 'ftndbtst';
-    my $dbuser = 'sysop';
-    my $dbpass = 'ftntstpw';
 
     use DBI;
 
