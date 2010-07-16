@@ -100,15 +100,14 @@ else {
     $tblname = "Nodelist";     # default table name
 }
 
+
+my $OnlyZone = 0;     # Set default as zone 0, which is not used for zone numbers.
 #  If the z parameter is defined
 if ($opt_z) {
-    my $OnlyZone = $opt_z;    # If defined;  is the only zone to be loaded
+    $OnlyZone = $opt_z;    # If defined;  is the only zone to be loaded
+    &logged("Only loading Zone: $OnlyZone");
     undef $opt_z;
 }
-else {
-    my $OnlyZone = 0;     # Set as zone 0, which is not used for zone numbers.
-}
-
 
 open( NODELIST, "$nldir/$nlfile" )
   or die &logged("Cannot open $nldir/$nlfile");
