@@ -91,6 +91,9 @@ $sql_stmt .= ") ";
 #print " $sql_stmt ";
 $dbh->do("$sql_stmt ");
 
+# Index created
+&createindex();
+
 # disconnect from database
 &closeftndb();
 
@@ -98,21 +101,21 @@ $dbh->do("$sql_stmt ");
 
 exit();
 
-#############################################
-## Create index on the nodelist table
-#############################################
-#sub createindex {
-## Creating the index with the old mysql
-## version was done as part of the creation
-## of the table itself, using the following
-## info:
-##  $sql_stmt .= "INDEX ftnnode (zone, net, node, point, domain) ";
-## Will now do it as part of a separate subroutine
-## which will also allow it to be used as part
-## of being able to drop & recreate the index
-## if requested.
+##############################################
+## Create index on the nodelist table $tblname
+##############################################
+sub createindex {
+#	Assumes the database is already open
+#
+    # Recreate ftnnode Index
+    $sql_stmt = "CREATE INDEX ftnnode ";
+    $sql_stmt .= "ON $tblname (zone,net,node,point,domain) ";
+    ##print " $sql_stmt ";
+    #	Execute the Create Index SQL statment
+    $dbh->do( "$sql_stmt " )
+        or die &logged($DBI::errstr);
 
-#}
+}
 
 ############################################
 # open FTN sqlite database for operations

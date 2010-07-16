@@ -144,6 +144,13 @@ if ($opt_x) {
 $dbh->do("$sql_stmt ")
   or die &logged($DBI::errstr);
 
+# drop the old nodelist table index, if it exists.
+$sql_stmt = "DROP INDEX IF EXISTS ftnnode";
+#print " $sql_stmt ";
+$dbh->do("$sql_stmt ");
+&logged("Dropping existing nodelist table index if it already exists.");
+
+
 if ($opt_v) {
     &logged("Loading database from nodelist $nlfile");
 }
@@ -234,16 +241,13 @@ while (<NODELIST>) {
 
 }
 
-# This will be for the recreate index separately option, yet to be developed
-#
-#   this is from the old syntax for the postgres db
-## recreate index
-#    $reidx_stmt = "CREATE UNIQUE INDEX nodelist_key ";
-#    $reidx_stmt .= "ON nodelist (zone,net,node,point,domain) ";
-#
-##print " $reidx_stmt ";
-#    $dbh->do( "$reidx_stmt " )
-#        or $reidx_ok = "0";
+# Recreate ftnnode Index
+$sql_stmt = "CREATE INDEX ftnnode ";
+$sql_stmt .= "ON $tblname (zone,net,node,point,domain) ";
+##print " $sql_stmt ";
+#	Execute the Create Index SQL statment
+$dbh->do( "$sql_stmt " )
+    or die &logged($DBI::errstr);
 
 if ($opt_v) {    #
     &logged("Closing database");
