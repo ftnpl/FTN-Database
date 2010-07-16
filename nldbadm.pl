@@ -20,6 +20,8 @@ my ( $tblname, $dbh, $sql_stmt );
 
 my $Logfile = "stdout";
 
+my $progid = "NLTBL";
+
 #print @INC"\n";
 
 getopts('n:hvx');
@@ -33,21 +35,21 @@ if ($opt_h) {
 
 # note that "opt_x" is the debug variable
 if ($opt_x) {
-    &logged("Debug flag is set");
+    &logging($Logfile, $progid, "Debug flag is set");
 }
 
 # note that "opt_v" is the verbose variable
 if ($opt_v) {
-    &logged("Verbose flag is set");
+    &logging($Logfile, $progid, "Verbose flag is set");
 }
 
 #  nodelist table name
 if ($opt_n) {
     if ( $opt_n =~ /\./ ) {    # period in proposed table name?
-        &logged("sqlite does not allow periods in table names.");
+        &logging($Logfile, $progid, "sqlite does not allow periods in table names.");
         $opt_n =~ tr/\./_/;    # change period to underscore
         $tblname = $opt_n;     #
-        &logged("Changed table name to $tblname.");
+        &logging($Logfile, $progid, "Changed table name to $tblname.");
     }
     else {                     # no period in name
         $tblname = $opt_n;     #  just assign to variable
@@ -65,7 +67,7 @@ else {
 $sql_stmt = "DROP TABLE IF EXISTS $tblname";
 #print " $sql_stmt ";
 $dbh->do("$sql_stmt ");
-&logged("Dropping existing nodelist table $tblname if it already exists.");
+&logging($Logfile, $progid, "Dropping existing nodelist table $tblname if it already exists.");
 
 # build Create Table sql statement
 $sql_stmt = "CREATE TABLE $tblname( ";
@@ -97,7 +99,7 @@ $dbh->do("$sql_stmt ");
 # disconnect from database
 &closeftndb();
 
-&logged("Table $tblname created.");
+&logging($Logfile, $progid, "Table $tblname created.");
 
 exit();
 
@@ -113,7 +115,7 @@ sub createindex {
     ##print " $sql_stmt ";
     #	Execute the Create Index SQL statment
     $dbh->do( "$sql_stmt " )
-        or die &logged($DBI::errstr);
+        or die &logging($Logfile, $progid, $DBI::errstr);
 
 }
 
@@ -127,7 +129,7 @@ sub openftndb {
     # have been set.  $dbuser must already
     # have the priveledges to create a table.
 
-    if ($opt_v) { &logged("Opening FTN database") }
+    if ($opt_v) { &logging($Logfile, $progid, "Opening FTN database") }
 
     my $dbname = 'ftndbtst';
     my $dbuser = 'sysop';
@@ -136,7 +138,7 @@ sub openftndb {
     use DBI;
 
     ( $dbh = DBI->connect( "dbi:SQLite:dbname=$dbname", $dbuser, $dbpass ) )
-      or die &logged($DBI::errstr);
+      or die &logging($Logfile, $progid, $DBI::errstr);
 
 }
 
@@ -146,22 +148,9 @@ sub openftndb {
 sub closeftndb {
 
     #
-    if ($opt_v) { &logged("Closing FTN database") }
+    if ($opt_v) { &logging($Logfile, $progid, "Closing FTN database") }
 
     ( $dbh->disconnect )
-      or die &logged($DBI::errstr);
-
-}
-
-#############################################
-#  logged subroutine.  requires FTN::Log
-#############################################
-sub logged {
-
-    #
-    my (@text) = @_;
-    my $progid = "NLTBL";
-
-    &logging( $Logfile, $progid, @text );
+      or die &logging($Logfile, $progid, $DBI::errstr);
 
 }
