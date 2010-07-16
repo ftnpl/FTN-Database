@@ -1,6 +1,19 @@
 Changes
 --------
 
+16 Jul 10
+    - Moved the version number in the comment line of the Perl scripts to a
+      $VERSION variable.
+    - Add command line parameters to define the database name ($dbname),
+      user ($dbuser), and password ($dbpass) for access to the database. 
+    - Add code for creating an index on the nodelist table.
+    - Change to using the FTN::Log subroutine directly.  
+    - nl2db.pl - Add an option -z to load just a defined zone into the database.
+    - nldbadm.pl - Replaced the use of the TableExists function with using the
+      following SQL:  DROP TABLE IF EXISTS <tablename>.
+    - Added note to README file about support via echos or mailing lists.
+    - Rewrite shell script examples.
+    
 15 Jul 10
     - Changed name from nl2sql to nl2db
 

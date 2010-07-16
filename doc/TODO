@@ -1,19 +1,8 @@
-To Do:  v1.2   07/5/10
-
-- Change to using the logging subroutine from FTN::Log directly instead of in the
-'&logged' subroutine?  Using what is now the &logged subroutine is left over from
-when the that subroutine actually had the logging code inline instead of being in
-in a separate module like FTN::Log.  Besides anything else;  it's used alot & all 
-of those subroutine calls may be taking a lot of unneccessary extra time.
+To Do:  v1.2   07/16/10
 
 - Add an option to define which type of database to use, defaulting to SQLite.  Can
 use what's supported by the DBI DBD modules:  to start off with, use SQlite, mysql,
 & postgresql.  Use "-D" for the option letter?
-
-- Add command line parameters to define the database name ($dbname), user ($dbuser),
-& password ( $dbpassord) for access to the database.  For SQLite, the db name would
-be the name & path of the db file. If not set on the command line it is set to a default.
-Use "-p" for the db password, "-u" for the db user, and "- ?" for the db name?
 
 - The use of special charactors like periods in table names is a more general issue
 where it is not a good idea to use them at all.  Redo the comments in both scripts
@@ -27,10 +16,6 @@ their own variables as neccessary in any cose.  Reference perldoc perlsub.
 
 nl2db.pl
 ----------
-- Add an option to load just a defined zone, instead of all zones that 
-might be in the node list.  If defined zone is not in the nodelist, then
-nothing ends up getting loaded.  Use "-z" for the option?
-
 - Script does not seem to properly handle a file that ends in just blank
 lines, instead of content line or a ^Z character.
 
@@ -41,19 +26,11 @@ it should. (getnlfilename subroutine)
 - Get quoteing working properly for entry into the database for fields like
 $loc & $name, so do not have to take out char's like single quotes, etc.
 
-- Add option to do the table index creation separately?
-
 
 nldbadm.pl
 -----------
 
-- Creating the ftnnode index had been being done as part of creating the
-nodelist table.  Create a separate subroutine to do that.  That would
-also allow adding being able to recreate the index if requested.
-
-- Replace use of TableExists function with using sql code
-DROP TABLE IF EXISTS <tablename>;
-
+- Add options to create or drop the ftnnode index on the nodelist table.
 - Add better error checking.
 
 In General
@@ -66,3 +43,8 @@ In General
 - The source field in the nodelist table is not enough ?; add a new table,
 nladm (?), that for nodelist files lists the filename with extension.
 (& a timestamp?)
+
+
+For version 2.x
+----------------
+- Use modules for accessing the Nodelist files and the Nodelist database.
