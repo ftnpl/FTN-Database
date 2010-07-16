@@ -5,9 +5,13 @@
 # This is free software;  you can redistribute it and/or
 # modify it under the same terms as Perl itself.
 #
-BINDIR=/opt/ftn/sql/nl2db
+APPDIR=/opt/ftn/nl2db
+BINDIR=$APPDIR/bin
+LOGDIR=$APPDIR/log
 NLTABLE=nodelist
-LOGDIR=/var/log/bbsdbpl
-#$BINDIR/nldbadm.pl -n $NLTABLE -v  2>$LOGDIR/nltable.errors
+
+cd $APPDIR
+
+#$BINDIR/nldbadm.pl [-n nodelisttablename] [-v] [-h] 
 $BINDIR/nldbadm.pl -n $NLTABLE -v  2>$LOGDIR/nltable.errors
 #
