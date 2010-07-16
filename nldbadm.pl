@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# nldbadm.pl - v1.2
+# nldbadm.pl 
 # Createing a nodelist table for use with information
 # from a Fidonet/FTN St. Louis Format Nodelist
 # in to an SQL (sqlite) based database.
@@ -13,6 +13,8 @@ use Getopt::Std;
 use vars qw/ $opt_n $opt_h $opt_v $opt_x /;
 
 use FTN::Log qw(&logging);
+
+our $VERSION = 1.2;
 
 my ( $tblname, $dbh, $sql_stmt );
 

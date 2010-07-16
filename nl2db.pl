@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-# nl2db.pl - v1.2
+# nl2db.pl 
 # Initial load of a particular FTN St. Louis Format Nodelist
 # into an SQL (sqlite) based database.
 # Copyright (c) 2001-2010 Robert James Clay.  All Rights Reserved.
@@ -13,6 +13,8 @@ use Getopt::Std;
 use vars qw/ $opt_n $opt_f $opt_e $opt_l $opt_d $opt_h $opt_t $opt_v $opt_x /;
 
 use FTN::Log qw(&logging);
+
+our $VERSION = 1.2;
 
 getopts('n:f:l:d:t:ehvx');
 
