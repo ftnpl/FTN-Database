@@ -16,7 +16,7 @@ use FTN::Log qw(&logging);
 
 our $VERSION = 1.2;
 
-getopts('n:f:l:d:t:ehvx');
+getopts('n:f:l:d:t:ehvxz:');
 
 if ($opt_h) {
     &help();    #printing usage/help message
@@ -99,6 +99,16 @@ if ($opt_t) {
 else {
     $tblname = "Nodelist";     # default table name
 }
+
+#  If the z parameter is defined
+if ($opt_z) {
+    my $OnlyZone = $opt_z;    # If defined;  is the only zone to be loaded
+    undef $opt_z;
+}
+else {
+    my $OnlyZone = 0;     # Set as zone 0, which is not used for zone numbers.
+}
+
 
 open( NODELIST, "$nldir/$nlfile" )
   or die &logged("Cannot open $nldir/$nlfile");
@@ -207,6 +217,13 @@ while (<NODELIST>) {
         print "$sysop\n";
     }
 
+    # If OnlyZone is defined, then go to the next line if zone is not the same as OnlyZone 
+    if ($OnlyZone > 0) {
+	if ($zone != $OnlyZone) {
+	    next;
+	}
+    }
+    
     #	Build Insert Statement
     $sql_stmt = "INSERT INTO $tblname ";
 
@@ -269,14 +286,13 @@ exit();
 # Help message
 ############################################
 sub help {
-    print
-"\nUsage: nl2db.pl -n nldir [-f nlfile] [-l logfile] [-d domain] [-e] [-v] [-x]...\n";
+    print "\nUsage: nl2db.pl -n nldir [-f nlfile] [-l logfile] [-d domain] [-e] [-v] [-x] [-z]...\n";
     print "    nldir = nodelist directory...\n";
     print "    nlfile= nodelist filename, defaults to 'nodelist'.\n";
     print "    [-d domain] = nodelist domain;  defaults to 'fidonet'.\n\n";
-    print
-"    [-l logfile] = log filename (defaults to nodelist.log in current dir)\n";
+    print "    [-l logfile] = log filename (defaults to nodelist.log in current dir)\n";
     print "   -e	If present, then nlfile is exact filename\n";
+    print "   -z	If present, then only the defined zone is loaded.\n";
     print "   -v	Verbose Mode\n";
     print "   -x	Debug Mode\n";
 }
