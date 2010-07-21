@@ -313,7 +313,7 @@ exit();
 # Help message
 ############################################
 sub help {
-    print "\nUsage: nl2db.pl -n nldir [-D dbname] [-u dbuser] [-p dbpass] [-f nlfile] [-l logfile] [-d domain] [-e] [-v] [-x] [-z]...\n";
+    print "\nUsage: nl2db.pl -n nldir [-D dbname] [-u dbuser] [-p dbpass] [-f nlfile] [-l logfile] [-d domain] [-e] [-v] [-x] [-z zonenum]...\n";
     print "    nldir = nodelist directory...\n";
     print "    nlfile= nodelist filename, defaults to 'nodelist'.\n";
     print "    [-d domain] = nodelist domain;  defaults to 'fidonet'.\n\n";
@@ -321,8 +321,8 @@ sub help {
     print "    [-u dbuser] = database user;  defaults to 'sysop'.\n\n";
     print "    [-p dbpass] = database password;  defaults to 'ftntstpw'.\n\n";
     print "    [-l logfile] = log filename (defaults to nodelist.log in current dir)\n";
+    print "    [-z zonenum] = If present, then only the defined zone 'zonenum' is loaded.\n";
     print "   -e	If present, then nlfile is exact filename\n";
-    print "   -z	If present, then only the defined zone is loaded.\n";
     print "   -v	Verbose Mode\n";
     print "   -x	Debug Mode\n";
 }
