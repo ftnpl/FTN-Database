@@ -38,12 +38,12 @@ if ($opt_h) {
 
 # note that "opt_x" is the debug variable
 if ($opt_x) {
-    &logging($Logfile, $progid, "Debug flag is set");
+    logging($Logfile, $progid, "Debug flag is set");
 }
 
 # note that "opt_v" is the verbose variable
 if ($opt_v) {
-    &logging($Logfile, $progid, "Verbose flag is set");
+    logging($Logfile, $progid, "Verbose flag is set");
 }
 
 #    Database name
@@ -74,10 +74,10 @@ else {
 #  nodelist table name
 if ($opt_n) {
     if ( $opt_n =~ /\./ ) {    # period in proposed table name?
-        &logging($Logfile, $progid, "sqlite does not allow periods in table names.");
+        logging($Logfile, $progid, "sqlite does not allow periods in table names.");
         $opt_n =~ tr/\./_/;    # change period to underscore
         $tblname = $opt_n;     #
-        &logging($Logfile, $progid, "Changed table name to $tblname.");
+        logging($Logfile, $progid, "Changed table name to $tblname.");
     }
     else {                     # no period in name
         $tblname = $opt_n;     #  just assign to variable
@@ -89,13 +89,13 @@ else {
 }
 
 # connect to database
-&openftndb();
+openftndb();
 
 # drop the old nodelist table, if it exists.
 $sql_stmt = "DROP TABLE IF EXISTS $tblname";
 #print " $sql_stmt ";
 $dbh->do("$sql_stmt ");
-&logging($Logfile, $progid, "Dropping existing nodelist table $tblname if it already exists.");
+logging($Logfile, $progid, "Dropping existing nodelist table $tblname if it already exists.");
 
 # build Create Table sql statement
 $sql_stmt = "CREATE TABLE $tblname( ";
@@ -122,12 +122,12 @@ $sql_stmt .= ") ";
 $dbh->do("$sql_stmt ");
 
 # Index created
-&createindex();
+createindex();
 
 # disconnect from database
-&closeftndb();
+closeftndb();
 
-&logging($Logfile, $progid, "Table $tblname created.");
+logging($Logfile, $progid, "Table $tblname created.");
 
 exit();
 
@@ -143,7 +143,7 @@ sub createindex {
     ##print " $sql_stmt ";
     #	Execute the Create Index SQL statment
     $dbh->do( "$sql_stmt " )
-        or die &logging($Logfile, $progid, $DBI::errstr);
+        or die logging($Logfile, $progid, $DBI::errstr);
 
 }
 
@@ -157,12 +157,12 @@ sub openftndb {
     # have been set.  $dbuser must already
     # have the priveledges to create a table.
 
-    if ($opt_v) { &logging($Logfile, $progid, "Opening FTN database") }
+    if ($opt_v) { logging($Logfile, $progid, "Opening FTN database") }
 
     use DBI;
 
     ( $dbh = DBI->connect( "dbi:SQLite:dbname=$dbname", $dbuser, $dbpass ) )
-      or die &logging($Logfile, $progid, $DBI::errstr);
+      or die logging($Logfile, $progid, $DBI::errstr);
 
 }
 
@@ -172,9 +172,9 @@ sub openftndb {
 sub closeftndb {
 
     #
-    if ($opt_v) { &logging($Logfile, $progid, "Closing FTN database") }
+    if ($opt_v) { logging($Logfile, $progid, "Closing FTN database") }
 
     ( $dbh->disconnect )
-      or die &logging($Logfile, $progid, $DBI::errstr);
+      or die logging($Logfile, $progid, $DBI::errstr);
 
 }
