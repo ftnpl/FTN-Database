@@ -1,18 +1,15 @@
-To Do:  v1.2   07/16/10
+To Do:  v1.2   07/21/10
 
-- Add an option to define which type of database to use, defaulting to SQLite.  Can
-use what's supported by the DBI DBD modules:  to start off with, use SQlite, mysql,
-& postgresql.  Use "-D" for the option letter?
+- Update/rewrite/etc comments and documentation as neccesary in all files.
 
-- The use of special charactors like periods in table names is a more general issue
+- The option added to define which type of database to use does not currently do
+any error checking on that type;  the script will fail if a correct DBD name
+is not used.  If do not explicitly do such error or other checking, document the
+standard names for DBI DBD modules like SQlite (default), mysql, cvs, & postgresql.  
+
+- The use of special characters like periods in table names is a more general issue
 where it is not a good idea to use them at all.  Redo the comments in both scripts
 regarding that, to generalize it.
-
-- Review all usage of subroutine calls, because I think I habitually
-used the "&" calling convention, even though I don't think that 
-the subroutines have any need for direct access to the parameters that
-the script was called with ("@_"), and those parameters are put into
-their own variables as neccessary in any cose.  Reference perldoc perlsub.
 
 nl2db.pl
 ----------
@@ -39,10 +36,6 @@ In General
 - Add quiet option, -q, for logging only operation ? 
 
 - Add a test nodelist for use with this?...
-
-- The source field in the nodelist table is not enough ?; add a new table,
-nladm (?), that for nodelist files lists the filename with extension.
-(& a timestamp?)
 
 
 For version 2.x

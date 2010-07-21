@@ -1,6 +1,21 @@
 Changes
 --------
 
+21 Jul 10
+    - Added an example script named loadzone.sh that loads a specific zone
+      from a specific nodelist file.
+    - Corrected the help message regarding the usage of the '-z' parameter
+      in the nl2db.pl script.
+    - Corrected the example usage of the '-z' parameter in nl2db.sh.
+    - Moved the example shell scripts to a new 'bin' subdirectory and added
+      a new README file for them.
+    - Since using the '&' as part of of a subroutine call is not neccessary
+      and can be an issue;  changed how that is done by dropping the use
+      of '&' in the subroutine calls.
+    - Define which database type to use, using what is supported by the
+      DBI DBD modules and defaulting to using the SQLite database engine.
+      Use the parameter '-T' for the selection.
+    
 16 Jul 10
     - Moved the version number in the comment line of the Perl scripts to a
       $VERSION variable.
