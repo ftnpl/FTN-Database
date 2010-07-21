@@ -285,6 +285,9 @@ while (<NODELIST>) {
 
 }
 
+if ($opt_v) {    #
+    logging($Logfile, $progid, "Create ftnnode index");
+}
 # Recreate ftnnode Index
 $sql_stmt = "CREATE INDEX ftnnode ";
 $sql_stmt .= "ON $tblname (zone,net,node,point,domain) ";
