@@ -19,6 +19,11 @@ nl2db.sh  	Example shell script, uses nl2db.pl with parameters to load
 nltable.sh      Example script to create an SQLite database as neccessary and
 		a nodelist table in that database using nldbadm.pl.
 
+loadzone.sh	Example script named loadzone.sh that loads a specific zone from
+		a specific nodelist file.  Uses the -z parameter to specify the zone
+		number to be loaded, and uses the -f and -e parameters to specify the
+		nodelist file the zone is to be loaded from.
+
 README		This file
 
 nl2db.*.errors	Error output from nl2db.pl, by nl2db.sh.

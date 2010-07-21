@@ -33,6 +33,8 @@ bin/nl2db.sh  	Example shell script, uses nl2db.pl with parameters to load
 		two nodelist files into an existing sqlite database.
 bin/nltable.sh  Example script to create a nodelist table using nldbadm.pl.
 bin/README	Readme file with information about the example shell scripts.
+bin/loadzone.sh	Example script named loadzone.sh that loads a specific zone from
+		a specific nodelist file.
 
 modules/	Directory where any Perl modules distributed with this archive
 		will be, and/or where information about them will be. 
