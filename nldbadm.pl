@@ -10,13 +10,13 @@
 use warnings;
 use strict;
 use Getopt::Std;
-use vars qw/ $opt_n $opt_D $opt_u $opt_p $opt_h $opt_v $opt_x /;
+use vars qw/ $opt_n $opt_T $opt_D $opt_u $opt_p $opt_h $opt_v $opt_x /;
 
 use FTN::Log qw(&logging);
 
 our $VERSION = 1.2;
 
-my ( $dbname, $dbuser, $dbpass, $tblname, $dbh, $sql_stmt );
+my ( $dbtype, $dbname, $dbuser, $dbpass, $tblname, $dbh, $sql_stmt );
 
 my $Logfile = "stdout";
 
@@ -24,11 +24,12 @@ my $progid = "NLTBL";
 
 #print @INC"\n";
 
-getopts('n:D:u:p:hvx');
+getopts('n:T:D:u:p:hvx');
 
 if ($opt_h) {
-    print "\nUsage: nldbadm.pl [-n nodelisttablename] [-D dbname] [-u dbuser] [-p dbpass] [-v] [-h]...\n";
+    print "\nUsage: nldbadm.pl [-n nodelisttablename] [-T dbtype] [-D dbname] [-u dbuser] [-p dbpass] [-v] [-h]...\n";
     print "-n                nodelisttablename = defaults to \'nodelist\'. \n";
+    print "[-T dbtype]       database type;  defaults to 'SQLite'.\n\n";
     print "[-D dbname]       database name & path;  defaults to 'ftndbtst'.\n\n";
     print "[-u dbuser]       database user;  defaults to 'sysop'.\n\n";
     print "[-p dbpass]       database password;  defaults to 'ftntstpw'.\n\n";
@@ -45,6 +46,20 @@ if ($opt_x) {
 if ($opt_v) {
     logging($Logfile, $progid, "Verbose flag is set");
 }
+
+#    Database type
+#    This needs to be a database type for which a DBD module exists,
+#    the type being the name as used in the DBD module.  The default
+#    type is SQLite.
+if ($opt_T) {
+    $dbtype = $opt_T;
+    undef $opt_T;
+}
+else {
+    $dbtype = "SQLite";    # default database type is SQLite
+    undef $opt_T;
+}
+if ($opt_v) { logging($Logfile, $progid, "Database type being used is $dbtype.") };
 
 #    Database name
 if ($opt_D) {
@@ -161,7 +176,7 @@ sub openftndb {
 
     use DBI;
 
-    ( $dbh = DBI->connect( "dbi:SQLite:dbname=$dbname", $dbuser, $dbpass ) )
+    ( $dbh = DBI->connect( "dbi:$dbtype:dbname=$dbname", $dbuser, $dbpass ) )
       or die logging($Logfile, $progid, $DBI::errstr);
 
 }

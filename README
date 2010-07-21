@@ -5,10 +5,10 @@ This is free software;  you can redistribute it and/or
 modify it under the same terms as Perl itself.
 
 Perl scripts for using an SQL database for fidonet/FTN nodelist
-processing.  This version uses only standard Perl, and SQLite as
-the database engine.  Note that nl2db now has its own GIT
-repository, available as follows:
+processing.  This version uses only standard Perl and a database engine
+for which a DBD module exists, defaulting to SQLite.
 
+Note that nl2db now has its own GIT repository, available as follows:
 git clone git://ftnpl.git.sourceforge.net/gitroot/ftnpl/nl2db.git (Read Only)
 http://ftnpl.git.sourceforge.net/git/gitweb.cgi?p=ftnpl/nl2db.git (Browse Online)
 

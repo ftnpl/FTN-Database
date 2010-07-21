@@ -10,13 +10,13 @@
 use warnings;
 use strict;
 use Getopt::Std;
-use vars qw/ $opt_n $opt_D $opt_u $opt_p $opt_f $opt_e $opt_l $opt_d $opt_h $opt_t $opt_v $opt_x $opt_z /;
+use vars qw/ $opt_n $opt_T $opt_D $opt_u $opt_p $opt_f $opt_e $opt_l $opt_d $opt_h $opt_t $opt_v $opt_x $opt_z /;
 
 use FTN::Log qw(&logging);
 
 our $VERSION = 1.2;
 
-getopts('n:D:u:p:f:l:d:t:ehvxz:');
+getopts('n:T:D:u:p:f:l:d:t:ehvxz:');
 
 if ($opt_h) {
     help();    #printing usage/help message
@@ -27,7 +27,7 @@ my (
     $nldir, $nlfile, $dbh, $sql_stmt, $domain, $type,
     $num,   $name,   $loc, $nametmp,  $loctmp, $Logfile,
     $sysop, $phone,  $bps, $flags,    $tblname, $dbname,
-    $dbuser, $dbpass
+    $dbuser, $dbpass, $dbtype
 );
 
 if ($opt_l) {
@@ -52,13 +52,27 @@ if ($opt_x) {
     logging($Logfile, $progid, "Debug flag is set");
 }
 
+#    Database type
+#    This needs to be a database type for which a DBD module exists,
+#    the type being the name as used in the DBD module.  The default
+#    type is SQLite.
+if ($opt_T) {
+    $dbtype = $opt_T;
+    undef $opt_T;
+}
+else {
+    $dbtype = "SQLite";    # default database type is SQLite
+    undef $opt_T;
+}
+if ($opt_v) { logging($Logfile, $progid, "Database type being used is $dbtype.") };
+
 #    Database name
 if ($opt_D) {
     $dbname = $opt_D;    # this needs to be at least the filename & can also include a path
     undef $opt_D;
 }
 else {
-    $dbname = "ftndbtst";    # default database file is in current dir
+    $dbname = "ftndbtst";    # default database name
 }
 #    Database user
 if ($opt_u) {
@@ -316,14 +330,15 @@ exit();
 # Help message
 ############################################
 sub help {
-    print "\nUsage: nl2db.pl -n nldir [-D dbname] [-u dbuser] [-p dbpass] [-f nlfile] [-l logfile] [-d domain] [-e] [-v] [-x] [-z zonenum]...\n";
+    print "\nUsage: nl2db.pl -n nldir [-T dbtype] [-D dbname] [-D dbname] [-u dbuser] [-p dbpass] [-f nlfile] [-l logfile] [-d domain] [-e] [-v] [-x] [-z zonenum]...\n";
     print "    nldir = nodelist directory...\n";
-    print "    nlfile= nodelist filename, defaults to 'nodelist'.\n";
-    print "    [-d domain] = nodelist domain;  defaults to 'fidonet'.\n\n";
+    print "    [-T dbtype] = database type;  defaults to 'SQLite'.\n\n";
     print "    [-D dbname] = database name & path;  defaults to 'ftndbtst'.\n\n";
     print "    [-u dbuser] = database user;  defaults to 'sysop'.\n\n";
     print "    [-p dbpass] = database password;  defaults to 'ftntstpw'.\n\n";
+    print "    nlfile= nodelist filename, defaults to 'Nodelist'.\n";
     print "    [-l logfile] = log filename (defaults to nodelist.log in current dir)\n";
+    print "    [-d domain] = nodelist domain;  defaults to 'fidonet'.\n\n";
     print "    [-z zonenum] = If present, then only the defined zone 'zonenum' is loaded.\n";
     print "   -e	If present, then nlfile is exact filename\n";
     print "   -v	Verbose Mode\n";
@@ -373,7 +388,7 @@ sub getnlfilename {
 }
 
 ############################################
-# open FTN sqlite database for operations
+# open FTN database for operations
 ############################################
 sub openftndb {
 
@@ -386,7 +401,7 @@ sub openftndb {
 
     use DBI;
 
-    ( $dbh = DBI->connect( "dbi:SQLite:dbname=$dbname", $dbuser, $dbpass ) )
+    ( $dbh = DBI->connect( "dbi:$dbtype:dbname=$dbname", $dbuser, $dbpass ) )
       or die logging($Logfile, $progid, $DBI::errstr);
 
 }
