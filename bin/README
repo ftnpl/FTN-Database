@@ -16,6 +16,10 @@ nl2db.sh  	Example shell script, uses nl2db.pl with parameters to load
 		it does not already exist.  The filename & nodelist path
 		variables should be modified as neccessary for your local setup.  
 
+net2file.sh     Example script to list a specific net from specific zone of a 
+		nodelist table containing information from a Fidonet/FTN
+		St. Louis format nodelist.
+
 nltable.sh      Example script to create an SQLite database as neccessary and
 		a nodelist table in that database using nldbadm.pl.
 

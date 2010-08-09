@@ -31,6 +31,9 @@ bin/		Directory where example shell scripts for using the nl2db
 		
 bin/nl2db.sh  	Example shell script, uses nl2db.pl with parameters to load
 		two nodelist files into an existing sqlite database.
+bin/net2file.sh Example script to list a specific net from specific zone of a 
+		nodelist table containing information from a Fidonet/FTN
+		St. Louis format nodelist.
 bin/nltable.sh  Example script to create a nodelist table using nldbadm.pl.
 bin/README	Readme file with information about the example shell scripts.
 bin/loadzone.sh	Example script named loadzone.sh that loads a specific zone from
