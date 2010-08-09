@@ -12,8 +12,6 @@ use strict;
 use Getopt::Std;
 use vars qw/ $opt_n $opt_o $opt_t $opt_T $opt_D $opt_u $opt_p $opt_h $opt_v $opt_x $opt_z /;
 
-use FTN::Log qw(&logging);
-
 our $VERSION = 0.1;
 
 my ( $dbtype, $dbname, $dbuser, $dbpass, $tblname, $dbh, $sql_stmt, $ZoneNum, $NetNum, $ListFile );
