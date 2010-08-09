@@ -1,6 +1,11 @@
 Changes
 --------
 
+ 8 Aug 10
+    - Changed '-n' option for nodelist table name to '-t'.
+    - Add the script net2file.pl which lists a specific net from a specific
+      zone of a nodelist table to a specified output file.
+
 21 Jul 10
     - Added an example script named loadzone.sh that loads a specific zone
       from a specific nodelist file.
