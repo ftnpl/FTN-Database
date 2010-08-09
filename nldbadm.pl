@@ -10,7 +10,7 @@
 use warnings;
 use strict;
 use Getopt::Std;
-use vars qw/ $opt_n $opt_T $opt_D $opt_u $opt_p $opt_h $opt_v $opt_x /;
+use vars qw/ $opt_t $opt_T $opt_D $opt_u $opt_p $opt_h $opt_v $opt_x /;
 
 use FTN::Log qw(&logging);
 
@@ -24,11 +24,11 @@ my $progid = "NLTBL";
 
 #print @INC"\n";
 
-getopts('n:T:D:u:p:hvx');
+getopts('t:T:D:u:p:hvx');
 
 if ($opt_h) {
-    print "\nUsage: nldbadm.pl [-n nodelisttablename] [-T dbtype] [-D dbname] [-u dbuser] [-p dbpass] [-v] [-h]...\n";
-    print "-n                nodelisttablename = defaults to \'nodelist\'. \n";
+    print "\nUsage: nldbadm.pl [-t nodelisttablename] [-T dbtype] [-D dbname] [-u dbuser] [-p dbpass] [-v] [-h]...\n";
+    print "-t                nodelisttablename = defaults to \'nodelist\'. \n";
     print "[-T dbtype]       database type;  defaults to 'SQLite'.\n\n";
     print "[-D dbname]       database name & path;  defaults to 'ftndbtst'.\n\n";
     print "[-u dbuser]       database user;  defaults to 'sysop'.\n\n";
@@ -87,15 +87,15 @@ else {
 }
 
 #  nodelist table name
-if ($opt_n) {
-    if ( $opt_n =~ /\./ ) {    # period in proposed table name?
+if ($opt_t) {
+    if ( $opt_t =~ /\./ ) {    # period in proposed table name?
         logging($Logfile, $progid, "sqlite does not allow periods in table names.");
-        $opt_n =~ tr/\./_/;    # change period to underscore
-        $tblname = $opt_n;     #
+        $opt_t =~ tr/\./_/;    # change period to underscore
+        $tblname = $opt_t;     #
         logging($Logfile, $progid, "Changed table name to $tblname.");
     }
     else {                     # no period in name
-        $tblname = $opt_n;     #  just assign to variable
+        $tblname = $opt_t;     #  just assign to variable
     }
 
 }

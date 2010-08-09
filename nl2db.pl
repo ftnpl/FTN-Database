@@ -330,8 +330,9 @@ exit();
 # Help message
 ############################################
 sub help {
-    print "\nUsage: nl2db.pl -n nldir [-T dbtype] [-D dbname] [-D dbname] [-u dbuser] [-p dbpass] [-f nlfile] [-l logfile] [-d domain] [-e] [-v] [-x] [-z zonenum]...\n";
-    print "    nldir = nodelist directory...\n";
+    print "\nUsage: nl2db.pl -n nldir [-t tablename] [-T dbtype] [-D dbname] [-D dbname] [-u dbuser] [-p dbpass] [-f nlfile] [-l logfile] [-d domain] [-e] [-v] [-x] [-z zonenum]...\n";
+    print "    -n nldir = nodelist directory...\n";
+    print "    [-t tablename] = Nodelist table name;  defaults to 'Nodelist'.\n\n";
     print "    [-T dbtype] = database type;  defaults to 'SQLite'.\n\n";
     print "    [-D dbname] = database name & path;  defaults to 'ftndbtst'.\n\n";
     print "    [-u dbuser] = database user;  defaults to 'sysop'.\n\n";
