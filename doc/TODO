@@ -1,4 +1,4 @@
-To Do:  v1.2   07/21/10
+To Do:  v1.2   08/08/10
 
 - Update/rewrite/etc comments and documentation as neccesary in all files.
 
@@ -22,7 +22,8 @@ it should. (getnlfilename subroutine)
 
 - Get quoteing working properly for entry into the database for fields like
 $loc & $name, so do not have to take out char's like single quotes, etc.
-
+- Also need to ensure that LF and/or CR char's at the end of each line do not
+make it into the database as they are ending up in the $flags field.
 
 nldbadm.pl
 -----------
