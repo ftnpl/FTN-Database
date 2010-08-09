@@ -144,7 +144,7 @@ $sth->bind_columns(\my($id, $type, $zone, $net, $node, $point, $region, $name, $
 
 local(*F);
 
-open(F, ">$ListFile") or die "$id: can't open log $ListFile\n"; 
+open(F, ">$ListFile") or die "$Cannot open $ListFile\n"; 
 
 print F "Listing Zone $ZoneNum Net $NetNum from FTN database:\n\n";
 
