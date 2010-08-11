@@ -1,0 +1,8 @@
+Revision history for FTN-NL-Database (ftnnldb)
+
+0.01    Date/time
+	Derive the initial version of the FTN-NL-Database application from 
+	the nl2sql v1.2 scripts (available as nl2sql12.zip from the ftnpl
+	project at SourceForge) plus additional directory structure and set
+	of files created using Module::Starter.
+
