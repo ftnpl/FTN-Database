@@ -12,6 +12,6 @@ NLTABLE=nodelist
 
 cd $APPDIR
 
-#$BINDIR/nldbadm.pl [-t nodelisttablename] [-T dbtype] [-D dbname] [-u dbuser] [-p dbpass] [-v] [-h] 
-$BINDIR/nldbadm.pl -t $NLTABLE -v 2>$LOGDIR/nltable.errors
+#$BINDIR/nldbadm [-t nodelisttablename] [-T dbtype] [-D dbname] [-u dbuser] [-p dbpass] [-v] [-h] 
+$BINDIR/nldbadm -t $NLTABLE -v 2>$LOGDIR/nltable.errors
 #

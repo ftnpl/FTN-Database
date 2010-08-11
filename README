@@ -22,9 +22,9 @@ the nl2db scripts as well and are the preferred avenues for support.
 
 Files
 ----------------
-nl2db.pl        Perl script that loads an ftn nodelist into a sqlite database
+bin/nl2db	Perl script that loads an ftn nodelist into a sqlite database
 
-nldbadm.pl      Perl script to create a nodelist table and other database
+bin/nldbadm	Perl script to create a nodelist table and other database
 		administrative functions.
 
 bin/		Directory where example shell scripts for using the nl2db
@@ -50,9 +50,9 @@ doc/Changes	What has been done
 
 README          This file
 
-nl2db.*.errors   Error output from nl2db.pl, by nl2db.sh.
-nl2db.*.out      Standard output from nl2db.pl, by nl2db.sh.
-nltable.errors   Error output from nldbadm.pl, by nltable.sh.
+nl2db.*.errors   Error output from nl2db, by nl2db.sh.
+nl2db.*.out      Standard output from nl2db, by nl2db.sh.
+nltable.errors   Error output from nldbadm, by nltable.sh.
 nodelist.log	 Default name of log file
 
 ========================

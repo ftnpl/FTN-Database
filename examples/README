@@ -11,7 +11,7 @@ the usage of the nl2db perl scripts.
 ==================
 Files
 ----------------
-nl2db.sh  	Example shell script, uses nl2db.pl with parameters to load
+nl2db.sh  	Example shell script, uses nl2db with parameters to load
 		two nodelist files into an sqlite database, creating it if 
 		it does not already exist.  The filename & nodelist path
 		variables should be modified as neccessary for your local setup.  
@@ -21,7 +21,7 @@ net2file.sh     Example script to list a specific net from specific zone of a
 		St. Louis format nodelist.
 
 nltable.sh      Example script to create an SQLite database as neccessary and
-		a nodelist table in that database using nldbadm.pl.
+		a nodelist table in that database using nldbadm.
 
 loadzone.sh	Example script named loadzone.sh that loads a specific zone from
 		a specific nodelist file.  Uses the -z parameter to specify the zone
@@ -30,8 +30,8 @@ loadzone.sh	Example script named loadzone.sh that loads a specific zone from
 
 README		This file
 
-nl2db.*.errors	Error output from nl2db.pl, by nl2db.sh.
-nltable.errors	Error output from nldbadm.pl, by nltable.sh.
+nl2db.*.errors	Error output from nl2db, by nl2db.sh.
+nltable.errors	Error output from nldbadm, by nltable.sh.
 
 ========================
 

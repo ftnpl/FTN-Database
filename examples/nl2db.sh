@@ -13,8 +13,8 @@ NLDIR=/opt/ftn/nodelist
 
 cd $APPDIR
 
-##$BINDIR/nl2db.pl -n nldir [-t tablename] [-T dbtype] [-D dbname] [-u dbuser] [-p dbpass] [-f nlfile] [-l logfile] [-d domain] [-v] [-x] [-e] [-z zonenum] 2>$LOGDIR/nl2db.stn.errors
-$BINDIR/nl2db.pl -n $NLDIR -f STNLIST -l $LOGFILE -d stn -v -x 2>$LOGDIR/nl2db.stn.errors
+##$BINDIR/nl2db -n nldir [-t tablename] [-T dbtype] [-D dbname] [-u dbuser] [-p dbpass] [-f nlfile] [-l logfile] [-d domain] [-v] [-x] [-e] [-z zonenum] 2>$LOGDIR/nl2db.stn.errors
+$BINDIR/nl2db -n $NLDIR -f STNLIST -l $LOGFILE -d stn -v -x 2>$LOGDIR/nl2db.stn.errors
 #
-#$BINDIR/nl2db.pl -n $NLDIR [-t tablename] [-D dbname] [-u dbuser] [-p dbpass] [-f nodelist] [-d fidonet] [-v] [-x] [-e] [-z zonenum] 2>$LOGDIR/nlsql.ftn.errors
-$BINDIR/nl2db.pl -n $NLDIR -l $LOGFILE -d fidonet -v 2>$LOGDIR/nl2db.ftn.errors
+#$BINDIR/nl2db -n $NLDIR [-t tablename] [-D dbname] [-u dbuser] [-p dbpass] [-f nodelist] [-d fidonet] [-v] [-x] [-e] [-z zonenum] 2>$LOGDIR/nlsql.ftn.errors
+$BINDIR/nl2db -n $NLDIR -l $LOGFILE -d fidonet -v 2>$LOGDIR/nl2db.ftn.errors
