@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# net2file.pl 
+# net2file
 # List a specific net from a specific zone of a nodelist table containing
 # information from a Fidonet/FTN St. Louis Format Nodelist to a text file
 #

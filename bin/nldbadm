@@ -1,9 +1,9 @@
 #!/usr/bin/perl
-# nldbadm.pl 
+# nldbadm
 # Createing a nodelist table for use with information
 # from a Fidonet/FTN St. Louis Format Nodelist
 # in to an SQL (sqlite) based database.
-# Copyright (c) 2001-2010 Robert James Clay.  All Rights Reserved.
+# Copyright (c) 2010 Robert James Clay.  All Rights Reserved.
 # This is free software;  you can redistribute it and/or
 # modify it under the same terms as Perl itself.
 
@@ -14,7 +14,7 @@ use vars qw/ $opt_t $opt_T $opt_D $opt_u $opt_p $opt_h $opt_v $opt_x /;
 
 use FTN::Log qw(&logging);
 
-our $VERSION = 1.2;
+our $VERSION = 0.1;
 
 my ( $dbtype, $dbname, $dbuser, $dbpass, $tblname, $dbh, $sql_stmt );
 
