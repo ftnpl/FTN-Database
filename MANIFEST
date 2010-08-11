@@ -5,7 +5,6 @@ README
 bin/net2file
 bin/nl2db
 bin/nldbadm
-doc/README.Modules
 doc/TODO
 examples/README
 examples/loadzone.sh
