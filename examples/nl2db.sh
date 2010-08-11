@@ -1,5 +1,5 @@
 #!/bin/sh
-# nl2db.sh - 1.2
+# nl2db.sh 
 #  This is an example test script that loads two nodelists 
 # Copyright (c) 2001-2010 Robert James Clay.  All Rights Reserved.
 # This is free software;  you can redistribute it and/or

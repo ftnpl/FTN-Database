@@ -1,5 +1,5 @@
 #!/bin/sh
-# loadzone.sh - 1.2
+# loadzone.sh 
 #  This is an example script that loads a specific zone from
 # a specific nodelist file.
 # Copyright (c) 2010 Robert James Clay.  All Rights Reserved.

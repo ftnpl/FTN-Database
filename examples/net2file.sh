@@ -1,5 +1,5 @@
 #!/bin/sh
-# net2file.sh 1.2 
+# net2file.sh  
 # List a specific net from a specific zone of a nodelist table containing
 # information from a Fidonet/FTN St. Louis Format Nodelist
 # Copyright (c) 2010 Robert James Clay.  All Rights Reserved.

@@ -1,5 +1,5 @@
 #!/bin/sh
-# nltable.sh - 1.2
+# nltable.sh
 #  This is an example script that creates the nodelist table. 
 # Copyright (c) 2010 Robert James Clay.  All Rights Reserved.
 # This is free software;  you can redistribute it and/or
