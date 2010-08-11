@@ -1,6 +1,11 @@
 Changes
 --------
 
+10 Aug 10
+    - Released as v1.2.
+    - Update the reference to the nl2db scripts code history in README.
+    - Added missing entry for release of v1.1 to Changes file.
+
  8 Aug 10
     - Changed '-n' option for nodelist table name to '-t'.
     - Add the script net2file.pl which lists a specific net from a specific
@@ -66,6 +71,9 @@ Changes
     - Change database references from mysql to sqlite.
     - Started work on v1.2, using sqlite database instead of mysql,
       bumping version references from 1.1. to 1.2
+
+29 Jun 05
+    - Released as v1.1.
 
 22 Mar 04
     - Merged v1.1 beta back in to main.
