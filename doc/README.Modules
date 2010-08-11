@@ -1,12 +1,11 @@
-nl2sql/modules
+README.Modules
 
-Copyright (c) 2001-2010 Robert James Clay.  All Rights Reserved.
+Copyright (c) 2010 Robert James Clay.  All Rights Reserved.
 This is free software;  you can redistribute it and/or
 modify it under the same terms as Perl itself.
 
-This subdirectory is for Perl Modules which are required and/or can be used
-with nl2db.   This can be copies of the modules themselves, or archives of
-them;  or it will be information about where they can be obtained.
+This is information regarding Perl Modules which are required and/or can be used
+with the FTN Nodelist Database applicatoin. 
 
 
 ==================
@@ -22,16 +21,6 @@ DBD::SQLite	Default database engine is SQLite, so this one should be installed.
 		installed if used.  May	already be installed on your system;  if
 		not, one place they may be obtained is at cpan (www.cpan.org).
 
-==================
-Files
-----------------
-
-fplog002.zip	FTN::Log Perl Module, v0.02.  If not present in distribution
-		archive and you do not already have it installed, it can be 
-		obtained from ftnpl.sourceforge.net and other sites.
-
-
-README          This file
 
 ========================
 
