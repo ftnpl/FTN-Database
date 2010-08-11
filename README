@@ -1,64 +1,77 @@
-nl2sql v1.2
+FTN-NL-Database
 
-Copyright (c) 2001-2010 Robert James Clay.  All Rights Reserved.
-This is free software;  you can redistribute it and/or
-modify it under the same terms as Perl itself.
+Fidonet/FTN Nodelist Database application, which can create or access an FTN
+nodelist table in an SQL database for Fidonet/FTN nodelist processing.  The
+SQL database engine is one for which a DBD module exists, defaulting to SQLite:
 
-Perl scripts for using an SQL database for fidonet/FTN nodelist
-processing.  This version uses only standard Perl and a database engine
-for which a DBD module exists, defaulting to SQLite.
+DBD::SQLite	SQLite DBD Module is required by default, so should be installed.
+		Any other database engines will be named similarly and should be
+		installed if used.  May	already be installed on your system;  if
+		not, one place they may be obtained is at cpan (www.cpan.org).
 
-Note that the code history for the nl2db scripts is now in the GIT branch of the same
-name, available in the ftnnldb repository as follows:
+Other required, neccessary and/or useful modules, etc.:
+
+FTN::Log	Must be a least v0.02, for the 'logging' subroutine as used in 
+		the nl2db and nldbadm scripts. If not already installed, one
+		place it may be obtained is from the ftnpl project at Sourceforge.
+
+Getopt::Std	May already be installed on your system;  if not, one place
+		it may be obtained is at cpan (www.cpan.org).
+
+
+INSTALLATION
+
+To install this module, run the following commands:
+
+	perl Makefile.PL
+	make
+	make test
+	make install
+
+
+SUPPORT AND DOCUMENTATION
+
+After installing, you can find documentation for this application with
+the perldoc command.
+
+    perldoc FTN::NL
+    perldoc FTN::NL::Database
+    perldoc nl2db
+    perldoc nldbadm
+    perldoc net2file
+
+You can also look for information at:
+
+    RT, CPAN's request tracker
+        http://rt.cpan.org/NoAuth/Bugs.html?Dist=FTN-NL-Database
+
+    AnnoCPAN, Annotated CPAN documentation
+        http://annocpan.org/dist/FTN-NL-Database
+
+    CPAN Ratings
+        http://cpanratings.perl.org/d/FTN-NL-Database
+
+    Search CPAN
+        http://search.cpan.org/dist/FTN-NL-Database
+
+
+The FTN-NL-Database application is hosted at the 'Perl for FTN Systems' project
+at SourceForge (ftnpl.sourceforge.net).  The ftnpl-user or ftnpl-develop mailing
+lists are available from the project site; however, the FTN echos like PERL or
+BBS_CARNIVAL can be used for discussions regarding the nl2db scripts as well and
+are the preferred avenues for support.
+
+Note that the code history for FTN-NL-Database is available in a git repository
+at the Sourceforge project, as follows:
+
 git clone git://ftnpl.git.sourceforge.net/gitroot/ftnpl/ftnnldb.git (Read Only)
 http://ftnpl.git.sourceforge.net/git/gitweb.cgi?p=ftnpl/ftnnldb.git (Browse Online)
 
-The ftnpl-user or ftnpl-develop mailing lists are available from the project site;
-however, FTN echos like PERL or BBS_CARNIVAL can be used for discussions regarding
-the nl2db scripts as well and are the preferred avenues for support.
 
-==================
+COPYRIGHT AND LICENCE
 
+Copyright (C) 2010 Robert James Clay
 
-Files
-----------------
-bin/nl2db	Perl script that loads an ftn nodelist into a sqlite database
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
 
-bin/nldbadm	Perl script to create a nodelist table and other database
-		administrative functions.
-
-bin/		Directory where example shell scripts for using the nl2db
-		scripts are distributed.
-		
-bin/nl2db.sh  	Example shell script, uses nl2db.pl with parameters to load
-		two nodelist files into an existing sqlite database.
-bin/net2file.sh Example script to list a specific net from specific zone of a 
-		nodelist table containing information from a Fidonet/FTN
-		St. Louis format nodelist.
-bin/nltable.sh  Example script to create a nodelist table using nldbadm.pl.
-bin/README	Readme file with information about the example shell scripts.
-bin/loadzone.sh	Example script named loadzone.sh that loads a specific zone from
-		a specific nodelist file.
-
-modules/	Directory where any Perl modules distributed with this archive
-		will be, and/or where information about them will be. 
-modules/README  Readme file with information about the neccessary Perl Modules
-		for this archive.
-
-doc/TODO	What needs to be worked on
-doc/Changes	What has been done
-
-README          This file
-
-nl2db.*.errors   Error output from nl2db, by nl2db.sh.
-nl2db.*.out      Standard output from nl2db, by nl2db.sh.
-nltable.errors   Error output from nldbadm, by nltable.sh.
-nodelist.log	 Default name of log file
-
-========================
-
-Jame
-    Robert J. Clay, jame@users.sf.net
-    http://ftnpl.sourceforge.net
-    Sysop, 1:120/544 
-    
