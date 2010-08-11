@@ -1,4 +1,4 @@
-nl2db.pl v1.2
+nl2sql v1.2
 Perl script that loads an FTN nodelist
 into a database supported by a DBD module,
 defaulting to SQLite. See README for more
