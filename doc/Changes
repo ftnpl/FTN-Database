@@ -1,6 +1,9 @@
 Changes
 --------
 
+11 Aug 10
+    - Move modules/README to doc/README.Modules.
+
 10 Aug 10
     - Released as v1.2.
     - Update the reference to the nl2db scripts code history in README.
