@@ -1,4 +1,4 @@
-To Do:  v1.2   08/08/10
+To Do:  v1.3   08/11/10
 
 - Update/rewrite/etc comments and documentation as neccesary in all files.
 
@@ -13,6 +13,8 @@ regarding that, to generalize it.
 
 nl2db.pl
 ----------
+- Add code to explicitly drop the nodelist table index before dropping the 
+  nodelist table.
 - Script does not seem to properly handle a file that ends in just blank
 lines, instead of content line or a ^Z character.
 
