@@ -1,16 +1,10 @@
-nl2sql v1.2
+FTN-NL-Database
 
-Copyright (c) 2001-2010 Robert James Clay.  All Rights Reserved.
-This is free software;  you can redistribute it and/or
-modify it under the same terms as Perl itself.
-
-This subdirectory is for example shell scripts, showing by example
-the usage of the nl2db perl scripts.
+Example shell scripts and other example files.
 
 
-==================
-Files
-----------------
+FILES
+
 nl2db.sh  	Example shell script, uses nl2db with parameters to load
 		two nodelist files into an sqlite database, creating it if 
 		it does not already exist.  The filename & nodelist path
@@ -28,15 +22,10 @@ loadzone.sh	Example script named loadzone.sh that loads a specific zone from
 		number to be loaded, and uses the -f and -e parameters to specify the
 		nodelist file the zone is to be loaded from.
 
-README		This file
 
-nl2db.*.errors	Error output from nl2db, by nl2db.sh.
-nltable.errors	Error output from nldbadm, by nltable.sh.
 
-========================
+COPYRIGHT AND LICENCE
 
-Jame
-    Robert J. Clay, jame@users.sf.net
-    http://ftnpl.sourceforge.net
-    Sysop, 1:120/544@fidonet
-    
+Copyright (c) 2010 Robert James Clay.  All Rights Reserved.
+This is free software;  you can redistribute it and/or
+modify it under the same terms as Perl itself.
