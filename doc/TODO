@@ -1,4 +1,4 @@
-To Do:  v1.2   08/08/10
+To Do:
 
 - Update/rewrite/etc comments and documentation as neccesary in all files.
 
@@ -11,34 +11,47 @@ standard names for DBI DBD modules like SQlite (default), mysql, cvs, & postgres
 where it is not a good idea to use them at all.  Redo the comments in both scripts
 regarding that, to generalize it.
 
-nl2db.pl
-----------
+FTN::NL
+--------
+- Move getnlfilename subroutine from nl2db script.
+- Possible function/subroutine that checks if a valid nodelist table 
+  name is being used?
+
+FTN::NL::Database
+------------------
+- Create createftndb subroutine.
+- Move openftndb subroutine from scripts.
+- Move closeftndb subroutine from scripts.
+- Derive a 'Drop Nodelist Table' subroutine from the nldbadm/nl2db scripts.
+- Derive a 'Create Nodelist Table' subroutine from the nldbadm script.
+- Derive 'Drop Nodelist Table Index' subroutine from nl2db script, possibly
+  renaming it.
+- Move the Create Nodelist Table Index (createindex) subroutine from nldbadm
+  script, possibly renaming it.
+- Derive a subroutine for executing queries on the nodelist table from the
+  code used in the net2file subroutine.
+
+nl2db
+------
 - Script does not seem to properly handle a file that ends in just blank
-lines, instead of content line or a ^Z character.
-
+  lines, instead of content line or a ^Z character.
 - When there are multiple nodelists of the same name being processed, the
-script is using just one of them;  but not always the most recent one like
-it should. (getnlfilename subroutine)
-
+  script is using just one of them;  but not always the most recent one like
+  it should. (getnlfilename subroutine)
 - Get quoteing working properly for entry into the database for fields like
-$loc & $name, so do not have to take out char's like single quotes, etc.
+  $loc & $name, so do not have to take out char's like single quotes, etc.
 - Also need to ensure that LF and/or CR char's at the end of each line do not
-make it into the database as they are ending up in the $flags field.
-
-nldbadm.pl
------------
-
-- Add options to create or drop the ftnnode index on the nodelist table.
-- Add better error checking.
-
-In General
------------
-
+  make it into the database as they are ending up in the $flags field.
 - Add quiet option, -q, for logging only operation ? 
-
 - Add a test nodelist for use with this?...
 
+nldbadm
+--------
+- Add options to create or drop the ftnnode index on the nodelist table.
+- Add better error checking.
+- Add quiet option, -q, for logging only operation ? 
 
-For version 2.x
-----------------
-- Use modules for accessing the Nodelist files and the Nodelist database.
+net2file
+---------
+- Add quiet option, -q, for logging only operation ? 
+  
