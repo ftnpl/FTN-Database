@@ -5,8 +5,8 @@ use ExtUtils::MakeMaker;
 WriteMakefile(
     NAME                => 'FTN::NL::Database',
     AUTHOR              => 'Robert James Clay <jame@rocasa.us>',
-    VERSION_FROM        => 'lib/FTN/NL.pm',
-    ABSTRACT_FROM       => 'lib/FTN/NL.pm',
+    VERSION_FROM        => 'lib/FTN/NL/Database.pm',
+    ABSTRACT_FROM       => 'lib/FTN/NL/Database.pm',
     PL_FILES            => {},
     PREREQ_PM => {
         'Test::More' => 0,
