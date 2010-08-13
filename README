@@ -12,7 +12,7 @@ DBD::SQLite	SQLite DBD Module is required by default, so should be installed.
 Other required, neccessary and/or useful modules, etc.:
 
 FTN::Log	Must be a least v0.02, for the 'logging' subroutine as used in 
-		the nl2db and ftndbadm scripts. If not already installed, one
+		the nl2ftndb and ftndbadm scripts. If not already installed, one
 		place it may be obtained is from the ftnpl project at Sourceforge.
 
 Getopt::Std	May already be installed on your system;  if not, one place
@@ -36,7 +36,7 @@ the perldoc command.
 
     perldoc FTN::Database
     perldoc FTN::Database::Nodelist
-    perldoc nl2db
+    perldoc nl2ftndb
     perldoc ftndbadm
     perldoc net2file
 

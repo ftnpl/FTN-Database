@@ -5,7 +5,7 @@ Example shell scripts and other example files.
 
 FILES
 
-nl2db.sh  	Example shell script, uses nl2db with parameters to load
+nl2ftndb.sh  	Example shell script, uses nl2ftndb with parameters to load
 		two nodelist files into an sqlite database, creating it if 
 		it does not already exist.  The filename & nodelist path
 		variables should be modified as neccessary for your local setup.  
