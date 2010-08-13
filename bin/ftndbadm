@@ -140,7 +140,7 @@ $dbh->do("$sql_stmt ");
 createindex();
 
 # disconnect from database
-closeftndb();
+close_ftndb();
 
 logging($Logfile, $progid, "Table $tblname created.");
 
@@ -184,7 +184,7 @@ sub open_ftndb {
 ############################################
 # Close FTN
 ############################################
-sub closeftndb {
+sub close_ftndb {
 
     #
     if ($opt_v) { logging($Logfile, $progid, "Closing FTN database") }
