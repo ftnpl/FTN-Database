@@ -1,6 +1,8 @@
-To Do:  v1.3   08/11/10
+To Do:  v1.3   08/13/10
 
-- Update/rewrite/etc comments and documentation as neccesary in all files.
+- Rename all of the subroutines by inserting underscores between words.
+
+- Update/rewrite/etc comments and documentation as necessary in all files.
 
 - The option added to define which type of database to use does not currently do
 any error checking on that type;  the script will fail if a correct DBD name
@@ -13,23 +15,24 @@ regarding that, to generalize it.
 
 nl2db.pl
 ----------
-- Add code to explicitly drop the nodelist table index before dropping the 
-  nodelist table.
+- Add code to explicitly drop the nodelist table index before recreating it.
+
 - Script does not seem to properly handle a file that ends in just blank
-lines, instead of content line or a ^Z character.
+lines, instead of a content line or a ^Z character.
 
 - When there are multiple nodelists of the same name being processed, the
 script is using just one of them;  but not always the most recent one like
 it should. (getnlfilename subroutine)
 
-- Get quoteing working properly for entry into the database for fields like
-$loc & $name, so do not have to take out char's like single quotes, etc.
-- Also need to ensure that LF and/or CR char's at the end of each line do not
+- Get quoting working properly for entry into the database for fields like
+$loc & $name, so do not have to take out characters like single quotes, etc.
+- Also need to ensure that LF and/or CR characters at the end of each line do not
 make it into the database as they are ending up in the $flags field.
 
 nldbadm.pl
 -----------
-
+- Add an explicit create ftndb subroutine;  it's not needed for sqlite databases
+  but it can be for others.
 - Add options to create or drop the ftnnode index on the nodelist table.
 - Add better error checking.
 
