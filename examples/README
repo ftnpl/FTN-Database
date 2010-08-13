@@ -15,7 +15,7 @@ net2file.sh     Example script to list a specific net from specific zone of a
 		St. Louis format nodelist.
 
 nltable.sh      Example script to create an SQLite database as neccessary and
-		a nodelist table in that database using nldbadm.
+		a nodelist table in that database using ftndbadm.
 
 loadzone.sh	Example script named loadzone.sh that loads a specific zone from
 		a specific nodelist file.  Uses the -z parameter to specify the zone

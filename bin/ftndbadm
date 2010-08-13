@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# nldbadm
+# ftndbadm
 # Createing a nodelist table for use with information
 # from a Fidonet/FTN St. Louis Format Nodelist
 # in to an SQL (sqlite) based database.
@@ -27,7 +27,7 @@ my $progid = "NLTBL";
 getopts('t:T:D:u:p:hvx');
 
 if ($opt_h) {
-    print "\nUsage: nldbadm.pl [-t nodelisttablename] [-T dbtype] [-D dbname] [-u dbuser] [-p dbpass] [-v] [-h]...\n";
+    print "\nUsage: ftndbadm.pl [-t nodelisttablename] [-T dbtype] [-D dbname] [-u dbuser] [-p dbpass] [-v] [-h]...\n";
     print "-t                nodelisttablename = defaults to \'nodelist\'. \n";
     print "[-T dbtype]       database type;  defaults to 'SQLite'.\n\n";
     print "[-D dbname]       database name & path;  defaults to 'ftndbtst'.\n\n";

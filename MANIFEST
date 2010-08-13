@@ -4,7 +4,7 @@ Makefile.PL
 README
 bin/net2file
 bin/nl2db
-bin/nldbadm
+bin/ftndbadm
 doc/TODO
 examples/README
 examples/loadzone.sh
