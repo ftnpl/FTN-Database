@@ -1,11 +1,11 @@
-package FTN::NL;
+package FTN::Database;
 
 use warnings;
 use strict;
 
 =head1 NAME
 
-FTN::NL - Common FTN Nodelist related operations of the Fidonet/FTN Nodelist Database application.
+FTN::Database - FTN SQL Database related operations for Fidonet/FTN related processing.
 
 =head1 VERSION
 
@@ -18,16 +18,15 @@ our $VERSION = '0.01';
 
 =head1 SYNOPSIS
 
-FTN::NL is a Perl module containing the common nodelist related operations of the
-Fidonet/FTN Nodelist Database application, which can create or access an FTN
-nodelist table in an SQL database for Fidonet/FTN nodelist processing.  The SQL
-database engine is one for which a DBD module exists, defaulting to SQLite.
+FTN::Database is a Perl module containing common database related operations for
+Fidonet/FTN related SQL Database operations.  The SQL database engine is one for
+which a DBD module exists, defaulting to SQLite.
 
 Perhaps a little code snippet.
 
-    use FTN::NL;
+    use FTN::Database;
 
-    my $foo = FTN::NL->new();
+    my $foo = FTN::Database->new();
     ...
 
 =head1 EXPORT
@@ -57,8 +56,8 @@ Robert James Clay, C<< <jame at rocasa.us> >>
 
 =head1 BUGS
 
-Please report any bugs or feature requests to C<bug-ftn-nl-database at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=FTN-NL-Database>. I will be
+Please report any bugs or feature requests to C<bug-ftn-database at rt.cpan.org>, or through
+the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=FTN-Database>. I will be
 notified, and then you'll automatically be notified of progress on your bug as I make changes.
 
 
@@ -68,7 +67,7 @@ notified, and then you'll automatically be notified of progress on your bug as I
 
 You can find documentation for this module with the perldoc command.
 
-    perldoc FTN::NL
+    perldoc FTN::Database
 
 
 You can also look for information at:
@@ -107,4 +106,4 @@ under the same terms as Perl itself.
 
 =cut
 
-1; # End of FTN::NL
+1; # End of FTN::Database
