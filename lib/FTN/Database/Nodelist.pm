@@ -1,11 +1,11 @@
-package FTN::NL::Database;
+package FTN::Database::Nodelist;
 
 use warnings;
 use strict;
 
 =head1 NAME
 
-FTN::NL::Database - Common database related operations of the Fidonet/FTN Nodelist Database application.
+FTN::Database::Nodelist - Fidonet/FTN Nodelist SQL Database operations.
 
 =head1 VERSION
 
@@ -18,16 +18,15 @@ our $VERSION = '0.01';
 
 =head1 SYNOPSIS
 
-FTN::NL::Database is a Perl module containing the common database related operations
-of the Fidonet/FTN Nodelist Database application, which can create or access an FTN
-nodelist table in an SQL database for Fidonet/FTN nodelist processing.  The SQL
-database engine is one for which a DBD module exists, defaulting to SQLite.
+FTN::Database::Nodelist is a Perl module containing common nodelist related subroutines
+for Fidonet/FTN Nodelist related processing on a Nodelist table in an SQL Database. The
+SQL database engine is one for which a DBD module exists, defaulting to SQLite.
 
 Perhaps a little code snippet.
 
-    use FTN::NL::Database;
+    use FTN::Database::Nodelist;
 
-    my $foo = FTN::NL::Database->new();
+    my $foo = FTN::Database::Nodelist->new();
     ...
 
 =head1 EXPORT
@@ -57,8 +56,8 @@ Robert James Clay, C<< <jame at rocasa.us> >>
 
 =head1 BUGS
 
-Please report any bugs or feature requests to C<bug-ftn-nl-database at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=FTN-NL-Database>.  I will
+Please report any bugs or feature requests to C<bug-ftn-database at rt.cpan.org>, or through
+the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=FTN-Database>.  I will
 be notified, and then you'll automatically be notified of progress on your bug as I make changes.
 
 
@@ -68,7 +67,7 @@ be notified, and then you'll automatically be notified of progress on your bug a
 
 You can find documentation for this module with the perldoc command.
 
-    perldoc FTN::NL::Database
+    perldoc FTN::Database::Nodelist
 
 
 You can also look for information at:
@@ -77,19 +76,19 @@ You can also look for information at:
 
 =item * RT: CPAN's request tracker
 
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=FTN-NL-Database>
+L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=FTN-Database>
 
 =item * AnnoCPAN: Annotated CPAN documentation
 
-L<http://annocpan.org/dist/FTN-NL-Database>
+L<http://annocpan.org/dist/FTN-Database>
 
 =item * CPAN Ratings
 
-L<http://cpanratings.perl.org/d/FTN-NL-Database>
+L<http://cpanratings.perl.org/d/FTN-Database>
 
 =item * Search CPAN
 
-L<http://search.cpan.org/dist/FTN-NL-Database>
+L<http://search.cpan.org/dist/FTN-Database>
 
 =back
 
@@ -107,4 +106,4 @@ under the same terms as Perl itself.
 
 =cut
 
-1; # End of FTN::NL::Database
+1; # End of FTN::Database::Nodelist
