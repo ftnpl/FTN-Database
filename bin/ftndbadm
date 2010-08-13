@@ -137,7 +137,7 @@ $sql_stmt .= ") ";
 $dbh->do("$sql_stmt ");
 
 # Index created
-createindex();
+create_ftnnode_index();
 
 # disconnect from database
 close_ftndb();
@@ -149,7 +149,7 @@ exit();
 ##############################################
 ## Create index on the nodelist table $tblname
 ##############################################
-sub createindex {
+sub create_ftnnode_index {
 #	Assumes the database is already open
 #
     # Recreate ftnnode Index
