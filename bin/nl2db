@@ -102,13 +102,13 @@ if ($opt_n) {
             $nlfile = $opt_f;
         }
         else {    # if not set, then -f option is basename of nodelist file
-            $nlfile = getnlfilename($opt_f);
+            $nlfile = get_nodelist_filename($opt_f);
         }
 
     }
     else {        # if not set,
                   #  filename defaults to basename nodelist
-        $nlfile = getnlfilename("nodelist");
+        $nlfile = get_nodelist_filename("nodelist");
     }
 
 }
@@ -349,7 +349,7 @@ sub help {
 ################################################
 # get nodelist filename, given path & base name
 ################################################
-sub getnlfilename {
+sub get_nodelist_filename {
 
     # Find the most recent version (by day number) when given a base name & dir
     # of the nodelist;  once this is implemented, this will be the default.
