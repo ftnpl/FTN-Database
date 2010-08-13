@@ -11,8 +11,8 @@ examples/loadzone.sh
 examples/net2file.sh
 examples/nl2db.sh
 examples/nltable.sh
-lib/FTN/NL.pm
-lib/FTN/NL/Database.pm
+lib/FTN/Database.pm
+lib/FTN/Database/Nodelist.pm
 t/00-load.t
 t/pod-coverage.t
 t/pod.t
