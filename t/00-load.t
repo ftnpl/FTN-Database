@@ -3,8 +3,8 @@
 use Test::More tests => 2;
 
 BEGIN {
-	use_ok( 'FTN::NL' );
-	use_ok( 'FTN::NL::Database' );
+	use_ok( 'FTN::Database' );
+	use_ok( 'FTN::Database::Nodelist' );
 }
 
-diag( "Testing FTN::NL $FTN::NL::Database::VERSION, Perl $], $^X" );
+diag( "Testing FTN::Database $FTN::Database::VERSION, Perl $], $^X" );

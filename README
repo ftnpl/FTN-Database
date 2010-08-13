@@ -1,4 +1,4 @@
-FTN-NL-Database
+FTN-Database
 
 Fidonet/FTN Nodelist Database application, which can create or access an FTN
 nodelist table in an SQL database for Fidonet/FTN nodelist processing.  The
@@ -34,8 +34,8 @@ SUPPORT AND DOCUMENTATION
 After installing, you can find documentation for this application with
 the perldoc command.
 
-    perldoc FTN::NL
-    perldoc FTN::NL::Database
+    perldoc FTN::Database
+    perldoc FTN::Database::Nodelist
     perldoc nl2db
     perldoc nldbadm
     perldoc net2file
@@ -43,30 +43,33 @@ the perldoc command.
 You can also look for information at:
 
     RT, CPAN's request tracker
-        http://rt.cpan.org/NoAuth/Bugs.html?Dist=FTN-NL-Database
+        http://rt.cpan.org/NoAuth/Bugs.html?Dist=FTN-Database
 
     AnnoCPAN, Annotated CPAN documentation
-        http://annocpan.org/dist/FTN-NL-Database
+        http://annocpan.org/dist/FTN-Database
 
     CPAN Ratings
-        http://cpanratings.perl.org/d/FTN-NL-Database
+        http://cpanratings.perl.org/d/FTN-Database
 
     Search CPAN
-        http://search.cpan.org/dist/FTN-NL-Database
+        http://search.cpan.org/dist/FTN-Database
 
 
-The FTN-NL-Database application is hosted at the 'Perl for FTN Systems' project
+The FTN-Database application is hosted at the 'Perl for FTN Systems' project
 at SourceForge (ftnpl.sourceforge.net).  The ftnpl-user or ftnpl-develop mailing
 lists are available from the project site; however, the FTN echos like PERL or
-BBS_CARNIVAL can be used for discussions regarding the nl2db scripts as well and
-are the preferred avenues for support.
+BBS_CARNIVAL can be used for discussions regarding it as well and are the
+preferred avenues for support.
 
-Note that the code history for FTN-NL-Database is available in a git repository
+Note that the code history for FTN-Database is available in a git repository
 at the Sourceforge project, as follows:
 
-git clone git://ftnpl.git.sourceforge.net/gitroot/ftnpl/ftnnldb.git (Read Only)
-http://ftnpl.git.sourceforge.net/git/gitweb.cgi?p=ftnpl/ftnnldb.git (Browse Online)
+git clone git://ftnpl.git.sourceforge.net/gitroot/ftnpl/ftnpldb.git (Read Only)
+http://ftnpl.git.sourceforge.net/git/gitweb.cgi?p=ftnpl/ftnpldb.git (Browse Online)
 
+Note also that the standard distribution archives are created directly from the 
+repository and that commit id can obtained like as follows:
+    zcat FTN-Database-n.nn.tar.gz | git get-tar-commit-id 
 
 COPYRIGHT AND LICENCE
 

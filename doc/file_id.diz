@@ -1,7 +1,7 @@
-FTN-NL-Database  (ftnnldb)
-FTN Nodelist Database Application, which
-consists of Perl scripts and associated
-modules that create or access an FTN nodelist
-table in a database supported by a Perl DBD
-module, defaulting to SQLite. See README and
-other documentation for more information.
+FTN-Database  (ftnpldb)
+Modules and associated scripts which can be
+used for Fidonet/FTN related processing in an
+SQL database supported by a Perl DBD module,
+defaulting to SQLite, and which includes FTN
+Nodelist processing. See README and other
+documentation for more information.
