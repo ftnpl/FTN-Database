@@ -8,28 +8,31 @@ Perl scripts for using an SQL database for fidonet/FTN nodelist
 processing.  This version uses only standard Perl and a database engine
 for which a DBD module exists, defaulting to SQLite.
 
-Note that the code history for the nl2db scripts is now in the GIT branch of the same
+Note that the code history for the nl2sql scripts is now in the GIT branch of the same
 name, available in the ftnnldb repository as follows:
 git clone git://ftnpl.git.sourceforge.net/gitroot/ftnpl/ftnnldb.git (Read Only)
 http://ftnpl.git.sourceforge.net/git/gitweb.cgi?p=ftnpl/ftnnldb.git (Browse Online)
 
 The ftnpl-user or ftnpl-develop mailing lists are available from the project site;
 however, FTN echos like PERL or BBS_CARNIVAL can be used for discussions regarding
-the nl2db scripts as well and are the preferred avenues for support.
+the nl2sql scripts as well and are the preferred avenues for support.
 
 ==================
-
-
 Files
 ----------------
-nl2db.pl        Perl script that loads an ftn nodelist into a sqlite database
+net2file.pl     Perl script that lists a specified net from a specified zone of a 
+		nodelist table containing information from a Fidonet/FTN St. Louis
+		format nodelist to text file.
+
+nl2db.pl        Perl script that loads an Fidonet/FTN nodelist into an sql database
 
 nldbadm.pl      Perl script to create a nodelist table and other database
 		administrative functions.
 
-bin/		Directory where example shell scripts for using the nl2db
+bin/		Directory where example shell scripts for using the nl2sql
 		scripts are distributed.
-		
+bin/loadzone.sh	Example script named loadzone.sh that loads a specific zone from
+		a specific nodelist file.
 bin/nl2db.sh  	Example shell script, uses nl2db.pl with parameters to load
 		two nodelist files into an existing sqlite database.
 bin/net2file.sh Example script to list a specific net from specific zone of a 
@@ -37,16 +40,12 @@ bin/net2file.sh Example script to list a specific net from specific zone of a
 		St. Louis format nodelist.
 bin/nltable.sh  Example script to create a nodelist table using nldbadm.pl.
 bin/README	Readme file with information about the example shell scripts.
-bin/loadzone.sh	Example script named loadzone.sh that loads a specific zone from
-		a specific nodelist file.
-
-modules/	Directory where any Perl modules distributed with this archive
-		will be, and/or where information about them will be. 
-modules/README  Readme file with information about the neccessary Perl Modules
-		for this archive.
 
 doc/TODO	What needs to be worked on
 doc/Changes	What has been done
+doc/README.Modules  Readme file with information about the neccessary Perl Modules
+		will be, and/or where information about them will be. 
+		for this archive.
 
 README          This file
 
