@@ -176,7 +176,7 @@ my $point  = 0;
 my $region = 0;
 
 # connect to database
-openftndb();
+open_ftndb();
 
 #
 if ($opt_v) {
@@ -391,7 +391,7 @@ sub getnlfilename {
 ############################################
 # open FTN database for operations
 ############################################
-sub openftndb {
+sub open_ftndb {
 
     # Open message database
     #   Assumes that $dbname, $dbuser, & $dbpass

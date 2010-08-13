@@ -130,7 +130,7 @@ else {
 
 
 # connect to database
-openftndb();
+open_ftndb();
 
 # build Select query sql statement
 $sql_stmt = "SELECT * FROM $tblname WHERE zone = $ZoneNum and net = $NetNum ";
@@ -167,7 +167,7 @@ exit();
 ############################################
 # open FTN sqlite database for operations
 ############################################
-sub openftndb {
+sub open_ftndb {
 
     # Open message database
     #   Assumes that $dbname, $dbuser, & $dbpass

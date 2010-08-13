@@ -104,7 +104,7 @@ else {
 }
 
 # connect to database
-openftndb();
+open_ftndb();
 
 # drop the old nodelist table, if it exists.
 $sql_stmt = "DROP TABLE IF EXISTS $tblname";
@@ -165,7 +165,7 @@ sub createindex {
 ############################################
 # open FTN sqlite database for operations
 ############################################
-sub openftndb {
+sub open_ftndb {
 
     # Open message database
     #   Assumes that $dbname, $dbuser, & $dbpass
