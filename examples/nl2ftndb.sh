@@ -1,7 +1,7 @@
 #!/bin/sh
 # nl2ftndb.sh 
 #  This is an example test script that loads two nodelists 
-# Copyright (c) 2001-2010 Robert James Clay.  All Rights Reserved.
+# Copyright (c) 2010 Robert James Clay.  All Rights Reserved.
 # This is free software;  you can redistribute it and/or
 # modify it under the same terms as Perl itself.
 #
