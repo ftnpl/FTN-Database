@@ -48,8 +48,8 @@ TODO: {
     "placeholder date/time"       => qr(Date/time)
   );
 
-  module_boilerplate_ok('lib/FTN/NL.pm');
-  module_boilerplate_ok('lib/FTN/NL/DB.pm');
+  module_boilerplate_ok('lib/FTN/Database.pm');
+  module_boilerplate_ok('lib/FTN/Database/Nodelist.pm');
 
 
 }
