@@ -1,7 +1,7 @@
 #!/bin/sh
 # loadzone.sh 
-#  This is an example script that loads a specific zone from
-# a specific nodelist file.
+#  This is an example script that loads a specified zone from
+# a specified nodelist file.
 # Copyright (c) 2010 Robert James Clay.  All Rights Reserved.
 # This is free software;  you can redistribute it and/or
 # modify it under the same terms as Perl itself.
