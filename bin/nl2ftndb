@@ -1,8 +1,8 @@
 #!/usr/bin/perl
+# nl2ftndb  - Initial load of a particular Fidonet/FTN St. Louis Format Nodelist
+# into an SQL Database for Fidonet/FTN processing. The SQL Database engine is 
+# one for which a DBD module exists, defaulting to SQLite.
 #
-# nl2db
-# Initial load of a particular FTN St. Louis Format Nodelist
-# into an SQL (sqlite) based database.
 # Copyright (c) 2010 Robert James Clay.  All Rights Reserved.
 # This is free software;  you can redistribute it and/or
 # modify it under the same terms as Perl itself.
