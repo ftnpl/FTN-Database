@@ -22,7 +22,7 @@ getopts('n:o:t:T:D:u:p:hvxz:');
 
 if ($opt_h) {
     print "\nUsage: listnet.pl [-t nodelisttablename] [-T dbtype] [-D dbname] [-u dbuser] [-p dbpass] [-z zone] [-n net] [-o outfile] [-v] [-h]...\n";
-    print "-t                nodelisttablename = defaults to \'nodelist\'. \n";
+    print "-t                nodelisttablename = defaults to \'Nodelist\'. \n";
     print "[-T dbtype]       database type;  defaults to 'SQLite'.\n\n";
     print "[-D dbname]       database name & path;  defaults to 'ftndbtst'.\n\n";
     print "[-u dbuser]       database user;  defaults to 'sysop'.\n\n";
