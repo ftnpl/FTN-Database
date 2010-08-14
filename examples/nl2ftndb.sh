@@ -5,7 +5,7 @@
 # This is free software;  you can redistribute it and/or
 # modify it under the same terms as Perl itself.
 #
-APPDIR=/opt/ftn/nl2ftndb
+APPDIR=/opt/ftnpldb
 BINDIR=$APPDIR/bin
 LOGDIR=$APPDIR/log
 LOGFILE=$LOGDIR/nl2ftndb.log
