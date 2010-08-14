@@ -35,7 +35,7 @@ if ($opt_l) {
     undef $opt_l;
 }
 else {
-    $Logfile = "nodelist.log";    # default log file is in current dir
+    $Logfile = "nl2ftndb.log";    # default log file is in current dir
 }
 
 my $progid = "nl2db";
