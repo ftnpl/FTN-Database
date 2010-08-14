@@ -315,7 +315,7 @@ if ($opt_v) {    #
 }
 
 # disconnect from database
-closeftndb();
+cloxe_ftndb();
 
 close NODELIST;
 
@@ -410,7 +410,7 @@ sub open_ftndb {
 ############################################
 # Close FTN
 ############################################
-sub closeftndb {
+sub cloxe_ftndb {
 
     #
     if ($opt_v) { logging($Logfile, $progid, "Closing FTN database") }

@@ -159,7 +159,7 @@ $sth->finish;
 undef $sth;
 
 # disconnect from database
-closeftndb();
+cloxe_ftndb();
 
 exit();
 
@@ -186,7 +186,7 @@ sub open_ftndb {
 ############################################
 # Close FTN DB
 ############################################
-sub closeftndb {
+sub cloxe_ftndb {
 
     #
     if ($opt_v) { print "Closing FTN database\n" }
