@@ -1,25 +1,23 @@
 To Do:
 
 Tentative plan for initial version changes.
----------------------------------------------
-0.01	Rename all of the existing subroutines by inserting underscores between
-    words in the names.  Rename Perl scripts & Modules.  Derive initial version.
+------------------------------------------------------------------------------------
 
-0.02	FTN::Database - Create create_ftndb subroutine. Move openftndb
-    and closeftndb subroutines from scripts.  Also set_ftndb_acl subroutine?
+0.02	FTN::Database - Create create_ftndb subroutine. Move open_ftndb
+    and close_ftndb subroutines from scripts.  Also create set_ftndb_acl subroutine?
 
 0.03	FTN::Database::Nodelist - Derive a 'Drop Nodelist Table' subroutine from
-    the nldbadm/nl2db scripts.  Derive a 'Create Nodelist Table' subroutine
-    from the nldbadm script.
+    the ftndbadm & nl2db scripts.  Derive a 'Create Nodelist Table' subroutine
+    from the ftndbadm script.
 
 0.04	FTN::Database::Nodelist - Derive 'Drop Nodelist Table Index' subroutine
     from nl2db script, naming it drop_ftnnode_index.  Move the Create Nodelist Table
-    Index subroutine from nldbadm script, renameing it as create_ftnnode_index.
+    Index subroutine from ftndbadm script, renameing it as create_ftnnode_index.
 
-0.05	FTN::Database::Nodelist - Move get_nodelist_filename subroutine from nl2db script?
-
-0.06	FTN::Database::Nodelist - Derive a subroutine for executing queries on the
+0.05	FTN::Database::Nodelist - Derive a subroutine for executing queries on the
     nodelist table from the code used in the net2file subroutine. 
+
+0.06	
 
 0.07	
 
@@ -27,7 +25,7 @@ Tentative plan for initial version changes.
 
 0.09	Documentation updates
 
-0.10	Initial release
+0.10	Initial release ?
 
 
 General
@@ -47,32 +45,34 @@ regarding that, to generalize it.
 
 FTN::Database
 -------------_
-- Create createftndb subroutine.
-- Move openftndb subroutine from scripts.
-- Move closeftndb subroutine from scripts.
+- Create create_ftndb subroutine.
+- Move open_ftndb subroutine from scripts.
+- Move close_ftndb subroutine from scripts.
 - Create set_ftndb_acl subroutine?
 
 FTN::Database::Nodelist
 ------------------------
-- Derive a 'Drop Nodelist Table' subroutine from the nldbadm/nl2db scripts.
-- Derive a 'Create Nodelist Table' subroutine from the nldbadm script.
+- Derive a 'Drop Nodelist Table' subroutine from the ftndbadm & nl2db scripts.
+- Derive a 'Create Nodelist Table' subroutine from the ftndbadm script.
 - Derive 'Drop Nodelist Table Index' subroutine from nl2db script, possibly
   renaming it.
-- Move the Create Nodelist Table Index (createindex) subroutine from nldbadm
-  script, possibly renaming it.
+- Move the Create Nodelist Table Index (create_ftnnode_index) subroutine from
+  ftndbadm script.
 - Derive a subroutine for executing queries on the nodelist table from the
   code used in the net2file subroutine.
-- Move getnlfilename subroutine from nl2db script.
+- Move get_nodelist_filename subroutine from nl2db script?
 - Possible function/subroutine that checks if a valid nodelist table 
   name is being used?
-
+- Use a different datatype than "TIMESTAMP" for the 'updated' filed in the
+  nodelist table?  (Not generic enough?)
+  
 nl2db
 ---------
 - Script does not seem to properly handle a file that ends in just blank
   lines, instead of content line or a ^Z character.
 - When there are multiple nodelists of the same name being processed, the
   script is using just one of them;  but not always the most recent one like
-  it should. (getnlfilename subroutine)
+  it should. (get_nodelist_filename subroutine)
 - Get quoteing working properly for entry into the database for fields like
   $loc & $name, so do not have to take out characters like single quotes, etc.
 - Also need to ensure that LF and/or CR characters at the end of each line do not
@@ -81,7 +81,7 @@ nl2db
 - Add a test nodelist for use with this?...
 
 
-nldbadm
+ftndbadm
 --------
 - Add an explicit subroutine to create a database;  it's not needed for sqlite
   databases but it can be for others.
