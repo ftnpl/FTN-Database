@@ -2,9 +2,10 @@ Changes
 --------
 
 13 Aug 2010
-    - Reword the file_id.diz file.
-    - Edit/update the README file.
+    - Reword the file_id.diz file. Edit/update README file.
     - Correct format of year date here in the Changes file.
+    - Rename subroutine names by inserting underscores between the words in
+      the name.
     
 11 Aug 2010
     - Bump version to v1.3.

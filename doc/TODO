@@ -1,7 +1,5 @@
 To Do:  v1.3   08/13/10
 
-- Rename all of the subroutines by inserting underscores between words.
-
 - Update/rewrite/etc comments and documentation as necessary in all files.
 
 - The option added to define which type of database to use does not currently do
@@ -22,10 +20,11 @@ lines, instead of a content line or a ^Z character.
 
 - When there are multiple nodelists of the same name being processed, the
 script is using just one of them;  but not always the most recent one like
-it should. (getnlfilename subroutine)
+it should. (get_nodelist_filename subroutine)
 
 - Get quoting working properly for entry into the database for fields like
 $loc & $name, so do not have to take out characters like single quotes, etc.
+
 - Also need to ensure that LF and/or CR characters at the end of each line do not
 make it into the database as they are ending up in the $flags field.
 
@@ -43,7 +42,3 @@ In General
 
 - Add a test nodelist for use with this?...
 
-
-For version 2.x
-----------------
-- Use modules for accessing the Nodelist files and the Nodelist database.
