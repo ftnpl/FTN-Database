@@ -2,6 +2,7 @@ package FTN::Database;
 
 use warnings;
 use strict;
+use Carp qw( croak );
 
 =head1 NAME
 
