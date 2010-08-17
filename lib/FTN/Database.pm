@@ -43,11 +43,20 @@ The following functions are available in this module:  open_ftndb, close_ftndb.
 sub function1 {
 }
 
-=head2 function2
+=head2 close_ftndb
+
+Syntax close_ftndb($dbh);
+
+Closing an FTN database, where $dbh is an existing open database handle.
 
 =cut
 
-sub function2 {
+sub close_ftndb {
+
+    my $dbh = shift;
+    ( $dbh->disconnect ) or croak($DBI::errstr);
+    return(0);
+    
 }
 
 =head1 AUTHOR
