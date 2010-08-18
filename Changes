@@ -1,5 +1,12 @@
 Revision history for FTN-Database (ftnpldb) 
 
+0.02    Tue Aug 17 23:55 2010
+	- Move examples to doc/examples source directory.
+	- Corrected name of nl2ftndb in example loadzone.sh file.
+    	- Enable use of 'croak' function from the Carp module in FTN::Database.
+	- Derive and move the open_ftndb and close_ftndb subroutines from the Perl
+	scripts to the FTN::Database module.
+	
 0.01    Sat Aug 14 17:29 2010
 	Derive the initial v0.01 version of FTN-Database application from the
 	nl2sql v1.2 scripts (nl2sql branch in the ftn-database.git repository,
