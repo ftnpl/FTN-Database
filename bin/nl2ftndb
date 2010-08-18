@@ -12,7 +12,7 @@ use strict;
 use Getopt::Std;
 use vars qw/ $opt_n $opt_T $opt_D $opt_u $opt_p $opt_f $opt_e $opt_l $opt_d $opt_h $opt_t $opt_v $opt_x $opt_z /;
 
-use FTN::Database qw(&open_ftndb, &close_ftndb);
+use FTN::Database qw(&open_ftndb &close_ftndb);
 use FTN::Log qw(&logging);
 
 our $VERSION = 0.2;
