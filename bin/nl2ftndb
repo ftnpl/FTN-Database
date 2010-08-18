@@ -316,7 +316,7 @@ if ($opt_v) {    #
 }
 
 # disconnect from database
-close_ftndb();
+close_ftndb($dbh);
 
 close NODELIST;
 

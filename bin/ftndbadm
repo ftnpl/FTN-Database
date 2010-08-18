@@ -141,7 +141,7 @@ $dbh->do("$sql_stmt ");
 create_ftnnode_index();
 
 # disconnect from database
-close_ftndb();
+close_ftndb($dbh);
 
 logging($Logfile, $progid, "Table $tblname created.");
 

@@ -161,7 +161,7 @@ $sth->finish;
 undef $sth;
 
 # disconnect from database
-close_ftndb();
+close_ftndb($dbh);
 
 exit();
 
