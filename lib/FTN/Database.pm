@@ -36,11 +36,46 @@ The following functions are available in this module:  open_ftndb, close_ftndb.
 
 =head1 FUNCTIONS
 
-=head2 function1
+=head2 open_ftndb
 
+Syntax:  $db_handle = open_ftndb($db_type, $db_name, $db_user, $db_pass);
+
+Open a database for Fidonet/FTN processing, where:
+
+=over
+
+=item	$db_type
+	The database type.  This needs to be a database type for which 
+	a DBD module exists, the type being the name as used in the DBD
+	module.  The default type to be used is SQLite.
+
+=item	$db_name
+	The database name.
+
+=item	$db_user
+	The database user, which should already have the neccesary priviledges.
+
+=item	$db_pass
+	The database password for the database user.
+
+=item	$db_handle
+	The database handle being returned to the calling program.
+
+=back
+    
 =cut
 
-sub function1 {
+sub open_ftndb {
+
+    use DBI;
+
+    my($db_type, $db_name, $db_user, $db_pass) = @_;
+
+    ( my $db_handle = DBI->connect( "dbi:$db_type:dbname=$db_name", $db_user, $db_pass ) )
+	or croak($DBI::errstr);
+
+    return($db_handle);
+    
 }
 
 =head2 close_ftndb
