@@ -16,7 +16,7 @@ use FTN::Database qw(&open_ftndb &close_ftndb);
 use FTN::Database::Nodelist qw(&create_ftnnode_index &drop_ftnnode_index);
 use FTN::Log qw(&logging);
 
-our $VERSION = 0.2;
+our $VERSION = 0.3;
 
 getopts('n:T:D:u:p:f:l:d:t:ehvxz:');
 
