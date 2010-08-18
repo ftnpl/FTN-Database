@@ -9,11 +9,11 @@
 APPDIR=/opt/ftnpldb
 BINDIR=$APPDIR/bin
 LOGDIR=$APPDIR/log
-LOGFILE=$LOGDIR/nl2db.log
+LOGFILE=$LOGDIR/nl2ftndb.log
 NLDIR=/opt/ftn/nodelist
 NLFILE=nodelist.197
 
 cd $APPDIR
 
-#$BINDIR/nl2db -t $NLDIR [-T dbtype] [-D dbname] [-u dbuser] [-p dbpass] [-f nodelist] [-d fidonet] [-v] [-x] [-e] [-z zonenum] 2>$LOGDIR/nlsql.ftn.errors
-$BINDIR/nl2db -t $NLDIR -f $NLFILE -l $LOGFILE -d fidonet -z 1 -e -v 2>$LOGDIR/nl2db.ftn.errors
+#$BINDIR/nl2ftndb -t $NLDIR [-T dbtype] [-D dbname] [-u dbuser] [-p dbpass] [-f nodelist] [-d fidonet] [-v] [-x] [-e] [-z zonenum] 2>$LOGDIR/nlsql.ftn.errors
+$BINDIR/nl2ftndb -t $NLDIR -f $NLFILE -l $LOGFILE -d fidonet -z 1 -e -v 2>$LOGDIR/nl2ftndb.ftn.errors
