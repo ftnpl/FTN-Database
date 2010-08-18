@@ -32,8 +32,7 @@ Perhaps a little code snippet.
 
 =head1 EXPORT
 
-A list of functions that can be exported.  You can delete this section
-if you don't export anything, such as for a purely object-oriented module.
+The following functions are available in this module:  drop_nodelist_table.
 
 =head1 FUNCTIONS
 
@@ -44,11 +43,26 @@ if you don't export anything, such as for a purely object-oriented module.
 sub function1 {
 }
 
-=head2 function2
+=head2 drop_nodelist_table
+
+Syntax:  drop_nodelist_table($db_handle, $table_name);
+
+Drop an FTN Nodelist table from an SQL database being used for Fidonet/FTN
+processing if it exists, where $db_handle is an existing open database handle
+and $table_name is the name of the table to be dropped.
 
 =cut
 
-sub function2 {
+sub drop_nodelist_table {
+
+    my($db_handle, $table_name) = @_;
+
+    my $sql_stmt = "DROP TABLE IF EXISTS $table_name";
+
+    $db_handle->do("$sql_stmt") or croak($DBI::errstr);
+
+    return(0);
+    
 }
 
 =head1 AUTHOR
