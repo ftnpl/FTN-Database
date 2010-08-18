@@ -112,29 +112,8 @@ $dbh = open_ftndb($dbtype, $dbname, $dbuser, $dbpass);
 logging($Logfile, $progid, "Dropping existing nodelist table $tblname if it already exists.");
 drop_nodelist_table($eth, $tblname);
 
-# build Create Table sql statement
-$sql_stmt = "CREATE TABLE $tblname( ";
-
-$sql_stmt .= "id	INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, ";
-$sql_stmt .= "type      VARCHAR(6) DEFAULT '' NOT NULL, ";
-$sql_stmt .= "zone      SMALLINT  DEFAULT '1' NOT NULL, ";
-$sql_stmt .= "net       SMALLINT  DEFAULT '1' NOT NULL, ";
-$sql_stmt .= "node      SMALLINT  DEFAULT '1' NOT NULL, ";
-$sql_stmt .= "point     SMALLINT  DEFAULT '0' NOT NULL, ";
-$sql_stmt .= "region    SMALLINT  DEFAULT '0' NOT NULL, ";
-$sql_stmt .= "name      VARCHAR(32) DEFAULT '' NOT NULL, ";
-$sql_stmt .= "location  VARCHAR(32) DEFAULT '' NOT NULL, ";
-$sql_stmt .= "sysop     VARCHAR(32) DEFAULT '' NOT NULL, ";
-$sql_stmt .= "phone     VARCHAR(20) DEFAULT '000-000-000-000' NOT NULL, ";
-$sql_stmt .= "baud      CHAR(6) DEFAULT '300' NOT NULL, ";
-$sql_stmt .= "flags     VARCHAR(64) DEFAULT ' ' NOT NULL, ";
-$sql_stmt .= "domain    VARCHAR(8) DEFAULT 'fidonet' NOT NULL, ";
-$sql_stmt .= "source    VARCHAR(16) DEFAULT 'local' NOT NULL, ";
-$sql_stmt .= "updated   TIMESTAMP(14) DEFAULT '' NOT NULL ";
-$sql_stmt .= ") ";
-
-#print " $sql_stmt ";
-$dbh->do("$sql_stmt ");
+# Create nodelist table
+create_nodelist_table($dbh, $tblename);
 
 # Index created
 create_ftnnode_index();
