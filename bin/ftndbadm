@@ -113,7 +113,7 @@ drop_ftnnode_index($dbh);
 
 # drop the old nodelist table, if it exists.
 logging($Logfile, $progid, "Dropping existing nodelist table $tblname if it already exists.");
-drop_nodelist_table($eth, $tblname);
+drop_nodelist_table($dbh, $tblname);
 
 # Create nodelist table
 create_nodelist_table($dbh, $tblename);
