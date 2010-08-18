@@ -2,6 +2,7 @@ package FTN::Database::Nodelist;
 
 use warnings;
 use strict;
+use Carp qw( croak );
 
 =head1 NAME
 
