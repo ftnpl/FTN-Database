@@ -105,7 +105,7 @@ else {
 }
 
 # connect to database
-open_ftndb();
+$dbh = open_ftndb($dbtype, $dbname, $dbuser, $dbpass);
 
 # drop the old nodelist table, if it exists.
 $sql_stmt = "DROP TABLE IF EXISTS $tblname";

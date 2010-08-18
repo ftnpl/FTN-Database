@@ -177,7 +177,7 @@ my $point  = 0;
 my $region = 0;
 
 # connect to database
-open_ftndb();
+$dbh = open_ftndb($dbtype, $dbname, $dbuser, $dbpass);
 
 #
 if ($opt_v) {
