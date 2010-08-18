@@ -1,5 +1,18 @@
 Revision history for FTN-Database (ftnpldb) 
 
+0.03    Wed Aug 18 14:43 2010
+    	- Correct PREREQ_PM list in Makefile.PL file.
+    	- Correct FTN::Database SUPPORT module references.
+    	- Enable use of 'croak' function from the Carp module in the 
+    	- Use the full package names for the FTN::Database subroutines.
+    	FTN::Database::Nodelist module.
+    	- Derive and move the create_nodelist_table and drop_nodelist_table
+	functions from ftndbadm and nl2ftndb to the FTN::Database::Nodelist
+	module.
+	- Derive and move the create_ftnnode_index and drop_ftnnode_index
+	functions from ftndbadm and nl2ftndb to the FTN::Database::Nodelist
+	module.
+
 0.02    Tue Aug 17 23:55 2010
 	- Move examples to doc/examples source directory.
 	- Corrected name of nl2ftndb in example loadzone.sh file.
