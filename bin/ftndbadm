@@ -116,7 +116,7 @@ logging($Logfile, $progid, "Dropping existing nodelist table $tblname if it alre
 drop_nodelist_table($dbh, $tblname);
 
 # Create nodelist table
-create_nodelist_table($dbh, $tblename);
+create_nodelist_table($dbh, $tblname);
 
 # Creating Index
 create_ftnnode_index($dbh, $tblname);
