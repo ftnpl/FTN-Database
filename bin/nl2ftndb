@@ -14,7 +14,7 @@ use vars qw/ $opt_n $opt_T $opt_D $opt_u $opt_p $opt_f $opt_e $opt_l $opt_d $opt
 
 use FTN::Log qw(&logging);
 
-our $VERSION = 0.1;
+our $VERSION = 0.2;
 
 getopts('n:T:D:u:p:f:l:d:t:ehvxz:');
 
