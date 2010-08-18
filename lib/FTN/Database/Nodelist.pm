@@ -32,7 +32,8 @@ Perhaps a little code snippet.
 
 =head1 EXPORT
 
-The following functions are available in this module:  create_nodelist_table(), drop_nodelist_table().
+The following functions are available in this module:  create_nodelist_table(),
+drop_nodelist_table(), create_ftnnode_index().
 
 =head1 FUNCTIONS
 
@@ -91,6 +92,30 @@ sub drop_nodelist_table {
     my($db_handle, $table_name) = @_;
 
     my $sql_stmt = "DROP TABLE IF EXISTS $table_name";
+
+    $db_handle->do("$sql_stmt") or croak($DBI::errstr);
+
+    return(0);
+    
+}
+
+=head2 create_ftnnode_index
+
+Syntax:  create_ftnnode_index($db_handle, $table_name);
+
+Create an index named ftnnode on an FTN Nodelist table in an SQL database being
+used for Fidonet/FTN processing, where $db_handle is an existing open database
+handle and $table_name is the name of the table that is being indexed.  The
+index is created on the following fields:  zone, net, node, point, and domain.
+
+=cut
+
+sub create_ftnnode_index {
+
+    my($db_handle, $table_name) = @_;
+
+    my $sql_stmt = "CREATE INDEX ftnnode ";
+    $sql_stmt .= "ON $table_name (zone,net,node,point,domain) ";
 
     $db_handle->do("$sql_stmt") or croak($DBI::errstr);
 
