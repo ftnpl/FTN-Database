@@ -132,7 +132,7 @@ else {
 
 
 # connect to database
-$dbh = open_ftndb($dbtype, $dbname, $dbuser, $dbpass);
+$dbh = FTN::Database::open_ftndb($dbtype, $dbname, $dbuser, $dbpass);
 
 # build Select query sql statement
 $sql_stmt = "SELECT * FROM $tblname WHERE zone = $ZoneNum and net = $NetNum ";
@@ -161,7 +161,7 @@ $sth->finish;
 undef $sth;
 
 # disconnect from database
-close_ftndb($dbh);
+FTN::Database::close_ftndb($dbh);
 
 exit();
 

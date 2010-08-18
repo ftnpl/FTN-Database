@@ -106,23 +106,23 @@ else {
 }
 
 # connect to database
-$dbh = open_ftndb($dbtype, $dbname, $dbuser, $dbpass);
+$dbh = FTN::Database::open_ftndb($dbtype, $dbname, $dbuser, $dbpass);
 
 # drop the old nodelist table index, if it exists.
-drop_ftnnode_index($dbh);
+FTN::Database::Nodelist::drop_ftnnode_index($dbh);
 
 # drop the old nodelist table, if it exists.
 logging($Logfile, $progid, "Dropping existing nodelist table $tblname if it already exists.");
-drop_nodelist_table($dbh, $tblname);
+FTN::Database::Nodelist::drop_nodelist_table($dbh, $tblname);
 
 # Create nodelist table
-create_nodelist_table($dbh, $tblname);
+FTN::Database::Nodelist::create_nodelist_table($dbh, $tblname);
 
 # Creating Index
-create_ftnnode_index($dbh, $tblname);
+FTN::Database::Nodelist::create_ftnnode_index($dbh, $tblname);
 
 # disconnect from database
-close_ftndb($dbh);
+FTN::Database::close_ftndb($dbh);
 
 logging($Logfile, $progid, "Table $tblname created.");
 
