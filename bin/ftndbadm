@@ -109,10 +109,8 @@ else {
 $dbh = open_ftndb($dbtype, $dbname, $dbuser, $dbpass);
 
 # drop the old nodelist table, if it exists.
-$sql_stmt = "DROP TABLE IF EXISTS $tblname";
-#print " $sql_stmt ";
-$dbh->do("$sql_stmt ");
 logging($Logfile, $progid, "Dropping existing nodelist table $tblname if it already exists.");
+drop_nodelist_table($eth, $tblname);
 
 # build Create Table sql statement
 $sql_stmt = "CREATE TABLE $tblname( ";
