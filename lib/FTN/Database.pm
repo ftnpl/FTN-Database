@@ -122,19 +122,19 @@ You can also look for information at:
 
 =item * RT: CPAN's request tracker
 
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=FTN-NL-DB>
+L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=FTN-Database>
 
 =item * AnnoCPAN: Annotated CPAN documentation
 
-L<http://annocpan.org/dist/FTN-NL-DB>
+L<http://annocpan.org/dist/FTN-Database>
 
 =item * CPAN Ratings
 
-L<http://cpanratings.perl.org/d/FTN-NL-DB>
+L<http://cpanratings.perl.org/d/FTN-Database>
 
 =item * Search CPAN
 
-L<http://search.cpan.org/dist/FTN-NL-DB>
+L<http://search.cpan.org/dist/FTN-Database>
 
 =back
 
