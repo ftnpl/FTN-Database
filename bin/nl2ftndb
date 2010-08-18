@@ -302,7 +302,7 @@ if ($opt_v) {    #
     logging($Logfile, $progid, "Create ftnnode index");
 }
 # Recreate ftnnode Index
-FTN::Database::Nodelist::create_ftnnode_index($eth, $tblname);
+FTN::Database::Nodelist::create_ftnnode_index($dbh, $tblname);
 
 if ($opt_v) {    #
     logging($Logfile, $progid, "Closing database");
