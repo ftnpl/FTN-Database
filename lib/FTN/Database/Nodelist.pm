@@ -32,15 +32,48 @@ Perhaps a little code snippet.
 
 =head1 EXPORT
 
-The following functions are available in this module:  drop_nodelist_table.
+The following functions are available in this module:  create_nodelist_table(), drop_nodelist_table().
 
 =head1 FUNCTIONS
 
-=head2 function1
+=head2 create_nodelist_table
+
+Syntax:  create_nodelist_table($db_handle, $table_name);
+
+Create an FTN Nodelist table in an SQL database being used for Fidonet/FTN
+processing, where $db_handle is an existing open database handle and $table_name
+is the name of the table to be created.
 
 =cut
 
-sub function1 {
+sub create_nodelist_table {
+
+    my($db_handle, $table_name) = @_;
+
+    my $sql_stmt = "CREATE TABLE $table_name( ";
+
+    $sql_stmt .= "id	INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, ";
+    $sql_stmt .= "type      VARCHAR(6) DEFAULT '' NOT NULL, ";
+    $sql_stmt .= "zone      SMALLINT  DEFAULT '1' NOT NULL, ";
+    $sql_stmt .= "net       SMALLINT  DEFAULT '1' NOT NULL, ";
+    $sql_stmt .= "node      SMALLINT  DEFAULT '1' NOT NULL, ";
+    $sql_stmt .= "point     SMALLINT  DEFAULT '0' NOT NULL, ";
+    $sql_stmt .= "region    SMALLINT  DEFAULT '0' NOT NULL, ";
+    $sql_stmt .= "name      VARCHAR(32) DEFAULT '' NOT NULL, ";
+    $sql_stmt .= "location  VARCHAR(32) DEFAULT '' NOT NULL, ";
+    $sql_stmt .= "sysop     VARCHAR(32) DEFAULT '' NOT NULL, ";
+    $sql_stmt .= "phone     VARCHAR(20) DEFAULT '000-000-000-000' NOT NULL, ";
+    $sql_stmt .= "baud      CHAR(6) DEFAULT '300' NOT NULL, ";
+    $sql_stmt .= "flags     VARCHAR(64) DEFAULT ' ' NOT NULL, ";
+    $sql_stmt .= "domain    VARCHAR(8) DEFAULT 'fidonet' NOT NULL, ";
+    $sql_stmt .= "source    VARCHAR(16) DEFAULT 'local' NOT NULL, ";
+    $sql_stmt .= "updated   TIMESTAMP(14) DEFAULT '' NOT NULL ";
+    $sql_stmt .= ") ";
+
+    $db_handle->do("$sql_stmt ") or croak($DBI::errstr);
+
+    return(0);
+
 }
 
 =head2 drop_nodelist_table
