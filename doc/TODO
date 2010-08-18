@@ -3,12 +3,9 @@ To Do:
 Tentative plan for initial version changes.
 ------------------------------------------------------------------------------------
 
-0.02	FTN::Database - Create create_ftndb subroutine. Move open_ftndb
-    and close_ftndb subroutines from scripts.  Also create set_ftndb_acl subroutine?
-
 0.03	FTN::Database::Nodelist - Derive a 'Drop Nodelist Table' subroutine from
     the ftndbadm & nl2db scripts.  Derive a 'Create Nodelist Table' subroutine
-    from the ftndbadm script.
+    from the ftndbadm script. Enable use of 'croak' function from the Carp module.
 
 0.04	FTN::Database::Nodelist - Derive 'Drop Nodelist Table Index' subroutine
     from nl2db script, naming it drop_ftnnode_index.  Move the Create Nodelist Table
@@ -17,11 +14,12 @@ Tentative plan for initial version changes.
 0.05	FTN::Database::Nodelist - Derive a subroutine for executing queries on the
     nodelist table from the code used in the net2file subroutine. 
 
-0.06	
+0.06	FTN::Database - Create create_ftndb subroutine (not explicitly needed for default
+    DBI SQLite).  Also create set_ftndb_acl subroutine?	
 
 0.07	
 
-0.08	
+0.08	Add test subroutines for existing functions.
 
 0.09	Documentation updates
 
@@ -46,9 +44,8 @@ regarding that, to generalize it.
 FTN::Database
 -------------_
 - Create create_ftndb subroutine.
-- Move open_ftndb subroutine from scripts.
-- Move close_ftndb subroutine from scripts.
 - Create set_ftndb_acl subroutine?
+- Reword SYNOPIS section.
 
 FTN::Database::Nodelist
 ------------------------
@@ -66,7 +63,7 @@ FTN::Database::Nodelist
 - Use a different datatype than "TIMESTAMP" for the 'updated' filed in the
   nodelist table?  (Not generic enough?)
   
-nl2db
+nl2ftndb
 ---------
 - Script does not seem to properly handle a file that ends in just blank
   lines, instead of content line or a ^Z character.
