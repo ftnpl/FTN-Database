@@ -80,16 +80,18 @@ sub open_ftndb {
 
 =head2 close_ftndb
 
-Syntax close_ftndb($dbh);
+Syntax:  close_ftndb($db_handle);
 
-Closing an FTN database, where $dbh is an existing open database handle.
+Closing an FTN database, where $db_handle is an existing open database handle.
 
 =cut
 
 sub close_ftndb {
 
-    my $dbh = shift;
-    ( $dbh->disconnect ) or croak($DBI::errstr);
+    my $db_handle = shift;
+
+    ( $db_handle->disconnect ) or croak($DBI::errstr);
+
     return(0);
     
 }
