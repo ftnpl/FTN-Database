@@ -15,5 +15,5 @@ NLFILE=nodelist.197
 
 cd $APPDIR
 
-#$BINDIR/nl2ftndb -t $NLDIR [-T dbtype] [-D dbname] [-u dbuser] [-p dbpass] [-f nodelist] [-d fidonet] [-v] [-x] [-e] [-z zonenum] 2>$LOGDIR/nlsql.ftn.errors
-$BINDIR/nl2ftndb -t $NLDIR -f $NLFILE -l $LOGFILE -d fidonet -z 1 -e -v 2>$LOGDIR/nl2ftndb.ftn.errors
+#$BINDIR/nl2ftndb -n $NLDIR [-T dbtype] [-D dbname] [-u dbuser] [-p dbpass] [-f nodelist] [-d fidonet] [-v] [-x] [-e] [-z zonenum] 2>$LOGDIR/nlsql.ftn.errors
+$BINDIR/nl2ftndb -n $NLDIR -f $NLFILE -l $LOGFILE -d fidonet -z 1 -e -v 2>$LOGDIR/nl2ftndb.ftn.errors
