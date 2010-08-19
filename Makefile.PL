@@ -8,6 +8,7 @@ WriteMakefile(
     VERSION        	=> '1.3',
     ABSTRACT       	=> 'Perl scripts for using an SQL database for Fidonet/FTN Nodelist processing',
     LICENSE        	=> 'perl',
+    EXE_FILES           => [ qw( bin/net2file.pl bin/nl2db.pl bin/nldbadm.pl ) ],
     PL_FILES            => {},
     PREREQ_PM => {
         'Getopt::Std'   	=> 0,
