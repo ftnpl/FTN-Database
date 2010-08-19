@@ -1,5 +1,11 @@
 Revision history for FTN-Database (ftnpldb) 
 
+0.04    Thu Aug 19 15:34 2010
+    	- Add LICENSE information to Makefile.PL.
+    	- Add EXE_FILES information to Makefile.PL.    	
+	- Rewrite example code snippet in lib/FTN/Database.pm.
+	- Rewrite lib/FTN/Database/Nodelist.pm example code snippet.
+
 0.03    Wed Aug 18 14:43 2010
     	- Correct PREREQ_PM list in Makefile.PL file.
     	- Correct FTN::Database SUPPORT module references.
