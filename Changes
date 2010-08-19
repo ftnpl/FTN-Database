@@ -1,6 +1,10 @@
 Changes
 --------
 
+19 Aug 2010
+    - Added License information to Makefile.PL file.
+    - Added EXE_FILES information to Makefile.PL file.
+
 18 Aug 2010
     - Added MANIFEST and Makefile.PL files.
     - Moved example shell scripts to doc/examples.
