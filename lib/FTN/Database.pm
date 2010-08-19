@@ -27,8 +27,10 @@ Perhaps a little code snippet.
 
     use FTN::Database;
 
-    my $foo = FTN::Database->new();
+    my $db_handle = open_ftndb($db_type, $db_name, $db_user, $db_pass);
     ...
+    close_ftndb($db_handle);
+
 
 =head1 EXPORT
 
