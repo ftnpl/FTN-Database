@@ -1,26 +1,5 @@
 To Do:
 
-Tentative plan for initial version changes.
-------------------------------------------------------------------------------------
-
-0.04	FTN::Database::Nodelist - Derive a subroutine for executing queries on the
-    nodelist table from the code used in the net2file subroutine. 
-
-0.05	Documentation updates;  modules, scripts, etc.
-
-0.06	Add test subroutines for existing functions.
-
-0.07	FTN::Database - Create create_ftndb subroutine (not explicitly needed for
-    default DBI SQLite).  Add function to use it, to the ftndbadm program. Also
-    create set_ftndb_acl subroutine?	
-
-0.08	
-
-0.09	
-
-0.10	Initial release & distribution?
-
-
 General
 --------
 
@@ -42,27 +21,33 @@ where it is not a good idea to use them at all.  Redo the comments in scripts an
 modules regarding that, to generalize it.  (Derive function to validate it and add
 that to the FTN::Database module?)
 
-- Add a note in the documtataion that the version number in the bin/ Perl scripts
+- Add a note in the documentation that the version number in the bin/ Perl scripts
 matches up to the oldest version of the modules that they will run with.
+
 
 FTN::Database
 -------------_
-- Add an explicit function to create a database, create_ftndb;  it's not needed
-  for an sqlite database but it can be for others.
-- Create set_ftndb_acl subroutine? (Same as for create_ftndb.)
+- Add an explicit function to create a database, create_ftndb (not explicitly
+  needed for default DBD SQLite but it can be for others).  Add function to use
+  it, to the ftndbadm program.
+- Create set_ftndb_acl subroutine? (Same reasoning as for create_ftndb.)
 - Reword SYNOPIS section.
+
 
 FTN::Database::Nodelist
 ------------------------
-- Move get_nodelist_filename subroutine from nl2ftndb script?
+- Derive and move a function for executing queries on the nodelist table from
+  the code used in the net2file subroutine. 
 - Derive and move function for removing all nodelist table entries for a
   particular domain from the code in bin/nl2fdndb.
 - Derive and move function to insert or update an entry from nl2ftndb. Separate
   functions for insert & update, or different options in same function?
+- Move get_nodelist_filename subroutine from nl2ftndb script?
 - Possible function/subroutine that checks if a valid nodelist table 
   name is being used?
 - Use a different datatype than "TIMESTAMP" for the 'updated' filed in the
   nodelist table?  (Not generic enough?)
+  
   
 nl2ftndb
 ---------
@@ -84,7 +69,7 @@ ftndbadm
 - Add better error checking.
 - Add quiet option, -q, for logging only operation ? 
 - Add an explicit function to create a database;  it's not needed for sqlite
-  databases but it can be for others.
+  databases but it can be for others.  (See ToDo for FTN:Database)
 - Add cammand/options to create or drop the ftnnode index on the nodelist table.?
 - Separate out the nodelist related options to a separate ftndb-nl-adm script? May
   not need to if can reorganize it by command.
