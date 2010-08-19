@@ -7,6 +7,7 @@ WriteMakefile(
     AUTHOR              => 'Robert James Clay <jame@rocasa.us>',
     VERSION        	=> '1.3',
     ABSTRACT       	=> 'Perl scripts for using an SQL database for Fidonet/FTN Nodelist processing',
+    LICENSE        	=> 'perl',
     PL_FILES            => {},
     PREREQ_PM => {
         'Getopt::Std'   	=> 0,
