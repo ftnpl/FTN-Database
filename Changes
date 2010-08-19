@@ -1,6 +1,13 @@
 Changes
 --------
 
+18 Aug 2010
+    - Added MANIFEST and Makefile.PL files.
+    - Moved example shell scripts to doc/examples.
+    - Move Perl scripst to bin directory.
+    - Update README files to reflect changes.
+    - Move file_id.diz to doc directory.
+    
 13 Aug 2010
     - Reword the file_id.diz file. Edit/update README file.
     - Correct format of year date here in the Changes file.
