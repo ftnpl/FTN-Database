@@ -8,18 +8,6 @@ Perl scripts for using an SQL database for fidonet/FTN nodelist
 processing.  This version uses only standard Perl and a database engine
 for which a DBD module exists, defaulting to SQLite.
 
-Note that the code history for the nl2sql scripts is now in the GIT branch of the same
-name, available in the ftnpldb repository as follows:
-git clone git://ftnpl.git.sourceforge.net/gitroot/ftnpl/ftnpldb.git (Read Only)
-http://ftnpl.git.sourceforge.net/git/gitweb.cgi?p=ftnpl/ftnpldb.git (Browse Online)
-
-The ftnpl-user or ftnpl-develop mailing lists are available from the project site;
-however, FTN echos like PERL or BBS_CARNIVAL can be used for discussions regarding
-the nl2sql scripts as well and are the preferred avenues for support.
-
-==================
-Files
-----------------
 net2file.pl     Perl script that lists a specified net from a specified zone of a 
 		nodelist table containing information from a Fidonet/FTN St. Louis
 		format nodelist to text file.
@@ -29,30 +17,46 @@ nl2db.pl        Perl script that loads an Fidonet/FTN nodelist into an sql datab
 nldbadm.pl      Perl script to create a nodelist table and other database
 		administrative functions.
 
-bin/		Directory where example shell scripts for using the nl2sql
-		scripts are distributed.
-bin/loadzone.sh	Example script named loadzone.sh that loads a specific zone from
-		a specific nodelist file.
-bin/nl2db.sh  	Example shell script, uses nl2db.pl with parameters to load
-		two nodelist files into an existing sqlite database.
-bin/net2file.sh Example script to list a specific net from specific zone of a 
-		nodelist table containing information from a Fidonet/FTN
-		St. Louis format nodelist.
-bin/nltable.sh  Example script to create a nodelist table using nldbadm.pl.
-bin/README	Readme file with information about the example shell scripts.
 
-doc/TODO	What needs to be worked on
-doc/Changes	What has been done
-doc/README.Modules  Readme file with information about the neccessary Perl Modules
-		will be, and/or where information about them will be. 
-		for this archive.
+This is a listing of the Perl Modules which are required and/or can be used
+with the nl2sql scripts.  Information about where they can be obtained is also
+provided as neccessary.
 
-README          This file
+FTN::Log	Must be a least v0.02, for the 'logging' subroutine as used by the
+		scripts.  If not installed, it may be obtained from www.cpan.org,
+		or from ftnpl.sourceforge.net or from a BBS carrying the PERLFDN
+		file echo.
 
-nl2db.*.errors   Error output from nl2db.pl, by nl2db.sh.
-nl2db.*.out      Standard output from nl2db.pl, by nl2db.sh.
-nltable.errors   Error output from nldbadm.pl, by nltable.sh.
-nodelist.log	 Default name of log file
+Getopt::Std	May already be installed on your system;  if not, one place
+		it may be obtained is at cpan (www.cpan.org).
+
+DBD::SQLite	Default database engine is SQLite, so this one should be installed.
+		Any other database engines will be named similarly and should be
+		installed if used.  May	already be installed on your system;  if
+		not, one place they may be obtained is at cpan (www.cpan.org).
+
+
+INSTALLATION
+
+  Uncompress the archive, then change to that newly
+created directory & do the following:
+
+   1) perl Makefile.PL  
+   2) make
+   3) make test (optional)
+   4) make install
+
+
+SUPPORT
+
+Note that the code history for the nl2sql scripts is now in the GIT branch of the same
+name, available in the ftn-database repository as follows:
+git clone git://ftnpl.git.sourceforge.net/gitroot/ftnpl/ftn-database.git (Read Only)
+http://ftnpl.git.sourceforge.net/git/gitweb.cgi?p=ftnpl/ftn-database.git (Browse Online)
+
+The ftnpl-user or ftnpl-develop mailing lists are available from the project site;
+however, FTN echos like PERL or BBS_CARNIVAL can be used for discussions regarding
+the nl2sql scripts as well and are the preferred avenues for support.
 
 ========================
 

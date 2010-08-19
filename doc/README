@@ -1,0 +1,25 @@
+doc/README
+
+Documentation directory
+
+
+TODO		What is still needed to be done
+
+file_id.diz	Example file containing information for use distributing the
+		nl2sql scripts via an FTN File Echo.
+
+doc/examples	Directory for example shell scripts
+
+
+
+========================
+
+Copyright (c) 2001-2010 Robert James Clay.  All Rights Reserved.
+This is free software;  you can redistribute it and/or
+modify it under the same terms as Perl itself.
+
+Jame
+    Robert J. Clay, jame@users.sf.net
+    http://ftnpl.sourceforge.net
+    Sysop, 1:120/544@fidonet
+   
