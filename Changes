@@ -1,5 +1,10 @@
 Revision history for FTN-Database (ftnpldb) 
 
+0.05    Thu Aug 19 21:45 2010
+    	- Now doing a reverse sort of the nodelist filelist being obtained
+    	from the nodelist directory in the get_nodelist_filename subroutine
+    	in bin/nl2ftndb.
+
 0.04    Thu Aug 19 15:34 2010
     	- Add LICENSE information to Makefile.PL.
     	- Add EXE_FILES information to Makefile.PL.    	
