@@ -357,7 +357,7 @@ sub get_nodelist_filename {
     if ($opt_v) { logging($Logfile, $progid, "Searching for $basename files.") }
 
     opendir( DIR, $nldir );
-    @files = grep( /$basename\.[0-9][0-9][0-9]$/i, readdir(DIR) );
+    @files = sort {$b cmp $a} (grep( /$basename\.[0-9][0-9][0-9]$/i, readdir(DIR) ));
     closedir(DIR);
 
     if ( $#files == -1 ) {
