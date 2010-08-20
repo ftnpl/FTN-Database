@@ -6,9 +6,12 @@ General
 - The default user and password parameters for an SQLite date is a an empty
   string;  change the default coding for those in the Perl scripts.2
 
-- Redo the variables used in the scripts for readability, including by
+- Redo the variables used in the Perl scripts for readability, including by
 separating the words in the variables by underscores.
-  
+
+- Change the $BINDIR variable in the example shell scripts to /usr/local/bin,
+as that is where 'make install' puts the Perl scripts on a Linux system.
+    
 - Update/rewrite/etc comments and documentation as neccesary in all files.
 
 - The option added to define which type of database to use does not currently do
@@ -53,9 +56,10 @@ nl2ftndb
 ---------
 - Script does not seem to properly handle a file that ends in just blank
   lines, instead of content line or a ^Z character.
-- When there are multiple nodelists of the same name being processed, the
-  script is using just one of them;  but not always the most recent one like
-  it should. (get_nodelist_filename subroutine)
+- When there are multiple nodelists of the same basename being processed, the
+  filelist is being reverse sorted;  that takes care of a set of files all from
+  the same year but not ones that are from different years.
+  reverse sort on the file list, preferably when getting the file list.
 - Get quoteing working properly for entry into the database for fields like
   $loc & $name, so do not have to take out characters like single quotes, etc.
 - Also need to ensure that LF and/or CR characters at the end of each line do not
@@ -77,6 +81,7 @@ ftndbadm
 
 net2file
 ---------
-- Make this just an example script?
 - Add quiet option, -q, for logging only operation ? 
+- Make this just an example script?  Or generalize the name, like to nl2file & keeping 
+  extracting a net as an option along with other extraction options?
   
