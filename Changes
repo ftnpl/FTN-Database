@@ -1,5 +1,11 @@
 Revision history for FTN-Database (ftnpldb) 
 
+0.07	Sat Aug 21 18:19 2010
+    - Correct script name in Makefile.PL from net2file to listftndb.
+    - Correct wording regarding EOL change in previous Changes entry.
+    - Derive and move the remove_ftn_domain functions from nl2ftndb
+    to the FTN::Database::Nodelist module.
+
 0.06	Sat Aug 21 16:55 2010
     - Rename bin/net2file to bin/listftndb.
     - Change indentation formatting in Changes file.
@@ -7,8 +13,8 @@ Revision history for FTN-Database (ftnpldb)
     - Correct the ListFile open failure message in bin/listftndb.
     - Rename the doc/Changes.nl2sql file to doc/History and add it to the
     distribution.
-    - In bin/nlftndb;  strip EOL from nodelist lines in bin/nlftndb.  Removes
-    instances of \r\n or \n but not \r.
+    - In bin/nl2ftndb;  strip EOL from nodelist lines.  Removes instances
+    of \r\n or \n but not \r.
     - Correct all bin/* Perl scripts to being at version 0.06.  The version
     of the scripts is intended to be the same as the oldest version of the
     module(s) that each requires.
