@@ -230,6 +230,9 @@ while (<NODELIST>) {
     # if $flags is undefined (i.e., nothing after the baud rate)
     if ( !defined $flags ) {
         $flags = " ";
+    } 
+    else {
+        $flags =~ s/\r?\n$//;	# else remove EOL (removes \r\n or \n but not \r) from $flags
     }
 
     if ( $type eq "Zone" ) {    # Zone line
