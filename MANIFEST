@@ -5,6 +5,7 @@ README
 bin/listftndb
 bin/nl2ftndb
 bin/ftndbadm
+doc/History
 doc/TODO
 doc/examples/README
 doc/examples/loadzone.sh
