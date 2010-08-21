@@ -8,7 +8,7 @@ WriteMakefile(
     VERSION_FROM        => 'lib/FTN/Database.pm',
     ABSTRACT_FROM       => 'lib/FTN/Database.pm',
     LICENSE        	=> 'perl',
-    EXE_FILES           => [ qw( bin/net2file bin/nl2ftndb bin/ftndbadm ) ],
+    EXE_FILES           => [ qw( bin/listftndb bin/nl2ftndb bin/ftndbadm ) ],
     PL_FILES            => {},
     PREREQ_PM => {
         'Test::More' 		=> 0,
