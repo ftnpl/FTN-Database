@@ -11,7 +11,7 @@ separating the words in the variables by underscores. (Change "$progid" to
 "$log_id".)
 
 - Update/rewrite/etc comments and documentation as neccesary in all files.
-After creating pod for Perl scripts, move content of the example scripts
+After creating pod in Perl scripts, move content of the example scripts
 to the pod documentation of the appropriate Perl script.
 
 - The option added to define which type of database to use does not currently
@@ -44,22 +44,21 @@ FTN::Database
 - Create set_ftndb_acl subroutine? (Same reasoning as for create_ftndb.)
 - Add a 'SEE ALSO' section of some sort, & reference FTN::Database.Nodelist.
 - Reword SYNOPIS section.
+- Possible function/subroutine that checks if a valid database table name is
+  being used?
 
 
 FTN::Database::Nodelist
 ------------------------
 - Derive and move a function for executing queries on the nodelist table from
   the code used in the listftndb subroutine. 
-- Derive and move function for removing all nodelist table entries for a
-  particular domain from the code in bin/nl2fdndb.
 - Derive and move function to insert or update an entry from nl2ftndb. Separate
   functions for insert & update, or different options in same function?
 - Move get_nodelist_filename subroutine from nl2ftndb script?
-- Possible function/subroutine that checks if a valid nodelist table 
-  name is being used?
 - Add a 'SEE ALSO' section of some sort, & reference FTN::Database.
 - Use a different datatype than "TIMESTAMP" for the 'updated' filed in the
   nodelist table?  (Not generic enough?)
+
 
 nl2ftndb
 ---------
@@ -78,18 +77,18 @@ nl2ftndb
 FTN::Database::Echolist
 ------------------------
 - Create an FTN database module for echolists which:  Creates or Drops an
-echolist table, default name "Echolist"?  Basic table would consist of the
-following fields:  name, description, source.
+  echolist table, default name "Echolist"?  Basic table would consist of
+  (at least) the following fields:  name, description, source.
 - Create or drop an index on that basic echolist table.
 - Create an el2ftndb script, patterned after the nl2ftndb script, which can
-be used to load the echolist table.  
+  be used to load the echolist table.  
 
 
 ftndbadm
 --------
 - Add better error checking.
 - Add quiet option, -q, for logging only operation ? 
-- Add an explicit function to create a database;  it's not needed for sqlite
+- Add an explicit function to create a database;  it's not needed for SQLite
   databases but it can be for others.  (See ToDo for FTN:Database)
 - Add cammand/options to create or drop the ftnnode index on the nodelist table?
 - Reorganize script to use a set of commands, not just parameters.
@@ -101,5 +100,5 @@ listftndb
 - Change default output to STDOUT;  i.e., print to the screen.  Selected if the
   "-o" variable is not set.
 - Besides the print to screen output & output to text file, add option for html
-formatted output?  And/or just add a formated output using a template file?
+  formatted output?  And/or just add formated output using a template file?
   
