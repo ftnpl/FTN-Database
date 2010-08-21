@@ -16,7 +16,7 @@ use FTN::Database qw(&open_ftndb &close_ftndb);
 use FTN::Database::Nodelist qw(&create_nodelist_table &drop_nodelist_table &create_ftnnode_index &drop_ftnnode_index);
 use FTN::Log qw(&logging);
 
-our $VERSION = 0.06;
+our $VERSION = 0.07;
 
 my ( $dbtype, $dbname, $dbuser, $dbpass, $tblname, $dbh, $sql_stmt );
 
