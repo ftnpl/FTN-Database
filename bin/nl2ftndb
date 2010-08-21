@@ -16,7 +16,7 @@ use FTN::Database qw(&open_ftndb &close_ftndb);
 use FTN::Database::Nodelist qw(&create_ftnnode_index &drop_ftnnode_index);
 use FTN::Log qw(&logging);
 
-our $VERSION = 0.06;
+our $VERSION = 0.07;
 
 getopts('n:T:D:u:p:f:l:d:t:ehvxz:');
 
@@ -185,17 +185,8 @@ if ($opt_v) {
     logging($Logfile, $progid, "Deleteing old entries for '$domain'");
 }
 
-#   remove any and all entries where domain = $domain
-$sql_stmt = "DELETE FROM $tblname ";
-$sql_stmt .= "WHERE domain = '$domain' ";
-
-if ($opt_x) {
-    print "The delete statment is:  $sql_stmt ";
-}
-
-#	Execute the Delete SQL statement
-$dbh->do("$sql_stmt ")
-  or die logging($Logfile, $progid, $DBI::errstr);
+#   remove any and all entries where domain = $domain when doing in insert to the table
+FTN::Database::Nodelist::remove_ftn_domain($dbh, $tblename, $domain);
 
 # drop the old nodelist table index, if it exists.
 logging($Logfile, $progid, "Dropping existing nodelist table index if it already exists.");

@@ -10,11 +10,11 @@ FTN::Database::Nodelist - Fidonet/FTN Nodelist SQL Database operations.
 
 =head1 VERSION
 
-Version 0.06
+Version 0.07
 
 =cut
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 
 =head1 SYNOPSIS
@@ -37,7 +37,7 @@ Perhaps a little code snippet.
 =head1 EXPORT
 
 The following functions are available in this module:  create_nodelist_table(),
-drop_nodelist_table(), create_ftnnode_index().
+drop_nodelist_table(), create_ftnnode_index(), remove_ftn_domain().
 
 =head1 FUNCTIONS
 
@@ -142,6 +142,29 @@ sub drop_ftnnode_index {
     my $db_handle = shift;
 
     my $sql_stmt = "DROP INDEX IF EXISTS ftnnode";
+
+    $db_handle->do("$sql_stmt") or croak($DBI::errstr);
+
+    return(0);
+    
+}
+
+=head2 remove_ftn_domain
+
+Syntax:  remove_ftn_domain($db_handle, $table_name, $domain);
+
+Remove all entries for a particular FTN domain from an FTN nodelist table in an SQL
+database being used for FTN processing;  where $db_handle is an existing open database
+handle and $table_name is the name of the table from which the FTN domain $domain is
+being removed.
+
+=cut
+
+sub remove_ftn_domain {
+
+    my($db_handle, $table_name, $domain) = @_;
+
+    my $sql_stmt = "DELETE FROM $table_name WHERE domain = '$domain'";
 
     $db_handle->do("$sql_stmt") or croak($DBI::errstr);
 
