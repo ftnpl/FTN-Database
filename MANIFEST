@@ -2,7 +2,7 @@ Changes
 MANIFEST
 Makefile.PL
 README
-bin/net2file
+bin/listftndb
 bin/nl2ftndb
 bin/ftndbadm
 doc/TODO

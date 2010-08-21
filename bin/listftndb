@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# net2file - List a specific net from a specific zone of a nodelist table
+# listftndb - List a specific net from a specific zone of a nodelist table
 # containing information from a Fidonet/FTN St. Louis Format Nodelist to
 # a text file.
 #
@@ -23,7 +23,7 @@ my ( $dbtype, $dbname, $dbuser, $dbpass, $tblname, $dbh, $sql_stmt, $ZoneNum, $N
 getopts('n:o:t:T:D:u:p:hvxz:');
 
 if ($opt_h) {
-    print "\nUsage: listnet [-t nodelisttablename] [-T dbtype] [-D dbname] [-u dbuser] [-p dbpass] [-z zone] [-n net] [-o outfile] [-v] [-h]...\n";
+    print "\nUsage: listftndb [-t nodelisttablename] [-T dbtype] [-D dbname] [-u dbuser] [-p dbpass] [-z zone] [-n net] [-o outfile] [-v] [-h]...\n";
     print "-t                nodelisttablename = defaults to \'Nodelist\'. \n";
     print "[-T dbtype]       database type;  defaults to 'SQLite'.\n\n";
     print "[-D dbname]       database name & path;  defaults to 'ftndbtst'.\n\n";
