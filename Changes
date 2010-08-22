@@ -1,10 +1,15 @@
 Revision history for FTN-Database (ftnpldb) 
 
+0.08	Sat Aug 21 20:03 2010
+    The default DBI user and password parameters for an SQLite database
+    is an empty string;  change the default codeing for those in the bin/*
+    scripts.
+
 0.07	Sat Aug 21 18:19 2010
     - Correct script name in Makefile.PL from net2file to listftndb.
     - Correct wording regarding EOL change in previous Changes entry.
     - Derive and move the remove_ftn_domain functions from nl2ftndb
-    to the FTN::Database::Nodelist module.
+      to the FTN::Database::Nodelist module.
 
 0.06	Sat Aug 21 16:55 2010
     - Rename bin/net2file to bin/listftndb.
@@ -12,17 +17,17 @@ Revision history for FTN-Database (ftnpldb)
     - Drop pl extension from program name in help messages.
     - Correct the ListFile open failure message in bin/listftndb.
     - Rename the doc/Changes.nl2sql file to doc/History and add it to the
-    distribution.
+      distribution.
     - In bin/nl2ftndb;  strip EOL from nodelist lines.  Removes instances
-    of \r\n or \n but not \r.
+      of \r\n or \n but not \r.
     - Correct all bin/* Perl scripts to being at version 0.06.  The version
-    of the scripts is intended to be the same as the oldest version of the
-    module(s) that each requires.
+      of the scripts is intended to be the same as the oldest version of the
+      module(s) that each requires.
 
 0.05	Thu Aug 19 21:45 2010
     - Now doing a reverse sort of the nodelist filelist being obtained
-    from the nodelist directory in the get_nodelist_filename subroutine
-    in bin/nl2ftndb.
+      from the nodelist directory in the get_nodelist_filename subroutine
+      in bin/nl2ftndb.
 
 0.04	Thu Aug 19 15:34 2010
     - Add LICENSE information to Makefile.PL.
@@ -35,20 +40,20 @@ Revision history for FTN-Database (ftnpldb)
     - Correct FTN::Database SUPPORT module references.
     - Enable use of 'croak' function from the Carp module in the 
     - Use the full package names for the FTN::Database subroutines.
-    FTN::Database::Nodelist module.
+      FTN::Database::Nodelist module.
     - Derive and move the create_nodelist_table and drop_nodelist_table
-    functions from ftndbadm and nl2ftndb to the FTN::Database::Nodelist
-    module.
+      functions from ftndbadm and nl2ftndb to the FTN::Database::Nodelist
+      module.
     - Derive and move the create_ftnnode_index and drop_ftnnode_index
-    functions from ftndbadm and nl2ftndb to the FTN::Database::Nodelist
-    module.
+      functions from ftndbadm and nl2ftndb to the FTN::Database::Nodelist
+      module.
 
 0.02	Tue Aug 17 23:55 2010
     - Move examples to doc/examples source directory.
     - Corrected name of nl2ftndb in example loadzone.sh file.
     - Enable use of 'croak' function from the Carp module in FTN::Database.
     - Derive and move the open_ftndb and close_ftndb subroutines from the Perl
-    scripts to the FTN::Database module.
+      scripts to the FTN::Database module.
 	
 0.01	Sat Aug 14 17:29 2010
     Derive the initial v0.01 version of FTN-Database application from the
