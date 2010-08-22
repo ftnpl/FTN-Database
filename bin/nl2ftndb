@@ -82,7 +82,7 @@ if ($opt_u) {
     undef $opt_u;
 }
 else {
-    $dbuser = "sysop";    # default user is sysop
+    $dbuser = "";    # default user is an empty string, as default SQLite does not need it
 }
 #    Database password
 if ($opt_p) {
@@ -90,7 +90,7 @@ if ($opt_p) {
     undef $opt_p;
 }
 else {
-    $dbpass = "ftntstpw";    # default database password
+    $dbpass = "";    # default database password is an empty string, as default SQLite does not need it
 }
 
 #  setup nodelist file variables
@@ -323,8 +323,8 @@ sub help {
     print "    [-t tablename] = Nodelist table name;  defaults to 'Nodelist'.\n\n";
     print "    [-T dbtype] = database type;  defaults to 'SQLite'.\n\n";
     print "    [-D dbname] = database name & path;  defaults to 'ftndbtst'.\n\n";
-    print "    [-u dbuser] = database user;  defaults to 'sysop'.\n\n";
-    print "    [-p dbpass] = database password;  defaults to 'ftntstpw'.\n\n";
+    print "    [-u dbuser] = database user;  defaults to an empty string.\n\n";
+    print "    [-p dbpass] = database password;  defaults to ab empty string.\n\n";
     print "    nlfile= nodelist filename, defaults to 'Nodelist'.\n";
     print "    [-l logfile] = log filename (defaults to nodelist.log in current dir)\n";
     print "    [-d domain] = nodelist domain;  defaults to 'fidonet'.\n\n";

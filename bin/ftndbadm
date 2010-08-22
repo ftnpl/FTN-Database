@@ -33,8 +33,8 @@ if ($opt_h) {
     print "-t                nodelisttablename = defaults to \'Nodelist\'. \n";
     print "[-T dbtype]       database type;  defaults to 'SQLite'.\n\n";
     print "[-D dbname]       database name & path;  defaults to 'ftndbtst'.\n\n";
-    print "[-u dbuser]       database user;  defaults to 'sysop'.\n\n";
-    print "[-p dbpass]       database password;  defaults to 'ftntstpw'.\n\n";
+    print "[-u dbuser]       database user;  defaults to an empty string.\n\n";
+    print "[-p dbpass]       database password;  defaults to an empty string.\n\n";
     print "-v                verbose option \n\n";
     exit;
 }
@@ -77,15 +77,15 @@ if ($opt_u) {
     undef $opt_u;
 }
 else {
-    $dbuser = "sysop";    # default user is sysop
+    $dbuser = "";    # default user is an empty string, as default SQLite does not need it.
 }
 #    Database password
 if ($opt_p) {
-    $dbpass = $opt_p;    # Set database password
+    $dbpass = $opt_p;    # Set database passsward
     undef $opt_p;
 }
 else {
-    $dbpass = "ftntstpw";    # default database password
+    $dbpass = "";    # default database password is an empty string, as default SQLite does not need it
 }
 
 #  nodelist table name
