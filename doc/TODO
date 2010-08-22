@@ -2,10 +2,6 @@ To Do:
 
 General
 --------
-
-- The default DBI user and password parameters for an SQLite database is a
-an empty string;  change the default coding for those in the Perl scripts.
-
 - Redo the variables used in the Perl scripts for readability, including by
 separating the words in the variables by underscores. (Change "$progid" to
 "$log_id".)
