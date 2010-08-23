@@ -27,31 +27,31 @@ if ($opt_h) {
 
 my (
     $nldir, $nlfile, $db_handle, $sql_stmt, $domain, $type,
-    $num,   $name,   $loc, $nametmp,  $loctmp, $Logfile,
+    $num,   $name,   $loc, $nametmp,  $loctmp, $log_file,
     $sysop, $phone,  $bps, $flags,    $tblname, $db_name,
     $db_user, $db_password, $db_type
 );
 
 if ($opt_l) {
-    $Logfile = $opt_l;    # this needs to be the filename & path
+    $log_file = $opt_l;    # this needs to be the filename & path
     undef $opt_l;
 }
 else {
-    $Logfile = "nl2ftndb.log";    # default log file is in current dir
+    $log_file = "nl2ftndb.log";    # default log file is in current dir
 }
 
 my $log_id = "nl2db";
 
-logging($Logfile, $log_id, "Starting... ");
+logging($log_file, $log_id, "Starting... ");
 
 # note that "opt_v" is the verbose variable
 if ($opt_v) {
-    logging($Logfile, $log_id, "Verbose flag is set");
+    logging($log_file, $log_id, "Verbose flag is set");
 }
 
 # note that "opt_x" is the debug variable
 if ($opt_x) {
-    logging($Logfile, $log_id, "Debug flag is set");
+    logging($log_file, $log_id, "Debug flag is set");
 }
 
 #    Database type
@@ -66,7 +66,7 @@ else {
     $db_type = "SQLite";    # default database type is SQLite
     undef $opt_T;
 }
-if ($opt_v) { logging($Logfile, $log_id, "Database type being used is $db_type.") };
+if ($opt_v) { logging($log_file, $log_id, "Database type being used is $db_type.") };
 
 #    Database name
 if ($opt_D) {
@@ -100,7 +100,7 @@ if ($opt_n) {
 
     if ($opt_f) {
         if ($opt_e) {    # if set, then -f option must be exact file name
-            logging($Logfile, $log_id, "Using exact file name $opt_f.");
+            logging($log_file, $log_id, "Using exact file name $opt_f.");
             $nlfile = $opt_f;
         }
         else {    # if not set, then -f option is basename of nodelist file
@@ -120,8 +120,8 @@ else {
     exit(1);      #  exit after displaying usage if not set
 }
 
-logging($Logfile, $log_id, "Nodelist directory: '$nldir'");
-logging($Logfile, $log_id, "Nodelist file: '$nlfile'");
+logging($log_file, $log_id, "Nodelist directory: '$nldir'");
+logging($log_file, $log_id, "Nodelist file: '$nlfile'");
 
 if ($opt_x) {
     print "Nodelist file is '$nldir.$nlfile' ..\n";
@@ -130,10 +130,10 @@ if ($opt_x) {
 #  nodelist table name
 if ($opt_t) {
     if ( $opt_t =~ /\./ ) {    # period in proposed table name?
-        logging($Logfile, $log_id, "sqlite does not allow periods in table names.");
+        logging($log_file, $log_id, "sqlite does not allow periods in table names.");
         $opt_t =~ tr/\./_/;    # change period to underscore
         $tblname = $opt_t;     #
-        logging($Logfile, $log_id, "Changed table name to $tblname.");
+        logging($log_file, $log_id, "Changed table name to $tblname.");
     }
     else {                     # no period in name
         $tblname = $opt_t;     #  just assign to variable
@@ -149,12 +149,12 @@ my $OnlyZone = 0;     # Set default as zone 0, which is not used for zone number
 #  If the z parameter is defined
 if ($opt_z) {
     $OnlyZone = $opt_z;    # If defined;  is the only zone to be loaded
-    logging($Logfile, $log_id, "Only loading Zone: $OnlyZone");
+    logging($log_file, $log_id, "Only loading Zone: $OnlyZone");
     undef $opt_z;
 }
 
 open( NODELIST, "$nldir/$nlfile" )
-  or die logging($Logfile, $log_id, "Cannot open $nldir/$nlfile");
+  or die logging($log_file, $log_id, "Cannot open $nldir/$nlfile");
 
 #  set up domain variable
 if ($opt_d) {
@@ -164,10 +164,10 @@ else {
     $domain = 'fidonet';       # domain defaults to fidonet
 }
 if ($opt_v) {                  # log domain name
-    logging($Logfile, $log_id, "Domain: '$domain'");
+    logging($log_file, $log_id, "Domain: '$domain'");
 }
 if ($opt_x) {
-    logging($Logfile, $log_id, "Debug mode is set");
+    logging($log_file, $log_id, "Debug mode is set");
 }
 
 #  set defaults
@@ -182,18 +182,18 @@ $db_handle = FTN::Database::open_ftndb($db_type, $db_name, $db_user, $db_passwor
 
 #
 if ($opt_v) {
-    logging($Logfile, $log_id, "Deleteing old entries for '$domain'");
+    logging($log_file, $log_id, "Deleteing old entries for '$domain'");
 }
 
 #   remove any and all entries where domain = $domain when doing in insert to the table
 FTN::Database::Nodelist::remove_ftn_domain($db_handle, $tblname, $domain);
 
 # drop the old nodelist table index, if it exists.
-logging($Logfile, $log_id, "Dropping existing nodelist table index if it already exists.");
+logging($log_file, $log_id, "Dropping existing nodelist table index if it already exists.");
 FTN::Database::Nodelist::drop_ftnnode_index($db_handle);
 
 if ($opt_v) {
-    logging($Logfile, $log_id, "Loading database from nodelist $nlfile");
+    logging($log_file, $log_id, "Loading database from nodelist $nlfile");
 }
 
 while (<NODELIST>) {
@@ -288,18 +288,18 @@ while (<NODELIST>) {
 
     #	Execute the insert SQL statment
     $db_handle->do("$sql_stmt ")
-      or die logging($Logfile, $log_id, $DBI::errstr);
+      or die logging($log_file, $log_id, $DBI::errstr);
 
 }
 
 if ($opt_v) {    #
-    logging($Logfile, $log_id, "Create ftnnode index");
+    logging($log_file, $log_id, "Create ftnnode index");
 }
 # Recreate ftnnode Index
 FTN::Database::Nodelist::create_ftnnode_index($db_handle, $tblname);
 
 if ($opt_v) {    #
-    logging($Logfile, $log_id, "Closing database");
+    logging($log_file, $log_id, "Closing database");
 }
 
 # disconnect from database
@@ -307,7 +307,7 @@ FTN::Database::close_ftndb($db_handle);
 
 close NODELIST;
 
-logging($Logfile, $log_id, "Ending... ");
+logging($log_file, $log_id, "Ending... ");
 
 exit();
 
@@ -318,7 +318,7 @@ exit();
 # Help message
 ############################################
 sub help {
-    print "\nUsage: nl2ftndb -n nldir [-t tablename] [-T db_type] [-D db_name] [-D db_name] [-u db_user] [-p db_password] [-f nlfile] [-l logfile] [-d domain] [-e] [-v] [-x] [-z zonenum]...\n";
+    print "\nUsage: nl2ftndb -n nldir [-t tablename] [-T db_type] [-D db_name] [-D db_name] [-u db_user] [-p db_password] [-f nlfile] [-l log_file] [-d domain] [-e] [-v] [-x] [-z zonenum]...\n";
     print "    -n nldir = nodelist directory...\n";
     print "    [-t tablename] = Nodelist table name;  defaults to 'Nodelist'.\n\n";
     print "    [-T db_type] = database type;  defaults to 'SQLite'.\n\n";
@@ -326,7 +326,7 @@ sub help {
     print "    [-u db_user] = database user;  defaults to an empty string.\n\n";
     print "    [-p db_password] = database password;  defaults to ab empty string.\n\n";
     print "    nlfile= nodelist filename, defaults to 'Nodelist'.\n";
-    print "    [-l logfile] = log filename (defaults to nodelist.log in current dir)\n";
+    print "    [-l log_file] = log filename (defaults to nodelist.log in current dir)\n";
     print "    [-d domain] = nodelist domain;  defaults to 'fidonet'.\n\n";
     print "    [-z zonenum] = If present, then only the defined zone 'zonenum' is loaded.\n";
     print "   -e	If present, then nlfile is exact filename\n";
@@ -348,14 +348,14 @@ sub get_nodelist_filename {
 
     my ($basename) = @_;
 
-    if ($opt_v) { logging($Logfile, $log_id, "Searching for $basename files.") }
+    if ($opt_v) { logging($log_file, $log_id, "Searching for $basename files.") }
 
     opendir( DIR, $nldir );
     @files = sort {$b cmp $a} (grep( /$basename\.[0-9][0-9][0-9]$/i, readdir(DIR) ));
     closedir(DIR);
 
     if ( $#files == -1 ) {
-        logging($Logfile, $log_id, "Nodelist files $basename not found");
+        logging($log_file, $log_id, "Nodelist files $basename not found");
         print("\nNodelist files $basename not found.\n");
         help;
         exit();
@@ -363,13 +363,13 @@ sub get_nodelist_filename {
     else {
         if ($opt_v) {
             for ( $i = 0 ; $i < @files ; $i++ ) {
-                logging($Logfile, $log_id, "Nodelist file $i found: $files[$i]");
+                logging($log_file, $log_id, "Nodelist file $i found: $files[$i]");
             }
         }
     }
 
     if ( $#files > 1 ) {
-        logging($Logfile, $log_id, "More than one '$basename' found, using first.");
+        logging($log_file, $log_id, "More than one '$basename' found, using first.");
     }
 
     return ( $files[0] );    # return filename
