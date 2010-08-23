@@ -325,7 +325,7 @@ sub help {
     print "    [-D db_name] = database name & path;  defaults to 'ftndbtst'.\n\n";
     print "    [-u db_user] = database user;  defaults to an empty string.\n\n";
     print "    [-p db_password] = database password;  defaults to ab empty string.\n\n";
-    print "    nodelist_file= nodelist filename, defaults to 'Nodelist'.\n";
+    print "    [-f nodelist_file] = nodelist filename, defaults to 'Nodelist'.\n";
     print "    [-l log_file] = log filename (defaults to nodelist.log in current dir)\n";
     print "    [-d domain] = nodelist domain;  defaults to 'fidonet'.\n\n";
     print "    [-z zonenum] = If present, then only the defined zone 'zonenum' is loaded.\n";
