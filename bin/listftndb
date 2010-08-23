@@ -16,7 +16,7 @@ use FTN::Database qw(&open_ftndb &close_ftndb);
 
 our $VERSION = 0.09;
 
-my ( $db_type, $db_name, $db_user, $db_password, $table_name, $db_handle, $sql_statement, $zone_number, $NetNum, $list_file );
+my ( $db_type, $db_name, $db_user, $db_password, $table_name, $db_handle, $sql_statement, $zone_number, $net_number, $list_file );
 
 #print @INC"\n";
 
@@ -30,7 +30,7 @@ if ($opt_h) {
     print "[-u db_user]       database user;  defaults to an empty string.\n\n";
     print "[-p db_password]       database password;  defaults to an empty string.\n\n";
     print "[-z zone_number]      zone_number number = defaults to 1. \n";
-    print "[-n netnum]       Net number = defaults to 1. \n";
+    print "[-n net_number]       Net number = defaults to 1. \n";
     print "[-o outfile]      Output file (plus path) = defaults to outfile.txt in current directory.\n";
     print "-v                Verbose option \n";
     print "-x                Debug option \n\n";
@@ -114,11 +114,11 @@ else {
 
 #    FTN Net number
 if ($opt_n) {
-    $NetNum = $opt_n;    # Set net number 
+    $net_number = $opt_n;    # Set net number 
     undef $opt_n;
 }
 else {
-    $NetNum = 1;    # default net number
+    $net_number = 1;    # default net number
 }
 
 #    Output file
@@ -135,7 +135,7 @@ else {
 $db_handle = FTN::Database::open_ftndb($db_type, $db_name, $db_user, $db_password);
 
 # build Select query sql statement
-$sql_statement = "SELECT * FROM $table_name WHERE zone = $zone_number and net = $NetNum ";
+$sql_statement = "SELECT * FROM $table_name WHERE zone = $zone_number and net = $net_number ";
 $sql_statement .= "ORDER by node ASC";
 
 # execute query
@@ -148,7 +148,7 @@ local(*F);
 
 open(F, ">$list_file") or die "Cannot open $list_file\n"; 
 
-print F "Listing Zone $zone_number Net $NetNum from FTN database:\n\n";
+print F "Listing Zone $zone_number Net $net_number from FTN database:\n\n";
 
 while($query_handle->fetch()) {
    print F "$zone:$net/$node, $name, $location, $sysop, $phone, $baud, $flags";
