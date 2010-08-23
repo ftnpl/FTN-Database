@@ -27,7 +27,7 @@ if ($opt_h) {
 
 my (
     $nodelist_directory, $nodelist_file, $db_handle, $sql_statement, $domain, $type,
-    $num,   $name,   $loc, $nametmp,  $loctmp, $log_file,
+    $number,   $name,   $loc, $nametmp,  $loctmp, $log_file,
     $sysop, $phone,  $bps, $flags,    $table_name, $db_name,
     $db_user, $db_password, $db_type
 );
@@ -203,7 +203,7 @@ while (<NODELIST>) {
         next;
     }
 
-    ( $type, $num, $name, $loc, $sysop, $phone, $bps, $flags ) =
+    ( $type, $number, $name, $loc, $sysop, $phone, $bps, $flags ) =
       split( ',', $_, 8 );
 
     # originally took care of these by deleteing them
@@ -227,21 +227,21 @@ while (<NODELIST>) {
     }
 
     if ( $type eq "Zone" ) {    # Zone line
-        $zone = $num;
-        $net  = $num;
+        $zone = $number;
+        $net  = $number;
         $node = 0;
     }    #
     elsif ( $type eq "Region" ) {    # Region line
-        $region = $num;
-        $net    = $num;
+        $region = $number;
+        $net    = $number;
         $node   = 0;
     }
     elsif ( $type eq "Host" ) {      # Host line
-        $net  = $num;
+        $net  = $number;
         $node = 0;
     }
     else {
-        $node = $num;
+        $node = $number;
     }
 
     # display where in the nodelist we are if debug flag is set
