@@ -26,7 +26,7 @@ if ($opt_h) {
 }
 
 my (
-    $nldir, $nlfile, $db_handle, $sql_stmt, $domain, $type,
+    $nldir, $nodelist_file, $db_handle, $sql_stmt, $domain, $type,
     $num,   $name,   $loc, $nametmp,  $loctmp, $log_file,
     $sysop, $phone,  $bps, $flags,    $table_name, $db_name,
     $db_user, $db_password, $db_type
@@ -101,16 +101,16 @@ if ($opt_n) {
     if ($opt_f) {
         if ($opt_e) {    # if set, then -f option must be exact file name
             logging($log_file, $log_id, "Using exact file name $opt_f.");
-            $nlfile = $opt_f;
+            $nodelist_file = $opt_f;
         }
         else {    # if not set, then -f option is basename of nodelist file
-            $nlfile = get_nodelist_filename($opt_f);
+            $nodelist_file = get_nodelist_filename($opt_f);
         }
 
     }
     else {        # if not set,
                   #  filename defaults to basename nodelist
-        $nlfile = get_nodelist_filename("nodelist");
+        $nodelist_file = get_nodelist_filename("nodelist");
     }
 
 }
@@ -121,10 +121,10 @@ else {
 }
 
 logging($log_file, $log_id, "Nodelist directory: '$nldir'");
-logging($log_file, $log_id, "Nodelist file: '$nlfile'");
+logging($log_file, $log_id, "Nodelist file: '$nodelist_file'");
 
 if ($opt_x) {
-    print "Nodelist file is '$nldir.$nlfile' ..\n";
+    print "Nodelist file is '$nldir.$nodelist_file' ..\n";
 }
 
 #  nodelist table name
@@ -153,8 +153,8 @@ if ($opt_z) {
     undef $opt_z;
 }
 
-open( NODELIST, "$nldir/$nlfile" )
-  or die logging($log_file, $log_id, "Cannot open $nldir/$nlfile");
+open( NODELIST, "$nldir/$nodelist_file" )
+  or die logging($log_file, $log_id, "Cannot open $nldir/$nodelist_file");
 
 #  set up domain variable
 if ($opt_d) {
@@ -193,7 +193,7 @@ logging($log_file, $log_id, "Dropping existing nodelist table index if it alread
 FTN::Database::Nodelist::drop_ftnnode_index($db_handle);
 
 if ($opt_v) {
-    logging($log_file, $log_id, "Loading database from nodelist $nlfile");
+    logging($log_file, $log_id, "Loading database from nodelist $nodelist_file");
 }
 
 while (<NODELIST>) {
@@ -278,7 +278,7 @@ while (<NODELIST>) {
     $sql_stmt .= "'$bps', ";
     $sql_stmt .= "'$flags', ";
     $sql_stmt .= "'$domain', ";
-    $sql_stmt .= "'$nlfile') ";
+    $sql_stmt .= "'$nodelist_file') ";
 
     #  this will be a debug option, but after start using more
     # complex parameter passing
@@ -318,18 +318,18 @@ exit();
 # Help message
 ############################################
 sub help {
-    print "\nUsage: nl2ftndb -n nldir [-t tablename] [-T db_type] [-D db_name] [-D db_name] [-u db_user] [-p db_password] [-f nlfile] [-l log_file] [-d domain] [-e] [-v] [-x] [-z zonenum]...\n";
+    print "\nUsage: nl2ftndb -n nldir [-t tablename] [-T db_type] [-D db_name] [-D db_name] [-u db_user] [-p db_password] [-f nodelist_file] [-l log_file] [-d domain] [-e] [-v] [-x] [-z zonenum]...\n";
     print "    -n nldir = nodelist directory...\n";
     print "    [-t tablename] = Nodelist table name;  defaults to 'Nodelist'.\n\n";
     print "    [-T db_type] = database type;  defaults to 'SQLite'.\n\n";
     print "    [-D db_name] = database name & path;  defaults to 'ftndbtst'.\n\n";
     print "    [-u db_user] = database user;  defaults to an empty string.\n\n";
     print "    [-p db_password] = database password;  defaults to ab empty string.\n\n";
-    print "    nlfile= nodelist filename, defaults to 'Nodelist'.\n";
+    print "    nodelist_file= nodelist filename, defaults to 'Nodelist'.\n";
     print "    [-l log_file] = log filename (defaults to nodelist.log in current dir)\n";
     print "    [-d domain] = nodelist domain;  defaults to 'fidonet'.\n\n";
     print "    [-z zonenum] = If present, then only the defined zone 'zonenum' is loaded.\n";
-    print "   -e	If present, then nlfile is exact filename\n";
+    print "   -e	If present, then nodelist_file is exact filename\n";
     print "   -v	Verbose Mode\n";
     print "   -x	Debug Mode\n";
 }
