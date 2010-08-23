@@ -18,7 +18,7 @@ use FTN::Log qw(&logging);
 
 our $VERSION = 0.09;
 
-my ( $db_type, $db_name, $db_user, $db_password, $table_name, $db_handle, $sql_stmt );
+my ( $db_type, $db_name, $db_user, $db_password, $table_name, $db_handle );
 
 my $log_file = "stdout";
 
