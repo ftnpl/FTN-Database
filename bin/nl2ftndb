@@ -26,7 +26,7 @@ if ($opt_h) {
 }
 
 my (
-    $nodelist_directory, $nodelist_file, $db_handle, $sql_stmt, $domain, $type,
+    $nodelist_directory, $nodelist_file, $db_handle, $sql_statement, $domain, $type,
     $num,   $name,   $loc, $nametmp,  $loctmp, $log_file,
     $sysop, $phone,  $bps, $flags,    $table_name, $db_name,
     $db_user, $db_password, $db_type
@@ -259,35 +259,35 @@ while (<NODELIST>) {
     }
     
     #	Build Insert Statement
-    $sql_stmt = "INSERT INTO $table_name ";
+    $sql_statement = "INSERT INTO $table_name ";
 
-    $sql_stmt .= "(type,zone,net,node,point,region,name,";
-    $sql_stmt .= "location,sysop,phone,baud,flags,domain,source) ";
-    $sql_stmt .= "VALUES (";
+    $sql_statement .= "(type,zone,net,node,point,region,name,";
+    $sql_statement .= "location,sysop,phone,baud,flags,domain,source) ";
+    $sql_statement .= "VALUES (";
 
-    $sql_stmt .= "'$type', ";
-    $sql_stmt .= "'$zone', ";
-    $sql_stmt .= "'$net', ";
-    $sql_stmt .= "'$node', ";
-    $sql_stmt .= "'$point', ";
-    $sql_stmt .= "'$region', ";
-    $sql_stmt .= "'$name', ";
-    $sql_stmt .= "'$loc', ";
-    $sql_stmt .= "'$sysop', ";
-    $sql_stmt .= "'$phone', ";
-    $sql_stmt .= "'$bps', ";
-    $sql_stmt .= "'$flags', ";
-    $sql_stmt .= "'$domain', ";
-    $sql_stmt .= "'$nodelist_file') ";
+    $sql_statement .= "'$type', ";
+    $sql_statement .= "'$zone', ";
+    $sql_statement .= "'$net', ";
+    $sql_statement .= "'$node', ";
+    $sql_statement .= "'$point', ";
+    $sql_statement .= "'$region', ";
+    $sql_statement .= "'$name', ";
+    $sql_statement .= "'$loc', ";
+    $sql_statement .= "'$sysop', ";
+    $sql_statement .= "'$phone', ";
+    $sql_statement .= "'$bps', ";
+    $sql_statement .= "'$flags', ";
+    $sql_statement .= "'$domain', ";
+    $sql_statement .= "'$nodelist_file') ";
 
     #  this will be a debug option, but after start using more
     # complex parameter passing
     #    if ($opt_x) {
-    #        print " $sql_stmt ";
+    #        print " $sql_statement ";
     #    }
 
     #	Execute the insert SQL statment
-    $db_handle->do("$sql_stmt ")
+    $db_handle->do("$sql_statement ")
       or die logging($log_file, $log_id, $DBI::errstr);
 
 }
