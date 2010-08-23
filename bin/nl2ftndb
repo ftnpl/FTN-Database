@@ -27,7 +27,7 @@ if ($opt_h) {
 
 my (
     $nodelist_directory, $nodelist_file, $db_handle, $sql_statement, $domain, $type,
-    $number,   $name,   $loc, $nametmp,  $loctmp, $log_file,
+    $number,   $name,   $loc,  $log_file,
     $sysop, $phone,  $bps, $flags,    $table_name, $db_name,
     $db_user, $db_password, $db_type
 );
@@ -212,11 +212,6 @@ while (<NODELIST>) {
     $loc =~ tr/\'//d;     #  take care of single quotes in location fields
 
     $sysop =~ tr/\'//d;   # take care of single quotes in sysop name fields
-
-    # now trying to escape them,  does not work   6/19/02
-
-    #    $nametmp = $db_handle->quote($name);  $name = $nametmp;
-    #    $loctmp = $db_handle->quote($loc);  $loc = $loctmp;
 
     # if $flags is undefined (i.e., nothing after the baud rate)
     if ( !defined $flags ) {
