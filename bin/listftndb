@@ -16,16 +16,16 @@ use FTN::Database qw(&open_ftndb &close_ftndb);
 
 our $VERSION = 0.09;
 
-my ( $dbtype, $dbname, $dbuser, $dbpass, $tblname, $db_handle, $sql_stmt, $ZoneNum, $NetNum, $ListFile );
+my ( $db_type, $dbname, $dbuser, $dbpass, $tblname, $db_handle, $sql_stmt, $ZoneNum, $NetNum, $ListFile );
 
 #print @INC"\n";
 
 getopts('n:o:t:T:D:u:p:hvxz:');
 
 if ($opt_h) {
-    print "\nUsage: listftndb [-t nodelisttablename] [-T dbtype] [-D dbname] [-u dbuser] [-p dbpass] [-z zone] [-n net] [-o outfile] [-v] [-h]...\n";
+    print "\nUsage: listftndb [-t nodelisttablename] [-T db_type] [-D dbname] [-u dbuser] [-p dbpass] [-z zone] [-n net] [-o outfile] [-v] [-h]...\n";
     print "-t                nodelisttablename = defaults to \'Nodelist\'. \n";
-    print "[-T dbtype]       database type;  defaults to 'SQLite'.\n\n";
+    print "[-T db_type]       database type;  defaults to 'SQLite'.\n\n";
     print "[-D dbname]       database name & path;  defaults to 'ftndbtst'.\n\n";
     print "[-u dbuser]       database user;  defaults to an empty string.\n\n";
     print "[-p dbpass]       database password;  defaults to an empty string.\n\n";
@@ -52,14 +52,14 @@ if ($opt_v) {
 #    the type being the name as used in the DBD module.  The default
 #    type is SQLite.
 if ($opt_T) {
-    $dbtype = $opt_T;
+    $db_type = $opt_T;
     undef $opt_T;
 }
 else {
-    $dbtype = "SQLite";    # default database type is SQLite
+    $db_type = "SQLite";    # default database type is SQLite
     undef $opt_T;
 }
-if ($opt_v) { print "Database type being used is $dbtype.\n" };
+if ($opt_v) { print "Database type being used is $db_type.\n" };
 
 #    Database name
 if ($opt_D) {
@@ -132,7 +132,7 @@ else {
 
 
 # connect to database
-$db_handle = FTN::Database::open_ftndb($dbtype, $dbname, $dbuser, $dbpass);
+$db_handle = FTN::Database::open_ftndb($db_type, $dbname, $dbuser, $dbpass);
 
 # build Select query sql statement
 $sql_stmt = "SELECT * FROM $tblname WHERE zone = $ZoneNum and net = $NetNum ";

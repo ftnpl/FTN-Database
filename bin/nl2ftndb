@@ -29,7 +29,7 @@ my (
     $nldir, $nlfile, $db_handle, $sql_stmt, $domain, $type,
     $num,   $name,   $loc, $nametmp,  $loctmp, $Logfile,
     $sysop, $phone,  $bps, $flags,    $tblname, $dbname,
-    $dbuser, $dbpass, $dbtype
+    $dbuser, $dbpass, $db_type
 );
 
 if ($opt_l) {
@@ -59,14 +59,14 @@ if ($opt_x) {
 #    the type being the name as used in the DBD module.  The default
 #    type is SQLite.
 if ($opt_T) {
-    $dbtype = $opt_T;
+    $db_type = $opt_T;
     undef $opt_T;
 }
 else {
-    $dbtype = "SQLite";    # default database type is SQLite
+    $db_type = "SQLite";    # default database type is SQLite
     undef $opt_T;
 }
-if ($opt_v) { logging($Logfile, $log_id, "Database type being used is $dbtype.") };
+if ($opt_v) { logging($Logfile, $log_id, "Database type being used is $db_type.") };
 
 #    Database name
 if ($opt_D) {
@@ -178,7 +178,7 @@ my $point  = 0;
 my $region = 0;
 
 # connect to database
-$db_handle = FTN::Database::open_ftndb($dbtype, $dbname, $dbuser, $dbpass);
+$db_handle = FTN::Database::open_ftndb($db_type, $dbname, $dbuser, $dbpass);
 
 #
 if ($opt_v) {
@@ -318,10 +318,10 @@ exit();
 # Help message
 ############################################
 sub help {
-    print "\nUsage: nl2ftndb -n nldir [-t tablename] [-T dbtype] [-D dbname] [-D dbname] [-u dbuser] [-p dbpass] [-f nlfile] [-l logfile] [-d domain] [-e] [-v] [-x] [-z zonenum]...\n";
+    print "\nUsage: nl2ftndb -n nldir [-t tablename] [-T db_type] [-D dbname] [-D dbname] [-u dbuser] [-p dbpass] [-f nlfile] [-l logfile] [-d domain] [-e] [-v] [-x] [-z zonenum]...\n";
     print "    -n nldir = nodelist directory...\n";
     print "    [-t tablename] = Nodelist table name;  defaults to 'Nodelist'.\n\n";
-    print "    [-T dbtype] = database type;  defaults to 'SQLite'.\n\n";
+    print "    [-T db_type] = database type;  defaults to 'SQLite'.\n\n";
     print "    [-D dbname] = database name & path;  defaults to 'ftndbtst'.\n\n";
     print "    [-u dbuser] = database user;  defaults to an empty string.\n\n";
     print "    [-p dbpass] = database password;  defaults to ab empty string.\n\n";
