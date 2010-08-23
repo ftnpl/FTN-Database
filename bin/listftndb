@@ -16,7 +16,7 @@ use FTN::Database qw(&open_ftndb &close_ftndb);
 
 our $VERSION = 0.09;
 
-my ( $db_type, $db_name, $db_user, $db_password, $table_name, $db_handle, $sql_stmt, $ZoneNum, $NetNum, $ListFile );
+my ( $db_type, $db_name, $db_user, $db_password, $table_name, $db_handle, $sql_stmt, $ZoneNum, $NetNum, $list_file );
 
 #print @INC"\n";
 
@@ -123,11 +123,11 @@ else {
 
 #    Output file
 if ($opt_o) {
-    $ListFile = $opt_o;    # this needs to be at least the filename & can also include a path
+    $list_file = $opt_o;    # this needs to be at least the filename & can also include a path
     undef $opt_o;
 }
 else {
-    $ListFile = "outfile.txt";    # default output file is in current dir
+    $list_file = "outfile.txt";    # default output file is in current dir
 }
 
 
@@ -146,7 +146,7 @@ $sth->bind_columns(\my($id, $type, $zone, $net, $node, $point, $region, $name, $
 
 local(*F);
 
-open(F, ">$ListFile") or die "Cannot open $ListFile\n"; 
+open(F, ">$list_file") or die "Cannot open $list_file\n"; 
 
 print F "Listing Zone $ZoneNum Net $NetNum from FTN database:\n\n";
 
