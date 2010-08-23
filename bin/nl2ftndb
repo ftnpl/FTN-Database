@@ -28,7 +28,7 @@ if ($opt_h) {
 my (
     $nldir, $nlfile, $db_handle, $sql_stmt, $domain, $type,
     $num,   $name,   $loc, $nametmp,  $loctmp, $log_file,
-    $sysop, $phone,  $bps, $flags,    $tblname, $db_name,
+    $sysop, $phone,  $bps, $flags,    $table_name, $db_name,
     $db_user, $db_password, $db_type
 );
 
@@ -132,16 +132,16 @@ if ($opt_t) {
     if ( $opt_t =~ /\./ ) {    # period in proposed table name?
         logging($log_file, $log_id, "sqlite does not allow periods in table names.");
         $opt_t =~ tr/\./_/;    # change period to underscore
-        $tblname = $opt_t;     #
-        logging($log_file, $log_id, "Changed table name to $tblname.");
+        $table_name = $opt_t;     #
+        logging($log_file, $log_id, "Changed table name to $table_name.");
     }
     else {                     # no period in name
-        $tblname = $opt_t;     #  just assign to variable
+        $table_name = $opt_t;     #  just assign to variable
     }
 
 }
 else {
-    $tblname = "Nodelist";     # default table name
+    $table_name = "Nodelist";     # default table name
 }
 
 
@@ -186,7 +186,7 @@ if ($opt_v) {
 }
 
 #   remove any and all entries where domain = $domain when doing in insert to the table
-FTN::Database::Nodelist::remove_ftn_domain($db_handle, $tblname, $domain);
+FTN::Database::Nodelist::remove_ftn_domain($db_handle, $table_name, $domain);
 
 # drop the old nodelist table index, if it exists.
 logging($log_file, $log_id, "Dropping existing nodelist table index if it already exists.");
@@ -259,7 +259,7 @@ while (<NODELIST>) {
     }
     
     #	Build Insert Statement
-    $sql_stmt = "INSERT INTO $tblname ";
+    $sql_stmt = "INSERT INTO $table_name ";
 
     $sql_stmt .= "(type,zone,net,node,point,region,name,";
     $sql_stmt .= "location,sysop,phone,baud,flags,domain,source) ";
@@ -296,7 +296,7 @@ if ($opt_v) {    #
     logging($log_file, $log_id, "Create ftnnode index");
 }
 # Recreate ftnnode Index
-FTN::Database::Nodelist::create_ftnnode_index($db_handle, $tblname);
+FTN::Database::Nodelist::create_ftnnode_index($db_handle, $table_namex);
 
 if ($opt_v) {    #
     logging($log_file, $log_id, "Closing database");
