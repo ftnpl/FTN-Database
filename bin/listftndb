@@ -16,7 +16,7 @@ use FTN::Database qw(&open_ftndb &close_ftndb);
 
 our $VERSION = 0.09;
 
-my ( $dbtype, $dbname, $dbuser, $dbpass, $tblname, $dbh, $sql_stmt, $ZoneNum, $NetNum, $ListFile );
+my ( $dbtype, $dbname, $dbuser, $dbpass, $tblname, $db_handle, $sql_stmt, $ZoneNum, $NetNum, $ListFile );
 
 #print @INC"\n";
 
@@ -132,14 +132,14 @@ else {
 
 
 # connect to database
-$dbh = FTN::Database::open_ftndb($dbtype, $dbname, $dbuser, $dbpass);
+$db_handle = FTN::Database::open_ftndb($dbtype, $dbname, $dbuser, $dbpass);
 
 # build Select query sql statement
 $sql_stmt = "SELECT * FROM $tblname WHERE zone = $ZoneNum and net = $NetNum ";
 $sql_stmt .= "ORDER by node ASC";
 
 # execute query
-my $sth = $dbh->prepare($sql_stmt);
+my $sth = $db_handle->prepare($sql_stmt);
 $sth->execute();
 
 $sth->bind_columns(\my($id, $type, $zone, $net, $node, $point, $region, $name, $location, $sysop, $phone, $baud, $flags, $domain, $source, $updated));
@@ -161,7 +161,7 @@ $sth->finish;
 undef $sth;
 
 # disconnect from database
-FTN::Database::close_ftndb($dbh);
+FTN::Database::close_ftndb($db_handle);
 
 exit();
 

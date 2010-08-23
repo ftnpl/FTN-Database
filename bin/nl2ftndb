@@ -26,7 +26,7 @@ if ($opt_h) {
 }
 
 my (
-    $nldir, $nlfile, $dbh, $sql_stmt, $domain, $type,
+    $nldir, $nlfile, $db_handle, $sql_stmt, $domain, $type,
     $num,   $name,   $loc, $nametmp,  $loctmp, $Logfile,
     $sysop, $phone,  $bps, $flags,    $tblname, $dbname,
     $dbuser, $dbpass, $dbtype
@@ -178,7 +178,7 @@ my $point  = 0;
 my $region = 0;
 
 # connect to database
-$dbh = FTN::Database::open_ftndb($dbtype, $dbname, $dbuser, $dbpass);
+$db_handle = FTN::Database::open_ftndb($dbtype, $dbname, $dbuser, $dbpass);
 
 #
 if ($opt_v) {
@@ -186,11 +186,11 @@ if ($opt_v) {
 }
 
 #   remove any and all entries where domain = $domain when doing in insert to the table
-FTN::Database::Nodelist::remove_ftn_domain($dbh, $tblname, $domain);
+FTN::Database::Nodelist::remove_ftn_domain($db_handle, $tblname, $domain);
 
 # drop the old nodelist table index, if it exists.
 logging($Logfile, $log_id, "Dropping existing nodelist table index if it already exists.");
-FTN::Database::Nodelist::drop_ftnnode_index($dbh);
+FTN::Database::Nodelist::drop_ftnnode_index($db_handle);
 
 if ($opt_v) {
     logging($Logfile, $log_id, "Loading database from nodelist $nlfile");
@@ -215,8 +215,8 @@ while (<NODELIST>) {
 
     # now trying to escape them,  does not work   6/19/02
 
-    #    $nametmp = $dbh->quote($name);  $name = $nametmp;
-    #    $loctmp = $dbh->quote($loc);  $loc = $loctmp;
+    #    $nametmp = $db_handle->quote($name);  $name = $nametmp;
+    #    $loctmp = $db_handle->quote($loc);  $loc = $loctmp;
 
     # if $flags is undefined (i.e., nothing after the baud rate)
     if ( !defined $flags ) {
@@ -287,7 +287,7 @@ while (<NODELIST>) {
     #    }
 
     #	Execute the insert SQL statment
-    $dbh->do("$sql_stmt ")
+    $db_handle->do("$sql_stmt ")
       or die logging($Logfile, $log_id, $DBI::errstr);
 
 }
@@ -296,14 +296,14 @@ if ($opt_v) {    #
     logging($Logfile, $log_id, "Create ftnnode index");
 }
 # Recreate ftnnode Index
-FTN::Database::Nodelist::create_ftnnode_index($dbh, $tblname);
+FTN::Database::Nodelist::create_ftnnode_index($db_handle, $tblname);
 
 if ($opt_v) {    #
     logging($Logfile, $log_id, "Closing database");
 }
 
 # disconnect from database
-FTN::Database::close_ftndb($dbh);
+FTN::Database::close_ftndb($db_handle);
 
 close NODELIST;
 
