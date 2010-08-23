@@ -28,7 +28,7 @@ if ($opt_h) {
 my (
     $nldir, $nlfile, $db_handle, $sql_stmt, $domain, $type,
     $num,   $name,   $loc, $nametmp,  $loctmp, $Logfile,
-    $sysop, $phone,  $bps, $flags,    $tblname, $dbname,
+    $sysop, $phone,  $bps, $flags,    $tblname, $db_name,
     $dbuser, $dbpass, $db_type
 );
 
@@ -70,11 +70,11 @@ if ($opt_v) { logging($Logfile, $log_id, "Database type being used is $db_type."
 
 #    Database name
 if ($opt_D) {
-    $dbname = $opt_D;    # this needs to be at least the filename & can also include a path
+    $db_name = $opt_D;    # this needs to be at least the filename & can also include a path
     undef $opt_D;
 }
 else {
-    $dbname = "ftndbtst";    # default database name
+    $db_name = "ftndbtst";    # default database name
 }
 #    Database user
 if ($opt_u) {
@@ -178,7 +178,7 @@ my $point  = 0;
 my $region = 0;
 
 # connect to database
-$db_handle = FTN::Database::open_ftndb($db_type, $dbname, $dbuser, $dbpass);
+$db_handle = FTN::Database::open_ftndb($db_type, $db_name, $dbuser, $dbpass);
 
 #
 if ($opt_v) {
@@ -318,11 +318,11 @@ exit();
 # Help message
 ############################################
 sub help {
-    print "\nUsage: nl2ftndb -n nldir [-t tablename] [-T db_type] [-D dbname] [-D dbname] [-u dbuser] [-p dbpass] [-f nlfile] [-l logfile] [-d domain] [-e] [-v] [-x] [-z zonenum]...\n";
+    print "\nUsage: nl2ftndb -n nldir [-t tablename] [-T db_type] [-D db_name] [-D db_name] [-u dbuser] [-p dbpass] [-f nlfile] [-l logfile] [-d domain] [-e] [-v] [-x] [-z zonenum]...\n";
     print "    -n nldir = nodelist directory...\n";
     print "    [-t tablename] = Nodelist table name;  defaults to 'Nodelist'.\n\n";
     print "    [-T db_type] = database type;  defaults to 'SQLite'.\n\n";
-    print "    [-D dbname] = database name & path;  defaults to 'ftndbtst'.\n\n";
+    print "    [-D db_name] = database name & path;  defaults to 'ftndbtst'.\n\n";
     print "    [-u dbuser] = database user;  defaults to an empty string.\n\n";
     print "    [-p dbpass] = database password;  defaults to ab empty string.\n\n";
     print "    nlfile= nodelist filename, defaults to 'Nodelist'.\n";
