@@ -22,7 +22,7 @@ my ( $dbtype, $dbname, $dbuser, $dbpass, $tblname, $dbh, $sql_stmt );
 
 my $Logfile = "stdout";
 
-my $progid = "NLTBL";
+my $log_id = "NLTBL";
 
 #print @INC"\n";
 
@@ -41,12 +41,12 @@ if ($opt_h) {
 
 # note that "opt_x" is the debug variable
 if ($opt_x) {
-    logging($Logfile, $progid, "Debug flag is set");
+    logging($Logfile, $log_id, "Debug flag is set");
 }
 
 # note that "opt_v" is the verbose variable
 if ($opt_v) {
-    logging($Logfile, $progid, "Verbose flag is set");
+    logging($Logfile, $log_id, "Verbose flag is set");
 }
 
 #    Database type
@@ -61,7 +61,7 @@ else {
     $dbtype = "SQLite";    # default database type is SQLite
     undef $opt_T;
 }
-if ($opt_v) { logging($Logfile, $progid, "Database type being used is $dbtype.") };
+if ($opt_v) { logging($Logfile, $log_id, "Database type being used is $dbtype.") };
 
 #    Database name
 if ($opt_D) {
@@ -91,10 +91,10 @@ else {
 #  nodelist table name
 if ($opt_t) {
     if ( $opt_t =~ /\./ ) {    # period in proposed table name?
-        logging($Logfile, $progid, "sqlite does not allow periods in table names.");
+        logging($Logfile, $log_id, "sqlite does not allow periods in table names.");
         $opt_t =~ tr/\./_/;    # change period to underscore
         $tblname = $opt_t;     #
-        logging($Logfile, $progid, "Changed table name to $tblname.");
+        logging($Logfile, $log_id, "Changed table name to $tblname.");
     }
     else {                     # no period in name
         $tblname = $opt_t;     #  just assign to variable
@@ -112,7 +112,7 @@ $dbh = FTN::Database::open_ftndb($dbtype, $dbname, $dbuser, $dbpass);
 FTN::Database::Nodelist::drop_ftnnode_index($dbh);
 
 # drop the old nodelist table, if it exists.
-logging($Logfile, $progid, "Dropping existing nodelist table $tblname if it already exists.");
+logging($Logfile, $log_id, "Dropping existing nodelist table $tblname if it already exists.");
 FTN::Database::Nodelist::drop_nodelist_table($dbh, $tblname);
 
 # Create nodelist table
@@ -124,7 +124,7 @@ FTN::Database::Nodelist::create_ftnnode_index($dbh, $tblname);
 # disconnect from database
 FTN::Database::close_ftndb($dbh);
 
-logging($Logfile, $progid, "Table $tblname created.");
+logging($Logfile, $log_id, "Table $tblname created.");
 
 exit();
 
