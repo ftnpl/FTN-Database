@@ -29,7 +29,7 @@ my (
     $nldir, $nlfile, $db_handle, $sql_stmt, $domain, $type,
     $num,   $name,   $loc, $nametmp,  $loctmp, $Logfile,
     $sysop, $phone,  $bps, $flags,    $tblname, $db_name,
-    $db_user, $dbpass, $db_type
+    $db_user, $db_password, $db_type
 );
 
 if ($opt_l) {
@@ -86,11 +86,11 @@ else {
 }
 #    Database password
 if ($opt_p) {
-    $dbpass = $opt_p;    # Set database password
+    $db_password = $opt_p;    # Set database password
     undef $opt_p;
 }
 else {
-    $dbpass = "";    # default database password is an empty string, as default SQLite does not need it
+    $db_password = "";    # default database password is an empty string, as default SQLite does not need it
 }
 
 #  setup nodelist file variables
@@ -178,7 +178,7 @@ my $point  = 0;
 my $region = 0;
 
 # connect to database
-$db_handle = FTN::Database::open_ftndb($db_type, $db_name, $db_user, $dbpass);
+$db_handle = FTN::Database::open_ftndb($db_type, $db_name, $db_user, $db_password);
 
 #
 if ($opt_v) {
@@ -318,13 +318,13 @@ exit();
 # Help message
 ############################################
 sub help {
-    print "\nUsage: nl2ftndb -n nldir [-t tablename] [-T db_type] [-D db_name] [-D db_name] [-u db_user] [-p dbpass] [-f nlfile] [-l logfile] [-d domain] [-e] [-v] [-x] [-z zonenum]...\n";
+    print "\nUsage: nl2ftndb -n nldir [-t tablename] [-T db_type] [-D db_name] [-D db_name] [-u db_user] [-p db_password] [-f nlfile] [-l logfile] [-d domain] [-e] [-v] [-x] [-z zonenum]...\n";
     print "    -n nldir = nodelist directory...\n";
     print "    [-t tablename] = Nodelist table name;  defaults to 'Nodelist'.\n\n";
     print "    [-T db_type] = database type;  defaults to 'SQLite'.\n\n";
     print "    [-D db_name] = database name & path;  defaults to 'ftndbtst'.\n\n";
     print "    [-u db_user] = database user;  defaults to an empty string.\n\n";
-    print "    [-p dbpass] = database password;  defaults to ab empty string.\n\n";
+    print "    [-p db_password] = database password;  defaults to ab empty string.\n\n";
     print "    nlfile= nodelist filename, defaults to 'Nodelist'.\n";
     print "    [-l logfile] = log filename (defaults to nodelist.log in current dir)\n";
     print "    [-d domain] = nodelist domain;  defaults to 'fidonet'.\n\n";
