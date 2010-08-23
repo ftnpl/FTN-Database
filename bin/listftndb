@@ -139,10 +139,10 @@ $sql_stmt = "SELECT * FROM $table_name WHERE zone = $ZoneNum and net = $NetNum "
 $sql_stmt .= "ORDER by node ASC";
 
 # execute query
-my $sth = $db_handle->prepare($sql_stmt);
-$sth->execute();
+my $query_handle = $db_handle->prepare($sql_stmt);
+$query_handle->execute();
 
-$sth->bind_columns(\my($id, $type, $zone, $net, $node, $point, $region, $name, $location, $sysop, $phone, $baud, $flags, $domain, $source, $updated));
+$query_handle->bind_columns(\my($id, $type, $zone, $net, $node, $point, $region, $name, $location, $sysop, $phone, $baud, $flags, $domain, $source, $updated));
 
 local(*F);
 
@@ -150,15 +150,15 @@ open(F, ">$list_file") or die "Cannot open $list_file\n";
 
 print F "Listing Zone $ZoneNum Net $NetNum from FTN database:\n\n";
 
-while($sth->fetch()) {
+while($query_handle->fetch()) {
    print F "$zone:$net/$node, $name, $location, $sysop, $phone, $baud, $flags";
 }
 
 close(F);
 
 # finish query
-$sth->finish;
-undef $sth;
+$query_handle->finish;
+undef $query_handle;
 
 # disconnect from database
 FTN::Database::close_ftndb($db_handle);
