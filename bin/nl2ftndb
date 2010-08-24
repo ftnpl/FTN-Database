@@ -1,11 +1,4 @@
 #!/usr/bin/perl
-# nl2ftndb  - Initial load of a particular Fidonet/FTN St. Louis Format Nodelist
-# into an SQL Database for Fidonet/FTN processing. The SQL Database engine is 
-# one for which a DBD module exists, defaulting to SQLite.
-#
-# Copyright (c) 2010 Robert James Clay.  All Rights Reserved.
-# This is free software;  you can redistribute it and/or
-# modify it under the same terms as Perl itself.
 
 use warnings;
 use strict;
@@ -16,7 +9,25 @@ use FTN::Database qw(&open_ftndb &close_ftndb);
 use FTN::Database::Nodelist qw(&create_ftnnode_index &drop_ftnnode_index);
 use FTN::Log qw(&logging);
 
+=head1 NAME
+
+nl2ftndb - Load information to a Nodelist table in an Fidonet/FTN SQL database.
+
+=head1 VERSION
+
+Version 0.10
+
+=cut
+
 our $VERSION = 0.10;
+
+=head1 SYNOPSIS
+
+Initial load of a particular Fidonet/FTN St. Louis Format Nodelist into an SQL Database
+for Fidonet/FTN processing. The SQL Database engine is one for which a DBD module exists,
+defaulting to SQLite.
+
+=cut
 
 getopts('n:T:D:u:p:f:l:d:t:ehvxz:');
 
@@ -370,4 +381,50 @@ sub get_nodelist_filename {
     return ( $files[0] );    # return filename
 
 }
+
+
+=head1 AUTHOR
+
+Robert James Clay, C<< <jame at rocasa.us> >>
+
+=head1 BUGS
+
+Please report any bugs or feature requests to C<bug-ftn-database at rt.cpan.org>, or through
+the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=FTN-Database>.  I will
+be notified, and then you'll automatically be notified of progress on your bug as I make changes.
+
+=head1 SUPPORT
+
+You can find documentation for this module with the perldoc command.
+
+    perldoc nl2ftndb
+
+
+You can also look for information at:
+
+=over 4
+
+=item * RT: CPAN's request tracker
+
+L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=FTN-Database>
+
+=item * AnnoCPAN: Annotated CPAN documentation
+
+L<http://annocpan.org/dist/FTN-Database>
+
+=item * Search CPAN
+
+L<http://search.cpan.org/dist/FTN-Database>
+
+=back
+
+
+=head1 COPYRIGHT & LICENSE
+
+Copyright 2010 Robert James Clay, all rights reserved.
+
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
+
+=cut
 
