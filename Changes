@@ -1,5 +1,12 @@
 Revision history for FTN-Database (ftnpldb) 
 
+0.09	Mon Aug 23 20:38 2010
+    - Correct remove_ftn_domain call in bin/nl2ftndb.
+    - Correct help message for the -f parameter in bin/nl2ftndb.
+    - Redo the variables used in the Perl scripts for readability, including by
+      separating the words in the variables by underscores.
+    - Corrected an instance of a duped variable in bin/nl2ftndb help message.
+    
 0.08	Sat Aug 21 20:03 2010
     The default DBI user and password parameters for an SQLite database
     is an empty string;  change the default codeing for those in the bin/*

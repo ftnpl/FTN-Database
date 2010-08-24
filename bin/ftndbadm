@@ -16,37 +16,37 @@ use FTN::Database qw(&open_ftndb &close_ftndb);
 use FTN::Database::Nodelist qw(&create_nodelist_table &drop_nodelist_table &create_ftnnode_index &drop_ftnnode_index);
 use FTN::Log qw(&logging);
 
-our $VERSION = 0.08;
+our $VERSION = 0.09;
 
-my ( $dbtype, $dbname, $dbuser, $dbpass, $tblname, $dbh, $sql_stmt );
+my ( $db_type, $db_name, $db_user, $db_password, $table_name, $db_handle );
 
-my $Logfile = "stdout";
+my $log_file = "stdout";
 
-my $progid = "NLTBL";
+my $log_id = "NLTBL";
 
 #print @INC"\n";
 
 getopts('t:T:D:u:p:hvx');
 
 if ($opt_h) {
-    print "\nUsage: ftndbadm [-t nodelisttablename] [-T dbtype] [-D dbname] [-u dbuser] [-p dbpass] [-v] [-h]...\n";
+    print "\nUsage: ftndbadm [-t nodelisttablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-v] [-h]...\n";
     print "-t                nodelisttablename = defaults to \'Nodelist\'. \n";
-    print "[-T dbtype]       database type;  defaults to 'SQLite'.\n\n";
-    print "[-D dbname]       database name & path;  defaults to 'ftndbtst'.\n\n";
-    print "[-u dbuser]       database user;  defaults to an empty string.\n\n";
-    print "[-p dbpass]       database password;  defaults to an empty string.\n\n";
+    print "[-T db_type]       database type;  defaults to 'SQLite'.\n\n";
+    print "[-D db_name]       database name & path;  defaults to 'ftndbtst'.\n\n";
+    print "[-u db_user]       database user;  defaults to an empty string.\n\n";
+    print "[-p db_password]       database password;  defaults to an empty string.\n\n";
     print "-v                verbose option \n\n";
     exit;
 }
 
 # note that "opt_x" is the debug variable
 if ($opt_x) {
-    logging($Logfile, $progid, "Debug flag is set");
+    logging($log_file, $log_id, "Debug flag is set");
 }
 
 # note that "opt_v" is the verbose variable
 if ($opt_v) {
-    logging($Logfile, $progid, "Verbose flag is set");
+    logging($log_file, $log_id, "Verbose flag is set");
 }
 
 #    Database type
@@ -54,77 +54,77 @@ if ($opt_v) {
 #    the type being the name as used in the DBD module.  The default
 #    type is SQLite.
 if ($opt_T) {
-    $dbtype = $opt_T;
+    $db_type = $opt_T;
     undef $opt_T;
 }
 else {
-    $dbtype = "SQLite";    # default database type is SQLite
+    $db_type = "SQLite";    # default database type is SQLite
     undef $opt_T;
 }
-if ($opt_v) { logging($Logfile, $progid, "Database type being used is $dbtype.") };
+if ($opt_v) { logging($log_file, $log_id, "Database type being used is $db_type.") };
 
 #    Database name
 if ($opt_D) {
-    $dbname = $opt_D;    # this needs to be at least the filename & can also include a path
+    $db_name = $opt_D;    # this needs to be at least the filename & can also include a path
     undef $opt_D;
 }
 else {
-    $dbname = "ftndbtst";    # default database file is in current dir
+    $db_name = "ftndbtst";    # default database file is in current dir
 }
 #    Database user
 if ($opt_u) {
-    $dbuser = $opt_u;    # Set database user
+    $db_user = $opt_u;    # Set database user
     undef $opt_u;
 }
 else {
-    $dbuser = "";    # default user is an empty string, as default SQLite does not need it.
+    $db_user = "";    # default user is an empty string, as default SQLite does not need it.
 }
 #    Database password
 if ($opt_p) {
-    $dbpass = $opt_p;    # Set database passsward
+    $db_password = $opt_p;    # Set database passsward
     undef $opt_p;
 }
 else {
-    $dbpass = "";    # default database password is an empty string, as default SQLite does not need it
+    $db_password = "";    # default database password is an empty string, as default SQLite does not need it
 }
 
 #  nodelist table name
 if ($opt_t) {
     if ( $opt_t =~ /\./ ) {    # period in proposed table name?
-        logging($Logfile, $progid, "sqlite does not allow periods in table names.");
+        logging($log_file, $log_id, "sqlite does not allow periods in table names.");
         $opt_t =~ tr/\./_/;    # change period to underscore
-        $tblname = $opt_t;     #
-        logging($Logfile, $progid, "Changed table name to $tblname.");
+        $table_name = $opt_t;     #
+        logging($log_file, $log_id, "Changed table name to $table_name.");
     }
     else {                     # no period in name
-        $tblname = $opt_t;     #  just assign to variable
+        $table_name = $opt_t;     #  just assign to variable
     }
 
 }
 else {
-    $tblname = "Nodelist";     # default table name
+    $table_name = "Nodelist";     # default table name
 }
 
 # connect to database
-$dbh = FTN::Database::open_ftndb($dbtype, $dbname, $dbuser, $dbpass);
+$db_handle = FTN::Database::open_ftndb($db_type, $db_name, $db_user, $db_password);
 
 # drop the old nodelist table index, if it exists.
-FTN::Database::Nodelist::drop_ftnnode_index($dbh);
+FTN::Database::Nodelist::drop_ftnnode_index($db_handle);
 
 # drop the old nodelist table, if it exists.
-logging($Logfile, $progid, "Dropping existing nodelist table $tblname if it already exists.");
-FTN::Database::Nodelist::drop_nodelist_table($dbh, $tblname);
+logging($log_file, $log_id, "Dropping existing nodelist table $table_name if it already exists.");
+FTN::Database::Nodelist::drop_nodelist_table($db_handle, $table_name);
 
 # Create nodelist table
-FTN::Database::Nodelist::create_nodelist_table($dbh, $tblname);
+FTN::Database::Nodelist::create_nodelist_table($db_handle, $table_name);
 
 # Creating Index
-FTN::Database::Nodelist::create_ftnnode_index($dbh, $tblname);
+FTN::Database::Nodelist::create_ftnnode_index($db_handle, $table_name);
 
 # disconnect from database
-FTN::Database::close_ftndb($dbh);
+FTN::Database::close_ftndb($db_handle);
 
-logging($Logfile, $progid, "Table $tblname created.");
+logging($log_file, $log_id, "Table $table_name created.");
 
 exit();
 
