@@ -27,7 +27,7 @@ if ($opt_h) {
 
 my (
     $nodelist_directory, $nodelist_file, $db_handle, $sql_statement, $domain, $type,
-    $number,   $name,   $loc,  $log_file,
+    $number,   $name,   $location,  $log_file,
     $sysop, $phone,  $bps, $flags,    $table_name, $db_name,
     $db_user, $db_password, $db_type
 );
@@ -203,13 +203,13 @@ while (<NODELIST>) {
         next;
     }
 
-    ( $type, $number, $name, $loc, $sysop, $phone, $bps, $flags ) =
+    ( $type, $number, $name, $location, $sysop, $phone, $bps, $flags ) =
       split( ',', $_, 8 );
 
     # originally took care of these by deleteing them
     $name =~ tr/\'//d;    #  take care of single quotes in system name fields
 
-    $loc =~ tr/\'//d;     #  take care of single quotes in location fields
+    $location =~ tr/\'//d;     #  take care of single quotes in location fields
 
     $sysop =~ tr/\'//d;   # take care of single quotes in sysop name fields
 
@@ -267,7 +267,7 @@ while (<NODELIST>) {
     $sql_statement .= "'$point', ";
     $sql_statement .= "'$region', ";
     $sql_statement .= "'$name', ";
-    $sql_statement .= "'$loc', ";
+    $sql_statement .= "'$location', ";
     $sql_statement .= "'$sysop', ";
     $sql_statement .= "'$phone', ";
     $sql_statement .= "'$bps', ";
