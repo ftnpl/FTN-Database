@@ -2,9 +2,10 @@ To Do:
 
 General
 --------
-- Redo the variables used in the Perl scripts for readability, including by
-separating the words in the variables by underscores. (Change "$progid" to
-"$log_id".)
+- Change and/or create help message subroutine = HELP_MESSGE  
+(see documentation of Getops::Std)
+
+- Use File::Spec where appropriate.
 
 - Update/rewrite/etc comments and documentation as neccesary in all files.
 After creating pod in Perl scripts, move content of the example scripts
@@ -27,9 +28,10 @@ with.  The version in FTN::Database is always the primary version, while the
 version of the submodules matches up to the version at which they were last
 changed.
 
-- Remove the FTN::Log logging being done in the standard bin/ scripts?  That
-would remove the requirement on the FTN::Database distribtion for the FTN::Log
-module.
+- Change to using the options hash from GetOpt::Std instead of the individual
+option variables like $opt_l.
+
+- use the "if (defined $opt_l)" construct for checking options?
 
 
 FTN::Database
@@ -55,20 +57,6 @@ FTN::Database::Nodelist
 - Use a different datatype than "TIMESTAMP" for the 'updated' filed in the
   nodelist table?  (Not generic enough?)
 
-
-nl2ftndb
----------
-- Script does not seem to properly handle a file that ends in just blank
-  lines, instead of a content line or a ^Z character. (Should fail gracefully
-  for a badly formatted file.)
-- When there are multiple nodelists of the same basename being processed, the
-  filelist is being reverse sorted;  that takes care of a set of files all from
-  the same year but not ones that are from different years.
-- Get quoteing working properly for entry into the database for fields like
-  $loc & $name, so do not have to take out characters like single quotes, etc.
-- Add quiet option, -q, for logging only operation ? 
-- Add a test nodelist for use with this?...
-
   
 FTN::Database::Echolist
 ------------------------
@@ -77,7 +65,8 @@ FTN::Database::Echolist
   (at least) the following fields:  name, description, source.
 - Create or drop an index on that basic echolist table.
 - Create an el2ftndb script, patterned after the nl2ftndb script, which can
-  be used to load the echolist table.  
+  be used to load the echolist table?  Or add the functionality to one of 
+  the existing scripts?
 
 
 ftndbadm
@@ -90,11 +79,39 @@ ftndbadm
 - Reorganize script to use a set of commands, not just parameters.
 
 
+nl2ftndb
+---------
+- Move functionality into the ftndbadm script?
+- Script does not seem to properly handle a file that ends in just blank
+  lines, instead of a content line or a ^Z character. (Should fail gracefully
+  for a badly formatted file.)
+- The nodelist file list is being reverse sorted when there are multiple
+  nodelists of the same basename being processed;  that takes care of a set
+  of files all from the same year but not ones that are from different years.
+- Get quoteing working properly for entry into the database for fields like
+  $loc & $name, so do not have to take out characters like single quotes, etc.
+- Add quiet option, -q, for logging only operation ? 
+- Add a test nodelist for use with this?...
+
+
 listftndb
 ----------
+- Move functionality into the ftndbadm script?
 - Add quiet option, -q, for logging only operation ? 
 - Change default output to STDOUT;  i.e., print to the screen.  Selected if the
   "-o" variable is not set.
+- Generalize the command line parseing to allow for commands for listing from
+  the nodelist or echolist (when that's added) tables.
 - Besides the print to screen output & output to text file, add option for html
   formatted output?  And/or just add formated output using a template file?
+
+
+Testing
+-------
+- Procedure in test script?    
+1) get temp directory
+2) create working directory there
+3) ...  testing...
+4) remove test working directory
+5) done
   
