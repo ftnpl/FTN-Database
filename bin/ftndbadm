@@ -23,9 +23,6 @@ our $VERSION = 0.10;
 
 =head1 SYNOPSIS
 
-Administration of a database for Fidonet/FTN related processing. The SQL
-database engine is one for which a DBD module exists, defaulting to SQLite.
-
 =cut
 
 my ( $db_type, $db_name, $db_user, $db_password, $table_name, $db_handle );
@@ -137,6 +134,11 @@ FTN::Database::close_ftndb($db_handle);
 logging($log_file, $log_id, "Table $table_name created.");
 
 exit();
+
+=head1 DESCRIPTION
+
+Administration of a database for Fidonet/FTN related processing. The SQL
+database engine is one for which a DBD module exists, defaulting to SQLite.
 
 =head1 AUTHOR
 
