@@ -21,8 +21,9 @@ our $VERSION = 0.10;
 
 =head1 SYNOPSIS
 
-listftndb [-t nodelisttablename] [-T db_type] [-D db_name] [-u db_user]\
-	  [-p db_password] [-z zone] [-n net] [-o outfile] [-v] [-h]
+listftndb [-t nodelisttablename] [-T db_type] [-D db_name] \
+	  [-u db_user] [-p db_password] [-z zone] [-n net] \
+	  [-o outfile] [-v] [-h]
 
 =cut
 
