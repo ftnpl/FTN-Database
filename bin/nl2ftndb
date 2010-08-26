@@ -23,8 +23,9 @@ our $VERSION = 0.10;
 
 =head1 SYNOPSIS
 
-nl2ftndb -n nodelist_directory [-t tablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] \
-         [-f nodelist_file] [-l log_file] [-d domain] [-e] [-v] [-x] [-z zonenum] [-h]
+nl2ftndb -n nodelist_directory [-t tablename] [-T db_type] [-D db_name] \
+	 [-u db_user] [-p db_password] [-f nodelist_file] [-l log_file] \
+	 [-d domain] [-e] [-v] [-x] [-z zonenum] [-h]
 
 =cut
 

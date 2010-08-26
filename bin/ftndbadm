@@ -23,7 +23,8 @@ our $VERSION = 0.10;
 
 =head1 SYNOPSIS
 
-ftndbadm [-t nodelisttablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-v] [-h]
+ftndbadm [-t nodelisttablename] [-T db_type] [-D db_name] [-u db_user] \ 
+	 [-p db_password] [-v] [-h]
 
 =cut
 
