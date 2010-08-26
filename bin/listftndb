@@ -21,7 +21,7 @@ our $VERSION = 0.10;
 
 =head1 SYNOPSIS
 
-listftndb [-t nodelisttablename] [-T db_type] [-D db_name] [-u db_user] \
+listftndb [-t nodelisttablename] [-T db_type] [-D db_name] [-u db_user]\
 	  [-p db_password] [-z zone] [-n net] [-o outfile] [-v] [-h]
 
 =cut
@@ -49,20 +49,35 @@ if ($opt_h) {
     exit;
 }
 
-# note that "opt_x" is the debug variable
+=head1 OPTIONS
+
+=over
+
+=item -x
+
+Debug option.
+
+=cut
 if ($opt_x) {
     print "Debug flag is set\n";
 }
 
-# note that "opt_v" is the verbose variable
+=item -v
+
+Verbose option.
+
+=cut
 if ($opt_v) {
     print "Verbose flag is set\n";
 }
 
-#    Database type
-#    This needs to be a database type for which a DBD module exists,
-#    the type being the name as used in the DBD module.  The default
-#    type is SQLite.
+=item -T
+
+Database type.
+This needs to be a database type for which a DBD module exists, the type
+being the name as used in the DBD module.  The default type is SQLite.
+
+=cut
 if ($opt_T) {
     $db_type = $opt_T;
     undef $opt_T;
@@ -73,32 +88,58 @@ else {
 }
 if ($opt_v) { print "Database type being used is $db_type.\n" };
 
-#    Database name
+
+=item -D
+
+Database name.
+For an SQLite databse; this needs to be at least the filename and can
+also include a path, and defaults to the file name ftndbttst.
+=cut
 if ($opt_D) {
-    $db_name = $opt_D;    # this needs to be at least the filename & can also include a path
+    $db_name = $opt_D;
     undef $opt_D;
 }
 else {
-    $db_name = "ftndbtst";    # default database file is in current dir
+    $db_name = "ftndbtst";
 }
-#    Database user
+
+=item -u
+
+Database user.
+For an SQLite database, this defaults to an empty string as it does not need it.
+
+=cut
 if ($opt_u) {
-    $db_user = $opt_u;    # Set database user
+    $db_user = $opt_u;
     undef $opt_u;
 }
 else {
-    $db_user = "";    # default user is an empty string, as default SQLite does not need it
+    $db_user = "";
 }
-#    Database password
+
+=item -p
+
+Database password.
+For an SQLite database, this defaults to an empty string as it does not need it.
+
+=cut
 if ($opt_p) {
-    $db_password = $opt_p;    # Set database password
+    $db_password = $opt_p;
     undef $opt_p;
 }
 else {
-    $db_password = "";    # default database password is an empty string, as default SQLite does not need it
+    $db_password = ""; 
 }
 
-#  nodelist table name
+=item -t
+
+The nodelist table name to be used.
+Note that if there is a period in the name, that period will be changed
+to an underscore.
+
+=back
+
+=cut
 if ($opt_t) {
     if ( $opt_t =~ /\./ ) {    # period in proposed table name?
         print "sqlite does not allow periods in table names.";
@@ -115,7 +156,13 @@ else {
     $table_name = "Nodelist";     # default table name
 }
 
-#    FTN Zone number
+=item -z
+
+If set;  is the FTN Zone number, with 1 being the default.
+
+=back
+
+=cut
 if ($opt_z) {
     $zone_number = $opt_z;    # Set zone number 
     undef $opt_z;
@@ -124,22 +171,34 @@ else {
     $zone_number = 1;    # default zone number
 }
 
-#    FTN Net number
+=item -n
+
+If set;  is the FTN Zone number, with 1 being the default.
+
+=cut
 if ($opt_n) {
-    $net_number = $opt_n;    # Set net number 
+    $net_number = $opt_n;
     undef $opt_n;
 }
 else {
-    $net_number = 1;    # default net number
+    $net_number = 1;
 }
 
-#    Output file
+=item -o
+
+Output file.
+This needs to be at least the filename and can also include a path.
+The default output file is outfile.txt in the current directory.
+
+=back
+
+=cut
 if ($opt_o) {
-    $list_file = $opt_o;    # this needs to be at least the filename & can also include a path
+    $list_file = $opt_o;    # 
     undef $opt_o;
 }
 else {
-    $list_file = "outfile.txt";    # default output file is in current dir
+    $list_file = "outfile.txt"; 
 }
 
 
