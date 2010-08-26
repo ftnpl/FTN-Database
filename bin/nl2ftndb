@@ -498,6 +498,11 @@ L<http://search.cpan.org/dist/FTN-Database>
 =back
 
 
+=head1 SEE ALSO
+
+ L<FTN::Database>, L<FTN::Database::Nodelist>, L<ftndbadm>,
+ L<ftndbadm>, and L<listftndb>
+
 =head1 COPYRIGHT & LICENSE
 
 Copyright 2010 Robert James Clay, all rights reserved.

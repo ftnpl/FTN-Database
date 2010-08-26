@@ -137,8 +137,6 @@ The nodelist table name to be used.
 Note that if there is a period in the name, that period will be changed
 to an underscore.
 
-=back
-
 =cut
 if ($opt_t) {
     if ( $opt_t =~ /\./ ) {    # period in proposed table name?
@@ -159,8 +157,6 @@ else {
 =item -z
 
 If set;  is the FTN Zone number, with 1 being the default.
-
-=back
 
 =cut
 if ($opt_z) {
@@ -275,6 +271,11 @@ L<http://annocpan.org/dist/FTN-Database>
 L<http://search.cpan.org/dist/FTN-Database>
 
 =back
+
+=head1 SEE ALSO
+
+ L<FTN::Database>, L<FTN::Database::Nodelist>, L<ftndbadm>,
+ L<ftndbadm>, and L<nl2ftndb>
 
 =head1 COPYRIGHT & LICENSE
 
