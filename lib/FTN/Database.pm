@@ -139,6 +139,11 @@ L<http://cpanratings.perl.org/d/FTN-Database>
 
 L<http://search.cpan.org/dist/FTN-Database>
 
+Note that the version number in scripts matches up to the oldest version
+of the modules that they will run with.  The version in FTN::Database is
+always the primary version, while the version of the submodules matches
+up to the version at which they were last changed.
+
 =back
 
 =head1 SEE ALSO
