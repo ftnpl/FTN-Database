@@ -43,32 +43,55 @@ my (
     $db_user, $db_password, $db_type
 );
 
+=head1 OPTIONS
+
+=over
+
+=item -l
+
+This woudl be the filename and path of a log file, with the default
+being nl2ftndb.log in the current directory.
+
+=cut
 if ($opt_l) {
-    $log_file = $opt_l;    # this needs to be the filename & path
+    $log_file = $opt_l;
     undef $opt_l;
 }
 else {
-    $log_file = "nl2ftndb.log";    # default log file is in current dir
+    $log_file = "nl2ftndb.log";
 }
 
 my $log_id = "nl2db";
 
 logging($log_file, $log_id, "Starting... ");
 
+=item -v
+
+Verbose option.
+
+=cut
 # note that "opt_v" is the verbose variable
 if ($opt_v) {
     logging($log_file, $log_id, "Verbose flag is set");
 }
 
+=item -x
+
+Debug option.
+
+=cut
 # note that "opt_x" is the debug variable
 if ($opt_x) {
     logging($log_file, $log_id, "Debug flag is set");
 }
 
-#    Database type
-#    This needs to be a database type for which a DBD module exists,
-#    the type being the name as used in the DBD module.  The default
-#    type is SQLite.
+=item -T
+
+Database type.
+This needs to be a database type for which a DBD module exists, the type
+being the name as used in the DBD module.  The default type is SQLite.
+
+=cut
 if ($opt_T) {
     $db_type = $opt_T;
     undef $opt_T;
@@ -79,48 +102,85 @@ else {
 }
 if ($opt_v) { logging($log_file, $log_id, "Database type being used is $db_type.") };
 
-#    Database name
+=item -D
+
+Database name.
+For an SQLite databse; this needs to be at least the filename and can
+also include a path, and defaults to the file name ftndbtst.
+
+=cut
 if ($opt_D) {
-    $db_name = $opt_D;    # this needs to be at least the filename & can also include a path
+    $db_name = $opt_D;
     undef $opt_D;
 }
 else {
-    $db_name = "ftndbtst";    # default database name
+    $db_name = "ftndbtst";
 }
-#    Database user
+
+=item -u
+
+Database user.
+For an SQLite database, this defaults to an empty string as it does not need it.
+
+=cut
 if ($opt_u) {
-    $db_user = $opt_u;    # Set database user
+    $db_user = $opt_u;
     undef $opt_u;
 }
 else {
-    $db_user = "";    # default user is an empty string, as default SQLite does not need it
+    $db_user = "";
 }
-#    Database password
+
+=item -p
+
+Database password.
+For an SQLite database, this defaults to an empty string as it does not need it.
+
+=cut
 if ($opt_p) {
-    $db_password = $opt_p;    # Set database password
+    $db_password = $opt_p;
     undef $opt_p;
 }
 else {
-    $db_password = "";    # default database password is an empty string, as default SQLite does not need it
+    $db_password = "";
 }
 
-#  setup nodelist file variables
+=item -n
+
+The nodelist directory being used.
+This is required, so if it is not set the program will exit displaying
+a help message.
+
+=cut
 if ($opt_n) {
 
-    $nodelist_directory = $opt_n;    # set nodelist directory variable
+    $nodelist_directory = $opt_n;
 
+=item -f
+
+The nodelist file.
+If the -e option is also set, then his is an exact file name.  If -e is
+not set, then this is the basename of the nodelist files.
+
+=cut
     if ($opt_f) {
-        if ($opt_e) {    # if set, then -f option must be exact file name
+
+=item -e
+
+If set, then the -f option must be exact file name.  If not set, then
+the -f option is basename of nodelist file.
+
+=cut
+        if ($opt_e) {
             logging($log_file, $log_id, "Using exact file name $opt_f.");
             $nodelist_file = $opt_f;
         }
-        else {    # if not set, then -f option is basename of nodelist file
+        else {
             $nodelist_file = get_nodelist_filename($opt_f);
         }
 
     }
-    else {        # if not set,
-                  #  filename defaults to basename nodelist
+    else { 
         $nodelist_file = get_nodelist_filename("nodelist");
     }
 
@@ -128,7 +188,7 @@ if ($opt_n) {
 else {
     print "\nThe Nodelist directory variable must be set... \n";
     help();
-    exit(1);      #  exit after displaying usage if not set
+    exit(1);
 }
 
 logging($log_file, $log_id, "Nodelist directory: '$nodelist_directory'");
@@ -138,7 +198,13 @@ if ($opt_x) {
     print "Nodelist file is '$nodelist_directory.$nodelist_file' ..\n";
 }
 
-#  nodelist table name
+=item -t
+
+The nodelist table name to be used.
+Note that if there is a period in the name, that period will be changed
+to an underscore.
+
+=cut
 if ($opt_t) {
     if ( $opt_t =~ /\./ ) {    # period in proposed table name?
         logging($log_file, $log_id, "sqlite does not allow periods in table names.");
@@ -157,9 +223,15 @@ else {
 
 
 my $zone_only = 0;     # Set default as zone 0, which is not used for zone numbers.
-#  If the z parameter is defined
+=item -z
+
+If defined;  is the only zone to be loaded
+
+=back
+
+=cut
 if ($opt_z) {
-    $zone_only = $opt_z;    # If defined;  is the only zone to be loaded
+    $zone_only = $opt_z;    # 
     logging($log_file, $log_id, "Only loading Zone: $zone_only");
     undef $opt_z;
 }
