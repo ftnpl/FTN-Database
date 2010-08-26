@@ -46,6 +46,7 @@ if ($opt_h) {
     print "[-u db_user]           = database user;  defaults to an empty string.\n\n";
     print "[-p db_password]       = database password;  defaults to an empty string.\n\n";
     print "[-v]		          = verbose option \n\n";
+    print "[-x]		          = debug option \n\n";
     print "[-h]		          = display this help message \n\n";
     exit;
 }
