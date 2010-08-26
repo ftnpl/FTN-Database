@@ -23,7 +23,7 @@ our $VERSION = 0.10;
 
 =head1 SYNOPSIS
 
-ftndbadm [-t nodelisttablename] [-T db_type] [-D db_name] [-u db_user] \ 
+ftndbadm [-t nodelisttablename] [-T db_type] [-D db_name] [-u db_user]\
 	 [-p db_password] [-v] [-h]
 
 =cut
@@ -51,56 +51,98 @@ if ($opt_h) {
     exit;
 }
 
+=head1 OPTIONS
+
+=over
+
+=item -x
+
+Debug option.
+
+=cut
 # note that "opt_x" is the debug variable
 if ($opt_x) {
     logging($log_file, $log_id, "Debug flag is set");
 }
 
+=item -v
+
+Verbose option.
+
+=cut
 # note that "opt_v" is the verbose variable
 if ($opt_v) {
     logging($log_file, $log_id, "Verbose flag is set");
 }
 
-#    Database type
-#    This needs to be a database type for which a DBD module exists,
-#    the type being the name as used in the DBD module.  The default
-#    type is SQLite.
+=item -T
+
+Database type.
+This needs to be a database type for which a DBD module exists, the type
+being the name as used in the DBD module.  The default type is SQLite.
+
+=cut
 if ($opt_T) {
     $db_type = $opt_T;
     undef $opt_T;
 }
 else {
-    $db_type = "SQLite";    # default database type is SQLite
+    $db_type = "SQLite";
     undef $opt_T;
 }
 if ($opt_v) { logging($log_file, $log_id, "Database type being used is $db_type.") };
 
-#    Database name
+=item -D
+
+Database name.
+For an SQLite databse; this needs to be at least the filename and can
+also include a path, and defaults to the file name ftndbttst.
+=cut
 if ($opt_D) {
-    $db_name = $opt_D;    # this needs to be at least the filename & can also include a path
+    $db_name = $opt_D; 
     undef $opt_D;
 }
 else {
-    $db_name = "ftndbtst";    # default database file is in current dir
+    $db_name = "ftndbtst";
 }
-#    Database user
+
+=item -u
+
+Database user.
+For an SQLite database, this defaults to an empty string as it does not need it.
+
+=cut
 if ($opt_u) {
-    $db_user = $opt_u;    # Set database user
+    $db_user = $opt_u;
     undef $opt_u;
 }
 else {
-    $db_user = "";    # default user is an empty string, as default SQLite does not need it.
+    $db_user = "";
 }
-#    Database password
+
+=item -p
+
+Database password.
+For an SQLite database, this defaults to an empty string as it does not need it.
+
+=cut
 if ($opt_p) {
-    $db_password = $opt_p;    # Set database passsward
+    $db_password = $opt_p;
     undef $opt_p;
 }
 else {
-    $db_password = "";    # default database password is an empty string, as default SQLite does not need it
+    $db_password = ""; 
 }
 
-#  nodelist table name
+=item -t
+
+The nodelist table name to be used.
+Note that if there is a period in the name, that period will be changed
+to an underscore.
+
+=back
+
+=cut
 if ($opt_t) {
     if ( $opt_t =~ /\./ ) {    # period in proposed table name?
         logging($log_file, $log_id, "sqlite does not allow periods in table names.");
