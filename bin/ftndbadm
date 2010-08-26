@@ -23,6 +23,8 @@ our $VERSION = 0.10;
 
 =head1 SYNOPSIS
 
+ftndbadm [-t nodelisttablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-v] [-h]
+
 =cut
 
 my ( $db_type, $db_name, $db_user, $db_password, $table_name, $db_handle );
