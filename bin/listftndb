@@ -21,9 +21,6 @@ our $VERSION = 0.10;
 
 =head1 SYNOPSIS
 
-List information from a Fidonet/FTN St. Louis Format Nodelist to a text file.
-One such listing can be from a specific net from a specific zone of a nodelist table.
-
 =cut
 
 
@@ -176,6 +173,11 @@ undef $query_handle;
 FTN::Database::close_ftndb($db_handle);
 
 exit();
+
+=head1 DESCRIPTION
+
+List information from a Fidonet/FTN St. Louis Format Nodelist to a text file.
+One such listing can be from a specific net from a specific zone of a nodelist table.
 
 =head1 AUTHOR
 
