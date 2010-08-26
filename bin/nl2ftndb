@@ -23,10 +23,6 @@ our $VERSION = 0.10;
 
 =head1 SYNOPSIS
 
-Initial load of a particular Fidonet/FTN St. Louis Format Nodelist into an SQL Database
-for Fidonet/FTN processing. The SQL Database engine is one for which a DBD module exists,
-defaulting to SQLite.
-
 =cut
 
 getopts('n:T:D:u:p:f:l:d:t:ehvxz:');
@@ -382,6 +378,12 @@ sub get_nodelist_filename {
 
 }
 
+
+=head1 DESCRIPTION
+
+Initial load of a particular Fidonet/FTN St. Louis Format Nodelist into an SQL Database
+for Fidonet/FTN processing. The SQL Database engine is one for which a DBD module exists,
+defaulting to SQLite.
 
 =head1 AUTHOR
 
