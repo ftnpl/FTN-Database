@@ -24,7 +24,7 @@ our $VERSION = 0.10;
 C<listftndb [-t nodelisttablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-z zone] [-n net] [-o outfile] [-v] [-h]>
 
 =cut
-
+cl
 my ( $db_type, $db_name, $db_user, $db_password, $table_name, $db_handle, $sql_statement, $zone_number, $net_number, $list_file );
 
 getopts('n:o:t:T:D:u:p:hvxz:');
@@ -54,6 +54,7 @@ if ($opt_h) {
 Debug option.
 
 =cut
+
 if ($opt_x) {
     print "Debug flag is set\n";
 }
@@ -63,6 +64,7 @@ if ($opt_x) {
 Verbose option.
 
 =cut
+
 if ($opt_v) {
     print "Verbose flag is set\n";
 }
@@ -74,6 +76,7 @@ This needs to be a database type for which a DBD module exists, the type
 being the name as used in the DBD module.  The default type is SQLite.
 
 =cut
+
 if ($opt_T) {
     $db_type = $opt_T;
     undef $opt_T;
@@ -92,6 +95,7 @@ For an SQLite databse; this needs to be at least the filename and can
 also include a path, and defaults to the file name ftndbttst.
 
 =cut
+
 if ($opt_D) {
     $db_name = $opt_D;
     undef $opt_D;
@@ -106,6 +110,7 @@ Database user.
 For an SQLite database, this defaults to an empty string as it does not need it.
 
 =cut
+
 if ($opt_u) {
     $db_user = $opt_u;
     undef $opt_u;
@@ -120,6 +125,7 @@ Database password.
 For an SQLite database, this defaults to an empty string as it does not need it.
 
 =cut
+
 if ($opt_p) {
     $db_password = $opt_p;
     undef $opt_p;
@@ -135,6 +141,7 @@ Note that if there is a period in the name, that period will be changed
 to an underscore.
 
 =cut
+
 if ($opt_t) {
     if ( $opt_t =~ /\./ ) {    # period in proposed table name?
         print "sqlite does not allow periods in table names.";
@@ -156,6 +163,7 @@ else {
 If set;  is the FTN Zone number, with 1 being the default.
 
 =cut
+
 if ($opt_z) {
     $zone_number = $opt_z;    # Set zone number 
     undef $opt_z;
@@ -169,6 +177,7 @@ else {
 If set;  is the FTN Zone number, with 1 being the default.
 
 =cut
+
 if ($opt_n) {
     $net_number = $opt_n;
     undef $opt_n;
@@ -186,6 +195,7 @@ The default output file is outfile.txt in the current directory.
 =back
 
 =cut
+
 if ($opt_o) {
     $list_file = $opt_o;    # 
     undef $opt_o;

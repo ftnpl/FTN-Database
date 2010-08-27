@@ -68,7 +68,7 @@ The database password for the database user.
 The database handle being returned to the calling program.
 
 =back
-    
+
 =cut
 
 sub open_ftndb {

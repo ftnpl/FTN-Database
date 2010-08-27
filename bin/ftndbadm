@@ -57,6 +57,7 @@ if ($opt_h) {
 Debug option.
 
 =cut
+
 if ($opt_x) {
     logging($log_file, $log_id, "Debug flag is set");
 }
@@ -66,6 +67,7 @@ if ($opt_x) {
 Verbose option.
 
 =cut
+
 if ($opt_v) {
     logging($log_file, $log_id, "Verbose flag is set");
 }
@@ -77,6 +79,7 @@ This needs to be a database type for which a DBD module exists, the type
 being the name as used in the DBD module.  The default type is SQLite.
 
 =cut
+
 if ($opt_T) {
     $db_type = $opt_T;
     undef $opt_T;
@@ -94,6 +97,7 @@ For an SQLite databse; this needs to be at least the filename and can
 also include a path, and defaults to the file name ftndbttst.
 
 =cut
+
 if ($opt_D) {
     $db_name = $opt_D; 
     undef $opt_D;
@@ -108,6 +112,7 @@ Database user.
 For an SQLite database, this defaults to an empty string as it does not need it.
 
 =cut
+
 if ($opt_u) {
     $db_user = $opt_u;
     undef $opt_u;
@@ -122,6 +127,7 @@ Database password.
 For an SQLite database, this defaults to an empty string as it does not need it.
 
 =cut
+
 if ($opt_p) {
     $db_password = $opt_p;
     undef $opt_p;
@@ -139,6 +145,7 @@ to an underscore.
 =back
 
 =cut
+
 if ($opt_t) {
     if ( $opt_t =~ /\./ ) {    # period in proposed table name?
         logging($log_file, $log_id, "sqlite does not allow periods in table names.");
