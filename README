@@ -12,8 +12,9 @@ DBD::SQLite	SQLite DBD Module is required by default, so should be installed.
 		not, one place they may be obtained is at CPAN (www.cpan.org).
 
 FTN::Log	Must be a least v0.02, for the 'logging' subroutine as used in 
-		the nl2ftndb and ftndbadm scripts. If not already installed, one
-		place it may be obtained is from the ftnpl project at Sourceforge.
+		the nl2ftndb and ftndbadm scripts. If not already installed, it
+		cab be obtained from CPAN (www.cpan.org) or from the ftnpl
+		project at Sourceforge.
 
 Getopt::Std	May already be installed on your system;  if not, one place
 		it may be obtained is at CPAN (www.cpan.org).
