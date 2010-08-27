@@ -68,8 +68,8 @@ at the Sourceforge project, as follows:
 git clone git://ftnpl.git.sourceforge.net/gitroot/ftnpl/ftn-database.git (Read Only)
 http://ftnpl.git.sourceforge.net/git/gitweb.cgi?p=ftnpl/ftn-database.git (Browse Online)
 
-Note also that the standard distribution archives are created directly from the 
-repository and that commit id can obtained like as follows:
+Note also that in distribution archives created directly from the repository,
+the commit id can obtained like as follows:
     zcat FTN-Database-n.nn.tar.gz | git get-tar-commit-id 
 
 COPYRIGHT AND LICENCE
