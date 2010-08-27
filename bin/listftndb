@@ -24,7 +24,7 @@ our $VERSION = 0.10;
 C<listftndb [-t nodelisttablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-z zone] [-n net] [-o outfile] [-v] [-h]>
 
 =cut
-cl
+
 my ( $db_type, $db_name, $db_user, $db_password, $table_name, $db_handle, $sql_statement, $zone_number, $net_number, $list_file );
 
 getopts('n:o:t:T:D:u:p:hvxz:');
