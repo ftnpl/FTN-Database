@@ -187,6 +187,13 @@ exit();
 Administration of a database for Fidonet/FTN related processing. The SQL
 database engine is one for which a DBD module exists, defaulting to SQLite.
 
+=head1 EXAMPLE
+
+Given that $DBFILE is a file like F</opt/ftndb/FTN-Database.db>, the following
+command line can be used to create an FTN Nodelist table in that database file:
+
+C<ftndbadm -T SQLite -D $DBFILE -t Nodelist -v>
+
 =head1 AUTHOR
 
 Robert James Clay, C<< <jame at rocasa.us> >>

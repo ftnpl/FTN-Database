@@ -238,6 +238,14 @@ exit();
 List information from a Fidonet/FTN St. Louis Format Nodelist to a text file.
 One such listing can be from a specific net from a specific zone of a nodelist table.
 
+=head1 EXAMPLE
+
+Given that $DBFILE is an SQLite database file and that $LISTFILE is a
+file where the information is to be listed, the following command line
+can be used to list the nodes in Net 102 of Zone 1 in that file:
+
+C<listftndb -D $DBFILE -z 1 -n 102 -o $LISTFILE -v>
+
 =head1 AUTHOR
 
 Robert James Clay, C<< <jame at rocasa.us> >>

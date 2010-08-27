@@ -455,12 +455,28 @@ sub get_nodelist_filename {
 
 }
 
-
 =head1 DESCRIPTION
 
 Initial load of a particular Fidonet/FTN St. Louis Format Nodelist into an SQL Database
 for Fidonet/FTN processing. The SQL Database engine is one for which a DBD module exists,
 defaulting to SQLite.
+
+=head1 EXAMPLES
+
+Given that $NLDIR is the directory where the nodelist files can be found
+and that $NLFILE is a base filename like NODELIST and that $DBFILE is
+existing SQLite database file, the following command line can be used
+to load a nodelist from set of the set of nodelist files all with the
+same basename:
+
+C<nl2ftndb -D $DBNAME -n $NLDIR -f NODELIST -d fidonet -v>
+
+Given that $NLDIR is the directory where the nodelist files can be
+found and that $DBFILE is an existing SQLite database file, the
+following command line can be used to load a specified zone from a
+specified nodelist:
+
+C<nl2ftndb -D $DBFILE -n $NLDIR -f nodelist.197 -d fidonet -z 1 -e -v>
 
 =head1 AUTHOR
 
@@ -496,7 +512,6 @@ L<http://annocpan.org/dist/FTN-Database>
 L<http://search.cpan.org/dist/FTN-Database>
 
 =back
-
 
 =head1 SEE ALSO
 
