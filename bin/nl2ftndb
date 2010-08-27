@@ -1,11 +1,4 @@
 #!/usr/bin/perl
-# nl2ftndb  - Initial load of a particular Fidonet/FTN St. Louis Format Nodelist
-# into an SQL Database for Fidonet/FTN processing. The SQL Database engine is 
-# one for which a DBD module exists, defaulting to SQLite.
-#
-# Copyright (c) 2010 Robert James Clay.  All Rights Reserved.
-# This is free software;  you can redistribute it and/or
-# modify it under the same terms as Perl itself.
 
 use warnings;
 use strict;
@@ -16,7 +9,23 @@ use FTN::Database qw(&open_ftndb &close_ftndb);
 use FTN::Database::Nodelist qw(&create_ftnnode_index &drop_ftnnode_index);
 use FTN::Log qw(&logging);
 
-our $VERSION = 0.09;
+=head1 NAME
+
+nl2ftndb - Load information to a Nodelist table in an Fidonet/FTN SQL database.
+
+=head1 VERSION
+
+Version 0.10
+
+=cut
+
+our $VERSION = 0.10;
+
+=head1 SYNOPSIS
+
+C<nl2ftndb -n nodelist_directory [-t tablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-f nodelist_file] [-l log_file] [-d domain] [-e] [-v] [-x] [-z zonenum] [-h]>
+
+=cut
 
 getopts('n:T:D:u:p:f:l:d:t:ehvxz:');
 
@@ -32,32 +41,57 @@ my (
     $db_user, $db_password, $db_type
 );
 
+=head1 OPTIONS
+
+=over
+
+=item -l
+
+This would be the filename and path of a log file, with the default
+being nl2ftndb.log in the current directory.
+
+=cut
+
 if ($opt_l) {
-    $log_file = $opt_l;    # this needs to be the filename & path
+    $log_file = $opt_l;
     undef $opt_l;
 }
 else {
-    $log_file = "nl2ftndb.log";    # default log file is in current dir
+    $log_file = "nl2ftndb.log";
 }
 
 my $log_id = "nl2db";
 
 logging($log_file, $log_id, "Starting... ");
 
-# note that "opt_v" is the verbose variable
+=item -v
+
+Verbose option.
+
+=cut
+
 if ($opt_v) {
     logging($log_file, $log_id, "Verbose flag is set");
 }
 
-# note that "opt_x" is the debug variable
+=item -x
+
+Debug option.
+
+=cut
+
 if ($opt_x) {
     logging($log_file, $log_id, "Debug flag is set");
 }
 
-#    Database type
-#    This needs to be a database type for which a DBD module exists,
-#    the type being the name as used in the DBD module.  The default
-#    type is SQLite.
+=item -T
+
+Database type.
+This needs to be a database type for which a DBD module exists, the type
+being the name as used in the DBD module.  The default type is SQLite.
+
+=cut
+
 if ($opt_T) {
     $db_type = $opt_T;
     undef $opt_T;
@@ -68,48 +102,91 @@ else {
 }
 if ($opt_v) { logging($log_file, $log_id, "Database type being used is $db_type.") };
 
-#    Database name
+=item -D
+
+Database name.
+For an SQLite databse; this needs to be at least the filename and can
+also include a path, and defaults to the file name ftndbtst.
+
+=cut
+
 if ($opt_D) {
-    $db_name = $opt_D;    # this needs to be at least the filename & can also include a path
+    $db_name = $opt_D;
     undef $opt_D;
 }
 else {
-    $db_name = "ftndbtst";    # default database name
+    $db_name = "ftndbtst";
 }
-#    Database user
+
+=item -u
+
+Database user.
+For an SQLite database, this defaults to an empty string as it does not need it.
+
+=cut
+
 if ($opt_u) {
-    $db_user = $opt_u;    # Set database user
+    $db_user = $opt_u;
     undef $opt_u;
 }
 else {
-    $db_user = "";    # default user is an empty string, as default SQLite does not need it
+    $db_user = "";
 }
-#    Database password
+
+=item -p
+
+Database password.
+For an SQLite database, this defaults to an empty string as it does not need it.
+
+=cut
+
 if ($opt_p) {
-    $db_password = $opt_p;    # Set database password
+    $db_password = $opt_p;
     undef $opt_p;
 }
 else {
-    $db_password = "";    # default database password is an empty string, as default SQLite does not need it
+    $db_password = "";
 }
 
-#  setup nodelist file variables
+=item -n
+
+The nodelist directory being used.
+This is required, so if it is not set the program will exit displaying
+a help message.
+
+=cut
+
 if ($opt_n) {
 
-    $nodelist_directory = $opt_n;    # set nodelist directory variable
+    $nodelist_directory = $opt_n;
+
+=item -f
+
+The nodelist file.
+If the -e option is also set, then his is an exact file name.  If -e is
+not set, then this is the basename of the nodelist files.
+
+=cut
 
     if ($opt_f) {
-        if ($opt_e) {    # if set, then -f option must be exact file name
+
+=item -e
+
+If set, then the -f option must be exact file name.  If not set, then
+the -f option is basename of nodelist file.
+
+=cut
+
+        if ($opt_e) {
             logging($log_file, $log_id, "Using exact file name $opt_f.");
             $nodelist_file = $opt_f;
         }
-        else {    # if not set, then -f option is basename of nodelist file
+        else {
             $nodelist_file = get_nodelist_filename($opt_f);
         }
 
     }
-    else {        # if not set,
-                  #  filename defaults to basename nodelist
+    else { 
         $nodelist_file = get_nodelist_filename("nodelist");
     }
 
@@ -117,7 +194,7 @@ if ($opt_n) {
 else {
     print "\nThe Nodelist directory variable must be set... \n";
     help();
-    exit(1);      #  exit after displaying usage if not set
+    exit(1);
 }
 
 logging($log_file, $log_id, "Nodelist directory: '$nodelist_directory'");
@@ -127,7 +204,14 @@ if ($opt_x) {
     print "Nodelist file is '$nodelist_directory.$nodelist_file' ..\n";
 }
 
-#  nodelist table name
+=item -t
+
+The nodelist table name to be used.
+Note that if there is a period in the name, that period will be changed
+to an underscore.
+
+=cut
+
 if ($opt_t) {
     if ( $opt_t =~ /\./ ) {    # period in proposed table name?
         logging($log_file, $log_id, "sqlite does not allow periods in table names.");
@@ -146,9 +230,14 @@ else {
 
 
 my $zone_only = 0;     # Set default as zone 0, which is not used for zone numbers.
-#  If the z parameter is defined
+=item -z
+
+If defined;  is the only zone to be loaded
+
+=cut
+
 if ($opt_z) {
-    $zone_only = $opt_z;    # If defined;  is the only zone to be loaded
+    $zone_only = $opt_z;    # 
     logging($log_file, $log_id, "Only loading Zone: $zone_only");
     undef $opt_z;
 }
@@ -156,13 +245,22 @@ if ($opt_z) {
 open( NODELIST, "$nodelist_directory/$nodelist_file" )
   or die logging($log_file, $log_id, "Cannot open $nodelist_directory/$nodelist_file");
 
-#  set up domain variable
+=item -d
+
+If defined, this is the domain of the nodelist being loaded.  Defaults
+to fidonet.
+
+=back
+
+=cut
+
 if ($opt_d) {
     $domain = $opt_d;
 }
 else {
-    $domain = 'fidonet';       # domain defaults to fidonet
+    $domain = 'fidonet'; 
 }
+
 if ($opt_v) {                  # log domain name
     logging($log_file, $log_id, "Domain: '$domain'");
 }
@@ -313,20 +411,21 @@ exit();
 # Help message
 ############################################
 sub help {
-    print "\nUsage: nl2ftndb -n nodelist_directory [-t tablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-f nodelist_file] [-l log_file] [-d domain] [-e] [-v] [-x] [-z zonenum]...\n";
-    print "    -n nodelist_directory = nodelist directory...\n";
-    print "    [-t tablename] = Nodelist table name;  defaults to 'Nodelist'.\n\n";
-    print "    [-T db_type] = database type;  defaults to 'SQLite'.\n\n";
-    print "    [-D db_name] = database name & path;  defaults to 'ftndbtst'.\n\n";
-    print "    [-u db_user] = database user;  defaults to an empty string.\n\n";
-    print "    [-p db_password] = database password;  defaults to ab empty string.\n\n";
-    print "    [-f nodelist_file] = nodelist filename, defaults to 'Nodelist'.\n";
-    print "    [-l log_file] = log filename (defaults to nodelist.log in current dir)\n";
-    print "    [-d domain] = nodelist domain;  defaults to 'fidonet'.\n\n";
-    print "    [-z zonenum] = If present, then only the defined zone 'zonenum' is loaded.\n";
-    print "   -e	If present, then nodelist_file is exact filename\n";
-    print "   -v	Verbose Mode\n";
-    print "   -x	Debug Mode\n";
+    print "\nUsage: nl2ftndb -n nodelist_directory [-t tablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-f nodelist_file] [-l log_file] [-d domain] [-e] [-v] [-x] [-z zonenum] [-h]...\n";
+    print "    [-n nodelist_directory] = nodelist directory...\n";
+    print "    [-t tablename]          = Nodelist table name;  defaults to 'Nodelist'.\n\n";
+    print "    [-T db_type]            = database type;  defaults to 'SQLite'.\n\n";
+    print "    [-D db_name]            = database name & path;  defaults to 'ftndbtst'.\n\n";
+    print "    [-u db_user]            = database user;  defaults to an empty string.\n\n";
+    print "    [-p db_password]        = database password;  defaults to ab empty string.\n\n";
+    print "    [-f nodelist_file]      = nodelist filename, defaults to 'nodelist'.\n";
+    print "    [-l log_file]           = log filename (defaults to nodelist.log in current dir)\n";
+    print "    [-d domain]             = nodelist domain;  defaults to 'fidonet'.\n\n";
+    print "    [-z zone_number]        = If present, then only the defined zone 'zone_number' is loaded.\n";
+    print "    [-e]	               = If present, then nodelist_file is exact filename\n";
+    print "    [-v]	               = Verbose Mode\n";
+    print "    [-x]	               = Debug Mode\n";
+    print "    [-h]	               = Display this help\n";
 }
 
 ################################################
@@ -370,4 +469,76 @@ sub get_nodelist_filename {
     return ( $files[0] );    # return filename
 
 }
+
+=head1 DESCRIPTION
+
+Initial load of a particular Fidonet/FTN St. Louis Format Nodelist into an SQL Database
+for Fidonet/FTN processing. The SQL Database engine is one for which a DBD module exists,
+defaulting to SQLite.
+
+=head1 EXAMPLES
+
+Given that $NLDIR is the directory where the nodelist files can be found
+and that $NLFILE is a base filename like NODELIST and that $DBFILE is
+existing SQLite database file, the following command line can be used
+to load a nodelist from set of the set of nodelist files all with the
+same basename:
+
+C<nl2ftndb -D $DBNAME -n $NLDIR -f NODELIST -d fidonet -v>
+
+Given that $NLDIR is the directory where the nodelist files can be
+found and that $DBFILE is an existing SQLite database file, the
+following command line can be used to load a specified zone from a
+specified nodelist:
+
+C<nl2ftndb -D $DBFILE -n $NLDIR -f nodelist.197 -d fidonet -z 1 -e -v>
+
+=head1 AUTHOR
+
+Robert James Clay, C<< <jame at rocasa.us> >>
+
+=head1 BUGS
+
+Please report any bugs or feature requests to C<bug-ftn-database at rt.cpan.org>, or through
+the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=FTN-Database>.  I will
+be notified, and then you'll automatically be notified of progress on your bug as I make changes.
+
+=head1 SUPPORT
+
+You can find documentation for this module with the perldoc command.
+
+    perldoc nl2ftndb
+
+
+You can also look for information at:
+
+=over 4
+
+=item * RT: CPAN's request tracker
+
+L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=FTN-Database>
+
+=item * AnnoCPAN: Annotated CPAN documentation
+
+L<http://annocpan.org/dist/FTN-Database>
+
+=item * Search CPAN
+
+L<http://search.cpan.org/dist/FTN-Database>
+
+=back
+
+=head1 SEE ALSO
+
+ L<FTN::Database>, L<FTN::Database::Nodelist>, L<ftndbadm>,
+ L<ftndbadm>, and L<listftndb>
+
+=head1 COPYRIGHT & LICENSE
+
+Copyright 2010 Robert James Clay, all rights reserved.
+
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
+
+=cut
 

@@ -10,18 +10,17 @@ FTN::Database - FTN SQL Database related operations for Fidonet/FTN related proc
 
 =head1 VERSION
 
-Version 0.09
+Version 0.10
 
 =cut
 
-our $VERSION = '0.09';
-
+our $VERSION = '0.10';
 
 =head1 SYNOPSIS
 
-FTN::Database is a Perl module containing common database related operations for
-Fidonet/FTN related SQL Database operations.  The SQL database engine is one for
-which a DBD module exists, defaulting to SQLite.
+FTN::Database is Perl modules containing common database related operations
+for Fidonet/FTN related SQL Database processing plus associated scripts.  The
+SQL database engine is one for which a DBD module exists, defaulting to SQLite.
 
 Perhaps a little code snippet.
 
@@ -47,24 +46,29 @@ Open a database for Fidonet/FTN processing, where:
 =over
 
 =item	$db_type
-	The database type.  This needs to be a database type for which 
-	a DBD module exists, the type being the name as used in the DBD
-	module.  The default type to be used is SQLite.
+
+The database type.  This needs to be a database type for which 
+a DBD module exists, the type being the name as used in the DBD
+module.  The default type to be used is SQLite.
 
 =item	$db_name
-	The database name.
+
+The database name.
 
 =item	$db_user
-	The database user, which should already have the neccesary priviledges.
+
+The database user, which should already have the neccesary priviledges.
 
 =item	$db_pass
-	The database password for the database user.
+
+The database password for the database user.
 
 =item	$db_handle
-	The database handle being returned to the calling program.
+
+The database handle being returned to the calling program.
 
 =back
-    
+
 =cut
 
 sub open_ftndb {
@@ -108,9 +112,6 @@ Please report any bugs or feature requests to C<bug-ftn-database at rt.cpan.org>
 the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=FTN-Database>. I will be
 notified, and then you'll automatically be notified of progress on your bug as I make changes.
 
-
-
-
 =head1 SUPPORT
 
 You can find documentation for this module with the perldoc command.
@@ -138,11 +139,17 @@ L<http://cpanratings.perl.org/d/FTN-Database>
 
 L<http://search.cpan.org/dist/FTN-Database>
 
+Note that the version number in scripts matches up to the oldest version
+of the modules that they will run with.  The version in FTN::Database is
+always the primary version, while the version of the submodules matches
+up to the version at which they were last changed.
+
 =back
 
+=head1 SEE ALSO
 
-=head1 ACKNOWLEDGEMENTS
-
+ L<FTN::Database::Nodelist>, L<ftndbadm>, L<listftndb>, L<ftndbadm>,
+ and L<nl2ftndb>
 
 =head1 COPYRIGHT & LICENSE
 
@@ -150,7 +157,6 @@ Copyright 2010 Robert James Clay, all rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
-
 
 =cut
 

@@ -10,11 +10,11 @@ FTN::Database::Nodelist - Fidonet/FTN Nodelist SQL Database operations.
 
 =head1 VERSION
 
-Version 0.07
+Version 0.10
 
 =cut
 
-our $VERSION = '0.09';
+our $VERSION = '0.10';
 
 
 =head1 SYNOPSIS
@@ -182,9 +182,6 @@ Please report any bugs or feature requests to C<bug-ftn-database at rt.cpan.org>
 the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=FTN-Database>.  I will
 be notified, and then you'll automatically be notified of progress on your bug as I make changes.
 
-
-
-
 =head1 SUPPORT
 
 You can find documentation for this module with the perldoc command.
@@ -214,9 +211,10 @@ L<http://search.cpan.org/dist/FTN-Database>
 
 =back
 
+=head1 SEE ALSO
 
-=head1 ACKNOWLEDGEMENTS
-
+`L<FTN::Database>, L<ftndbadm>, L<listftndb>, L<ftndbadm>,
+ and L<nl2ftndb>
 
 =head1 COPYRIGHT & LICENSE
 

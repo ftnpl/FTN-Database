@@ -7,11 +7,6 @@ bin/nl2ftndb
 bin/ftndbadm
 doc/History
 doc/TODO
-doc/examples/README
-doc/examples/loadzone.sh
-doc/examples/net2file.sh
-doc/examples/nl2ftndb.sh
-doc/examples/nltable.sh
 lib/FTN/Database.pm
 lib/FTN/Database/Nodelist.pm
 t/00-load.t

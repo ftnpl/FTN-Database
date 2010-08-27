@@ -1,5 +1,13 @@
 Revision history for FTN-Database (ftnpldb) 
 
+0.10	Fri Aug 27 12:37 2010
+    - Rewrite the git commit id reference in the README file.
+    - Add SEE ALSO section to pod documentation in modules an scripts.
+    - Update/rewrite comments and documentation as neccessary in all files,
+      including by adding pod style documentation to the bin/* scripts.
+    - Move the example shell scripts to an EXAMPLE pod section in the
+      appropriate bin/* script.
+    
 0.09	Mon Aug 23 20:38 2010
     - Correct remove_ftn_domain call in bin/nl2ftndb.
     - Correct help message for the -f parameter in bin/nl2ftndb.

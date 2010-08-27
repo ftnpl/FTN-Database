@@ -1,11 +1,4 @@
 #!/usr/bin/perl
-# listftndb - List a specific net from a specific zone of a nodelist table
-# containing information from a Fidonet/FTN St. Louis Format Nodelist to
-# a text file.
-#
-# Copyright (c) 2010 Robert James Clay.  All Rights Reserved.
-# This is free software;  you can redistribute it and/or
-# modify it under the same terms as Perl itself.
 
 use warnings;
 use strict;
@@ -14,43 +7,76 @@ use vars qw/ $opt_n $opt_o $opt_t $opt_T $opt_D $opt_u $opt_p $opt_h $opt_v $opt
 
 use FTN::Database qw(&open_ftndb &close_ftndb);
 
-our $VERSION = 0.09;
+=head1 NAME
+
+listftndb - List information from an Fidonet/FTN SQL database
+
+=head1 VERSION
+
+Version 0.10
+
+=cut
+
+our $VERSION = 0.10;
+
+=head1 SYNOPSIS
+
+C<listftndb [-t nodelisttablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-z zone] [-n net] [-o outfile] [-v] [-h]>
+
+=cut
 
 my ( $db_type, $db_name, $db_user, $db_password, $table_name, $db_handle, $sql_statement, $zone_number, $net_number, $list_file );
-
-#print @INC"\n";
 
 getopts('n:o:t:T:D:u:p:hvxz:');
 
 if ($opt_h) {
     print "\nUsage: listftndb [-t nodelisttablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-z zone] [-n net] [-o outfile] [-v] [-h]...\n";
-    print "-t                nodelisttablename = defaults to \'Nodelist\'. \n";
-    print "[-T db_type]       database type;  defaults to 'SQLite'.\n\n";
-    print "[-D db_name]       database name & path;  defaults to 'ftndbtst'.\n\n";
-    print "[-u db_user]       database user;  defaults to an empty string.\n\n";
-    print "[-p db_password]       database password;  defaults to an empty string.\n\n";
-    print "[-z zone_number]      zone_number number = defaults to 1. \n";
-    print "[-n net_number]       Net number = defaults to 1. \n";
-    print "[-o outfile]      Output file (plus path) = defaults to outfile.txt in current directory.\n";
-    print "-v                Verbose option \n";
-    print "-x                Debug option \n\n";
+    print "[-t nodelisttablename] = defaults to \'Nodelist\'. \n";
+    print "[-T db_type]           = database type;  defaults to 'SQLite'.\n\n";
+    print "[-D db_name]           = database name & path;  defaults to 'ftndbtst'.\n\n";
+    print "[-u db_user]           = database user;  defaults to an empty string.\n\n";
+    print "[-p db_password]       = database password;  defaults to an empty string.\n\n";
+    print "[-z zone_number]       = zone_number number = defaults to 1. \n";
+    print "[-n net_number]        = Net number; defaults to 1. \n";
+    print "[-o outfile]           = Output file (plus path) = defaults to outfile.txt in current directory.\n";
+    print "[-v]                   = Verbose option \n";
+    print "[-x]                   = Debug option \n\n";
+    print "[-h]                   = Print this help message \n\n";
     exit;
 }
 
-# note that "opt_x" is the debug variable
+=head1 OPTIONS
+
+=over
+
+=item -x
+
+Debug option.
+
+=cut
+
 if ($opt_x) {
     print "Debug flag is set\n";
 }
 
-# note that "opt_v" is the verbose variable
+=item -v
+
+Verbose option.
+
+=cut
+
 if ($opt_v) {
     print "Verbose flag is set\n";
 }
 
-#    Database type
-#    This needs to be a database type for which a DBD module exists,
-#    the type being the name as used in the DBD module.  The default
-#    type is SQLite.
+=item -T
+
+Database type.
+This needs to be a database type for which a DBD module exists, the type
+being the name as used in the DBD module.  The default type is SQLite.
+
+=cut
+
 if ($opt_T) {
     $db_type = $opt_T;
     undef $opt_T;
@@ -61,32 +87,61 @@ else {
 }
 if ($opt_v) { print "Database type being used is $db_type.\n" };
 
-#    Database name
+
+=item -D
+
+Database name.
+For an SQLite databse; this needs to be at least the filename and can
+also include a path, and defaults to the file name ftndbttst.
+
+=cut
+
 if ($opt_D) {
-    $db_name = $opt_D;    # this needs to be at least the filename & can also include a path
+    $db_name = $opt_D;
     undef $opt_D;
 }
 else {
-    $db_name = "ftndbtst";    # default database file is in current dir
+    $db_name = "ftndbtst";
 }
-#    Database user
+
+=item -u
+
+Database user.
+For an SQLite database, this defaults to an empty string as it does not need it.
+
+=cut
+
 if ($opt_u) {
-    $db_user = $opt_u;    # Set database user
+    $db_user = $opt_u;
     undef $opt_u;
 }
 else {
-    $db_user = "";    # default user is an empty string, as default SQLite does not need it
+    $db_user = "";
 }
-#    Database password
+
+=item -p
+
+Database password.
+For an SQLite database, this defaults to an empty string as it does not need it.
+
+=cut
+
 if ($opt_p) {
-    $db_password = $opt_p;    # Set database password
+    $db_password = $opt_p;
     undef $opt_p;
 }
 else {
-    $db_password = "";    # default database password is an empty string, as default SQLite does not need it
+    $db_password = ""; 
 }
 
-#  nodelist table name
+=item -t
+
+The nodelist table name to be used.
+Note that if there is a period in the name, that period will be changed
+to an underscore.
+
+=cut
+
 if ($opt_t) {
     if ( $opt_t =~ /\./ ) {    # period in proposed table name?
         print "sqlite does not allow periods in table names.";
@@ -103,7 +158,12 @@ else {
     $table_name = "Nodelist";     # default table name
 }
 
-#    FTN Zone number
+=item -z
+
+If set;  is the FTN Zone number, with 1 being the default.
+
+=cut
+
 if ($opt_z) {
     $zone_number = $opt_z;    # Set zone number 
     undef $opt_z;
@@ -112,22 +172,36 @@ else {
     $zone_number = 1;    # default zone number
 }
 
-#    FTN Net number
+=item -n
+
+If set;  is the FTN Zone number, with 1 being the default.
+
+=cut
+
 if ($opt_n) {
-    $net_number = $opt_n;    # Set net number 
+    $net_number = $opt_n;
     undef $opt_n;
 }
 else {
-    $net_number = 1;    # default net number
+    $net_number = 1;
 }
 
-#    Output file
+=item -o
+
+Output file.
+This needs to be at least the filename and can also include a path.
+The default output file is outfile.txt in the current directory.
+
+=back
+
+=cut
+
 if ($opt_o) {
-    $list_file = $opt_o;    # this needs to be at least the filename & can also include a path
+    $list_file = $opt_o;    # 
     undef $opt_o;
 }
 else {
-    $list_file = "outfile.txt";    # default output file is in current dir
+    $list_file = "outfile.txt"; 
 }
 
 
@@ -164,4 +238,66 @@ undef $query_handle;
 FTN::Database::close_ftndb($db_handle);
 
 exit();
+
+=head1 DESCRIPTION
+
+List information from a Fidonet/FTN St. Louis Format Nodelist to a text file.
+One such listing can be from a specific net from a specific zone of a nodelist table.
+
+=head1 EXAMPLE
+
+Given that $DBFILE is an SQLite database file and that $LISTFILE is a
+file where the information is to be listed, the following command line
+can be used to list the nodes in Net 102 of Zone 1 in that file:
+
+C<listftndb -D $DBFILE -z 1 -n 102 -o $LISTFILE -v>
+
+=head1 AUTHOR
+
+Robert James Clay, C<< <jame at rocasa.us> >>
+
+=head1 BUGS
+
+Please report any bugs or feature requests to C<bug-ftn-database at rt.cpan.org>, or through
+the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=FTN-Database>.  I will
+be notified, and then you'll automatically be notified of progress on your bug as I make changes.
+
+=head1 SUPPORT
+
+You can find documentation for this module with the perldoc command.
+
+    perldoc listftndb
+
+
+You can also look for information at:
+
+=over 4
+
+=item * RT: CPAN's request tracker
+
+L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=FTN-Database>
+
+=item * AnnoCPAN: Annotated CPAN documentation
+
+L<http://annocpan.org/dist/FTN-Database>
+
+=item * Search CPAN
+
+L<http://search.cpan.org/dist/FTN-Database>
+
+=back
+
+=head1 SEE ALSO
+
+ L<FTN::Database>, L<FTN::Database::Nodelist>, L<ftndbadm>,
+ L<ftndbadm>, and L<nl2ftndb>
+
+=head1 COPYRIGHT & LICENSE
+
+Copyright 2010 Robert James Clay, all rights reserved.
+
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
+
+=cut
 

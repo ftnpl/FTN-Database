@@ -1,11 +1,4 @@
 #!/usr/bin/perl
-# ftndbadm - Administration of a database for Fidonet/FTN related
-# processing. The SQL database engine is one for which a DBD module
-# exists, defaulting to SQLite.
-#
-# Copyright (c) 2010 Robert James Clay.  All Rights Reserved.
-# This is free software;  you can redistribute it and/or
-# modify it under the same terms as Perl itself.
 
 use warnings;
 use strict;
@@ -16,7 +9,23 @@ use FTN::Database qw(&open_ftndb &close_ftndb);
 use FTN::Database::Nodelist qw(&create_nodelist_table &drop_nodelist_table &create_ftnnode_index &drop_ftnnode_index);
 use FTN::Log qw(&logging);
 
-our $VERSION = 0.09;
+=head1 NAME
+
+ftndbadm - Administration of an SQL database for Fidonet/FTN processing.
+
+=head1 VERSION
+
+Version 0.10
+
+=cut
+
+our $VERSION = 0.10;
+
+=head1 SYNOPSIS
+
+C<ftndbadm [-t nodelisttablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-v] [-h]>
+
+=cut
 
 my ( $db_type, $db_name, $db_user, $db_password, $table_name, $db_handle );
 
@@ -24,71 +33,119 @@ my $log_file = "stdout";
 
 my $log_id = "NLTBL";
 
-#print @INC"\n";
-
 getopts('t:T:D:u:p:hvx');
 
 if ($opt_h) {
     print "\nUsage: ftndbadm [-t nodelisttablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-v] [-h]...\n";
-    print "-t                nodelisttablename = defaults to \'Nodelist\'. \n";
-    print "[-T db_type]       database type;  defaults to 'SQLite'.\n\n";
-    print "[-D db_name]       database name & path;  defaults to 'ftndbtst'.\n\n";
-    print "[-u db_user]       database user;  defaults to an empty string.\n\n";
-    print "[-p db_password]       database password;  defaults to an empty string.\n\n";
-    print "-v                verbose option \n\n";
+    print "[-t nodelisttablename] = defaults to \'Nodelist\'. \n";
+    print "[-T db_type]           = database type;  defaults to 'SQLite'.\n\n";
+    print "[-D db_name]           = database name & path;  defaults to 'ftndbtst'.\n\n";
+    print "[-u db_user]           = database user;  defaults to an empty string.\n\n";
+    print "[-p db_password]       = database password;  defaults to an empty string.\n\n";
+    print "[-v]		          = verbose option \n\n";
+    print "[-x]		          = debug option \n\n";
+    print "[-h]		          = display this help message \n\n";
     exit;
 }
 
-# note that "opt_x" is the debug variable
+=head1 OPTIONS
+
+=over
+
+=item -x
+
+Debug option.
+
+=cut
+
 if ($opt_x) {
     logging($log_file, $log_id, "Debug flag is set");
 }
 
-# note that "opt_v" is the verbose variable
+=item -v
+
+Verbose option.
+
+=cut
+
 if ($opt_v) {
     logging($log_file, $log_id, "Verbose flag is set");
 }
 
-#    Database type
-#    This needs to be a database type for which a DBD module exists,
-#    the type being the name as used in the DBD module.  The default
-#    type is SQLite.
+=item -T
+
+Database type.
+This needs to be a database type for which a DBD module exists, the type
+being the name as used in the DBD module.  The default type is SQLite.
+
+=cut
+
 if ($opt_T) {
     $db_type = $opt_T;
     undef $opt_T;
 }
 else {
-    $db_type = "SQLite";    # default database type is SQLite
+    $db_type = "SQLite";
     undef $opt_T;
 }
 if ($opt_v) { logging($log_file, $log_id, "Database type being used is $db_type.") };
 
-#    Database name
+=item -D
+
+Database name.
+For an SQLite databse; this needs to be at least the filename and can
+also include a path, and defaults to the file name ftndbttst.
+
+=cut
+
 if ($opt_D) {
-    $db_name = $opt_D;    # this needs to be at least the filename & can also include a path
+    $db_name = $opt_D; 
     undef $opt_D;
 }
 else {
-    $db_name = "ftndbtst";    # default database file is in current dir
+    $db_name = "ftndbtst";
 }
-#    Database user
+
+=item -u
+
+Database user.
+For an SQLite database, this defaults to an empty string as it does not need it.
+
+=cut
+
 if ($opt_u) {
-    $db_user = $opt_u;    # Set database user
+    $db_user = $opt_u;
     undef $opt_u;
 }
 else {
-    $db_user = "";    # default user is an empty string, as default SQLite does not need it.
+    $db_user = "";
 }
-#    Database password
+
+=item -p
+
+Database password.
+For an SQLite database, this defaults to an empty string as it does not need it.
+
+=cut
+
 if ($opt_p) {
-    $db_password = $opt_p;    # Set database passsward
+    $db_password = $opt_p;
     undef $opt_p;
 }
 else {
-    $db_password = "";    # default database password is an empty string, as default SQLite does not need it
+    $db_password = ""; 
 }
 
-#  nodelist table name
+=item -t
+
+The nodelist table name to be used.
+Note that if there is a period in the name, that period will be changed
+to an underscore.
+
+=back
+
+=cut
+
 if ($opt_t) {
     if ( $opt_t =~ /\./ ) {    # period in proposed table name?
         logging($log_file, $log_id, "sqlite does not allow periods in table names.");
@@ -127,4 +184,66 @@ FTN::Database::close_ftndb($db_handle);
 logging($log_file, $log_id, "Table $table_name created.");
 
 exit();
+
+=head1 DESCRIPTION
+
+Administration of a database for Fidonet/FTN related processing. The SQL
+database engine is one for which a DBD module exists, defaulting to SQLite.
+
+=head1 EXAMPLE
+
+Given that $DBFILE is a file like F</opt/ftndb/FTN-Database.db>, the following
+command line can be used to create an FTN Nodelist table in that database file:
+
+C<ftndbadm -T SQLite -D $DBFILE -t Nodelist -v>
+
+=head1 AUTHOR
+
+Robert James Clay, C<< <jame at rocasa.us> >>
+
+=head1 BUGS
+
+Please report any bugs or feature requests to C<bug-ftn-database at rt.cpan.org>, or through
+the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=FTN-Database>.  I will
+be notified, and then you'll automatically be notified of progress on your bug as I make changes.
+
+=head1 SUPPORT
+
+You can find documentation for this module with the perldoc command.
+
+    perldoc listftndb
+
+
+You can also look for information at:
+
+=over 4
+
+=item * RT: CPAN's request tracker
+
+L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=FTN-Database>
+
+=item * AnnoCPAN: Annotated CPAN documentation
+
+L<http://annocpan.org/dist/FTN-Database>
+
+=item * Search CPAN
+
+L<http://search.cpan.org/dist/FTN-Database>
+
+=back
+
+=head1 SEE ALSO
+
+ L<FTN::Database>, L<FTN::Database::Nodelist>, L<listftndb>,
+ L<ftndbadm>, and L<nl2ftndb>
+
+
+=head1 COPYRIGHT & LICENSE
+
+Copyright 2010 Robert James Clay, all rights reserved.
+
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
+
+=cut
 

@@ -9,14 +9,15 @@ Required, neccessary and/or useful modules, etc.:
 DBD::SQLite	SQLite DBD Module is required by default, so should be installed.
 		Any other database engines will be named similarly and should be
 		installed if used.  May	already be installed on your system;  if
-		not, one place they may be obtained is at cpan (www.cpan.org).
+		not, one place they may be obtained is at CPAN (www.cpan.org).
 
 FTN::Log	Must be a least v0.02, for the 'logging' subroutine as used in 
-		the nl2ftndb and ftndbadm scripts. If not already installed, one
-		place it may be obtained is from the ftnpl project at Sourceforge.
+		the nl2ftndb and ftndbadm scripts. If not already installed, it
+		cab be obtained from CPAN (www.cpan.org) or from the ftnpl
+		project at Sourceforge.
 
 Getopt::Std	May already be installed on your system;  if not, one place
-		it may be obtained is at cpan (www.cpan.org).
+		it may be obtained is at CPAN (www.cpan.org).
 
 
 INSTALLATION
@@ -67,8 +68,8 @@ at the Sourceforge project, as follows:
 git clone git://ftnpl.git.sourceforge.net/gitroot/ftnpl/ftn-database.git (Read Only)
 http://ftnpl.git.sourceforge.net/git/gitweb.cgi?p=ftnpl/ftn-database.git (Browse Online)
 
-Note also that the standard distribution archives are created directly from the 
-repository and that commit id can obtained like as follows:
+Note also that in distribution archives created directly from the repository,
+the commit id can obtained like as follows:
     zcat FTN-Database-n.nn.tar.gz | git get-tar-commit-id 
 
 COPYRIGHT AND LICENCE
