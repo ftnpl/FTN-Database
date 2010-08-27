@@ -224,8 +224,6 @@ my $zone_only = 0;     # Set default as zone 0, which is not used for zone numbe
 
 If defined;  is the only zone to be loaded
 
-=back
-
 =cut
 if ($opt_z) {
     $zone_only = $opt_z;    # 
@@ -236,13 +234,21 @@ if ($opt_z) {
 open( NODELIST, "$nodelist_directory/$nodelist_file" )
   or die logging($log_file, $log_id, "Cannot open $nodelist_directory/$nodelist_file");
 
-#  set up domain variable
+=item -d
+
+If defined, this is the domain of the nodelist being loaded.  Defaults
+to fidonet.
+
+=back
+
+=cut
 if ($opt_d) {
     $domain = $opt_d;
 }
 else {
-    $domain = 'fidonet';       # domain defaults to fidonet
+    $domain = 'fidonet'; 
 }
+
 if ($opt_v) {                  # log domain name
     logging($log_file, $log_id, "Domain: '$domain'");
 }
