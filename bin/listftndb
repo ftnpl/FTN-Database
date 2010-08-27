@@ -25,10 +25,7 @@ C<listftndb [-t nodelisttablename] [-T db_type] [-D db_name] [-u db_user] [-p db
 
 =cut
 
-
 my ( $db_type, $db_name, $db_user, $db_password, $table_name, $db_handle, $sql_statement, $zone_number, $net_number, $list_file );
-
-#print @INC"\n";
 
 getopts('n:o:t:T:D:u:p:hvxz:');
 
@@ -93,6 +90,7 @@ if ($opt_v) { print "Database type being used is $db_type.\n" };
 Database name.
 For an SQLite databse; this needs to be at least the filename and can
 also include a path, and defaults to the file name ftndbttst.
+
 =cut
 if ($opt_D) {
     $db_name = $opt_D;

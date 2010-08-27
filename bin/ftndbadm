@@ -33,8 +33,6 @@ my $log_file = "stdout";
 
 my $log_id = "NLTBL";
 
-#print @INC"\n";
-
 getopts('t:T:D:u:p:hvx');
 
 if ($opt_h) {
@@ -59,7 +57,6 @@ if ($opt_h) {
 Debug option.
 
 =cut
-# note that "opt_x" is the debug variable
 if ($opt_x) {
     logging($log_file, $log_id, "Debug flag is set");
 }
@@ -69,7 +66,6 @@ if ($opt_x) {
 Verbose option.
 
 =cut
-# note that "opt_v" is the verbose variable
 if ($opt_v) {
     logging($log_file, $log_id, "Verbose flag is set");
 }
@@ -96,6 +92,7 @@ if ($opt_v) { logging($log_file, $log_id, "Database type being used is $db_type.
 Database name.
 For an SQLite databse; this needs to be at least the filename and can
 also include a path, and defaults to the file name ftndbttst.
+
 =cut
 if ($opt_D) {
     $db_name = $opt_D; 
@@ -230,7 +227,7 @@ L<http://search.cpan.org/dist/FTN-Database>
 
 =head1 SEE ALSO
 
-`L<FTN::Database>, L<FTN::Database::Nodelist>, L<listftndb>,
+ L<FTN::Database>, L<FTN::Database::Nodelist>, L<listftndb>,
  L<ftndbadm>, and L<nl2ftndb>
 
 

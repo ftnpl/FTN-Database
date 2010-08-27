@@ -47,7 +47,7 @@ my (
 
 =item -l
 
-This woudl be the filename and path of a log file, with the default
+This would be the filename and path of a log file, with the default
 being nl2ftndb.log in the current directory.
 
 =cut
@@ -78,7 +78,6 @@ if ($opt_v) {
 Debug option.
 
 =cut
-# note that "opt_x" is the debug variable
 if ($opt_x) {
     logging($log_file, $log_id, "Debug flag is set");
 }
