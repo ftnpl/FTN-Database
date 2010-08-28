@@ -174,7 +174,7 @@ else {
 
 =item -n
 
-If set;  is the FTN Zone number, with 1 being the default.
+If set;  is the FTN Net number, with 1 being the default.
 
 =cut
 
