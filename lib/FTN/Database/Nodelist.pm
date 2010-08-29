@@ -16,23 +16,11 @@ Version 0.11
 
 our $VERSION = '0.11';
 
-
 =head1 DESCRIPTION
 
 FTN::Database::Nodelist is a Perl module containing common nodelist related subroutines
 for Fidonet/FTN Nodelist related processing on a Nodelist table in an SQL Database. The
 SQL database engine is one for which a DBD module exists, defaulting to SQLite.
-
-Perhaps a little code snippet.
-
-    use FTN::Database::Nodelist;
-
-    my $db_handle = open_ftndb($db_type, $db_name, $db_user, $db_pass);
-    create_nodelist_table($db_handle, $table_name);
-    ...   (Load data to nodelist table)
-    create_ftnnode_index($db_handle, $table_name);
-    close_ftndb($db_handle);
-
 
 =head1 EXPORT
 
@@ -171,6 +159,20 @@ sub remove_ftn_domain {
     return(0);
     
 }
+
+=head1 EXAMPLES
+
+An example of opening an FTN database, then creating a nodelist table,
+loading data to it, then creating an index on it, and the closing
+the database:
+
+    use FTN::Database::Nodelist;
+
+    my $db_handle = open_ftndb($db_type, $db_name, $db_user, $db_pass);
+    create_nodelist_table($db_handle, $table_name);
+    ...   (Load data to nodelist table)
+    create_ftnnode_index($db_handle, $table_name);
+    close_ftndb($db_handle);
 
 =head1 AUTHOR
 

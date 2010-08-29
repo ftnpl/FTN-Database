@@ -22,15 +22,6 @@ FTN::Database is Perl modules containing common database related operations
 for Fidonet/FTN related SQL Database processing plus associated scripts.  The
 SQL database engine is one for which a DBD module exists, defaulting to SQLite.
 
-Perhaps a little code snippet.
-
-    use FTN::Database;
-
-    my $db_handle = open_ftndb($db_type, $db_name, $db_user, $db_pass);
-    ...
-    close_ftndb($db_handle);
-
-
 =head1 EXPORT
 
 The following functions are available in this module:  open_ftndb, close_ftndb.
@@ -101,6 +92,17 @@ sub close_ftndb {
     return(0);
     
 }
+
+=head1 EXAMPLES
+
+An example of opening an FTN database, then closing it:
+
+    use FTN::Database;
+
+    my $db_handle = open_ftndb($db_type, $db_name, $db_user, $db_pass);
+    ...
+    close_ftndb($db_handle);
+
 
 =head1 AUTHOR
 
