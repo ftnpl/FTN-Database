@@ -10,29 +10,17 @@ FTN::Database::Nodelist - Fidonet/FTN Nodelist SQL Database operations.
 
 =head1 VERSION
 
-Version 0.10
+Version 0.11
 
 =cut
 
-our $VERSION = '0.10';
+our $VERSION = '0.11';
 
-
-=head1 SYNOPSIS
+=head1 DESCRIPTION
 
 FTN::Database::Nodelist is a Perl module containing common nodelist related subroutines
 for Fidonet/FTN Nodelist related processing on a Nodelist table in an SQL Database. The
 SQL database engine is one for which a DBD module exists, defaulting to SQLite.
-
-Perhaps a little code snippet.
-
-    use FTN::Database::Nodelist;
-
-    my $db_handle = open_ftndb($db_type, $db_name, $db_user, $db_pass);
-    create_nodelist_table($db_handle, $table_name);
-    ...   (Load data to nodelist table)
-    create_ftnnode_index($db_handle, $table_name);
-    close_ftndb($db_handle);
-
 
 =head1 EXPORT
 
@@ -55,27 +43,27 @@ sub create_nodelist_table {
 
     my($db_handle, $table_name) = @_;
 
-    my $sql_stmt = "CREATE TABLE $table_name( ";
+    my $sql_statement = "CREATE TABLE $table_name( ";
 
-    $sql_stmt .= "id	INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, ";
-    $sql_stmt .= "type      VARCHAR(6) DEFAULT '' NOT NULL, ";
-    $sql_stmt .= "zone      SMALLINT  DEFAULT '1' NOT NULL, ";
-    $sql_stmt .= "net       SMALLINT  DEFAULT '1' NOT NULL, ";
-    $sql_stmt .= "node      SMALLINT  DEFAULT '1' NOT NULL, ";
-    $sql_stmt .= "point     SMALLINT  DEFAULT '0' NOT NULL, ";
-    $sql_stmt .= "region    SMALLINT  DEFAULT '0' NOT NULL, ";
-    $sql_stmt .= "name      VARCHAR(32) DEFAULT '' NOT NULL, ";
-    $sql_stmt .= "location  VARCHAR(32) DEFAULT '' NOT NULL, ";
-    $sql_stmt .= "sysop     VARCHAR(32) DEFAULT '' NOT NULL, ";
-    $sql_stmt .= "phone     VARCHAR(20) DEFAULT '000-000-000-000' NOT NULL, ";
-    $sql_stmt .= "baud      CHAR(6) DEFAULT '300' NOT NULL, ";
-    $sql_stmt .= "flags     VARCHAR(64) DEFAULT ' ' NOT NULL, ";
-    $sql_stmt .= "domain    VARCHAR(8) DEFAULT 'fidonet' NOT NULL, ";
-    $sql_stmt .= "source    VARCHAR(16) DEFAULT 'local' NOT NULL, ";
-    $sql_stmt .= "updated   TIMESTAMP(14) DEFAULT '' NOT NULL ";
-    $sql_stmt .= ") ";
+    $sql_statement .= "id	INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, ";
+    $sql_statement .= "type      VARCHAR(6) DEFAULT '' NOT NULL, ";
+    $sql_statement .= "zone      SMALLINT  DEFAULT '1' NOT NULL, ";
+    $sql_statement .= "net       SMALLINT  DEFAULT '1' NOT NULL, ";
+    $sql_statement .= "node      SMALLINT  DEFAULT '1' NOT NULL, ";
+    $sql_statement .= "point     SMALLINT  DEFAULT '0' NOT NULL, ";
+    $sql_statement .= "region    SMALLINT  DEFAULT '0' NOT NULL, ";
+    $sql_statement .= "name      VARCHAR(32) DEFAULT '' NOT NULL, ";
+    $sql_statement .= "location  VARCHAR(32) DEFAULT '' NOT NULL, ";
+    $sql_statement .= "sysop     VARCHAR(32) DEFAULT '' NOT NULL, ";
+    $sql_statement .= "phone     VARCHAR(20) DEFAULT '000-000-000-000' NOT NULL, ";
+    $sql_statement .= "baud      CHAR(6) DEFAULT '300' NOT NULL, ";
+    $sql_statement .= "flags     VARCHAR(64) DEFAULT ' ' NOT NULL, ";
+    $sql_statement .= "domain    VARCHAR(8) DEFAULT 'fidonet' NOT NULL, ";
+    $sql_statement .= "source    VARCHAR(16) DEFAULT 'local' NOT NULL, ";
+    $sql_statement .= "updated   TIMESTAMP(14) DEFAULT '' NOT NULL ";
+    $sql_statement .= ") ";
 
-    $db_handle->do("$sql_stmt ") or croak($DBI::errstr);
+    $db_handle->do("$sql_statement ") or croak($DBI::errstr);
 
     return(0);
 
@@ -95,9 +83,9 @@ sub drop_nodelist_table {
 
     my($db_handle, $table_name) = @_;
 
-    my $sql_stmt = "DROP TABLE IF EXISTS $table_name";
+    my $sql_statement = "DROP TABLE IF EXISTS $table_name";
 
-    $db_handle->do("$sql_stmt") or croak($DBI::errstr);
+    $db_handle->do("$sql_statement") or croak($DBI::errstr);
 
     return(0);
     
@@ -118,10 +106,10 @@ sub create_ftnnode_index {
 
     my($db_handle, $table_name) = @_;
 
-    my $sql_stmt = "CREATE INDEX ftnnode ";
-    $sql_stmt .= "ON $table_name (zone,net,node,point,domain) ";
+    my $sql_statement = "CREATE INDEX ftnnode ";
+    $sql_statement .= "ON $table_name (zone,net,node,point,domain) ";
 
-    $db_handle->do("$sql_stmt") or croak($DBI::errstr);
+    $db_handle->do("$sql_statement") or croak($DBI::errstr);
 
     return(0);
     
@@ -141,9 +129,9 @@ sub drop_ftnnode_index {
 
     my $db_handle = shift;
 
-    my $sql_stmt = "DROP INDEX IF EXISTS ftnnode";
+    my $sql_statement = "DROP INDEX IF EXISTS ftnnode";
 
-    $db_handle->do("$sql_stmt") or croak($DBI::errstr);
+    $db_handle->do("$sql_statement") or croak($DBI::errstr);
 
     return(0);
     
@@ -164,13 +152,27 @@ sub remove_ftn_domain {
 
     my($db_handle, $table_name, $domain) = @_;
 
-    my $sql_stmt = "DELETE FROM $table_name WHERE domain = '$domain'";
+    my $sql_statement = "DELETE FROM $table_name WHERE domain = '$domain'";
 
-    $db_handle->do("$sql_stmt") or croak($DBI::errstr);
+    $db_handle->do("$sql_statement") or croak($DBI::errstr);
 
     return(0);
     
 }
+
+=head1 EXAMPLES
+
+An example of opening an FTN database, then creating a nodelist table,
+loading data to it, then creating an index on it, and the closing
+the database:
+
+    use FTN::Database::Nodelist;
+
+    my $db_handle = open_ftndb($db_type, $db_name, $db_user, $db_pass);
+    create_nodelist_table($db_handle, $table_name);
+    ...   (Load data to nodelist table)
+    create_ftnnode_index($db_handle, $table_name);
+    close_ftndb($db_handle);
 
 =head1 AUTHOR
 
@@ -213,7 +215,7 @@ L<http://search.cpan.org/dist/FTN-Database>
 
 =head1 SEE ALSO
 
-`L<FTN::Database>, L<ftndbadm>, L<listftndb>, L<ftndbadm>,
+ L<FTN::Database>, L<ftndbadm>, L<listftndb>, L<ftndbadm>,
  and L<nl2ftndb>
 
 =head1 COPYRIGHT & LICENSE

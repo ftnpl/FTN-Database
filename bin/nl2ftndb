@@ -21,6 +21,12 @@ Version 0.10
 
 our $VERSION = 0.10;
 
+=head1 DESCRIPTION
+
+Initial load of a particular Fidonet/FTN St. Louis Format Nodelist into an SQL Database
+for Fidonet/FTN processing. The SQL Database engine is one for which a DBD module exists,
+defaulting to SQLite.
+
 =head1 SYNOPSIS
 
 C<nl2ftndb -n nodelist_directory [-t tablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-f nodelist_file] [-l log_file] [-d domain] [-e] [-v] [-x] [-z zonenum] [-h]>
@@ -469,12 +475,6 @@ sub get_nodelist_filename {
     return ( $files[0] );    # return filename
 
 }
-
-=head1 DESCRIPTION
-
-Initial load of a particular Fidonet/FTN St. Louis Format Nodelist into an SQL Database
-for Fidonet/FTN processing. The SQL Database engine is one for which a DBD module exists,
-defaulting to SQLite.
 
 =head1 EXAMPLES
 
