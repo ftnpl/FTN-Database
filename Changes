@@ -1,5 +1,13 @@
 Revision history for FTN-Database (ftnpldb) 
 
+0.11	Sun Aug 29 15:46 2010
+    - Correct the '-n' pod documentation in bin/listftndb.
+    - Change name of SYNOPSIS section in modules to DESCRIPTION.
+    - Removed extraneous character in lib/FTN/Database/Nodelist.pm.
+    - Move DESCRIPTION section in the bin/* scripts ahead of SYNOPSIS.
+    - Change sql_stmt to sql_statement in lib/FTN/Database/Nodelist.pm.
+    - Create an EXAMPLES pod section in the Database and Nodelist modules.
+        
 0.10	Fri Aug 27 12:37 2010
     - Rewrite the git commit id reference in the README file.
     - Add SEE ALSO section to pod documentation in modules an scripts.
