@@ -16,7 +16,7 @@ Version 0.11
 
 our $VERSION = '0.11';
 
-=head1 SYNOPSIS
+=head1 DESCRIPTION
 
 FTN::Database is Perl modules containing common database related operations
 for Fidonet/FTN related SQL Database processing plus associated scripts.  The

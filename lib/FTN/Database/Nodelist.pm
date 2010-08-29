@@ -17,7 +17,7 @@ Version 0.11
 our $VERSION = '0.11';
 
 
-=head1 SYNOPSIS
+=head1 DESCRIPTION
 
 FTN::Database::Nodelist is a Perl module containing common nodelist related subroutines
 for Fidonet/FTN Nodelist related processing on a Nodelist table in an SQL Database. The
