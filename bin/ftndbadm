@@ -15,11 +15,11 @@ ftndbadm - Administration of an SQL database for Fidonet/FTN processing.
 
 =head1 VERSION
 
-Version 0.10
+Version 0.12
 
 =cut
 
-our $VERSION = 0.10;
+our $VERSION = 0.12;
 
 =head1 DESCRIPTION
 
@@ -211,7 +211,7 @@ be notified, and then you'll automatically be notified of progress on your bug a
 
 You can find documentation for this module with the perldoc command.
 
-    perldoc listftndb
+    perldoc ftndbadmccle
 
 
 You can also look for information at:

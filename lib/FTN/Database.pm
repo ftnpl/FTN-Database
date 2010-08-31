@@ -10,11 +10,11 @@ FTN::Database - FTN SQL Database related operations for Fidonet/FTN related proc
 
 =head1 VERSION
 
-Version 0.11
+Version 0.12
 
 =cut
 
-our $VERSION = '0.11';
+our $VERSION = '0.12';
 
 =head1 DESCRIPTION
 
@@ -24,9 +24,32 @@ SQL database engine is one for which a DBD module exists, defaulting to SQLite.
 
 =head1 EXPORT
 
-The following functions are available in this module:  open_ftndb, close_ftndb.
+The following functions are available in this module:  create_ftndb, open_ftndb,
+close_ftndb, and drop_ftndb.
 
 =head1 FUNCTIONS
+
+=head2 create_ftndb
+
+Syntax:  create_ftndb($db_handle, $database_name);
+
+Create an SQL database for use for Fidonet/FTN processing, where
+$db_handle is an existing open database handle and $database_name
+is the name of the database being created.
+
+=cut
+
+sub create_ftndb {
+
+    my($db_handle, $database_name) = @_;
+
+    my $sql_statement = "CREATE DATABASE $database_name";
+
+    $db_handle->do("$sql_statement") or croak($DBI::errstr);
+
+    return(0);
+    
+}
 
 =head2 open_ftndb
 
@@ -93,6 +116,28 @@ sub close_ftndb {
     
 }
 
+=head2 drop_ftndb
+
+Syntax:  drop_ftndb($db_handle, $database_name);
+
+Drop an SQL database being used for Fidonet/FTN processing if
+it exists, where $db_handle is an existing open database handle
+and $database_name is the name of the database being dropped.
+
+=cut
+
+sub drop_ftndb {
+
+    my($db_handle, $database_name) = @_;
+
+    my $sql_statement = "DROP DATABASE IF EXISTS $database_name";
+
+    $db_handle->do("$sql_statement") or croak($DBI::errstr);
+
+    return(0);
+    
+}
+
 =head1 EXAMPLES
 
 An example of opening an FTN database, then closing it:
@@ -101,6 +146,28 @@ An example of opening an FTN database, then closing it:
 
     my $db_handle = open_ftndb($db_type, $db_name, $db_user, $db_pass);
     ...
+    close_ftndb($db_handle);
+
+An example of creating a database for FTN related processing, using a
+mysql database:
+
+    use FTN::Database;
+
+    my $database_name = "ftndbtst";
+    my $db_handle = open_ftndb("mysql", "mysql", $db_user, $db_pass);
+    create_ftndb($db_handle, $database_name);
+    ...
+    close_ftndb($db_handle);
+
+An example of dropping a database being used for FTN related processing,
+using a mysql database:
+
+    use FTN::Database;
+
+    my $database_name = "ftndbtst";
+    my $db_handle = open_ftndb("mysql", "mysql", $db_user, $db_pass);
+    ...
+    drop_ftndb($db_handle, $database_name);
     close_ftndb($db_handle);
 
 
@@ -150,7 +217,7 @@ up to the version at which they were last changed.
 
 =head1 SEE ALSO
 
- L<FTN::Database::Nodelist>, L<ftndbadm>, L<listftndb>, L<ftndbadm>,
+ L<DBI>, L<FTN::Database::Nodelist>, L<ftndbadm>, L<listftndb>, L<ftndbadm>,
  and L<nl2ftndb>
 
 =head1 COPYRIGHT & LICENSE
