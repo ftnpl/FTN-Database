@@ -13,11 +13,11 @@ listftndb - List information from an Fidonet/FTN SQL database
 
 =head1 VERSION
 
-Version 0.10
+Version 0.12
 
 =cut
 
-our $VERSION = 0.10;
+our $VERSION = 0.12;
 
 =head1 DESCRIPTION
 
