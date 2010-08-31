@@ -93,6 +93,28 @@ sub close_ftndb {
     
 }
 
+=head2 drop_ftndb
+
+Syntax:  drop_ftndb($db_handle, $database_name);
+
+Drop a database being used for Fidonet/FTN processing if it
+exists, where $db_handle is an existing open database handle
+and $database_name is the name of the database to be dropped.
+
+=cut
+
+sub drop_ftndb {
+
+    my($db_handle, $database_name) = @_;
+
+    my $sql_statement = "DROP DATABASE IF EXISTS $database_name";
+
+    $db_handle->do("$sql_statement") or croak($DBI::errstr);
+
+    return(0);
+    
+}
+
 =head1 EXAMPLES
 
 An example of opening an FTN database, then closing it:
