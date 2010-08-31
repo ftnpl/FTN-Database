@@ -148,6 +148,17 @@ An example of opening an FTN database, then closing it:
     ...
     close_ftndb($db_handle);
 
+An example of creating a database for FTN related processing, using a
+mysql database:
+
+    use FTN::Database;
+
+    my $database_name = "ftndbtst";
+    my $db_handle = open_ftndb("mysql", "mysql", $db_user, $db_pass);
+    create_ftndb($db_handle, $database_name);
+    ...
+    close_ftndb($db_handle);
+
 
 =head1 AUTHOR
 
