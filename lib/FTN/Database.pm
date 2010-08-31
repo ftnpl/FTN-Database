@@ -159,6 +159,17 @@ mysql database:
     ...
     close_ftndb($db_handle);
 
+An example of dropping a database being used for FTN related processing,
+using a mysql database:
+
+    use FTN::Database;
+
+    my $database_name = "ftndbtst";
+    my $db_handle = open_ftndb("mysql", "mysql", $db_user, $db_pass);
+    ...
+    drop_ftndb($db_handle, $database_name);
+    close_ftndb($db_handle);
+
 
 =head1 AUTHOR
 
@@ -206,7 +217,7 @@ up to the version at which they were last changed.
 
 =head1 SEE ALSO
 
- L<FTN::Database::Nodelist>, L<ftndbadm>, L<listftndb>, L<ftndbadm>,
+ L<DBI>, L<FTN::Database::Nodelist>, L<ftndbadm>, L<listftndb>, L<ftndbadm>,
  and L<nl2ftndb>
 
 =head1 COPYRIGHT & LICENSE
