@@ -36,7 +36,7 @@ C<nl2ftndb -n nodelist_directory [-t tablename] [-T db_type] [-D db_name] [-u db
 getopts('n:T:D:u:p:f:l:d:t:ehvxz:');
 
 if ($opt_h) {
-    help();    #printing usage/help message
+    HELP_MESSAGE();    #printing usage/help message
     exit 0;
 }
 
@@ -199,7 +199,7 @@ the -f option is basename of nodelist file.
 }
 else {
     print "\nThe Nodelist directory variable must be set... \n";
-    help();
+    HELP_MESSAGE();
     exit(1);
 }
 
@@ -414,9 +414,9 @@ exit();
 # subroutines
 ############################################
 
-# Help message
+# Display of help message
 ############################################
-sub help {
+sub HELP_MESSAGE {
     print "\nUsage: nl2ftndb -n nodelist_directory [-t tablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-f nodelist_file] [-l log_file] [-d domain] [-e] [-v] [-x] [-z zonenum] [-h]...\n";
     print "    [-n nodelist_directory] = nodelist directory...\n";
     print "    [-t tablename]          = Nodelist table name;  defaults to 'Nodelist'.\n\n";
@@ -457,7 +457,7 @@ sub get_nodelist_filename {
     if ( $#files == -1 ) {
         logging($log_file, $log_id, "Nodelist files $basename not found");
         print("\nNodelist files $basename not found.\n");
-        help;
+        HELP_MESSAGE();
         exit();
     }
     else {
