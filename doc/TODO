@@ -29,16 +29,14 @@ the database related options checking to a subroutine in FTN::Database?
 
 - Use the "if (defined $opt_l)" construct for checking options?
 
-- Separate out the submodules, like FTN::Database::Nodelist, into separate
-distributions so that only the functionality needed is installed?
+- Separate out the submodules, like FTN::Database::Nodelist and
+FTN::Database::Echolist, into separate distributions so that only
+the functionality needs to be installed?
 
 
 FTN::Database
 --------------
 - Derive a generic drop_table subroutine from the drop_nodelist_table.
-- Add an explicit function to create a database, create_ftndb (not explicitly
-  needed for default DBD SQLite but it can be for others).  Add function to use
-  it, to the ftndbadm program.  CAlso one for drop_ftndb.)
 - Create set_ftndb_acl subroutine? (Same reasoning as for create_ftndb.)
 - Possible function/subroutine that checks if a valid database table name is
   being used?  And corrects it if possible?
