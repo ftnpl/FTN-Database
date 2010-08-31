@@ -1,5 +1,11 @@
 Revision history for FTN-Database (ftnpldb) 
 
+0.12	Tue Aug 31 16:05 2010
+    - Add DBI to the SEE ALSO section in lib/FTN/Database.pm
+    - Correct the perldoc reference in the SUPPORT section of bin/ftndbadm.
+    - Add create_ftndb and drop_ftndb functions to lib/FTN/Database.pm and
+      add examples showing their usage.
+      
 0.11	Sun Aug 29 15:46 2010
     - Correct the '-n' pod documentation in bin/listftndb.
     - Change name of SYNOPSIS section in modules to DESCRIPTION.
