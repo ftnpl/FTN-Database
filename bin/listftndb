@@ -35,18 +35,7 @@ my ( $db_type, $db_name, $db_user, $db_password, $table_name, $db_handle, $sql_s
 getopts('n:o:t:T:D:u:p:hvxz:');
 
 if ($opt_h) {
-    print "\nUsage: listftndb [-t nodelisttablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-z zone] [-n net] [-o outfile] [-v] [-h]...\n";
-    print "[-t nodelisttablename] = defaults to \'Nodelist\'. \n";
-    print "[-T db_type]           = database type;  defaults to 'SQLite'.\n\n";
-    print "[-D db_name]           = database name & path;  defaults to 'ftndbtst'.\n\n";
-    print "[-u db_user]           = database user;  defaults to an empty string.\n\n";
-    print "[-p db_password]       = database password;  defaults to an empty string.\n\n";
-    print "[-z zone_number]       = zone_number number = defaults to 1. \n";
-    print "[-n net_number]        = Net number; defaults to 1. \n";
-    print "[-o outfile]           = Output file (plus path) = defaults to outfile.txt in current directory.\n";
-    print "[-v]                   = Verbose option \n";
-    print "[-x]                   = Debug option \n\n";
-    print "[-h]                   = Print this help message \n\n";
+    HELP_MESSAGE();
     exit;
 }
 
@@ -243,6 +232,29 @@ undef $query_handle;
 FTN::Database::close_ftndb($db_handle);
 
 exit();
+
+########################################################################
+# subroutines
+########################################################################
+# Help message
+########################################################################
+sub HELP_MESSAGE {
+    print "\nUsage: listftndb [-t nodelisttablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-z zone] [-n net] [-o outfile] [-v] [-h]...\n";
+    print "[-t nodelisttablename] = defaults to \'Nodelist\'. \n";
+    print "[-T db_type]           = database type;  defaults to 'SQLite'.\n\n";
+    print "[-D db_name]           = database name & path;  defaults to 'ftndbtst'.\n\n";
+    print "[-u db_user]           = database user;  defaults to an empty string.\n\n";
+    print "[-p db_password]       = database password;  defaults to an empty string.\n\n";
+    print "[-z zone_number]       = zone_number number = defaults to 1. \n";
+    print "[-n net_number]        = Net number; defaults to 1. \n";
+    print "[-o outfile]           = Output file (plus path) = defaults to outfile.txt in current directory.\n";
+    print "[-v]                   = Verbose option \n";
+    print "[-x]                   = Debug option \n\n";
+    print "[-h]                   = Print this help message \n\n";
+    return();
+}
+
+########################################################################
 
 =head1 EXAMPLE
 

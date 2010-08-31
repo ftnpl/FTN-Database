@@ -41,16 +41,8 @@ my $log_id = "NLTBL";
 getopts('t:T:D:u:p:hvx');
 
 if ($opt_h) {
-    print "\nUsage: ftndbadm [-t nodelisttablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-v] [-h]...\n";
-    print "[-t nodelisttablename] = defaults to \'Nodelist\'. \n";
-    print "[-T db_type]           = database type;  defaults to 'SQLite'.\n\n";
-    print "[-D db_name]           = database name & path;  defaults to 'ftndbtst'.\n\n";
-    print "[-u db_user]           = database user;  defaults to an empty string.\n\n";
-    print "[-p db_password]       = database password;  defaults to an empty string.\n\n";
-    print "[-v]		          = verbose option \n\n";
-    print "[-x]		          = debug option \n\n";
-    print "[-h]		          = display this help message \n\n";
-    exit;
+    HELP_MESSAGE();
+    exit(0);
 }
 
 =head1 OPTIONS
@@ -189,6 +181,27 @@ FTN::Database::close_ftndb($db_handle);
 logging($log_file, $log_id, "Table $table_name created.");
 
 exit();
+
+########################################################################
+# subroutines
+########################################################################
+# Help message
+########################################################################
+sub HELP_MESSAGE {
+    print "\nUsage: ftndbadm [-t nodelisttablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-v] [-h]...\n";
+    print "[-t nodelisttablename] = defaults to \'Nodelist\'. \n";
+    print "[-T db_type]           = database type;  defaults to 'SQLite'.\n\n";
+    print "[-D db_name]           = database name & path;  defaults to 'ftndbtst'.\n\n";
+    print "[-u db_user]           = database user;  defaults to an empty string.\n\n";
+    print "[-p db_password]       = database password;  defaults to an empty string.\n\n";
+    print "[-v]		          = verbose option \n\n";
+    print "[-x]		          = debug option \n\n";
+    print "[-h]		          = display this help message \n\n";
+    return();
+}
+
+########################################################################
+
 
 =head1 EXAMPLE
 
