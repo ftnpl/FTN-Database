@@ -180,13 +180,13 @@ else {
 #   if a command is found, then execute & exit
 #   if not;  display error message, then help message, then exit
 $command = shift;
-if (lc($command) = "create") {
+if (lc($command) eq "create") {
 
     $command = shift;
-    if (lc($command) = "database") {
+    if (lc($command) eq "database") {
 	# call create_ftn_database & exit
 
-    } elsif (lc($command) = "table") {
+    } elsif (lc($command) eq "table") {
 	#  Create an FTN nodelist table
 	create_ftn_nodelist_table();
 
@@ -197,10 +197,10 @@ if (lc($command) = "create") {
 
     }	# End parsing of 'create' command
 
-} elsif { (lc($command) = "drop") {
+} elsif { (lc($command) eq "drop") {
 
     $command = shift;
-    if (lc($command) = "database") {
+    if (lc($command) eq "database") {
 	# call drop_ftn_database & exit
 
     } else {
