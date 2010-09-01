@@ -1,5 +1,16 @@
 Revision history for FTN-Database (ftnpldb) 
 
+0.13	Wed Sep 01 11:09 2010
+    - Add a '--version' option to bin/* scripts.
+    - Change default log file in bin/nl2ftndb to ftnpldb.log
+    - Change log_id in bin/ftndbadm to DBADM, and add log_file option.
+    - Rewrite the perldoc reference in the SUPPORT section of bin/ftndbadm.
+    - Reorganize and rewrite the display of the help message into a subroutine
+      with the name HELP_MESSAGE in the bin/* scripts.
+    - Move the code in bin/ftndbadm to create an FTN Nodelist table into a
+      subroutine named create_ftn_nodelist_table.
+    - Reorganize SYNOPSIS section for the help options in the bin/* scripts.
+    
 0.12	Tue Aug 31 16:05 2010
     - Add DBI to the SEE ALSO section in lib/FTN/Database.pm
     - Correct the perldoc reference in the SUPPORT section of bin/ftndbadm.
