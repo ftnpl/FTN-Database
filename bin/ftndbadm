@@ -30,9 +30,11 @@ database engine is one for which a DBD module exists, defaulting to SQLite.
 
 =head1 SYNOPSIS
 
-C<ftndbadm [-t tablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-l log_file] [-v]>
+C<ftndbadm [options] [-t tablename] create table>
 
 C<ftndbadm [-h | --help]>
+
+C<ftndbadm --version>
 
 =cut
 
@@ -107,7 +109,7 @@ if ($opt_v) { logging($log_file, $log_id, "Database type being used is $db_type.
 =item -D
 
 Database name.
-For an SQLite databse; this needs to be at least the filename and can
+For an SQLite database; this needs to be at least the filename and can
 also include a path, and defaults to the file name ftndbttst.
 
 =cut
@@ -229,17 +231,22 @@ sub HELP_MESSAGE {
 
     my $fh = shift;
     
-    print $fh "\n\tUsage:\nftndbadm [-t tablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-l log_file] [-v] [-h | --help] [--version]\n";
-    print $fh "\t[-t tablename]\t\t= Nodelist table name;  defaults to \'Nodelist\'. \n";
-    print $fh "\t[-T db_type]\t\t= Database type;  defaults to 'SQLite'.\n";
-    print $fh "\t[-D db_name]\t\t= Database name & path;  defaults to 'ftndbtst'.\n";
-    print $fh "\t[-u db_user]\t\t= Database user;  defaults to an empty string.\n";
-    print $fh "\t[-p db_password]\t= Database password;  defaults to an empty string.\n";
-    print $fh "\t[-l log_file]\t\t= Log filename; defaults to ftnpldb.log in current dir.\n";
-    print $fh "\t[-v]\t\t\t= Verbose option.\n";
-    print $fh "\t[-x]\t\t\t= Debug option.\n";
-    print $fh "\t[-h | --help]\t\t= Display this help message.\n";
-    print $fh "\t[--version]\t\t= Display version message.\n\n";
+    print $fh "\n\tSynopsis:\n";
+    print $fh "ftndbadm [options] [-t tablename] create table\n";
+    print $fh "ftndbadm -h | --help\t= Display this help message.\n";
+    print $fh "ftndbadm --version\t= Display version message.\n\n";
+
+    print $fh "\tDatabase Options.\n";
+    print $fh "[-T db_type]\t= Database type;  defaults to 'SQLite'.\n";
+    print $fh "[-D db_name]\t= Database name & path;  defaults to 'ftndbtst'.\n";
+    print $fh "[-u db_user]\t= Database user;  defaults to an empty string.\n";
+    print $fh "[-p db_password]= Database password;  defaults to an empty string.\n";
+
+    print $fh "\tOther Options.\n";
+    print $fh "[-t tablename]\t= Nodelist table name;  defaults to \'Nodelist\'. \n";
+    print $fh "[-l log_file]\t= Log filename; defaults to ftnpldb.log in current dir.\n";
+    print $fh "[-v]\t\t= Verbose option.\n";
+    print $fh "[-x]\t\t= Debug option.\n\n";
 
     return();
 
@@ -294,7 +301,7 @@ sub VERSION_MESSAGE {
 Given that $DBFILE is a file like F</opt/ftndb/FTN-Database.db>, the following
 command line can be used to create an FTN Nodelist table in that database file:
 
-C<ftndbadm -T SQLite -D $DBFILE -t Nodelist -v>
+C<ftndbadm -T SQLite -D $DBFILE -t Nodelist -v create table>
 
 =head1 AUTHOR
 
@@ -334,8 +341,7 @@ L<http://search.cpan.org/dist/FTN-Database>
 =head1 SEE ALSO
 
  L<FTN::Database>, L<FTN::Database::Nodelist>, L<listftndb>,
- L<ftndbadm>, and L<nl2ftndb>
-
+ and L<nl2ftndb>.
 
 =head1 COPYRIGHT & LICENSE
 
