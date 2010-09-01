@@ -246,7 +246,7 @@ sub HELP_MESSAGE {
 
     my $fh = shift;
 
-    print $fh "\n\tUsage:\nlistftndb [-t tablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-z zone] [-n net] [-o outfile] [-v] [-h | --help]\n";
+    print $fh "\n\tUsage:\nlistftndb [-t tablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-z zone] [-n net] [-o outfile] [-v] [-h | --help] [--version]\n";
     print $fh "\t[-t tablename]\t\t= Nodelist table name;  defaults to \'Nodelist\'. \n";
     print $fh "\t[-T db_type]\t\t= Database type;  defaults to 'SQLite'.\n";
     print $fh "\t[-D db_name]\t\t= Database name & path;  defaults to 'ftndbtst'.\n";
@@ -257,7 +257,21 @@ sub HELP_MESSAGE {
     print $fh "\t[-o outfile]\t\t= Output file (plus path) = defaults to outfile.txt in current directory.\n";
     print $fh "\t[-v]\t\t\t= Verbose option \n";
     print $fh "\t[-x]\t\t\t= Debug option \n";
-    print $fh "\t[-h | --help]\t\t= Print this help message \n\n";
+    print $fh "\t[-h | --help]\t\t= Print this help message \n";
+    print $fh "\t[--version]\t\t= Display version message \n\n";
+
+    return();
+
+}
+
+########################################################################
+# Display Version message
+########################################################################
+sub VERSION_MESSAGE {
+
+    my $fh = shift;
+    
+    print $fh "listftndb version $VERSION\n";
 
     return();
 

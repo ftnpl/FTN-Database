@@ -424,7 +424,7 @@ sub HELP_MESSAGE {
 
     my $fh = shift;
     
-    print $fh "\n\tUsage:\nnl2ftndb -n nodelist_directory [-t tablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-f nodelist_file] [-l log_file] [-d domain] [-e] [-v] [-x] [-z zonenum] [-h | --help]\n";
+    print $fh "\n\tUsage:\nnl2ftndb -n nodelist_directory [-t tablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-f nodelist_file] [-l log_file] [-d domain] [-e] [-v] [-x] [-z zonenum] [-h | --help] [--version]\n";
     print $fh "\t-n nodelist_directory\t= Nodelist directory\n";
     print $fh "\t[-t tablename]\t\t= Nodelist table name;  defaults to 'Nodelist'.\n";
     print $fh "\t[-T db_type]\t\t= Database type;  defaults to 'SQLite'.\n";
@@ -438,7 +438,8 @@ sub HELP_MESSAGE {
     print $fh "\t[-e]\t\t\t= If present, then nodelist_file is exact filename\n";
     print $fh "\t[-v]\t\t\t= Verbose Mode\n";
     print $fh "\t[-x]\t\t\t= Debug Mode\n";
-    print $fh "\t[-h | --help]\t\t= Display this help message.\n\n";
+    print $fh "\t[-h | --help]\t\t= Display this help message.\n";
+    print $fh "\t[--version]\t\t= Display version message \n\n";
 
     return();
 
@@ -485,6 +486,21 @@ sub get_nodelist_filename {
     return ( $files[0] );    # return filename
 
 }
+
+########################################################################
+# Display Version message
+########################################################################
+sub VERSION_MESSAGE {
+
+    my $fh = shift;
+    
+    print $fh "nl2ftndb version $VERSION\n";
+
+    return();
+
+}
+
+########################################################################
 
 =head1 EXAMPLES
 
