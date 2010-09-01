@@ -196,11 +196,11 @@ sub HELP_MESSAGE {
     print $fh "\t[-D db_name]\t\t= Database name & path;  defaults to 'ftndbtst'.\n";
     print $fh "\t[-u db_user]\t\t= Database user;  defaults to an empty string.\n";
     print $fh "\t[-p db_password]\t= Database password;  defaults to an empty string.\n";
-    print $fh "\t[-l log_file]\t\t= Log filename; defaults to ftnpldb.log in current dir)\n";
-    print $fh "\t[-v]\t\t\t= Verbose option \n";
-    print $fh "\t[-x]\t\t\t= Debug option \n";
-    print $fh "\t[-h | --help]\t\t= Display this help message\n";
-    print $fh "\t[--version]\t\t= Display version message\n\n";
+    print $fh "\t[-l log_file]\t\t= Log filename; defaults to ftnpldb.log in current dir.\n";
+    print $fh "\t[-v]\t\t\t= Verbose option.\n";
+    print $fh "\t[-x]\t\t\t= Debug option.\n";
+    print $fh "\t[-h | --help]\t\t= Display this help message.\n";
+    print $fh "\t[--version]\t\t= Display version message.\n\n";
 
     return();
 
