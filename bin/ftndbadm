@@ -191,7 +191,7 @@ if (lc($command) = "create") {
 	create_ftn_nodelist_table();
 
     } else {
-	print(*STDERR) "Unrecognized parameter for \'create\' command.\n";
+	print STDERR "Unrecognized parameter for \'create\' command.\n";
 	HELP_MESSAGE(*STDERR);
 	exit 1;
 
@@ -204,14 +204,14 @@ if (lc($command) = "create") {
 	# call drop_ftn_database & exit
 
     } else {
-	print(*STDERR) "Unrecognized parameter for \'drop\' command.\n";
+	print STDERR "Unrecognized parameter for \'drop\' command.\n";
 	HELP_MESSAGE(*STDERR);
 	exit 1;
 	
     }	# End parsing of 'drop' command
 
 } else {
-    print(*STDERR) "Unrecognized command.\n";
+    print STDERR "Unrecognized command.\n";
     HELP_MESSAGE(*STDERR);
     exit 1;
 
