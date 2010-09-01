@@ -38,8 +38,7 @@ C<ftndbadm [-h | --help]>
 
 my ( $db_type, $db_name, $db_user, $db_password, $table_name, $db_handle, $log_file );
 
-
-my $log_id = "NLTBL";
+my $log_id = "DBADM";
 
 getopts('t:T:D:u:p:l:hvx');
 
