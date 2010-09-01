@@ -28,7 +28,7 @@ One such listing can be from a specific net from a specific zone of a nodelist t
 
 =head1 SYNOPSIS
 
-C<listftndb [-t nodelisttablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-z zone] [-n net] [-o outfile] [-v]>
+C<listftndb [-t tablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-z zone] [-n net] [-o outfile] [-v]>
 
 C<listftndb [-h | --help]>
 
@@ -39,7 +39,7 @@ my ( $db_type, $db_name, $db_user, $db_password, $table_name, $db_handle, $sql_s
 getopts('n:o:t:T:D:u:p:hvxz:');
 
 if ($opt_h) {
-    HELP_MESSAGE();
+    HELP_MESSAGE(*STDOUT);
     exit;
 }
 
@@ -240,22 +240,27 @@ exit();
 ########################################################################
 # subroutines
 ########################################################################
-# Help message
+# Display Help message
 ########################################################################
 sub HELP_MESSAGE {
-    print "\nUsage: listftndb [-t nodelisttablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-z zone] [-n net] [-o outfile] [-v] [-h]...\n";
-    print "[-t nodelisttablename] = defaults to \'Nodelist\'. \n";
-    print "[-T db_type]           = database type;  defaults to 'SQLite'.\n\n";
-    print "[-D db_name]           = database name & path;  defaults to 'ftndbtst'.\n\n";
-    print "[-u db_user]           = database user;  defaults to an empty string.\n\n";
-    print "[-p db_password]       = database password;  defaults to an empty string.\n\n";
-    print "[-z zone_number]       = zone_number number = defaults to 1. \n";
-    print "[-n net_number]        = Net number; defaults to 1. \n";
-    print "[-o outfile]           = Output file (plus path) = defaults to outfile.txt in current directory.\n";
-    print "[-v]                   = Verbose option \n";
-    print "[-x]                   = Debug option \n\n";
-    print "[-h]                   = Print this help message \n\n";
+
+    my $fh = shift;
+
+    print $fh "\n\tUsage:\nlistftndb [-t tablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-z zone] [-n net] [-o outfile] [-v] [-h | --help]\n";
+    print $fh "\t[-t tablename]\t\t= Nodelist table name;  defaults to \'Nodelist\'. \n";
+    print $fh "\t[-T db_type]\t\t= Database type;  defaults to 'SQLite'.\n";
+    print $fh "\t[-D db_name]\t\t= Database name & path;  defaults to 'ftndbtst'.\n";
+    print $fh "\t[-u db_user]\t\t= Database user;  defaults to an empty string.\n";
+    print $fh "\t[-p db_password]\t= Database password;  defaults to an empty string.\n";
+    print $fh "\t[-z zone_number]\t= Zone number number;  defaults to 1.\n";
+    print $fh "\t[-n net_number]\t\t= Net number; defaults to 1.\n";
+    print $fh "\t[-o outfile]\t\t= Output file (plus path) = defaults to outfile.txt in current directory.\n";
+    print $fh "\t[-v]\t\t\t= Verbose option \n";
+    print $fh "\t[-x]\t\t\t= Debug option \n";
+    print $fh "\t[-h | --help]\t\t= Print this help message \n\n";
+
     return();
+
 }
 
 ########################################################################

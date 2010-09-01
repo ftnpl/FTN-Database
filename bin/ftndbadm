@@ -30,7 +30,7 @@ database engine is one for which a DBD module exists, defaulting to SQLite.
 
 =head1 SYNOPSIS
 
-C<ftndbadm [-t nodelisttablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-v]>
+C<ftndbadm [-t tablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-v]>
 
 C<ftndbadm [-h | --help]>
 
@@ -45,7 +45,7 @@ my $log_id = "NLTBL";
 getopts('t:T:D:u:p:hvx');
 
 if ($opt_h) {
-    HELP_MESSAGE();
+    HELP_MESSAGE(*STDOUT);
     exit(0);
 }
 
@@ -171,19 +171,24 @@ exit();
 ########################################################################
 # subroutines
 ########################################################################
-# Help message
+# Display Help message
 ########################################################################
 sub HELP_MESSAGE {
-    print "\nUsage: ftndbadm [-t nodelisttablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-v] [-h]...\n";
-    print "[-t nodelisttablename] = defaults to \'Nodelist\'. \n";
-    print "[-T db_type]           = database type;  defaults to 'SQLite'.\n\n";
-    print "[-D db_name]           = database name & path;  defaults to 'ftndbtst'.\n\n";
-    print "[-u db_user]           = database user;  defaults to an empty string.\n\n";
-    print "[-p db_password]       = database password;  defaults to an empty string.\n\n";
-    print "[-v]		          = verbose option \n\n";
-    print "[-x]		          = debug option \n\n";
-    print "[-h]		          = display this help message \n\n";
+
+    my $fh = shift;
+    
+    print $fh "\n\tUsage:\nftndbadm [-t tablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-v] [-h | --help]\n";
+    print $fh "\t[-t tablename]\t\t= Nodelist table name;  defaults to \'Nodelist\'. \n";
+    print $fh "\t[-T db_type]\t\t= Database type;  defaults to 'SQLite'.\n";
+    print $fh "\t[-D db_name]\t\t= Database name & path;  defaults to 'ftndbtst'.\n";
+    print $fh "\t[-u db_user]\t\t= Database user;  defaults to an empty string.\n";
+    print $fh "\t[-p db_password]\t= Database password;  defaults to an empty string.\n";
+    print $fh "\t[-v]\t\t\t= Verbose option \n";
+    print $fh "\t[-x]\t\t\t= Debug option \n";
+    print $fh "\t[-h | --help]\t\t= Display this help message \n";
+
     return();
+
 }
 
 ########################################################################
