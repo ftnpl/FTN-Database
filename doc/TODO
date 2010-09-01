@@ -2,15 +2,16 @@ To Do:
 
 General
 --------
+- Need to handle situation when there are no command line arguments
+
 - Change to use placeholders for the dbi sql functions.
 
 - Change to useing a hash instead of individual options in the module
 subroutine calls.
 
-- Change and/or create help message subroutine = HELP_MESSAGE  
-(see documentation of Getops::Std)
-
 - Use File::Spec where appropriate.
+
+- Review all pod documentation and update/correct as neccessary.
 
 - The option used to define which type of database to use does not currently
 do any error checking on that type;  the script will fail if a correct DBD name
@@ -24,14 +25,15 @@ scripts and modules regarding that, to generalize it.  (Derive function to
 validate it and add that to the FTN::Database module?)
 
 - Change to using the options hash from GetOpt::Std instead of the individual
-option variables like $opt_l.   Once that has been completed;  move at least
-the database related options checking to a subroutine in FTN::Database?
+option variables like $opt_l.
 
 - Use the "if (defined $opt_l)" construct for checking options?
 
+- Move the parsing of the options in the bin/* scripts into a subroutine?
+
 - Separate out the submodules, like FTN::Database::Nodelist and
-FTN::Database::Echolist, into separate distributions so that only
-the functionality needs to be installed?
+FTN::Database::Echolist (when implemented), into separate distributions
+so that only the functionality that's wanted needs to be installed?
 
 
 FTN::Database
@@ -54,7 +56,7 @@ FTN::Database::Nodelist
 - Derive and move function to insert or update an entry from nl2ftndb. Separate
   functions for insert & update, or different options in same function?
 - Move get_nodelist_filename subroutine from nl2ftndb script?
-- Use a different datatype than "TIMESTAMP" for the 'updated' filed in the
+- Use a different datatype than "TIMESTAMP" for the 'updated' field in the
   nodelist table?  (Not generic enough?)
 
   
@@ -73,10 +75,7 @@ ftndbadm
 -------- 
 - Add better error checking.
 - Add quiet option, -q, for logging only operation ? 
-- Rename as ftnpldb?  As something like ftnpldb-admin?
-- Move display of help message to an appropriately named subroutine.
-- Add an explicit function to create a database;  it's not needed for SQLite
-  databases but it can be for others.  (See ToDo for FTN:Database)
+- Rename as ftnpldb?  Or as something like ftnpldb-admin?
 - Add cammand/options to create or drop the ftnnode index on the nodelist table?
 - Reorganize script to use a set of commands, not just parameters.
 
@@ -100,13 +99,13 @@ nl2ftndb
 - Get quoteing working properly for entry into the database for fields like
   $location and $name, so do not have to take out characters like single
   quotes, etc.
-- Move functionality into the ftndbadm script?
 - Script does not seem to properly handle a file that ends in just blank
   lines, instead of a content line or a ^Z character. (Should fail gracefully
   for a badly formatted file.)
 - The nodelist file list is being reverse sorted when there are multiple
   nodelists of the same basename being processed;  that takes care of a set
   of files all from the same year but not ones that are from different years.
+- Change the nodelist directory option (-n) to defaulting to current directory.
 - Add quiet option, -q, for logging only operation ? 
 - Add a test nodelist for use with this?...
 
@@ -118,10 +117,8 @@ listftndb
   "-o" variable is not set.
 - Besides the print to screen output & output to text file, add option for html
   formatted output?  And/or just add formated output using a template file?
-- Generalize the command line parseing to allow for commands for listing from
-  the nodelist or echolist (when that's added) tables.
 - Add quiet option, -q, for logging only operation ? 
-- Move functionality into the ftndbadm script?
+- Move functionality into the nl2ftndb script?
 
 
 Testing

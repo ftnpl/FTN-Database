@@ -9,17 +9,19 @@ use FTN::Database qw(&open_ftndb &close_ftndb);
 use FTN::Database::Nodelist qw(&create_ftnnode_index &drop_ftnnode_index);
 use FTN::Log qw(&logging);
 
+$Getopt::Std::STANDARD_HELP_VERSION = 1;
+
 =head1 NAME
 
 nl2ftndb - Load information to a Nodelist table in an Fidonet/FTN SQL database.
 
 =head1 VERSION
 
-Version 0.12
+Version 0.13
 
 =cut
 
-our $VERSION = 0.12;
+our $VERSION = 0.13;
 
 =head1 DESCRIPTION
 
@@ -29,14 +31,16 @@ defaulting to SQLite.
 
 =head1 SYNOPSIS
 
-C<nl2ftndb -n nodelist_directory [-t tablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-f nodelist_file] [-l log_file] [-d domain] [-e] [-v] [-x] [-z zonenum] [-h]>
+C<nl2ftndb -n nodelist_directory [-t tablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-f nodelist_file] [-l log_file] [-d domain] [-e] [-v] [-x] [-z zonenum]>
+
+C<nl2ftndb [-h | --help]>
 
 =cut
 
 getopts('n:T:D:u:p:f:l:d:t:ehvxz:');
 
 if ($opt_h) {
-    help();    #printing usage/help message
+    HELP_MESSAGE(*STDOUT);    #printing usage/help message
     exit 0;
 }
 
@@ -54,7 +58,7 @@ my (
 =item -l
 
 This would be the filename and path of a log file, with the default
-being nl2ftndb.log in the current directory.
+being ftnpldb.log in the current directory.
 
 =cut
 
@@ -63,7 +67,7 @@ if ($opt_l) {
     undef $opt_l;
 }
 else {
-    $log_file = "nl2ftndb.log";
+    $log_file = "ftnpldb.log";
 }
 
 my $log_id = "nl2db";
@@ -199,7 +203,7 @@ the -f option is basename of nodelist file.
 }
 else {
     print "\nThe Nodelist directory variable must be set... \n";
-    help();
+    HELP_MESSAGE(*STDERR);
     exit(1);
 }
 
@@ -414,24 +418,31 @@ exit();
 # subroutines
 ############################################
 
-# Help message
+# Display of help message
 ############################################
-sub help {
-    print "\nUsage: nl2ftndb -n nodelist_directory [-t tablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-f nodelist_file] [-l log_file] [-d domain] [-e] [-v] [-x] [-z zonenum] [-h]...\n";
-    print "    [-n nodelist_directory] = nodelist directory...\n";
-    print "    [-t tablename]          = Nodelist table name;  defaults to 'Nodelist'.\n\n";
-    print "    [-T db_type]            = database type;  defaults to 'SQLite'.\n\n";
-    print "    [-D db_name]            = database name & path;  defaults to 'ftndbtst'.\n\n";
-    print "    [-u db_user]            = database user;  defaults to an empty string.\n\n";
-    print "    [-p db_password]        = database password;  defaults to ab empty string.\n\n";
-    print "    [-f nodelist_file]      = nodelist filename, defaults to 'nodelist'.\n";
-    print "    [-l log_file]           = log filename (defaults to nodelist.log in current dir)\n";
-    print "    [-d domain]             = nodelist domain;  defaults to 'fidonet'.\n\n";
-    print "    [-z zone_number]        = If present, then only the defined zone 'zone_number' is loaded.\n";
-    print "    [-e]	               = If present, then nodelist_file is exact filename\n";
-    print "    [-v]	               = Verbose Mode\n";
-    print "    [-x]	               = Debug Mode\n";
-    print "    [-h]	               = Display this help\n";
+sub HELP_MESSAGE {
+
+    my $fh = shift;
+    
+    print $fh "\n\tUsage:\nnl2ftndb -n nodelist_directory [-t tablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-f nodelist_file] [-l log_file] [-d domain] [-e] [-v] [-x] [-z zonenum] [-h | --help] [--version]\n";
+    print $fh "\t-n nodelist_directory\t= Nodelist directory\n";
+    print $fh "\t[-t tablename]\t\t= Nodelist table name;  defaults to 'Nodelist'.\n";
+    print $fh "\t[-T db_type]\t\t= Database type;  defaults to 'SQLite'.\n";
+    print $fh "\t[-D db_name]\t\t= Database name & path;  defaults to 'ftndbtst'.\n";
+    print $fh "\t[-u db_user]\t\t= Database user;  defaults to an empty string.\n";
+    print $fh "\t[-p db_password]\t= Database password;  defaults to ab empty string.\n";
+    print $fh "\t[-f nodelist_file]\t= Nodelist filename, defaults to 'nodelist'.\n";
+    print $fh "\t[-l log_file]\t\t= Log filename;  defaults to ftnpldb.log in current dir)\n";
+    print $fh "\t[-d domain]\t\t= Nodelist domain;  defaults to 'fidonet'.\n";
+    print $fh "\t[-z zone_number]\t= If present, then only the defined zone 'zone_number' is loaded.\n";
+    print $fh "\t[-e]\t\t\t= If present, then nodelist_file is exact filename\n";
+    print $fh "\t[-v]\t\t\t= Verbose Mode\n";
+    print $fh "\t[-x]\t\t\t= Debug Mode\n";
+    print $fh "\t[-h | --help]\t\t= Display this help message.\n";
+    print $fh "\t[--version]\t\t= Display version message \n\n";
+
+    return();
+
 }
 
 ################################################
@@ -457,7 +468,7 @@ sub get_nodelist_filename {
     if ( $#files == -1 ) {
         logging($log_file, $log_id, "Nodelist files $basename not found");
         print("\nNodelist files $basename not found.\n");
-        help;
+        HELP_MESSAGE();
         exit();
     }
     else {
@@ -475,6 +486,21 @@ sub get_nodelist_filename {
     return ( $files[0] );    # return filename
 
 }
+
+########################################################################
+# Display Version message
+########################################################################
+sub VERSION_MESSAGE {
+
+    my $fh = shift;
+    
+    print $fh "nl2ftndb version $VERSION\n";
+
+    return();
+
+}
+
+########################################################################
 
 =head1 EXAMPLES
 

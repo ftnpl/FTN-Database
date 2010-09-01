@@ -3,11 +3,13 @@
 use warnings;
 use strict;
 use Getopt::Std;
-use vars qw/ $opt_t $opt_T $opt_D $opt_u $opt_p $opt_h $opt_v $opt_x /;
+use vars qw/ $opt_t $opt_T $opt_D $opt_u $opt_p $opt_l $opt_h $opt_v $opt_x /;
 
 use FTN::Database qw(&open_ftndb &close_ftndb);
 use FTN::Database::Nodelist qw(&create_nodelist_table &drop_nodelist_table &create_ftnnode_index &drop_ftnnode_index);
 use FTN::Log qw(&logging);
+
+$Getopt::Std::STANDARD_HELP_VERSION = 1;
 
 =head1 NAME
 
@@ -15,11 +17,11 @@ ftndbadm - Administration of an SQL database for Fidonet/FTN processing.
 
 =head1 VERSION
 
-Version 0.12
+Version 0.13
 
 =cut
 
-our $VERSION = 0.12;
+our $VERSION = 0.13;
 
 =head1 DESCRIPTION
 
@@ -28,34 +30,41 @@ database engine is one for which a DBD module exists, defaulting to SQLite.
 
 =head1 SYNOPSIS
 
-C<ftndbadm [-t nodelisttablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-v] [-h]>
+C<ftndbadm [-t tablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-l log_file] [-v]>
+
+C<ftndbadm [-h | --help]>
 
 =cut
 
-my ( $db_type, $db_name, $db_user, $db_password, $table_name, $db_handle );
+my ( $db_type, $db_name, $db_user, $db_password, $table_name, $db_handle, $log_file );
 
-my $log_file = "stdout";
+my $log_id = "DBADM";
 
-my $log_id = "NLTBL";
-
-getopts('t:T:D:u:p:hvx');
+getopts('t:T:D:u:p:l:hvx');
 
 if ($opt_h) {
-    print "\nUsage: ftndbadm [-t nodelisttablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-v] [-h]...\n";
-    print "[-t nodelisttablename] = defaults to \'Nodelist\'. \n";
-    print "[-T db_type]           = database type;  defaults to 'SQLite'.\n\n";
-    print "[-D db_name]           = database name & path;  defaults to 'ftndbtst'.\n\n";
-    print "[-u db_user]           = database user;  defaults to an empty string.\n\n";
-    print "[-p db_password]       = database password;  defaults to an empty string.\n\n";
-    print "[-v]		          = verbose option \n\n";
-    print "[-x]		          = debug option \n\n";
-    print "[-h]		          = display this help message \n\n";
-    exit;
+    HELP_MESSAGE(*STDOUT);
+    exit(0);
 }
 
 =head1 OPTIONS
 
 =over
+
+=item -l
+
+This would be the filename and path of a log file, with the default
+being ftnpldb.log in the current directory.
+
+=cut
+
+if ($opt_l) {
+    $log_file = $opt_l;
+    undef $opt_l;
+}
+else {
+    $log_file = "ftnpldb.log";
+}
 
 =item -x
 
@@ -167,28 +176,79 @@ else {
     $table_name = "Nodelist";     # default table name
 }
 
-# connect to database
-$db_handle = FTN::Database::open_ftndb($db_type, $db_name, $db_user, $db_password);
-
-# drop the old nodelist table index, if it exists.
-FTN::Database::Nodelist::drop_ftnnode_index($db_handle);
-
-# drop the old nodelist table, if it exists.
-logging($log_file, $log_id, "Dropping existing nodelist table $table_name if it already exists.");
-FTN::Database::Nodelist::drop_nodelist_table($db_handle, $table_name);
-
-# Create nodelist table
-FTN::Database::Nodelist::create_nodelist_table($db_handle, $table_name);
-
-# Creating Index
-FTN::Database::Nodelist::create_ftnnode_index($db_handle, $table_name);
-
-# disconnect from database
-FTN::Database::close_ftndb($db_handle);
-
-logging($log_file, $log_id, "Table $table_name created.");
+#  Create an FTN nodelist table
+create_ftn_nodelist_table();
 
 exit();
+
+########################################################################
+# subroutines
+########################################################################
+# Display Help message
+########################################################################
+sub HELP_MESSAGE {
+
+    my $fh = shift;
+    
+    print $fh "\n\tUsage:\nftndbadm [-t tablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-l log_file] [-v] [-h | --help] [--version]\n";
+    print $fh "\t[-t tablename]\t\t= Nodelist table name;  defaults to \'Nodelist\'. \n";
+    print $fh "\t[-T db_type]\t\t= Database type;  defaults to 'SQLite'.\n";
+    print $fh "\t[-D db_name]\t\t= Database name & path;  defaults to 'ftndbtst'.\n";
+    print $fh "\t[-u db_user]\t\t= Database user;  defaults to an empty string.\n";
+    print $fh "\t[-p db_password]\t= Database password;  defaults to an empty string.\n";
+    print $fh "\t[-l log_file]\t\t= Log filename; defaults to ftnpldb.log in current dir.\n";
+    print $fh "\t[-v]\t\t\t= Verbose option.\n";
+    print $fh "\t[-x]\t\t\t= Debug option.\n";
+    print $fh "\t[-h | --help]\t\t= Display this help message.\n";
+    print $fh "\t[--version]\t\t= Display version message.\n\n";
+
+    return();
+
+}
+
+########################################################################
+# Create an FTN Nodelist table
+########################################################################
+sub create_ftn_nodelist_table {
+
+    # connect to database
+    $db_handle = FTN::Database::open_ftndb($db_type, $db_name, $db_user, $db_password);
+
+    # drop the old nodelist table index, if it exists.
+    FTN::Database::Nodelist::drop_ftnnode_index($db_handle);
+
+    # drop the old nodelist table, if it exists.
+    logging($log_file, $log_id, "Dropping existing nodelist table $table_name if it already exists.");
+    FTN::Database::Nodelist::drop_nodelist_table($db_handle, $table_name);
+
+    # Create nodelist table
+    FTN::Database::Nodelist::create_nodelist_table($db_handle, $table_name);
+
+    # Creating Index
+    FTN::Database::Nodelist::create_ftnnode_index($db_handle, $table_name);
+
+    # disconnect from database
+    FTN::Database::close_ftndb($db_handle);
+
+    logging($log_file, $log_id, "Table $table_name created.");
+
+    return();
+}
+
+########################################################################
+# Display Version message
+########################################################################
+sub VERSION_MESSAGE {
+
+    my $fh = shift;
+    
+    print $fh "ftndbadm version $VERSION\n";
+
+    return();
+
+}
+
+########################################################################
 
 =head1 EXAMPLE
 
@@ -211,7 +271,7 @@ be notified, and then you'll automatically be notified of progress on your bug a
 
 You can find documentation for this module with the perldoc command.
 
-    perldoc ftndbadmccle
+    perldoc ftndbadm
 
 
 You can also look for information at:
