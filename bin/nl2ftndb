@@ -58,7 +58,7 @@ my (
 =item -l
 
 This would be the filename and path of a log file, with the default
-being nl2ftndb.log in the current directory.
+being ftnpldb.log in the current directory.
 
 =cut
 
@@ -67,7 +67,7 @@ if ($opt_l) {
     undef $opt_l;
 }
 else {
-    $log_file = "nl2ftndb.log";
+    $log_file = "ftnpldb.log";
 }
 
 my $log_id = "nl2db";
@@ -432,7 +432,7 @@ sub HELP_MESSAGE {
     print $fh "\t[-u db_user]\t\t= Database user;  defaults to an empty string.\n";
     print $fh "\t[-p db_password]\t= Database password;  defaults to ab empty string.\n";
     print $fh "\t[-f nodelist_file]\t= Nodelist filename, defaults to 'nodelist'.\n";
-    print $fh "\t[-l log_file]\t\t= Log filename (defaults to nodelist.log in current dir)\n";
+    print $fh "\t[-l log_file]\t\t= Log filename;  defaults to ftnpldb.log in current dir)\n";
     print $fh "\t[-d domain]\t\t= Nodelist domain;  defaults to 'fidonet'.\n";
     print $fh "\t[-z zone_number]\t= If present, then only the defined zone 'zone_number' is loaded.\n";
     print $fh "\t[-e]\t\t\t= If present, then nodelist_file is exact filename\n";
