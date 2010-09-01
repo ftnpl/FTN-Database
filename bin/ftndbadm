@@ -28,7 +28,9 @@ database engine is one for which a DBD module exists, defaulting to SQLite.
 
 =head1 SYNOPSIS
 
-C<ftndbadm [-t nodelisttablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-v] [-h]>
+C<ftndbadm [-t nodelisttablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-v]>
+
+C<ftndbadm [-h | --help]>
 
 =cut
 
