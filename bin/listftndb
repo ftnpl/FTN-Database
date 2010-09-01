@@ -26,7 +26,9 @@ One such listing can be from a specific net from a specific zone of a nodelist t
 
 =head1 SYNOPSIS
 
-C<listftndb [-t nodelisttablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-z zone] [-n net] [-o outfile] [-v] [-h]>
+C<listftndb [-t nodelisttablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-z zone] [-n net] [-o outfile] [-v]>
+
+C<listftndb [-h | --help]>
 
 =cut
 
