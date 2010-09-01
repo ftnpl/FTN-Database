@@ -9,6 +9,8 @@ use FTN::Database qw(&open_ftndb &close_ftndb);
 use FTN::Database::Nodelist qw(&create_nodelist_table &drop_nodelist_table &create_ftnnode_index &drop_ftnnode_index);
 use FTN::Log qw(&logging);
 
+$Getopt::Std::STANDARD_HELP_VERSION = 1;
+
 =head1 NAME
 
 ftndbadm - Administration of an SQL database for Fidonet/FTN processing.
