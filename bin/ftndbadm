@@ -178,6 +178,19 @@ else {
     $table_name = "Nodelist";     # default table name
 }
 
+=head1 COMMANDS
+
+=over
+
+=item create table
+
+This will create a nodelist table in an SQL database being used
+for Fidonet/FTN nodelist processing.
+
+=back
+
+=cut
+
 # Parse commands
 #   if a command is found, then execute & exit
 #   if not;  display error message, then help message, then exit
