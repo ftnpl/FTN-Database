@@ -3,7 +3,7 @@
 use warnings;
 use strict;
 use Getopt::Std;
-use vars qw/ $opt_t $opt_T $opt_D $opt_u $opt_p $opt_l $opt_h $opt_v $opt_x /;
+use vars qw/ $opt_t $opt_d $opt_T $opt_D $opt_u $opt_p $opt_l $opt_h $opt_v $opt_x /;
 
 use FTN::Database qw(&open_ftndb &close_ftndb);
 use FTN::Database::Nodelist qw(&create_nodelist_table &drop_nodelist_table &create_ftnnode_index &drop_ftnnode_index);
@@ -42,7 +42,7 @@ my ( $db_type, $db_name, $db_user, $db_password, $table_name, $db_handle, $log_f
 
 my $log_id = "DBADM";
 
-getopts('t:T:D:u:p:l:hvx');
+getopts('t:T:D:d:u:p:l:hvx');
 
 if ($opt_h) {
     HELP_MESSAGE(*STDOUT);
@@ -152,6 +152,17 @@ else {
     $db_password = ""; 
 }
 
+=item -d
+
+Name of the database being created or dropped.
+
+=cut
+
+if ($opt_d) {
+    my $database_name = $opt_d;
+    undef $opt_d;
+}
+
 =item -t
 
 The nodelist table name to be used.
@@ -182,10 +193,16 @@ else {
 
 =over
 
+=item create database
+
+This will create a database an SQL database server being used
+for Fidonet/FTN processing.  If it already exists, it will drop
+it first, before going on to create it again.
+
 =item create table
 
 This will create a nodelist table in an SQL database being used
-for Fidonet/FTN nodelist processing.
+for Fidonet/FTN nodelist processing. 
 
 =back
 
@@ -199,7 +216,7 @@ if (lc($command) eq "create") {
 
     $command = shift;
     if (lc($command) eq "database") {
-	# call create_ftn_database & exit
+	create_ftn_database();
 
     } elsif (lc($command) eq "table") {
 	#  Create an FTN nodelist table
@@ -245,6 +262,7 @@ sub HELP_MESSAGE {
     my $fh = shift;
     
     print $fh "\n\tSynopsis:\n";
+    print $fh "ftndbadm [options] [-d databasename] create database\n";
     print $fh "ftndbadm [options] [-t tablename] create table\n";
     print $fh "ftndbadm -h | --help\t= Display this help message.\n";
     print $fh "ftndbadm --version\t= Display version message.\n\n";
@@ -256,6 +274,7 @@ sub HELP_MESSAGE {
     print $fh "[-p db_password]= Database password;  defaults to an empty string.\n";
 
     print $fh "\tOther Options.\n";
+    print $fh "[-d databasename]\t= Database name being created or dropped.\n";
     print $fh "[-t tablename]\t= Nodelist table name;  defaults to \'Nodelist\'. \n";
     print $fh "[-l log_file]\t= Log filename; defaults to ftnpldb.log in current dir.\n";
     print $fh "[-v]\t\t= Verbose option.\n";
@@ -263,6 +282,29 @@ sub HELP_MESSAGE {
 
     return();
 
+}
+
+########################################################################
+# Create an FTN database
+########################################################################
+sub create_ftn_database {
+
+    # connect to database server
+    $db_handle = FTN::Database::open_ftndb($db_type, $db_name, $db_user, $db_password);
+
+    # drop the old database, if it exists.
+    logging($log_file, $log_id, "Dropping existing $database_name if it already exists.");
+    FTN::Database::Nodelist::drop_ftndb($db_handle, $database_name);
+
+    # Create database
+    FTN::Database::Nodelist::create_ftbdbe($db_handle, $database_name);
+
+    # disconnect from database
+    FTN::Database::close_ftndb($db_handle);
+
+    logging($log_file, $log_id, "Database $database_name created.");
+
+    return();
 }
 
 ########################################################################
