@@ -36,6 +36,8 @@ C<ftndbadm [options] [-d databasename] drop database>
 
 C<ftndbadm [options] [-t tablename] create table>
 
+C<ftndbadm [options] [-t tablename] drop table>
+
 C<ftndbadm [-h | --help]>
 
 C<ftndbadm --version>
@@ -213,6 +215,11 @@ for Fidonet/FTN processing.
 This will create a nodelist table in an SQL database being used
 for Fidonet/FTN nodelist processing. 
 
+=item drop table
+
+This will drop a database table in an SQL database server being used
+for Fidonet/FTN processing.
+
 =back
 
 =cut
@@ -244,6 +251,10 @@ if (lc($command) eq "create") {
     if (lc($command) eq "database") {
 	call drop_ftn_database();
 
+    } elsif (lc($command) eq "table") {
+	#  Drop an FTN nodelist table
+	drop_ftn_table();
+
     } else {
 	print STDERR "Unrecognized parameter for \'drop\' command.\n";
 	HELP_MESSAGE(*STDERR);
@@ -274,6 +285,7 @@ sub HELP_MESSAGE {
     print $fh "ftndbadm [options] [-d databasename] create database\n";
     print $fh "ftndbadm [options] [-d databasename] drop database\n";
     print $fh "ftndbadm [options] [-t tablename] create table\n";
+    print $fh "ftndbadm [options] [-t tablename] drop table\n";
     print $fh "ftndbadm -h | --help\t= Display this help message.\n";
     print $fh "ftndbadm --version\t= Display version message.\n\n";
 
@@ -362,6 +374,26 @@ sub create_ftn_nodelist_table {
     FTN::Database::close_ftndb($db_handle);
 
     logging($log_file, $log_id, "Table $table_name created.");
+
+    return();
+}
+
+########################################################################
+# Drop an FTN (nodelist) database table
+########################################################################
+sub drop_ftn_table {
+
+    # connect to database server
+    $db_handle = FTN::Database::open_ftndb($db_type, $db_name, $db_user, $db_password);
+
+    # drop the old database able, if it exists.
+    logging($log_file, $log_id, "Dropping existing $table_name if it already exists.");
+    FTN::Database::Nodelist::drop_nodelist_table($db_handle, $table_name);
+
+    # disconnect from database
+    FTN::Database::close_ftndb($db_handle);
+
+    logging($log_file, $log_id, "Database table $table_name dropped.");
 
     return();
 }
