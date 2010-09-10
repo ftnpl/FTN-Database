@@ -3,7 +3,7 @@
 use warnings;
 use strict;
 use Getopt::Std;
-use vars qw/ $opt_t $opt_d $opt_T $opt_D $opt_u $opt_p $opt_l $opt_h $opt_v $opt_x /;
+use vars qw/ $opt_c $opt_t $opt_d $opt_T $opt_D $opt_u $opt_p $opt_l $opt_h $opt_v $opt_x /;
 
 use FTN::Database qw(&open_ftndb &close_ftndb);
 use FTN::Database::Nodelist qw(&create_nodelist_table &drop_nodelist_table &create_ftnnode_index &drop_ftnnode_index);
@@ -48,7 +48,7 @@ my ( $db_type, $db_name, $db_user, $db_password, $database_name, $table_name, $d
 
 my $log_id = "DBADM";
 
-getopts('t:T:D:d:u:p:l:hvx');
+getopts('c:t:T:D:d:u:p:l:hvx');
 
 if ($opt_h) {
     HELP_MESSAGE(*STDOUT);
@@ -58,6 +58,21 @@ if ($opt_h) {
 =head1 OPTIONS
 
 =over
+
+=item -c
+
+This is the filename and path of a configuration file, with the
+default being ftnpldb.cfg in the current directory.
+
+=cut
+
+if ($opt_c) {
+    $config_file = $opt_c;
+    undef $opt_c;
+}
+else {
+    $config_file = "ftnpldb.cfg";
+}
 
 =item -l
 
@@ -297,6 +312,7 @@ sub HELP_MESSAGE {
     print $fh "[-p db_password]= Database password;  defaults to an empty string.\n";
 
     print $fh "\tOther Options.\n";
+    print $fh "[-c config_file]\t= Name and path for configuration file.\n";
     print $fh "[-d databasename]\t= Database name being created or dropped.\n";
     print $fh "[-t tablename]\t= Nodelist table name;  defaults to \'Nodelist\'. \n";
     print $fh "[-l log_file]\t= Log filename; defaults to ftnpldb.log in current dir.\n";

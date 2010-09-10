@@ -3,7 +3,7 @@
 use warnings;
 use strict;
 use Getopt::Std;
-use vars qw/ $opt_n $opt_o $opt_t $opt_T $opt_D $opt_u $opt_p $opt_h $opt_v $opt_x $opt_z /;
+use vars qw/ $opt_c $opt_n $opt_o $opt_t $opt_T $opt_D $opt_u $opt_p $opt_h $opt_v $opt_x $opt_z /;
 
 use FTN::Database qw(&open_ftndb &close_ftndb);
 
@@ -36,7 +36,7 @@ C<listftndb [-h | --help]>
 
 my ( $db_type, $db_name, $db_user, $db_password, $table_name, $db_handle, $sql_statement, $zone_number, $net_number, $list_file );
 
-getopts('n:o:t:T:D:u:p:hvxz:');
+getopts('c:n:o:t:T:D:u:p:hvxz:');
 
 if ($opt_h) {
     HELP_MESSAGE(*STDOUT);
@@ -46,6 +46,21 @@ if ($opt_h) {
 =head1 OPTIONS
 
 =over
+
+=item -c
+
+This is the filename and path of a configuration file, with the
+default being ftnpldb.cfg in the current directory.
+
+=cut
+
+if ($opt_c) {
+    $config_file = $opt_c;
+    undef $opt_c;
+}
+else {
+    $config_file = "ftnpldb.cfg";
+}
 
 =item -x
 
@@ -247,6 +262,7 @@ sub HELP_MESSAGE {
     my $fh = shift;
 
     print $fh "\n\tUsage:\nlistftndb [-t tablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-z zone] [-n net] [-o outfile] [-v] [-h | --help] [--version]\n";
+    print $fh "\t[-c config_file]\t= Name and path for configuration file.\n";
     print $fh "\t[-t tablename]\t\t= Nodelist table name;  defaults to \'Nodelist\'. \n";
     print $fh "\t[-T db_type]\t\t= Database type;  defaults to 'SQLite'.\n";
     print $fh "\t[-D db_name]\t\t= Database name & path;  defaults to 'ftndbtst'.\n";
