@@ -279,7 +279,15 @@ sub VERSION_MESSAGE {
 
 ########################################################################
 
-=head1 EXAMPLE
+=head1 EXAMPLES
+
+This is an example of the contents of an ftnpldb.cfg file:
+
+    [Database]
+    Type=mysql
+    Name=ftndbtst
+    User=sysop
+    Password=ftndbtst
 
 Given that $DBFILE is an SQLite database file and that $LISTFILE is a
 file where the information is to be listed, the following command line

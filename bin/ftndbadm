@@ -414,7 +414,15 @@ sub VERSION_MESSAGE {
 
 ########################################################################
 
-=head1 EXAMPLE
+=head1 EXAMPLES
+
+This is an example of the contents of an ftnpldb.cfg file:
+
+    [Database]
+    Type=mysql
+    Name=ftndbtst
+    User=sysop
+    Password=ftndbtst
 
 Given that $DBFILE is a file like F</opt/ftndb/FTN-Database.db>, the following
 command line can be used to create an FTN Nodelist table in that database file:

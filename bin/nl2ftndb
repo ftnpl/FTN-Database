@@ -504,6 +504,14 @@ sub VERSION_MESSAGE {
 
 =head1 EXAMPLES
 
+This is an example of the contents of an ftnpldb.cfg file:
+
+    [Database]
+    Type=mysql
+    Name=ftndbtst
+    User=sysop
+    Password=ftndbtst
+
 Given that $NLDIR is the directory where the nodelist files can be found
 and that $NLFILE is a base filename like NODELIST and that $DBFILE is
 existing SQLite database file, the following command line can be used
