@@ -1,5 +1,9 @@
 Revision history for FTN-Database (ftnpldb) 
 
+0.14	Fri Sep 10 16:37 2010
+    - Add parsing of command line arguments to bin/ftndbadm for the following
+      commands:  create database, drop database, create table, drop table.
+
 0.13	Wed Sep 01 11:09 2010
     - Add a '--version' option to bin/* scripts.
     - Change default log file in bin/nl2ftndb to ftnpldb.log
