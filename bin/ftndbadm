@@ -44,7 +44,7 @@ C<ftndbadm --version>
 
 =cut
 
-my ( $db_type, $db_name, $db_user, $db_password, $table_name, $db_handle, $log_file, $command );
+my ( $db_type, $db_name, $db_user, $db_password, $database_name, $table_name, $db_handle, $log_file, $command );
 
 my $log_id = "DBADM";
 
@@ -165,7 +165,7 @@ Name of the database being created or dropped.
 =cut
 
 if ($opt_d) {
-    my $database_name = $opt_d;
+    $database_name = $opt_d;
     undef $opt_d;
 }
 
