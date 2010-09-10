@@ -207,18 +207,19 @@ it first, before going on to create it again.
 
 =item drop database
 
-This will drop a database in an SQL database server being used
-for Fidonet/FTN processing.
+This will drop a database if it exists in an SQL database server
+being used for Fidonet/FTN processing.
 
 =item create table
 
 This will create a nodelist table in an SQL database being used
-for Fidonet/FTN nodelist processing. 
+for Fidonet/FTN nodelist processing. If it already exists, it
+will drop it first before going on to create it again.
 
 =item drop table
 
-This will drop a database table in an SQL database server being used
-for Fidonet/FTN processing.
+This will drop a database table if it exists in an SQL database
+server being used for Fidonet/FTN processing.
 
 =back
 
