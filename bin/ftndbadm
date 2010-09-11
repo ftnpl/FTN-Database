@@ -4,6 +4,7 @@ use warnings;
 use strict;
 use Getopt::Std;
 use vars qw/ $opt_c $opt_t $opt_d $opt_T $opt_D $opt_u $opt_p $opt_l $opt_h $opt_v $opt_x /;
+use File::Spec;
 
 use FTN::Database qw(&open_ftndb &close_ftndb);
 use FTN::Database::Nodelist qw(&create_nodelist_table &drop_nodelist_table &create_ftnnode_index &drop_ftnnode_index);
