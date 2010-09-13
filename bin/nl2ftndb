@@ -117,53 +117,13 @@ if ($opt_x) {
     logging($log_file, $log_id, "Debug flag is set");
 }
 
-=item -T
-
-Database type.
-This needs to be a database type for which a DBD module exists, the type
-being the name as used in the DBD module.  The default type is SQLite.
-
-=cut
-
-#if ($opt_T) {
-#    $db_type = $opt_T;
-#    undef $opt_T;
-#}
-#else {
-#    $db_type = "SQLite";    # default database type is SQLite
-#    undef $opt_T;
-#}
-
 $db_type = $ftndb_config->{Database}->{Type};	
 
 if ($opt_v) { logging($log_file, $log_id, "Database type being used is $db_type") };
 
-=item -D
-
-Database name.
-For an SQLite databse; this needs to be at least the filename and can
-also include a path, and defaults to the file name ftndbtst.
-
-=cut
-
-#if ($opt_D) {
-#    $db_name = $opt_D;
-#    undef $opt_D;
-#}
-#else {
-#    $db_name = "ftndbtst";
-#}
-
 $db_name = $ftndb_config->{Database}->{Name};
 
 if ($opt_v) { logging($log_file, $log_id, "Database name being used is $db_name") };
-
-=item -u
-
-Database user.
-For an SQLite database, this defaults to an empty string as it does not need it.
-
-=cut
 
 if ($db_type eq "SQLite") {
 
@@ -176,14 +136,6 @@ if ($db_type eq "SQLite") {
 
 }
 
-
-=item -p
-
-Database password.
-For an SQLite database, this defaults to an empty string as it does not need it.
-
-=cut
-
 if ($db_type eq "SQLite") {
 
     $db_password = ""; 
@@ -194,7 +146,6 @@ if ($db_type eq "SQLite") {
     if ($opt_v) { logging($log_file, $log_id, "Database password being used is $db_password") };
 
 }
-
 
 =item -n
 
@@ -278,6 +229,7 @@ else {
 
 
 my $zone_only = 0;     # Set default as zone 0, which is not used for zone numbers.
+
 =item -z
 
 If defined;  is the only zone to be loaded
@@ -540,6 +492,37 @@ sub VERSION_MESSAGE {
 }
 
 ########################################################################
+
+=head1 CONFIGURATION
+
+The B<Database> section in the configuration file has the following
+keywords:
+
+=over 4
+
+=item Type
+
+Database type.
+This needs to be a database type for which a DBD module exists, the type
+being the name as used in the DBD module.  The default type is SQLite.
+
+=item Name
+
+Database name.
+For an SQLite database; this needs to be at least the filename and can
+also include a path, and defaults to the file name ftndbtst.
+
+=item User
+
+Database user.
+For an SQLite database, this defaults to an empty string as it does not need it.
+
+=item Password
+
+Database password.
+For an SQLite database, this defaults to an empty string as it does not need it.
+
+=back
 
 =head1 EXAMPLES
 
