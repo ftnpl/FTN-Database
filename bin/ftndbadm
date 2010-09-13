@@ -3,7 +3,7 @@
 use warnings;
 use strict;
 use Getopt::Std;
-use vars qw/ $opt_c $opt_t $opt_d $opt_p $opt_l $opt_h $opt_v $opt_x /;
+use vars qw/ $opt_c $opt_t $opt_d $opt_l $opt_h $opt_v $opt_x /;
 use Config::Tiny;
 use File::Spec;
 
@@ -50,7 +50,7 @@ my ( $config_file, $db_type, $db_name, $db_user, $db_password, $database_name, $
 
 my $log_id = "DBADM";
 
-getopts('c:t:d:p:l:hvx');
+getopts('c:t:d:l:hvx');
 
 if ($opt_h) {
     HELP_MESSAGE(*STDOUT);
@@ -279,10 +279,7 @@ sub HELP_MESSAGE {
     print $fh "ftndbadm -h | --help\t= Display this help message.\n";
     print $fh "ftndbadm --version\t= Display version message.\n\n";
 
-    print $fh "\tDatabase Options.\n";
-    print $fh "[-p db_password]= Database password;  defaults to an empty string.\n";
-
-    print $fh "\tOther Options.\n";
+    print $fh "\tOptions.\n";
     print $fh "[-c config_file]\t= Name and path for configuration file.\n";
     print $fh "[-d databasename]\t= Database name being created or dropped.\n";
     print $fh "[-t tablename]\t= Nodelist table name;  defaults to \'Nodelist\'. \n";
