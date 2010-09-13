@@ -3,7 +3,7 @@
 use warnings;
 use strict;
 use Getopt::Std;
-use vars qw/ $opt_c $opt_n $opt_o $opt_t $opt_T $opt_D $opt_u $opt_p $opt_h $opt_v $opt_x $opt_z /;
+use vars qw/ $opt_c $opt_n $opt_o $opt_t $opt_D $opt_u $opt_p $opt_h $opt_v $opt_x $opt_z /;
 use Config::Tiny;
 use File::Spec;
 
@@ -30,7 +30,7 @@ One such listing can be from a specific net from a specific zone of a nodelist t
 
 =head1 SYNOPSIS
 
-C<listftndb [-t tablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-z zone] [-n net] [-o outfile] [-v]>
+C<listftndb [-t tablename] [-D db_name] [-u db_user] [-p db_password] [-z zone] [-n net] [-o outfile] [-v]>
 
 C<listftndb [-h | --help]>
 
@@ -38,7 +38,7 @@ C<listftndb [-h | --help]>
 
 my ( $config_file, $db_type, $db_name, $db_user, $db_password, $table_name, $db_handle, $sql_statement, $zone_number, $net_number, $list_file );
 
-getopts('c:n:o:t:T:D:u:p:hvxz:');
+getopts('c:n:o:t:D:u:p:hvxz:');
 
 if ($opt_h) {
     HELP_MESSAGE(*STDOUT);
@@ -239,7 +239,6 @@ sub HELP_MESSAGE {
     print $fh "\n\tUsage:\nlistftndb [-t tablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-z zone] [-n net] [-o outfile] [-v] [-h | --help] [--version]\n";
     print $fh "\t[-c config_file]\t= Name and path for configuration file.\n";
     print $fh "\t[-t tablename]\t\t= Nodelist table name;  defaults to \'Nodelist\'. \n";
-    print $fh "\t[-T db_type]\t\t= Database type;  defaults to 'SQLite'.\n";
     print $fh "\t[-D db_name]\t\t= Database name & path;  defaults to 'ftndbtst'.\n";
     print $fh "\t[-u db_user]\t\t= Database user;  defaults to an empty string.\n";
     print $fh "\t[-p db_password]\t= Database password;  defaults to an empty string.\n";
