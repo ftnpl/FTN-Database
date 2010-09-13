@@ -3,7 +3,7 @@
 use warnings;
 use strict;
 use Getopt::Std;
-use vars qw/ $opt_c $opt_n $opt_o $opt_t $opt_D $opt_u $opt_p $opt_h $opt_v $opt_x $opt_z /;
+use vars qw/ $opt_c $opt_n $opt_o $opt_t $opt_u $opt_p $opt_h $opt_v $opt_x $opt_z /;
 use Config::Tiny;
 use File::Spec;
 
@@ -30,7 +30,7 @@ One such listing can be from a specific net from a specific zone of a nodelist t
 
 =head1 SYNOPSIS
 
-C<listftndb [-t tablename] [-D db_name] [-u db_user] [-p db_password] [-z zone] [-n net] [-o outfile] [-v]>
+C<listftndb [-t tablename] [-u db_user] [-p db_password] [-z zone] [-n net] [-o outfile] [-v]>
 
 C<listftndb [-h | --help]>
 
@@ -239,7 +239,6 @@ sub HELP_MESSAGE {
     print $fh "\n\tUsage:\nlistftndb [-t tablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-z zone] [-n net] [-o outfile] [-v] [-h | --help] [--version]\n";
     print $fh "\t[-c config_file]\t= Name and path for configuration file.\n";
     print $fh "\t[-t tablename]\t\t= Nodelist table name;  defaults to \'Nodelist\'. \n";
-    print $fh "\t[-D db_name]\t\t= Database name & path;  defaults to 'ftndbtst'.\n";
     print $fh "\t[-u db_user]\t\t= Database user;  defaults to an empty string.\n";
     print $fh "\t[-p db_password]\t= Database password;  defaults to an empty string.\n";
     print $fh "\t[-z zone_number]\t= Zone number number;  defaults to 1.\n";
@@ -310,11 +309,11 @@ This is an example of the contents of an ftnpldb.cfg file:
     User=sysop
     Password=ftndbtst
 
-Given that $DBFILE is an SQLite database file and that $LISTFILE is a
+Given that $CFGFILE is a configuration file and that $LISTFILE is a
 file where the information is to be listed, the following command line
 can be used to list the nodes in Net 102 of Zone 1 in that file:
 
-C<listftndb -D $DBFILE -z 1 -n 102 -o $LISTFILE -v>
+C<listftndb -c $CFGFILE -z 1 -n 102 -o $LISTFILE -v>
 
 =head1 AUTHOR
 
