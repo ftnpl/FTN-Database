@@ -414,7 +414,7 @@ sub HELP_MESSAGE {
 
     my $fh = shift;
     
-    print $fh "\n\tUsage:\nnl2ftndb -n nodelist_directory [-t tablename] [-f nodelist_file] [-l log_file] [-d domain] [-e] [-v] [-x] [-z zonenum] [-h | --help] [--version]\n";
+    print $fh "\n\tUsage:\nnl2ftndb -c config_file -n nodelist_directory [-t tablename] [-f nodelist_file] [-l log_file] [-d domain] [-e] [-v] [-x] [-z zonenum] [-h | --help] [--version]\n";
     print $fh "\t-n nodelist_directory\t= Nodelist directory\n";
     print $fh "\t[-c config_file]\t= Name and path for configuration file.\n";
     print $fh "\t[-t tablename]\t\t= Nodelist table name;  defaults to 'Nodelist'.\n";

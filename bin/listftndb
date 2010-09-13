@@ -236,7 +236,7 @@ sub HELP_MESSAGE {
 
     my $fh = shift;
 
-    print $fh "\n\tUsage:\nlistftndb [-t tablename] [-z zone] [-n net] [-o outfile] [-v] [-h | --help] [--version]\n";
+    print $fh "\n\tUsage:\nlistftndb -c config_file [-t tablename] [-z zone] [-n net] [-o outfile] [-v] [-h | --help] [--version]\n";
     print $fh "\t[-c config_file]\t= Name and path for configuration file.\n";
     print $fh "\t[-t tablename]\t\t= Nodelist table name;  defaults to \'Nodelist\'. \n";
     print $fh "\t[-z zone_number]\t= Zone number number;  defaults to 1.\n";

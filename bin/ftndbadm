@@ -272,10 +272,10 @@ sub HELP_MESSAGE {
     my $fh = shift;
     
     print $fh "\n\tSynopsis:\n";
-    print $fh "ftndbadm [options] [-d databasename] create database\n";
-    print $fh "ftndbadm [options] [-d databasename] drop database\n";
-    print $fh "ftndbadm [options] [-t tablename] create table\n";
-    print $fh "ftndbadm [options] [-t tablename] drop table\n";
+    print $fh "ftndbadm -c config_file [options] [-d databasename] create database\n";
+    print $fh "ftndbadm -c config_file [options] [-d databasename] drop database\n";
+    print $fh "ftndbadm -c config_file [options] [-t tablename] create table\n";
+    print $fh "ftndbadm -c config_file [options] [-t tablename] drop table\n";
     print $fh "ftndbadm -h | --help\t= Display this help message.\n";
     print $fh "ftndbadm --version\t= Display version message.\n\n";
 
