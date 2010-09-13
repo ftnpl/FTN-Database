@@ -3,7 +3,7 @@
 use warnings;
 use strict;
 use Getopt::Std;
-use vars qw/ $opt_c $opt_t $opt_d $opt_u $opt_p $opt_l $opt_h $opt_v $opt_x /;
+use vars qw/ $opt_c $opt_t $opt_d $opt_p $opt_l $opt_h $opt_v $opt_x /;
 use Config::Tiny;
 use File::Spec;
 
@@ -50,7 +50,7 @@ my ( $config_file, $db_type, $db_name, $db_user, $db_password, $database_name, $
 
 my $log_id = "DBADM";
 
-getopts('c:t:d:u:p:l:hvx');
+getopts('c:t:d:p:l:hvx');
 
 if ($opt_h) {
     HELP_MESSAGE(*STDOUT);
@@ -280,7 +280,6 @@ sub HELP_MESSAGE {
     print $fh "ftndbadm --version\t= Display version message.\n\n";
 
     print $fh "\tDatabase Options.\n";
-    print $fh "[-u db_user]\t= Database user;  defaults to an empty string.\n";
     print $fh "[-p db_password]= Database password;  defaults to an empty string.\n";
 
     print $fh "\tOther Options.\n";
