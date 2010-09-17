@@ -30,9 +30,11 @@ One such listing can be from a specific net from a specific zone of a nodelist t
 
 =head1 SYNOPSIS
 
-C<listftndb [-t tablename] [-z zone] [-n net] [-o outfile] [-v]>
+C<listftndb -c config_file [-t tablename] [-z zone] [-n net] [-o outfile] [-v]>
 
 C<listftndb [-h | --help]>
+
+C<listftndb --version>
 
 =cut
 
@@ -90,16 +92,17 @@ if ($opt_v) {
     print "Verbose flag is set\n";
 }
 
+# Get the definition of the database type
 $db_type = $ftndb_config->{Database}->{Type};	
 
 if ($opt_v) { print "Database type being used is $db_type\n" };
 
-
+# Get the definition of the database name
 $db_name = $ftndb_config->{Database}->{Name};
 
 if ($opt_v) { print "Database name being used is $db_name\n" };
 
-
+# Get the definition of the database user
 if ($db_type eq "SQLite") {
 
     $db_user = "";
@@ -111,6 +114,7 @@ if ($db_type eq "SQLite") {
 
 }
 
+# Get the definition of the database password
 if ($db_type eq "SQLite") {
 
     $db_password = ""; 
@@ -283,21 +287,21 @@ being the name as used in the DBD module.  The default type is SQLite.
 
 Database name.
 For an SQLite databse; this needs to be at least the filename and can
-also include a path, and defaults to the file name ftndbttst.
+also include a path.
 
 =item User
 
 Database user.
-For an SQLite database, this defaults to an empty string as it does not need it.
+For an SQLite database, this defaults to an empty string as it is not
+needed for that type of database.
 
 =item Password
 
 Database password.
-For an SQLite database, this defaults to an empty string as it does not need it.
+For an SQLite database, this defaults to an empty string as it is not
+needed for that type of database.
 
 =back
-
-=head1 EXAMPLES
 
 This is an example of the contents of an ftnpldb.cfg file:
 
@@ -306,6 +310,8 @@ This is an example of the contents of an ftnpldb.cfg file:
     Name=ftndbtst
     User=sysop
     Password=ftndbtst
+
+=head1 EXAMPLES
 
 Given that $CFGFILE is a configuration file and that $LISTFILE is a
 file where the information is to be listed, the following command line

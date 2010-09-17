@@ -15,7 +15,7 @@ $Getopt::Std::STANDARD_HELP_VERSION = 1;
 
 =head1 NAME
 
-nl2ftndb - Load information to a Nodelist table in an Fidonet/FTN SQL database.
+nl2ftndb - Load information into a Nodelist table in an Fidonet/FTN SQL database.
 
 =head1 VERSION
 
@@ -33,9 +33,11 @@ defaulting to SQLite.
 
 =head1 SYNOPSIS
 
-C<nl2ftndb -n nodelist_directory [-t tablename] [-f nodelist_file] [-l log_file] [-d domain] [-e] [-v] [-x] [-z zonenum]>
+C<nl2ftndb -c config_file -n nodelist_directory [-t tablename] [-f nodelist_file] [-l log_file] [-d domain] [-e] [-v] [-x] [-z zonenum]>
 
 C<nl2ftndb [-h | --help]>
+
+C<nl2ftndb --version>
 
 =cut
 
@@ -117,14 +119,17 @@ if ($opt_x) {
     logging($log_file, $log_id, "Debug flag is set");
 }
 
+# Get the definition of the database type
 $db_type = $ftndb_config->{Database}->{Type};	
 
 if ($opt_v) { logging($log_file, $log_id, "Database type being used is $db_type") };
 
+# Get the definition of the database name
 $db_name = $ftndb_config->{Database}->{Name};
 
 if ($opt_v) { logging($log_file, $log_id, "Database name being used is $db_name") };
 
+# Get the definition of the database user
 if ($db_type eq "SQLite") {
 
     $db_user = "";
@@ -136,6 +141,7 @@ if ($db_type eq "SQLite") {
 
 }
 
+# Get the definition of the database password
 if ($db_type eq "SQLite") {
 
     $db_password = ""; 
@@ -162,7 +168,7 @@ if ($opt_n) {
 =item -f
 
 The nodelist file.
-If the -e option is also set, then his is an exact file name.  If -e is
+If the -e option is also set, then this is an exact file name.  If -e is
 not set, then this is the basename of the nodelist files.
 
 =cut
@@ -172,7 +178,7 @@ not set, then this is the basename of the nodelist files.
 =item -e
 
 If set, then the -f option must be exact file name.  If not set, then
-the -f option is basename of nodelist file.
+the -f option is the basename of a nodelist file.
 
 =cut
 
@@ -283,7 +289,7 @@ if ($opt_v) {
     logging($log_file, $log_id, "Deleteing old entries for '$domain'");
 }
 
-#   remove any and all entries where domain = $domain when doing in insert to the table
+#   remove any and all entries where domain = $domain when doing an insert to the table
 FTN::Database::Nodelist::remove_ftn_domain($db_handle, $table_name, $domain);
 
 # drop the old nodelist table index, if it exists.
@@ -373,12 +379,6 @@ while (<NODELIST>) {
     $sql_statement .= "'$domain', ";
     $sql_statement .= "'$nodelist_file') ";
 
-    #  this will be a debug option, but after start using more
-    # complex parameter passing
-    #    if ($opt_x) {
-    #        print " $sql_statement ";
-    #    }
-
     #	Execute the insert SQL statment
     $db_handle->do("$sql_statement ")
       or die logging($log_file, $log_id, $DBI::errstr);
@@ -418,7 +418,6 @@ sub HELP_MESSAGE {
     print $fh "\t-n nodelist_directory\t= Nodelist directory\n";
     print $fh "\t[-c config_file]\t= Name and path for configuration file.\n";
     print $fh "\t[-t tablename]\t\t= Nodelist table name;  defaults to 'Nodelist'.\n";
-    print $fh "\t[-p db_password]\t= Database password;  defaults to ab empty string.\n";
     print $fh "\t[-f nodelist_file]\t= Nodelist filename, defaults to 'nodelist'.\n";
     print $fh "\t[-l log_file]\t\t= Log filename;  defaults to ftnpldb.log in current dir)\n";
     print $fh "\t[-d domain]\t\t= Nodelist domain;  defaults to 'fidonet'.\n";
@@ -507,21 +506,21 @@ being the name as used in the DBD module.  The default type is SQLite.
 
 Database name.
 For an SQLite database; this needs to be at least the filename and can
-also include a path, and defaults to the file name ftndbtst.
+also include a path.
 
 =item User
 
 Database user.
-For an SQLite database, this defaults to an empty string as it does not need it.
+For an SQLite database, this defaults to an empty string as it is not
+needed for that type of database.
 
 =item Password
 
 Database password.
-For an SQLite database, this defaults to an empty string as it does not need it.
+For an SQLite database, this defaults to an empty string as it is not
+needed for that type of database.
 
 =back
-
-=head1 EXAMPLES
 
 This is an example of the contents of an ftnpldb.cfg file:
 
@@ -531,18 +530,20 @@ This is an example of the contents of an ftnpldb.cfg file:
     User=sysop
     Password=ftndbtst
 
+=head1 EXAMPLES
+
 Given that $NLDIR is the directory where the nodelist files can be found
-and that $NLFILE is a base filename like NODELIST and that $CFGFILE is
-existing configuration file, the following command line can be used
-to load a nodelist from set of the set of nodelist files all with the
-same basename:
+and that NODELIST is the base nodelist filename and that $CFGFILE is an
+existing configuration file, the following command line can be used to
+load an FTN nodelist from a set of nodelist files all with the same
+basename of NODELIST:
 
 C<nl2ftndb -c $CFGFILE -n $NLDIR -f NODELIST -d fidonet -v>
 
 Given that $NLDIR is the directory where the nodelist files can be
 found and that $CFGFILE is an existing configuration file, the
-following command line can be used to load a specified zone from a
-specified nodelist:
+following command line can be used to load a specified zone of the
+specified domain from a specified nodelist:
 
 C<nl2ftndb -c $CFGFILE -n $NLDIR -f nodelist.197 -d fidonet -z 1 -e -v>
 

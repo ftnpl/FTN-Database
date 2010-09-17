@@ -32,13 +32,9 @@ database engine is one for which a DBD module exists, defaulting to SQLite.
 
 =head1 SYNOPSIS
 
-C<ftndbadm [options] [-d databasename] create database>
+C<ftndbadm -c config_file [options] [-d databasename] create|drop database>
 
-C<ftndbadm [options] [-d databasename] drop database>
-
-C<ftndbadm [options] [-t tablename] create table>
-
-C<ftndbadm [options] [-t tablename] drop table>
+C<ftndbadm -c config_file [options] [-t tablename] create|drop table>
 
 C<ftndbadm [-h | --help]>
 
@@ -117,14 +113,17 @@ if ($opt_v) {
     logging($log_file, $log_id, "Verbose flag is set");
 }
 
+# Get the definition of the database type
 $db_type = $ftndb_config->{Database}->{Type};	
 
 if ($opt_v) { logging($log_file, $log_id, "Database type being used is $db_type") };
 
+# Get the definition of the database name
 $db_name = $ftndb_config->{Database}->{Name};
 
 if ($opt_v) { logging($log_file, $log_id, "Database name being used is $db_name") };
 
+# Get the definition of the database user
 if ($db_type eq "SQLite") {
 
     $db_user = "";
@@ -136,6 +135,7 @@ if ($db_type eq "SQLite") {
 
 }
 
+# Get the definition of the database password
 if ($db_type eq "SQLite") {
 
     $db_password = ""; 
@@ -272,10 +272,8 @@ sub HELP_MESSAGE {
     my $fh = shift;
     
     print $fh "\n\tSynopsis:\n";
-    print $fh "ftndbadm -c config_file [options] [-d databasename] create database\n";
-    print $fh "ftndbadm -c config_file [options] [-d databasename] drop database\n";
-    print $fh "ftndbadm -c config_file [options] [-t tablename] create table\n";
-    print $fh "ftndbadm -c config_file [options] [-t tablename] drop table\n";
+    print $fh "ftndbadm -c config_file [options] [-d databasename] create|drop database\n";
+    print $fh "ftndbadm -c config_file [options] [-t tablename] create|drop table\n";
     print $fh "ftndbadm -h | --help\t= Display this help message.\n";
     print $fh "ftndbadm --version\t= Display version message.\n\n";
 
@@ -415,19 +413,19 @@ being the name as used in the DBD module.  The default type is SQLite.
 
 Database name.
 For an SQLite database; this needs to be at least the filename and can
-also include a path, and defaults to the file name ftndbttst.
+also include a path.
 
 =item User
 
 Database user.
 For an SQLite database, this defaults to an empty string as it is not
-needed for such database.
+needed for that type of a database.
 
 =item Password
 
 Database password.
 For an SQLite database, this defaults to an empty string as it is not
-needed for such a database.
+needed for that type of a database.
 
 =back
 
