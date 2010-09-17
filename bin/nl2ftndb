@@ -19,11 +19,11 @@ nl2ftndb - Load information into a Nodelist table in an Fidonet/FTN SQL database
 
 =head1 VERSION
 
-Version 0.15
+Version 0.16
 
 =cut
 
-our $VERSION = 0.15;
+our $VERSION = 0.16;
 
 =head1 DESCRIPTION
 
@@ -33,7 +33,7 @@ defaulting to SQLite.
 
 =head1 SYNOPSIS
 
-C<nl2ftndb -c config_file -n nodelist_directory [-t tablename] [-f nodelist_file] [-l log_file] [-d domain] [-e] [-v] [-x] [-z zonenum]>
+C<nl2ftndb -c config_file -n nodelist_directory [-t tablename] [-f nodelist_file] [-l log_file] [-d domain] [-z zone] [-e] [-v] [-x] load>
 
 C<nl2ftndb [-h | --help]>
 
@@ -50,7 +50,7 @@ if ($opt_h) {
 
 my (
     $nodelist_directory, $nodelist_file, $db_handle, $sql_statement, $domain, $type,
-    $number,   $name,   $location,  $log_file,
+    $number,   $name,   $location,  $log_file, $command,
     $sysop, $phone,  $bps, $flags,    $table_name, $db_name,
     $db_user, $db_password, $db_type, $config_file
 );
@@ -97,7 +97,7 @@ else {
 
 my $log_id = "nl2db";
 
-logging($log_file, $log_id, "Starting... ");
+logging($log_file, $log_id, "Starting nl2ftndb... ");
 
 =item -v
 
@@ -202,13 +202,6 @@ else {
     exit(1);
 }
 
-logging($log_file, $log_id, "Nodelist directory: '$nodelist_directory'");
-logging($log_file, $log_id, "Nodelist file: '$nodelist_file'");
-
-if ($opt_x) {
-    print "Nodelist file is '$nodelist_directory.$nodelist_file' ..\n";
-}
-
 =item -t
 
 The nodelist table name to be used.
@@ -248,9 +241,6 @@ if ($opt_z) {
     undef $opt_z;
 }
 
-open( NODELIST, "$nodelist_directory/$nodelist_file" )
-  or die logging($log_file, $log_id, "Cannot open $nodelist_directory/$nodelist_file");
-
 =item -d
 
 If defined, this is the domain of the nodelist being loaded.  Defaults
@@ -274,133 +264,33 @@ if ($opt_x) {
     logging($log_file, $log_id, "Debug mode is set");
 }
 
-#  set defaults
-my $zone   = 1;
-my $net    = 0;
-my $node   = 0;
-my $point  = 0;
-my $region = 0;
+=head1 COMMANDS
 
-# connect to database
-$db_handle = FTN::Database::open_ftndb($db_type, $db_name, $db_user, $db_password);
+=over
 
-#
-if ($opt_v) {
-    logging($log_file, $log_id, "Deleteing old entries for '$domain'");
-}
+=item load 
 
-#   remove any and all entries where domain = $domain when doing an insert to the table
-FTN::Database::Nodelist::remove_ftn_domain($db_handle, $table_name, $domain);
+This will load an FTN Nodelist database table in an SQL database
+server being used for Fidonet/FTN processing. 
 
-# drop the old nodelist table index, if it exists.
-logging($log_file, $log_id, "Dropping existing nodelist table index if it already exists.");
-FTN::Database::Nodelist::drop_ftnnode_index($db_handle);
+=back
 
-if ($opt_v) {
-    logging($log_file, $log_id, "Loading database from nodelist $nodelist_file");
-}
+=cut
 
-while (<NODELIST>) {
-    if ( /^;/ || /^\cZ/ ) {
+# Parse commands
+#   if a command is found, then execute & exit
+#   if not;  display error message, then help message, then exit
+$command = shift;
+if (lc($command) eq "load") {
 
-        #	print;
-        next;
-    }
+    load_ftn_nodelist();
 
-    ( $type, $number, $name, $location, $sysop, $phone, $bps, $flags ) =
-      split( ',', $_, 8 );
+} else {
+    print STDERR "Unrecognized command.\n";
+    HELP_MESSAGE(*STDERR);
+    exit 1;
 
-    # originally took care of these by deleteing them
-    $name =~ tr/\'//d;    #  take care of single quotes in system name fields
-
-    $location =~ tr/\'//d;     #  take care of single quotes in location fields
-
-    $sysop =~ tr/\'//d;   # take care of single quotes in sysop name fields
-
-    # if $flags is undefined (i.e., nothing after the baud rate)
-    if ( !defined $flags ) {
-        $flags = " ";
-    } 
-    else {
-        $flags =~ s/\r?\n$//;	# else remove EOL (removes \r\n or \n but not \r) from $flags
-    }
-
-    if ( $type eq "Zone" ) {    # Zone line
-        $zone = $number;
-        $net  = $number;
-        $node = 0;
-    }    #
-    elsif ( $type eq "Region" ) {    # Region line
-        $region = $number;
-        $net    = $number;
-        $node   = 0;
-    }
-    elsif ( $type eq "Host" ) {      # Host line
-        $net  = $number;
-        $node = 0;
-    }
-    else {
-        $node = $number;
-    }
-
-    # display where in the nodelist we are if debug flag is set
-    if ($opt_x) {
-        print "$type,";
-        printf "%-16s", "$zone:$net/$node";
-        print "$sysop\n";
-    }
-
-    # If zone_only is defined, then go to the next line if the zone number is not the same as zone_only 
-    if ($zone_only > 0) {
-	if ($zone != $zone_only) {
-	    next;
-	}
-    }
-    
-    #	Build Insert Statement
-    $sql_statement = "INSERT INTO $table_name ";
-
-    $sql_statement .= "(type,zone,net,node,point,region,name,";
-    $sql_statement .= "location,sysop,phone,baud,flags,domain,source) ";
-    $sql_statement .= "VALUES (";
-
-    $sql_statement .= "'$type', ";
-    $sql_statement .= "'$zone', ";
-    $sql_statement .= "'$net', ";
-    $sql_statement .= "'$node', ";
-    $sql_statement .= "'$point', ";
-    $sql_statement .= "'$region', ";
-    $sql_statement .= "'$name', ";
-    $sql_statement .= "'$location', ";
-    $sql_statement .= "'$sysop', ";
-    $sql_statement .= "'$phone', ";
-    $sql_statement .= "'$bps', ";
-    $sql_statement .= "'$flags', ";
-    $sql_statement .= "'$domain', ";
-    $sql_statement .= "'$nodelist_file') ";
-
-    #	Execute the insert SQL statment
-    $db_handle->do("$sql_statement ")
-      or die logging($log_file, $log_id, $DBI::errstr);
-
-}
-
-if ($opt_v) {    #
-    logging($log_file, $log_id, "Create ftnnode index");
-}
-# Recreate ftnnode Index
-FTN::Database::Nodelist::create_ftnnode_index($db_handle, $table_name);
-
-if ($opt_v) {    #
-    logging($log_file, $log_id, "Closing database");
-}
-
-# disconnect from database
-FTN::Database::close_ftndb($db_handle);
-
-close NODELIST;
-
-logging($log_file, $log_id, "Ending... ");
+}	# End of command parsing.
 
 exit();
 
@@ -414,22 +304,162 @@ sub HELP_MESSAGE {
 
     my $fh = shift;
     
-    print $fh "\n\tUsage:\nnl2ftndb -c config_file -n nodelist_directory [-t tablename] [-f nodelist_file] [-l log_file] [-d domain] [-e] [-v] [-x] [-z zonenum] [-h | --help] [--version]\n";
-    print $fh "\t-n nodelist_directory\t= Nodelist directory\n";
-    print $fh "\t[-c config_file]\t= Name and path for configuration file.\n";
-    print $fh "\t[-t tablename]\t\t= Nodelist table name;  defaults to 'Nodelist'.\n";
-    print $fh "\t[-f nodelist_file]\t= Nodelist filename, defaults to 'nodelist'.\n";
-    print $fh "\t[-l log_file]\t\t= Log filename;  defaults to ftnpldb.log in current dir)\n";
-    print $fh "\t[-d domain]\t\t= Nodelist domain;  defaults to 'fidonet'.\n";
-    print $fh "\t[-z zone_number]\t= If present, then only the defined zone 'zone_number' is loaded.\n";
-    print $fh "\t[-e]\t\t\t= If present, then nodelist_file is exact filename\n";
-    print $fh "\t[-v]\t\t\t= Verbose Mode\n";
-    print $fh "\t[-x]\t\t\t= Debug Mode\n";
-    print $fh "\t[-h | --help]\t\t= Display this help message.\n";
-    print $fh "\t[--version]\t\t= Display version message \n\n";
+    print $fh "\n\tSynopsis:\n";
+    print $fh "nl2ftndb -n nodelist_directory [-c config_file] [options] load\n";
+    print $fh "nl2ftndb -h | --help\t= Display this help message.\n";
+    print $fh "nl2ftndb --version\t= Display version message\n";
+
+    print $fh "\tOptions.\n";
+    print $fh "-n nodelist_directory\t= Nodelist directory\n";
+    print $fh "[-c config_file]\t= Name and path for configuration file.\n";
+    print $fh "[-t tablename]\t\t= Nodelist table name;  defaults to 'Nodelist'.\n";
+    print $fh "[-f nodelist_file]\t= Nodelist filename, defaults to 'nodelist'.\n";
+    print $fh "[-l log_file]\t\t= Log filename;  defaults to ftnpldb.log in current dir)\n";
+    print $fh "[-d domain]\t\t= Nodelist domain;  defaults to 'fidonet'.\n";
+    print $fh "[-z zone_number]\t= If present, then only the defined zone 'zone_number' is loaded.\n";
+    print $fh "[-e]\t\t\t= If present, then nodelist_file is an exact filename\n";
+    print $fh "[-v]\t\t\t= Verbose Mode\n";
+    print $fh "[-x]\t\t\t= Debug Mode\n";
 
     return();
 
+}
+
+########################################################################
+# Load an FTN Nodelist table in an FTN database
+########################################################################
+sub load_ftn_nodelist {
+
+    #  set defaults
+    my $zone   = 1;
+    my $net    = 0;
+    my $node   = 0;
+    my $point  = 0;
+    my $region = 0;
+
+    logging($log_file, $log_id, "Nodelist directory: '$nodelist_directory'");
+    logging($log_file, $log_id, "Nodelist file: '$nodelist_file'");
+
+    open( NODELIST, "$nodelist_directory/$nodelist_file" )
+	or die logging($log_file, $log_id, "Cannot open $nodelist_directory/$nodelist_file");
+
+    # connect to database
+    $db_handle = FTN::Database::open_ftndb($db_type, $db_name, $db_user, $db_password);
+
+    #
+    if ($opt_v) {
+        logging($log_file, $log_id, "Deleteing old entries for '$domain'");
+    }
+
+    #   remove any and all entries where domain = $domain when doing an insert to the table
+    FTN::Database::Nodelist::remove_ftn_domain($db_handle, $table_name, $domain);
+
+    # drop the old nodelist table index, if it exists.
+    logging($log_file, $log_id, "Dropping existing nodelist table index if it already exists.");
+    FTN::Database::Nodelist::drop_ftnnode_index($db_handle);
+
+    if ($opt_v) {
+	logging($log_file, $log_id, "Loading database from nodelist $nodelist_file");
+    }
+
+    while (<NODELIST>) {
+	if ( /^;/ || /^\cZ/ ) {
+
+	    #	print;
+	    next;
+	}
+
+	( $type, $number, $name, $location, $sysop, $phone, $bps, $flags ) =
+	    split( ',', $_, 8 );
+
+	# originally took care of these by deleteing them
+	$name =~ tr/\'//d;    #  take care of single quotes in system name fields
+
+	$location =~ tr/\'//d;     #  take care of single quotes in location fields
+
+	$sysop =~ tr/\'//d;   # take care of single quotes in sysop name fields
+
+	# if $flags is undefined (i.e., nothing after the baud rate)
+	if ( !defined $flags ) {
+	    $flags = " ";
+	} 
+	else {
+	    $flags =~ s/\r?\n$//;	# else remove EOL (removes \r\n or \n but not \r) from $flags
+	}
+
+	if ( $type eq "Zone" ) {    # Zone line
+	    $zone = $number;
+	    $net  = $number;
+	    $node = 0;
+	}    #
+	elsif ( $type eq "Region" ) {    # Region line
+	    $region = $number;
+	    $net    = $number;
+	    $node   = 0;
+	}
+	elsif ( $type eq "Host" ) {      # Host line
+	    $net  = $number;
+	    $node = 0;
+	}
+	else {
+	    $node = $number;
+	}
+
+	# display where in the nodelist we are if debug flag is set
+	if ($opt_x) {
+	    print "$type,";
+	    printf "%-16s", "$zone:$net/$node";
+	    print "$sysop\n";
+	}
+
+	# If zone_only is defined, then go to the next line if the zone number is not the same as zone_only 
+	if ($zone_only > 0) {
+	    if ($zone != $zone_only) {
+		next;
+	    }
+	}
+    
+	#	Build Insert Statement
+	$sql_statement = "INSERT INTO $table_name ";
+
+	$sql_statement .= "(type,zone,net,node,point,region,name,";
+	$sql_statement .= "location,sysop,phone,baud,flags,domain,source) ";
+	$sql_statement .= "VALUES (";
+
+	$sql_statement .= "'$type', ";
+	$sql_statement .= "'$zone', ";
+	$sql_statement .= "'$net', ";
+	$sql_statement .= "'$node', ";
+	$sql_statement .= "'$point', ";
+	$sql_statement .= "'$region', ";
+	$sql_statement .= "'$name', ";
+	$sql_statement .= "'$location', ";
+	$sql_statement .= "'$sysop', ";
+	$sql_statement .= "'$phone', ";
+	$sql_statement .= "'$bps', ";
+	$sql_statement .= "'$flags', ";
+	$sql_statement .= "'$domain', ";
+	$sql_statement .= "'$nodelist_file') ";
+
+	#	Execute the insert SQL statment
+	$db_handle->do("$sql_statement ")
+	    or die logging($log_file, $log_id, $DBI::errstr);
+
+    }
+
+    if ($opt_v) { logging($log_file, $log_id, "Create ftnnode index"); }
+    # Recreate ftnnode Index
+    FTN::Database::Nodelist::create_ftnnode_index($db_handle, $table_name);
+
+    if ($opt_v) { logging($log_file, $log_id, "Closing database"); }
+    # disconnect from database
+    FTN::Database::close_ftndb($db_handle);
+
+    close NODELIST;
+
+    logging($log_file, $log_id, "Nodelist table loaded... ");
+
+    return();
 }
 
 ################################################
@@ -538,14 +568,14 @@ existing configuration file, the following command line can be used to
 load an FTN nodelist from a set of nodelist files all with the same
 basename of NODELIST:
 
-C<nl2ftndb -c $CFGFILE -n $NLDIR -f NODELIST -d fidonet -v>
+C<nl2ftndb -c $CFGFILE -n $NLDIR -f NODELIST -d fidonet -v load>
 
 Given that $NLDIR is the directory where the nodelist files can be
 found and that $CFGFILE is an existing configuration file, the
 following command line can be used to load a specified zone of the
 specified domain from a specified nodelist:
 
-C<nl2ftndb -c $CFGFILE -n $NLDIR -f nodelist.197 -d fidonet -z 1 -e -v>
+C<nl2ftndb -c $CFGFILE -n $NLDIR -f nodelist.197 -d fidonet -z 1 -e -v load>
 
 =head1 AUTHOR
 

@@ -1,5 +1,11 @@
 Revision history for FTN-Database (ftnpldb) 
 
+0.16	Fri Sep 17 17:29 2010
+    - Reorganize and move the code in the nl2ftndb script that does an
+      initial load of an FTN nodelist table into a subroutine, and add
+      code for a Load command to call that subroutine.
+    - Rewrite help message and other documentation for new Load command. 
+
 0.15	Fri Sep 17 14:17 2010
     - Some cleanup of comments and documentation in scripts.
     - Correct the create_ftndb subroutine call in the bin/ftndbadm script.
