@@ -285,6 +285,10 @@ if (lc($command) eq "load") {
 
     load_ftn_nodelist();
 
+} elsif (lc($command) eq "list") {
+
+    list_ftn_nodelist();
+
 } else {
     print STDERR "Unrecognized command.\n";
     HELP_MESSAGE(*STDERR);
@@ -460,6 +464,16 @@ sub load_ftn_nodelist {
     logging($log_file, $log_id, "Nodelist table loaded... ");
 
     return();
+}
+
+################################################
+# List information from FTN nodelist 
+################################################
+sub list_ftn_nodelist {
+
+
+    return ();
+
 }
 
 ################################################
