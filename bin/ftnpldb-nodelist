@@ -471,6 +471,37 @@ sub load_ftn_nodelist {
 ################################################
 sub list_ftn_nodelist {
 
+    # connect to database
+    my $db_handle = FTN::Database::open_ftndb($db_type, $db_name, $db_user, $db_password);
+
+    # build Select query sql statement
+    my $sql_statement = "SELECT * FROM $table_name WHERE zone = $zone_number and net = $net_number ";
+    $sql_statement .= "ORDER by node ASC";
+
+    # execute query
+    my $query_handle = $db_handle->prepare($sql_statement);
+    $query_handle->execute();
+
+    $query_handle->bind_columns(\my($id, $type, $zone, $net, $node, $point, $region, $name, $location, $sysop, $phone, $baud, $flags, $domain, $source, $updated));
+
+    local(*F);
+
+    open(F, ">$list_file") or die "Cannot open $list_file\n"; 
+
+    print F "Listing Zone $zone_number Net $net_number from FTN database:\n\n";
+
+    while($query_handle->fetch()) {
+	print F "$zone:$net/$node, $name, $location, $sysop, $phone, $baud, $flags";
+    }
+
+    close(F);
+
+    # finish query
+    $query_handle->finish;
+    undef $query_handle;
+
+    # disconnect from database
+    FTN::Database::close_ftndb($db_handle);
 
     return ();
 
