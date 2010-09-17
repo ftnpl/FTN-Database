@@ -3,7 +3,7 @@ MANIFEST
 Makefile.PL
 README
 bin/listftndb
-bin/nl2ftndb
+bin/ftnpldb-nodelist
 bin/ftnpldb-admin
 doc/History
 doc/TODO

@@ -216,7 +216,7 @@ L<http://search.cpan.org/dist/FTN-Database>
 =head1 SEE ALSO
 
  L<FTN::Database>, L<ftndbadm>, L<listftndb>, L<ftndbadm>,
- and L<nl2ftndb>
+ and L<ftnpldb-nodelist>
 
 =head1 COPYRIGHT & LICENSE
 
