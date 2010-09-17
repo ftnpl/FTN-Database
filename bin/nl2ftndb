@@ -33,7 +33,7 @@ defaulting to SQLite.
 
 =head1 SYNOPSIS
 
-C<nl2ftndb -c config_file -n nodelist_directory [-t tablename] [-f nodelist_file] [-l log_file] [-d domain] [-e] [-v] [-x] [-z zonenum]>
+C<nl2ftndb -c config_file -n nodelist_directory [-t tablename] [-f nodelist_file] [-l log_file] [-d domain] [-z zone] [-e] [-v] [-x] load>
 
 C<nl2ftndb [-h | --help]>
 
@@ -264,16 +264,14 @@ if ($opt_x) {
     logging($log_file, $log_id, "Debug mode is set");
 }
 
-
-
 =head1 COMMANDS
 
 =over
 
 =item load 
 
-This will load a database table an SQL database server being used
-for Fidonet/FTN processing. 
+This will load an FTN Nodelist database table in an SQL database
+server being used for Fidonet/FTN processing. 
 
 =back
 
@@ -306,19 +304,22 @@ sub HELP_MESSAGE {
 
     my $fh = shift;
     
-    print $fh "\n\tUsage:\nnl2ftndb -c config_file -n nodelist_directory [-t tablename] [-f nodelist_file] [-l log_file] [-d domain] [-e] [-v] [-x] [-z zonenum] [-h | --help] [--version]\n";
-    print $fh "\t-n nodelist_directory\t= Nodelist directory\n";
-    print $fh "\t[-c config_file]\t= Name and path for configuration file.\n";
-    print $fh "\t[-t tablename]\t\t= Nodelist table name;  defaults to 'Nodelist'.\n";
-    print $fh "\t[-f nodelist_file]\t= Nodelist filename, defaults to 'nodelist'.\n";
-    print $fh "\t[-l log_file]\t\t= Log filename;  defaults to ftnpldb.log in current dir)\n";
-    print $fh "\t[-d domain]\t\t= Nodelist domain;  defaults to 'fidonet'.\n";
-    print $fh "\t[-z zone_number]\t= If present, then only the defined zone 'zone_number' is loaded.\n";
-    print $fh "\t[-e]\t\t\t= If present, then nodelist_file is exact filename\n";
-    print $fh "\t[-v]\t\t\t= Verbose Mode\n";
-    print $fh "\t[-x]\t\t\t= Debug Mode\n";
-    print $fh "\t[-h | --help]\t\t= Display this help message.\n";
-    print $fh "\t[--version]\t\t= Display version message \n\n";
+    print $fh "\n\tSynopsis:\n";
+    print $fh "nl2ftndb -n nodelist_directory [-c config_file] [options] load\n";
+    print $fh "nl2ftndb -h | --help\t= Display this help message.\n";
+    print $fh "nl2ftndb --version\t= Display version message\n";
+
+    print $fh "\tOptions.\n";
+    print $fh "-n nodelist_directory\t= Nodelist directory\n";
+    print $fh "[-c config_file]\t= Name and path for configuration file.\n";
+    print $fh "[-t tablename]\t\t= Nodelist table name;  defaults to 'Nodelist'.\n";
+    print $fh "[-f nodelist_file]\t= Nodelist filename, defaults to 'nodelist'.\n";
+    print $fh "[-l log_file]\t\t= Log filename;  defaults to ftnpldb.log in current dir)\n";
+    print $fh "[-d domain]\t\t= Nodelist domain;  defaults to 'fidonet'.\n";
+    print $fh "[-z zone_number]\t= If present, then only the defined zone 'zone_number' is loaded.\n";
+    print $fh "[-e]\t\t\t= If present, then nodelist_file is an exact filename\n";
+    print $fh "[-v]\t\t\t= Verbose Mode\n";
+    print $fh "[-x]\t\t\t= Debug Mode\n";
 
     return();
 
@@ -567,14 +568,14 @@ existing configuration file, the following command line can be used to
 load an FTN nodelist from a set of nodelist files all with the same
 basename of NODELIST:
 
-C<nl2ftndb -c $CFGFILE -n $NLDIR -f NODELIST -d fidonet -v>
+C<nl2ftndb -c $CFGFILE -n $NLDIR -f NODELIST -d fidonet -v load>
 
 Given that $NLDIR is the directory where the nodelist files can be
 found and that $CFGFILE is an existing configuration file, the
 following command line can be used to load a specified zone of the
 specified domain from a specified nodelist:
 
-C<nl2ftndb -c $CFGFILE -n $NLDIR -f nodelist.197 -d fidonet -z 1 -e -v>
+C<nl2ftndb -c $CFGFILE -n $NLDIR -f nodelist.197 -d fidonet -z 1 -e -v load>
 
 =head1 AUTHOR
 
