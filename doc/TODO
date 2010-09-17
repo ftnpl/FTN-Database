@@ -1,13 +1,8 @@
 To Do:
 
--> in progress.  Change to using a configuration file for at least the database options
-in the scripts.
-
 
 General
 --------
-- Need to handle situation when there are no command line arguments.
-(listftndb & nl2ftndb)
 
 - Change to use placeholders for the dbi sql functions.
 
@@ -85,7 +80,7 @@ FTN::Database::Echolist
 
 ftndbadm
 -------- 
-- Use variables with subroutine calls, rather than depend on the globals.
+- Pass the variables to subroutines, rather than depend on the globals.
 - Come up with a single option for the name of the object being created or
   dropped, to replace the -d & -t options for the database_name and the
   nodelist_table_name variables?  Perhaps "-N" ?
@@ -96,10 +91,9 @@ ftndbadm
 
 nl2ftndb
 ---------
-- Move the load nodelist code in to a subroutine.
 - Since the nodelist directory option is required;  change it to being
   defined in the configuration file rather than on the command line?
-- Add cammand/options to create or drop the ftnnode index on the nodelist
+- Add cammands to create or drop the ftnnode index on the nodelist
   table?
 - Move create_ftn_nodelist_table to what is currenly named nl2ftndb, but
   also leave a generic create_ftn_table subroutine in ftndbadm. 
@@ -123,7 +117,7 @@ nl2ftndb
 - Script does not seem to properly handle a file that ends in just blank
   lines, instead of a content line or a ^Z character. (Should fail gracefully
   for a badly formatted file.)
-- The nodelist file list is being reverse sorted when there are multiple
+- The list of nodelist files is being reverse sorted when there are multiple
   nodelists of the same basename being processed;  that takes care of a set
   of files all from the same year but not ones that are from different years.
 - Add quiet option, -q, for logging only operation ? 
@@ -139,6 +133,7 @@ listftndb
   formatted output?  And/or just add formated output using a template file?
 - Add quiet option, -q, for logging only operation ? 
 - Move functionality into the nl2ftndb script as a List command?
+- Need to handle situation when there are no command line arguments.
 
 
 Testing
