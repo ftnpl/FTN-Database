@@ -3,9 +3,11 @@
 use warnings;
 use strict;
 use Getopt::Std;
-use vars qw/ $opt_t $opt_d $opt_T $opt_D $opt_u $opt_p $opt_l $opt_h $opt_v $opt_x /;
+use vars qw/ $opt_c $opt_t $opt_d $opt_l $opt_h $opt_v $opt_x /;
+use Config::Tiny;
+use File::Spec;
 
-use FTN::Database qw(&open_ftndb &close_ftndb);
+use FTN::Database qw(&create_ftndb &drop_ftndb &open_ftndb &close_ftndb);
 use FTN::Database::Nodelist qw(&create_nodelist_table &drop_nodelist_table &create_ftnnode_index &drop_ftnnode_index);
 use FTN::Log qw(&logging);
 
@@ -17,11 +19,11 @@ ftndbadm - Administration of an SQL database for Fidonet/FTN processing.
 
 =head1 VERSION
 
-Version 0.14
+Version 0.15
 
 =cut
 
-our $VERSION = 0.14;
+our $VERSION = 0.15;
 
 =head1 DESCRIPTION
 
@@ -30,13 +32,9 @@ database engine is one for which a DBD module exists, defaulting to SQLite.
 
 =head1 SYNOPSIS
 
-C<ftndbadm [options] [-d databasename] create database>
+C<ftndbadm -c config_file [options] [-d databasename] create|drop database>
 
-C<ftndbadm [options] [-d databasename] drop database>
-
-C<ftndbadm [options] [-t tablename] create table>
-
-C<ftndbadm [options] [-t tablename] drop table>
+C<ftndbadm -c config_file [options] [-t tablename] create|drop table>
 
 C<ftndbadm [-h | --help]>
 
@@ -44,11 +42,11 @@ C<ftndbadm --version>
 
 =cut
 
-my ( $db_type, $db_name, $db_user, $db_password, $database_name, $table_name, $db_handle, $log_file, $command );
+my ( $config_file, $db_type, $db_name, $db_user, $db_password, $database_name, $table_name, $db_handle, $log_file, $command );
 
 my $log_id = "DBADM";
 
-getopts('t:T:D:d:u:p:l:hvx');
+getopts('c:t:d:l:hvx');
 
 if ($opt_h) {
     HELP_MESSAGE(*STDOUT);
@@ -58,6 +56,27 @@ if ($opt_h) {
 =head1 OPTIONS
 
 =over
+
+=item -c
+
+This is the filename and path of a configuration file, with the
+default being ftnpldb.cfg in the current directory.
+
+=cut
+
+if ($opt_c) {
+    $config_file = $opt_c;
+    undef $opt_c;
+}
+else {
+    my $config_dir = File::Spec->curdir();
+    $config_file = File::Spec->join($config_dir, 'ftnpldb.cfg');
+}
+
+#  Get configuration from file
+my $ftndb_config = Config::Tiny->new();
+$ftndb_config = Config::Tiny->read($config_file)
+    or die "Could not open configuration file:  $config_file";
 
 =item -l
 
@@ -94,68 +113,38 @@ if ($opt_v) {
     logging($log_file, $log_id, "Verbose flag is set");
 }
 
-=item -T
+# Get the definition of the database type
+$db_type = $ftndb_config->{Database}->{Type};	
 
-Database type.
-This needs to be a database type for which a DBD module exists, the type
-being the name as used in the DBD module.  The default type is SQLite.
+if ($opt_v) { logging($log_file, $log_id, "Database type being used is $db_type") };
 
-=cut
+# Get the definition of the database name
+$db_name = $ftndb_config->{Database}->{Name};
 
-if ($opt_T) {
-    $db_type = $opt_T;
-    undef $opt_T;
-}
-else {
-    $db_type = "SQLite";
-    undef $opt_T;
-}
-if ($opt_v) { logging($log_file, $log_id, "Database type being used is $db_type.") };
+if ($opt_v) { logging($log_file, $log_id, "Database name being used is $db_name") };
 
-=item -D
+# Get the definition of the database user
+if ($db_type eq "SQLite") {
 
-Database name.
-For an SQLite database; this needs to be at least the filename and can
-also include a path, and defaults to the file name ftndbttst.
-
-=cut
-
-if ($opt_D) {
-    $db_name = $opt_D; 
-    undef $opt_D;
-}
-else {
-    $db_name = "ftndbtst";
-}
-
-=item -u
-
-Database user.
-For an SQLite database, this defaults to an empty string as it does not need it.
-
-=cut
-
-if ($opt_u) {
-    $db_user = $opt_u;
-    undef $opt_u;
-}
-else {
     $db_user = "";
+
+} else {
+    $db_user = $ftndb_config->{Database}->{User};
+
+    if ($opt_v) { logging($log_file, $log_id, "Database user being used is $db_user") };
+
 }
 
-=item -p
+# Get the definition of the database password
+if ($db_type eq "SQLite") {
 
-Database password.
-For an SQLite database, this defaults to an empty string as it does not need it.
-
-=cut
-
-if ($opt_p) {
-    $db_password = $opt_p;
-    undef $opt_p;
-}
-else {
     $db_password = ""; 
+
+} else {
+
+    $db_password = $ftndb_config->{Database}->{Password};
+    if ($opt_v) { logging($log_file, $log_id, "Database password being used is $db_password") };
+
 }
 
 =item -d
@@ -283,20 +272,13 @@ sub HELP_MESSAGE {
     my $fh = shift;
     
     print $fh "\n\tSynopsis:\n";
-    print $fh "ftndbadm [options] [-d databasename] create database\n";
-    print $fh "ftndbadm [options] [-d databasename] drop database\n";
-    print $fh "ftndbadm [options] [-t tablename] create table\n";
-    print $fh "ftndbadm [options] [-t tablename] drop table\n";
+    print $fh "ftndbadm -c config_file [options] [-d databasename] create|drop database\n";
+    print $fh "ftndbadm -c config_file [options] [-t tablename] create|drop table\n";
     print $fh "ftndbadm -h | --help\t= Display this help message.\n";
     print $fh "ftndbadm --version\t= Display version message.\n\n";
 
-    print $fh "\tDatabase Options.\n";
-    print $fh "[-T db_type]\t= Database type;  defaults to 'SQLite'.\n";
-    print $fh "[-D db_name]\t= Database name & path;  defaults to 'ftndbtst'.\n";
-    print $fh "[-u db_user]\t= Database user;  defaults to an empty string.\n";
-    print $fh "[-p db_password]= Database password;  defaults to an empty string.\n";
-
-    print $fh "\tOther Options.\n";
+    print $fh "\tOptions.\n";
+    print $fh "[-c config_file]\t= Name and path for configuration file.\n";
     print $fh "[-d databasename]\t= Database name being created or dropped.\n";
     print $fh "[-t tablename]\t= Nodelist table name;  defaults to \'Nodelist\'. \n";
     print $fh "[-l log_file]\t= Log filename; defaults to ftnpldb.log in current dir.\n";
@@ -317,10 +299,10 @@ sub create_ftn_database {
 
     # drop the old database, if it exists.
     logging($log_file, $log_id, "Dropping existing $database_name if it already exists.");
-    FTN::Database::Nodelist::drop_ftndb($db_handle, $database_name);
+    FTN::Database::drop_ftndb($db_handle, $database_name);
 
     # Create database
-    FTN::Database::Nodelist::create_ftbdbe($db_handle, $database_name);
+    FTN::Database::create_ftndb($db_handle, $database_name);
 
     # disconnect from database
     FTN::Database::close_ftndb($db_handle);
@@ -414,12 +396,53 @@ sub VERSION_MESSAGE {
 
 ########################################################################
 
-=head1 EXAMPLE
+=head1 CONFIGURATION
 
-Given that $DBFILE is a file like F</opt/ftndb/FTN-Database.db>, the following
-command line can be used to create an FTN Nodelist table in that database file:
+The B<Database> section in the configuration file has the following
+keywords:
 
-C<ftndbadm -T SQLite -D $DBFILE -t Nodelist -v create table>
+=over 4
+
+=item Type
+
+Database type.
+This needs to be a database type for which a DBD module exists, the type
+being the name as used in the DBD module.  The default type is SQLite.
+
+=item Name
+
+Database name.
+For an SQLite database; this needs to be at least the filename and can
+also include a path.
+
+=item User
+
+Database user.
+For an SQLite database, this defaults to an empty string as it is not
+needed for that type of a database.
+
+=item Password
+
+Database password.
+For an SQLite database, this defaults to an empty string as it is not
+needed for that type of a database.
+
+=back
+
+This is an example of the contents of an ftnpldb.cfg file:
+
+    [Database]
+    Type=mysql
+    Name=ftndbtst
+    User=sysop
+    Password=ftndbtst
+
+=head1 EXAMPLES
+
+Given that $CFGFILE is a configuration file, the following command line can be
+used to create an FTN Nodelist table in that database file:
+
+C<ftndbadm -c $CFGFILE -t Nodelist -v create table>
 
 =head1 AUTHOR
 

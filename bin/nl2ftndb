@@ -3,7 +3,9 @@
 use warnings;
 use strict;
 use Getopt::Std;
-use vars qw/ $opt_n $opt_T $opt_D $opt_u $opt_p $opt_f $opt_e $opt_l $opt_d $opt_h $opt_t $opt_v $opt_x $opt_z /;
+use vars qw/ $opt_c $opt_n $opt_f $opt_e $opt_l $opt_d $opt_h $opt_t $opt_v $opt_x $opt_z /;
+use Config::Tiny;
+use File::Spec;
 
 use FTN::Database qw(&open_ftndb &close_ftndb);
 use FTN::Database::Nodelist qw(&create_ftnnode_index &drop_ftnnode_index);
@@ -13,15 +15,15 @@ $Getopt::Std::STANDARD_HELP_VERSION = 1;
 
 =head1 NAME
 
-nl2ftndb - Load information to a Nodelist table in an Fidonet/FTN SQL database.
+nl2ftndb - Load information into a Nodelist table in an Fidonet/FTN SQL database.
 
 =head1 VERSION
 
-Version 0.14
+Version 0.15
 
 =cut
 
-our $VERSION = 0.14;
+our $VERSION = 0.15;
 
 =head1 DESCRIPTION
 
@@ -31,13 +33,15 @@ defaulting to SQLite.
 
 =head1 SYNOPSIS
 
-C<nl2ftndb -n nodelist_directory [-t tablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-f nodelist_file] [-l log_file] [-d domain] [-e] [-v] [-x] [-z zonenum]>
+C<nl2ftndb -c config_file -n nodelist_directory [-t tablename] [-f nodelist_file] [-l log_file] [-d domain] [-e] [-v] [-x] [-z zonenum]>
 
 C<nl2ftndb [-h | --help]>
 
+C<nl2ftndb --version>
+
 =cut
 
-getopts('n:T:D:u:p:f:l:d:t:ehvxz:');
+getopts('c:n:f:l:d:t:ehvxz:');
 
 if ($opt_h) {
     HELP_MESSAGE(*STDOUT);    #printing usage/help message
@@ -48,12 +52,33 @@ my (
     $nodelist_directory, $nodelist_file, $db_handle, $sql_statement, $domain, $type,
     $number,   $name,   $location,  $log_file,
     $sysop, $phone,  $bps, $flags,    $table_name, $db_name,
-    $db_user, $db_password, $db_type
+    $db_user, $db_password, $db_type, $config_file
 );
 
 =head1 OPTIONS
 
 =over
+
+=item -c
+
+This is the filename and path of a configuration file, with the
+default being ftnpldb.cfg in the current directory.
+
+=cut
+
+if ($opt_c) {
+    $config_file = $opt_c;
+    undef $opt_c;
+}
+else {
+    my $config_dir = File::Spec->curdir();
+    $config_file = File::Spec->join($config_dir, 'ftnpldb.cfg');
+}
+
+#  Get configuration from file
+my $ftndb_config = Config::Tiny->new();
+$ftndb_config = Config::Tiny->read($config_file)
+    or die "Could not open configuration file:  $config_file";
 
 =item -l
 
@@ -94,68 +119,38 @@ if ($opt_x) {
     logging($log_file, $log_id, "Debug flag is set");
 }
 
-=item -T
+# Get the definition of the database type
+$db_type = $ftndb_config->{Database}->{Type};	
 
-Database type.
-This needs to be a database type for which a DBD module exists, the type
-being the name as used in the DBD module.  The default type is SQLite.
+if ($opt_v) { logging($log_file, $log_id, "Database type being used is $db_type") };
 
-=cut
+# Get the definition of the database name
+$db_name = $ftndb_config->{Database}->{Name};
 
-if ($opt_T) {
-    $db_type = $opt_T;
-    undef $opt_T;
-}
-else {
-    $db_type = "SQLite";    # default database type is SQLite
-    undef $opt_T;
-}
-if ($opt_v) { logging($log_file, $log_id, "Database type being used is $db_type.") };
+if ($opt_v) { logging($log_file, $log_id, "Database name being used is $db_name") };
 
-=item -D
+# Get the definition of the database user
+if ($db_type eq "SQLite") {
 
-Database name.
-For an SQLite databse; this needs to be at least the filename and can
-also include a path, and defaults to the file name ftndbtst.
-
-=cut
-
-if ($opt_D) {
-    $db_name = $opt_D;
-    undef $opt_D;
-}
-else {
-    $db_name = "ftndbtst";
-}
-
-=item -u
-
-Database user.
-For an SQLite database, this defaults to an empty string as it does not need it.
-
-=cut
-
-if ($opt_u) {
-    $db_user = $opt_u;
-    undef $opt_u;
-}
-else {
     $db_user = "";
+
+} else {
+    $db_user = $ftndb_config->{Database}->{User};
+
+    if ($opt_v) { logging($log_file, $log_id, "Database user being used is $db_user") };
+
 }
 
-=item -p
+# Get the definition of the database password
+if ($db_type eq "SQLite") {
 
-Database password.
-For an SQLite database, this defaults to an empty string as it does not need it.
+    $db_password = ""; 
 
-=cut
+} else {
 
-if ($opt_p) {
-    $db_password = $opt_p;
-    undef $opt_p;
-}
-else {
-    $db_password = "";
+    $db_password = $ftndb_config->{Database}->{Password};
+    if ($opt_v) { logging($log_file, $log_id, "Database password being used is $db_password") };
+
 }
 
 =item -n
@@ -173,7 +168,7 @@ if ($opt_n) {
 =item -f
 
 The nodelist file.
-If the -e option is also set, then his is an exact file name.  If -e is
+If the -e option is also set, then this is an exact file name.  If -e is
 not set, then this is the basename of the nodelist files.
 
 =cut
@@ -183,7 +178,7 @@ not set, then this is the basename of the nodelist files.
 =item -e
 
 If set, then the -f option must be exact file name.  If not set, then
-the -f option is basename of nodelist file.
+the -f option is the basename of a nodelist file.
 
 =cut
 
@@ -240,6 +235,7 @@ else {
 
 
 my $zone_only = 0;     # Set default as zone 0, which is not used for zone numbers.
+
 =item -z
 
 If defined;  is the only zone to be loaded
@@ -293,7 +289,7 @@ if ($opt_v) {
     logging($log_file, $log_id, "Deleteing old entries for '$domain'");
 }
 
-#   remove any and all entries where domain = $domain when doing in insert to the table
+#   remove any and all entries where domain = $domain when doing an insert to the table
 FTN::Database::Nodelist::remove_ftn_domain($db_handle, $table_name, $domain);
 
 # drop the old nodelist table index, if it exists.
@@ -383,12 +379,6 @@ while (<NODELIST>) {
     $sql_statement .= "'$domain', ";
     $sql_statement .= "'$nodelist_file') ";
 
-    #  this will be a debug option, but after start using more
-    # complex parameter passing
-    #    if ($opt_x) {
-    #        print " $sql_statement ";
-    #    }
-
     #	Execute the insert SQL statment
     $db_handle->do("$sql_statement ")
       or die logging($log_file, $log_id, $DBI::errstr);
@@ -424,13 +414,10 @@ sub HELP_MESSAGE {
 
     my $fh = shift;
     
-    print $fh "\n\tUsage:\nnl2ftndb -n nodelist_directory [-t tablename] [-T db_type] [-D db_name] [-u db_user] [-p db_password] [-f nodelist_file] [-l log_file] [-d domain] [-e] [-v] [-x] [-z zonenum] [-h | --help] [--version]\n";
+    print $fh "\n\tUsage:\nnl2ftndb -c config_file -n nodelist_directory [-t tablename] [-f nodelist_file] [-l log_file] [-d domain] [-e] [-v] [-x] [-z zonenum] [-h | --help] [--version]\n";
     print $fh "\t-n nodelist_directory\t= Nodelist directory\n";
+    print $fh "\t[-c config_file]\t= Name and path for configuration file.\n";
     print $fh "\t[-t tablename]\t\t= Nodelist table name;  defaults to 'Nodelist'.\n";
-    print $fh "\t[-T db_type]\t\t= Database type;  defaults to 'SQLite'.\n";
-    print $fh "\t[-D db_name]\t\t= Database name & path;  defaults to 'ftndbtst'.\n";
-    print $fh "\t[-u db_user]\t\t= Database user;  defaults to an empty string.\n";
-    print $fh "\t[-p db_password]\t= Database password;  defaults to ab empty string.\n";
     print $fh "\t[-f nodelist_file]\t= Nodelist filename, defaults to 'nodelist'.\n";
     print $fh "\t[-l log_file]\t\t= Log filename;  defaults to ftnpldb.log in current dir)\n";
     print $fh "\t[-d domain]\t\t= Nodelist domain;  defaults to 'fidonet'.\n";
@@ -502,22 +489,63 @@ sub VERSION_MESSAGE {
 
 ########################################################################
 
+=head1 CONFIGURATION
+
+The B<Database> section in the configuration file has the following
+keywords:
+
+=over 4
+
+=item Type
+
+Database type.
+This needs to be a database type for which a DBD module exists, the type
+being the name as used in the DBD module.  The default type is SQLite.
+
+=item Name
+
+Database name.
+For an SQLite database; this needs to be at least the filename and can
+also include a path.
+
+=item User
+
+Database user.
+For an SQLite database, this defaults to an empty string as it is not
+needed for that type of database.
+
+=item Password
+
+Database password.
+For an SQLite database, this defaults to an empty string as it is not
+needed for that type of database.
+
+=back
+
+This is an example of the contents of an ftnpldb.cfg file:
+
+    [Database]
+    Type=mysql
+    Name=ftndbtst
+    User=sysop
+    Password=ftndbtst
+
 =head1 EXAMPLES
 
 Given that $NLDIR is the directory where the nodelist files can be found
-and that $NLFILE is a base filename like NODELIST and that $DBFILE is
-existing SQLite database file, the following command line can be used
-to load a nodelist from set of the set of nodelist files all with the
-same basename:
+and that NODELIST is the base nodelist filename and that $CFGFILE is an
+existing configuration file, the following command line can be used to
+load an FTN nodelist from a set of nodelist files all with the same
+basename of NODELIST:
 
-C<nl2ftndb -D $DBNAME -n $NLDIR -f NODELIST -d fidonet -v>
+C<nl2ftndb -c $CFGFILE -n $NLDIR -f NODELIST -d fidonet -v>
 
 Given that $NLDIR is the directory where the nodelist files can be
-found and that $DBFILE is an existing SQLite database file, the
-following command line can be used to load a specified zone from a
-specified nodelist:
+found and that $CFGFILE is an existing configuration file, the
+following command line can be used to load a specified zone of the
+specified domain from a specified nodelist:
 
-C<nl2ftndb -D $DBFILE -n $NLDIR -f nodelist.197 -d fidonet -z 1 -e -v>
+C<nl2ftndb -c $CFGFILE -n $NLDIR -f nodelist.197 -d fidonet -z 1 -e -v>
 
 =head1 AUTHOR
 

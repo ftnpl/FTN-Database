@@ -15,6 +15,8 @@ WriteMakefile(
         'Test::Pod'             => 1.22,
         'Test::Pod::Coverage'   => 1.08,
         'Getopt::Std'   	=> 0,
+        'Config::Tiny'   	=> 0,
+        'File::Spec'	   	=> 0,
         'DBI'   		=> 0,
         'DBD::SQLite'   	=> 0,
         'FTN::Log'   		=> 0.02,

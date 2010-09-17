@@ -1,5 +1,14 @@
 Revision history for FTN-Database (ftnpldb) 
 
+0.15	Fri Sep 17 14:17 2010
+    - Some cleanup of comments and documentation in scripts.
+    - Correct the create_ftndb subroutine call in the bin/ftndbadm script.
+    - Correct the drop_ftndb subroutine call in the bin/ftndbadm script.
+    - Replace the T, D, u, & p command line database options in the scripts
+      with the required '-c' command line option to define a configuration
+      file;  options are now in a Database section in the configuration file
+      using the keywords 'Type', 'Name', 'User', and 'Password'.
+  
 0.14	Fri Sep 10 16:37 2010
     - Add parsing of command line arguments to bin/ftndbadm for the following
       commands:  create database, drop database, create table, drop table.
