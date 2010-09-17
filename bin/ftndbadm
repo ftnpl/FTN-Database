@@ -19,11 +19,11 @@ ftndbadm - Administration of an SQL database for Fidonet/FTN processing.
 
 =head1 VERSION
 
-Version 0.15
+Version 0.17
 
 =cut
 
-our $VERSION = 0.15;
+our $VERSION = 0.17;
 
 =head1 DESCRIPTION
 

@@ -1,5 +1,7 @@
 Revision history for FTN-Database (ftnpldb) 
 
+0.17	Fri Sep 17 hh:mm 2010
+
 0.16	Fri Sep 17 17:29 2010
     - Reorganize and move the code in the nl2ftndb script that does an
       initial load of an FTN nodelist table into a subroutine, and add
