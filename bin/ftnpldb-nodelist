@@ -308,7 +308,6 @@ sub HELP_MESSAGE {
     print $fh "ftnpldb-nodelist --version\t= Display version message\n";
 
     print $fh "\tOptions.\n";
-    print $fh "-n nodelist_directory\t= Nodelist directory\n";
     print $fh "[-c config_file]\t= Name and path for configuration file.\n";
     print $fh "[-t tablename]\t\t= Nodelist table name;  defaults to 'Nodelist'.\n";
     print $fh "[-f nodelist_file]\t= Nodelist filename, defaults to 'nodelist'.\n";
@@ -594,7 +593,19 @@ needed for that type of database.
 
 =back
 
-This is an example of the contents of an ftnpldb.cfg file:
+The B<Nodelist> section in the configuration file has the following
+keywords:
+
+=over 4
+
+=item Directory
+
+The directory where the FTN Nodelist files are located.
+
+=back
+
+This is an example of the contents of an ftnpldb.cfg file for use with
+FTN Nodelist related processing:
 
     [Database]
     Type=mysql
@@ -602,22 +613,23 @@ This is an example of the contents of an ftnpldb.cfg file:
     User=sysop
     Password=ftndbtst
 
+    [Nodelist]
+    Directory=/var/lib/ftn/nodelist
+
 =head1 EXAMPLES
 
-Given that $NLDIR is the directory where the nodelist files can be found
-and that NODELIST is the base nodelist filename and that $CFGFILE is an
+Given that NODELIST is the base nodelist filename and that $CFGFILE is an
 existing configuration file, the following command line can be used to
 load an FTN nodelist from a set of nodelist files all with the same
 basename of NODELIST:
 
-C<ftnpldb-nodelist -c $CFGFILE -n $NLDIR -f NODELIST -d fidonet -v load>
+C<ftnpldb-nodelist -c $CFGFILE -f NODELIST -d fidonet -v load>
 
-Given that $NLDIR is the directory where the nodelist files can be
-found and that $CFGFILE is an existing configuration file, the
+Given that $CFGFILE is an existing configuration file, the
 following command line can be used to load a specified zone of the
 specified domain from a specified nodelist:
 
-C<ftnpldb-nodelist -c $CFGFILE -n $NLDIR -f nodelist.197 -d fidonet -z 1 -e -v load>
+C<ftnpldb-nodelist -c $CFGFILE -f nodelist.197 -d fidonet -z 1 -e -v load>
 
 =head1 AUTHOR
 
