@@ -162,7 +162,7 @@ If set, it is the FTN Net number being operated on.
 
 if ($opt_n) {
 
-    $net_number = $opt_n;
+    my $net_number = $opt_n;
     undef $opt_n;
 
 }
@@ -220,18 +220,15 @@ else {
     $table_name = "Nodelist";     # default table name
 }
 
-
-my $zone_only = 0;     # Set default as zone 0, which is not used for zone numbers.
-
 =item -z
 
-If defined;  is the only zone to be loaded
+If defined;  is the only zone being operated on.
 
 =cut
 
 if ($opt_z) {
-    $zone_only = $opt_z;    # 
-    logging($log_file, $log_id, "Only loading Zone: $zone_only");
+    my $zone_number = $opt_z; 
+    logging($log_file, $log_id, "Defined Zone: $zone_only");
     undef $opt_z;
 }
 
@@ -412,9 +409,9 @@ sub load_ftn_nodelist {
 	    print "$sysop\n";
 	}
 
-	# If zone_only is defined, then go to the next line if the zone number is not the same as zone_only 
-	if ($zone_only > 0) {
-	    if ($zone != $zone_only) {
+	# If zone_number is defined, then go to the next line if the zone number is not the same as zone_number 
+	if (defined $zone_number) {
+	    if ($zone != $zone_number) {
 		next;
 	    }
 	}
