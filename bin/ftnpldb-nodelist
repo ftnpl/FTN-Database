@@ -33,7 +33,7 @@ defaulting to SQLite.
 
 =head1 SYNOPSIS
 
-C<ftnpldb-nodelist -c config_file -n nodelist_directory [-t tablename] [-f nodelist_file] [-l log_file] [-d domain] [-z zone] [-e] [-v] [-x] load>
+C<ftnpldb-nodelist [-c config_file] [-t tablename] [-f nodelist_file] [-l log_file] [-d domain] [-n net] [-z zone] [-e] [-v] [-x] load>
 
 C<ftnpldb-nodelist [-h | --help]>
 
@@ -158,15 +158,14 @@ $nodelist_directory = $ftndb_config->{Nodelist}->{Directory};
 
 =item -n
 
-The nodelist directory being used.
-This is required, so if it is not set the program will exit displaying
-a help message.
+If set, it is the FTN Net number being operated on.
 
 =cut
 
 if ($opt_n) {
 
     $net_number = $opt_n;
+    undef $opt_n;
 
 }
 
@@ -306,7 +305,7 @@ sub HELP_MESSAGE {
     my $fh = shift;
     
     print $fh "\n\tSynopsis:\n";
-    print $fh "ftnpldb-nodelist -n nodelist_directory [-c config_file] [options] load\n";
+    print $fh "ftnpldb-nodelist [-c config_file] [options] load\n";
     print $fh "ftnpldb-nodelist -h | --help\t= Display this help message.\n";
     print $fh "ftnpldb-nodelist --version\t= Display version message\n";
 
@@ -317,6 +316,7 @@ sub HELP_MESSAGE {
     print $fh "[-f nodelist_file]\t= Nodelist filename, defaults to 'nodelist'.\n";
     print $fh "[-l log_file]\t\t= Log filename;  defaults to ftnpldb.log in current dir)\n";
     print $fh "[-d domain]\t\t= Nodelist domain;  defaults to 'fidonet'.\n";
+    print $fh "[-n net_number]\t= If present, then only the defined net 'net_number' is operated on.\n";
     print $fh "[-z zone_number]\t= If present, then only the defined zone 'zone_number' is loaded.\n";
     print $fh "[-e]\t\t\t= If present, then nodelist_file is an exact filename\n";
     print $fh "[-v]\t\t\t= Verbose Mode\n";
