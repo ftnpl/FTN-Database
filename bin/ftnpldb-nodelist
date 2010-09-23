@@ -154,8 +154,6 @@ if ($db_type eq "SQLite") {
 }
 
 
-$nodelist_directory = $ftndb_config->{Nodelist}->{Directory};
-
 =item -n
 
 If set, it is the FTN Net number being operated on.
@@ -337,6 +335,8 @@ sub load_ftn_nodelist {
     my $node   = 0;
     my $point  = 0;
     my $region = 0;
+
+    $nodelist_directory = $ftndb_config->{Nodelist}->{Directory};
 
     logging($log_file, $log_id, "Nodelist directory: '$nodelist_directory'");
     logging($log_file, $log_id, "Nodelist file: '$nodelist_file'");
