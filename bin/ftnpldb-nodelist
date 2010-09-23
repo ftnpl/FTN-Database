@@ -153,6 +153,9 @@ if ($db_type eq "SQLite") {
 
 }
 
+
+$nodelist_directory = $ftndb_config->{Nodelist}->{Directory};
+
 =item -n
 
 The nodelist directory being used.
@@ -163,7 +166,9 @@ a help message.
 
 if ($opt_n) {
 
-    $nodelist_directory = $opt_n;
+    $net_number = $opt_n;
+
+}
 
 =item -f
 
@@ -173,7 +178,7 @@ not set, then this is the basename of the nodelist files.
 
 =cut
 
-    if ($opt_f) {
+if ($opt_f) {
 
 =item -e
 
@@ -182,25 +187,17 @@ the -f option is the basename of a nodelist file.
 
 =cut
 
-        if ($opt_e) {
-            logging($log_file, $log_id, "Using exact file name $opt_f.");
-            $nodelist_file = $opt_f;
-        }
-        else {
-            $nodelist_file = get_nodelist_filename($opt_f);
-        }
-
+    if ($opt_e) {
+        logging($log_file, $log_id, "Using exact file name $opt_f.");
+        $nodelist_file = $opt_f;
+    } else {
+        $nodelist_file = get_nodelist_filename($opt_f);
     }
-    else { 
+
+} else { 
         $nodelist_file = get_nodelist_filename("nodelist");
-    }
+}
 
-}
-else {
-    print "\nThe Nodelist directory variable must be set... \n";
-    HELP_MESSAGE(*STDERR);
-    exit(1);
-}
 
 =item -t
 
