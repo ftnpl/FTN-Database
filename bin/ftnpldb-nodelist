@@ -3,7 +3,7 @@
 use warnings;
 use strict;
 use Getopt::Std;
-use vars qw/ $opt_c $opt_n $opt_f $opt_e $opt_l $opt_d $opt_h $opt_t $opt_v $opt_x $opt_z /;
+use vars qw/ $opt_c $opt_n $opt_f $opt_e $opt_l $opt_d $opt_o $opt_h $opt_t $opt_v $opt_x $opt_z /;
 use Config::Tiny;
 use File::Spec;
 
@@ -33,7 +33,7 @@ defaulting to SQLite.
 
 =head1 SYNOPSIS
 
-C<ftnpldb-nodelist [-c config_file] [-t tablename] [-f nodelist_file] [-l log_file] [-d domain] [-n net] [-z zone] [-e] [-v] [-x] load>
+C<ftnpldb-nodelist [-c config_file] [-t tablename] [-f nodelist_file] [-l log_file] [-d domain] [-n net] [-z zone] [-o outfile] [-e] [-v] [-x] load>
 
 C<ftnpldb-nodelist [-h | --help]>
 
@@ -41,7 +41,7 @@ C<ftnpldb-nodelist --version>
 
 =cut
 
-getopts('c:n:f:l:d:t:ehvxz:');
+getopts('c:n:f:l:d:t:o:ehvxz:');
 
 if ($opt_h) {
     HELP_MESSAGE(*STDOUT);    #printing usage/help message
@@ -255,6 +255,20 @@ if ($opt_x) {
     logging($log_file, $log_id, "Debug mode is set");
 }
 
+=item -o
+
+Output file.
+This needs to be at least the filename and can also include a path.
+
+=back
+
+=cut
+
+if ($opt_o) {
+    my $list_file = $opt_o; 
+    undef $opt_o;
+}
+
 =head1 COMMANDS
 
 =over
@@ -312,6 +326,7 @@ sub HELP_MESSAGE {
     print $fh "[-d domain]\t\t= Nodelist domain;  defaults to 'fidonet'.\n";
     print $fh "[-n net_number]\t= If present, then only the defined net 'net_number' is operated on.\n";
     print $fh "[-z zone_number]\t= If present, then only the defined zone 'zone_number' is loaded.\n";
+    print $fh "\t[-o outfile]\t\t= Output file and path.\n";
     print $fh "[-e]\t\t\t= If present, then nodelist_file is an exact filename\n";
     print $fh "[-v]\t\t\t= Verbose Mode\n";
     print $fh "[-x]\t\t\t= Debug Mode\n";
@@ -463,6 +478,12 @@ sub load_ftn_nodelist {
 # List information from FTN nodelist 
 ################################################
 sub list_ftn_nodelist {
+
+    if (!defined $list_file) {
+	print "The output file option, -o, was not defined.\n";
+	HELP_MESSAGE();
+	exit(1);
+    }
 
     # connect to database
     my $db_handle = FTN::Database::open_ftndb($db_type, $db_name, $db_user, $db_password);
