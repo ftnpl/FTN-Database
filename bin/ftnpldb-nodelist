@@ -51,7 +51,7 @@ if ($opt_h) {
 my (
     $nodelist_directory, $nodelist_file, $db_handle, $sql_statement, $domain, $type,
     $number,   $name,   $location,  $log_file, $command, $zone_number, $net_number,
-    $sysop, $phone,  $bps, $flags,    $table_name, $db_name,
+    $sysop, $phone,  $bps, $flags,    $table_name, $db_name, $list_file,
     $db_user, $db_password, $db_type, $config_file
 );
 
@@ -265,7 +265,7 @@ This needs to be at least the filename and can also include a path.
 =cut
 
 if ($opt_o) {
-    my $list_file = $opt_o; 
+    $list_file = $opt_o; 
     undef $opt_o;
 }
 
