@@ -50,7 +50,7 @@ if ($opt_h) {
 
 my (
     $nodelist_directory, $nodelist_file, $db_handle, $sql_statement, $domain, $type,
-    $number,   $name,   $location,  $log_file, $command, $zone_number, 
+    $number,   $name,   $location,  $log_file, $command, $zone_number, $net_number,
     $sysop, $phone,  $bps, $flags,    $table_name, $db_name,
     $db_user, $db_password, $db_type, $config_file
 );
@@ -162,7 +162,7 @@ If set, it is the FTN Net number being operated on.
 
 if ($opt_n) {
 
-    my $net_number = $opt_n;
+    $net_number = $opt_n;
     undef $opt_n;
 
 }
