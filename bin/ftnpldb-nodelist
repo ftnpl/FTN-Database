@@ -50,7 +50,7 @@ if ($opt_h) {
 
 my (
     $nodelist_directory, $nodelist_file, $db_handle, $sql_statement, $domain, $type,
-    $number,   $name,   $location,  $log_file, $command,
+    $number,   $name,   $location,  $log_file, $command, $zone_number, 
     $sysop, $phone,  $bps, $flags,    $table_name, $db_name,
     $db_user, $db_password, $db_type, $config_file
 );
@@ -227,8 +227,8 @@ If defined;  is the only zone being operated on.
 =cut
 
 if ($opt_z) {
-    my $zone_number = $opt_z; 
-    logging($log_file, $log_id, "Defined Zone: $zone_only");
+    $zone_number = $opt_z; 
+    logging($log_file, $log_id, "Defined Zone: $zone_number");
     undef $opt_z;
 }
 
