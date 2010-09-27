@@ -4,18 +4,30 @@ To Do:
 General
 --------
 
+- Move the definition of the log file in the scripts to the configuration file.
+
+- Change to using the options hash from GetOpt::Std instead of the individual
+option variables like $opt_v.
+
 - Change to use placeholders for the dbi sql functions.
 
 - Change to useing a hash instead of individual options in the module
 subroutine calls.
 
-- Need to clarify the parameters for $db_name & $database? For instance;  to
-differientate between the database name as part of the DSN used to connect to
-the server and the name of a database being created or dropped on a server.
-
 - Review all pod documentation and update/correct as neccessary.
 
-- Move configuring the log file in the scripts to the configuration file.
+- Use the "if (defined $opt_l)" construct for checking options?
+
+- Move the parsing of at least some options in the bin/* scripts into a
+subroutine, or subroutines depending on the options?
+
+- Organize the display of the options in the Help Message by which command
+they are associated with.
+
+- Need to clarify the parameters for $db_name & $database? For instance;
+to differientate between the database name as part of the DSN used to connect
+to a database server and the name of a database being created or dropped on a
+server.
 
 - The option used to define which type of database to use does not currently
 do any error checking on that type;  the script will fail if a correct DBD name
@@ -26,14 +38,10 @@ postgresql.
 - The use of special characters like periods in table names is a more general
 issue where it is not a good idea to use them at all.  Redo the comments in
 scripts and modules regarding that, to generalize it.  (Derive function to
-validate it and add that to the FTN::Database module?)
+validate it and add th at to the FTN::Database module?)
 
-- Change to using the options hash from GetOpt::Std instead of the individual
-option variables like $opt_l.
-
-- Use the "if (defined $opt_l)" construct for checking options?
-
-- Move the parsing of the options in the bin/* scripts into a subroutine?
+- Change this TODO document into being a pod document, perhaps explicitly as
+something like FTN::Database::ToDo? 
 
 - Separate out the submodules, like FTN::Database::Nodelist and
 FTN::Database::Echolist (when implemented), into separate distributions
@@ -42,7 +50,7 @@ so that only the functionality that's wanted needs to be installed?
 
 FTN::Database
 --------------
-- Export by default the commonly used functions.
+- Export the commonly used functions by default.
 - Derive a generic drop_table subroutine from the drop_nodelist_table.
 - Create set_ftndb_acl subroutine? (Same reasoning as for create_ftndb.)
 - Possible function/subroutine that checks if a valid database table name is
@@ -51,9 +59,9 @@ FTN::Database
 
 FTN::Database::Nodelist
 ------------------------
-- Export by default the commonly used functions.
+- Export the commonly used functions by default.
 - Derive and move a function for executing queries on the nodelist table from
-  the code used in the listftndb subroutine.
+  the code used in the list_ftn_nodelist subroutine.
 - As part of adding statistics related functions, add a function that counts
   the number of nodes that have a particular flag associated with it.  Could
   use the name get_nodelist_flag_count($dbh,$nodelist_flag).  Also add 
@@ -61,42 +69,23 @@ FTN::Database::Nodelist
   private, etc. 
 - Derive and move function to insert or update an entry from nl2ftndb. Separate
   functions for insert & update, or different options in same function?
-- Move get_nodelist_filename subroutine from nl2ftndb script?
+- Move get_nodelist_filename subroutine from the ftnpldb-nodelist script?
 - Use a different datatype than "TIMESTAMP" for the 'updated' field in the
   nodelist table?  (Not generic enough?)
 
   
-FTN::Database::Echolist
-------------------------
-- Create an FTN database module for echolists which:  Creates or Drops an
-  echolist table, default name "Echolist"?  Basic table would consist of
-  (at least) the following fields:  name, description, source.
-- Export by default the commonly used functions.
-- Create or drop an index on that basic echolist table.
-- Create an el2ftndb script, patterned after the nl2ftndb script, which can
-  be used to load the echolist table?  Or add the functionality to one of 
-  the existing scripts?  Name it "ftnpldb-echolist" ?
-
-
-ftndbadm
--------- 
-- Pass the variables to subroutines, rather than depend on the globals.
+ftnpldb-admin
+-------------- 
+- Pass the variables to subroutines directly, rather than depend on the globals.
 - Come up with a single option for the name of the object being created or
   dropped, to replace the -d & -t options for the database_name and the
   nodelist_table_name variables?  Perhaps "-N" ?
 - Add better error checking.
 - Add quiet option, -q, for logging only operation ? 
-- Rename as ftnpldb?  Or as something like ftnpldb-admin?
 
 
-nl2ftndb
----------
-- Since the nodelist directory option is required;  change it to being
-  defined in the configuration file rather than on the command line?
-- Add cammands to create or drop the ftnnode index on the nodelist
-  table?
-- Move create_ftn_nodelist_table to what is currenly named nl2ftndb, but
-  also leave a generic create_ftn_table subroutine in ftndbadm. 
+ftnpldb-nodelist
+----------------
 - Change to using placeholders in the insert nodelist code by:
     Change the build sql statement code to being an 'prepare' function that
   builds the insert sql statment using placeholders for the table fields.
@@ -114,6 +103,23 @@ nl2ftndb
 - Get quoteing working properly for entry into the database for fields like
   $location and $name, so do not have to take out characters like single
   quotes, etc.
+- Move code for processing the -f & -e options into a separate subroutine, so
+  it could be used by more than just the load command?
+- Add an option, like -r, for specifying a region number;  to be used like the
+  -z or -n options, and for all commands.  
+- Add cammands to create or drop the ftnnode index on the nodelist
+  table?
+- Move create_ftn_nodelist_table to ftnpldb-nodelist, but also leave a generic
+  create_ftn_table subroutine in ftnpldb-admin. 
+- Change to using something like Text::Template for creating the output file of
+  the List command?
+- Change default output to STDOUT for list command?;  i.e., print to the screen?
+  Selected if the "-o" variable is not set?
+- Besides the print to screen output & output to text file, add option for html
+  formatted output?  And/or just add formated output using a template file?
+- Variables should only be declared at the highest level they are needed; i.e.,
+  if a variable is only used in a subroutine, it should only be declared there
+  and not declared globally.
 - Script does not seem to properly handle a file that ends in just blank
   lines, instead of a content line or a ^Z character. (Should fail gracefully
   for a badly formatted file.)
@@ -124,16 +130,15 @@ nl2ftndb
 - Add a test nodelist for use with this?...
 
 
-listftndb
-----------
-- Change to using something like Text::Template for creating the output.
-- Change default output to STDOUT;  i.e., print to the screen?  Selected if the
-  "-o" variable is not set?
-- Besides the print to screen output & output to text file, add option for html
-  formatted output?  And/or just add formated output using a template file?
-- Add quiet option, -q, for logging only operation ? 
-- Move functionality into the nl2ftndb script as a List command?
-- Need to handle situation when there are no command line arguments.
+FTN::Database::Echolist
+------------------------
+- Create an FTN database module for echolists which:  Creates or Drops an
+  echolist table, default name "Echolist"?  Basic table would consist of
+  (at least) the following fields:  name, description, source.
+- Export by default the commonly used functions.
+- Create or drop an index on that basic echolist table.
+- Create an ftnpldb-echolist script, patterned after ftnpldb-nodelist, which
+  can be used to load the echolist table.
 
 
 Testing
