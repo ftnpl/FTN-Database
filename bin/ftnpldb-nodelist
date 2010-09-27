@@ -171,30 +171,13 @@ if ($opt_n) {
 
 The nodelist file.
 If the -e option is also set, then this is an exact file name.  If -e is
-not set, then this is the basename of the nodelist files.
-
-=cut
-
-if ($opt_f) {
+not set, then this is the basename of the nodelist files.  If -f is not
+set, then when needed it defaults to "nodelist".
 
 =item -e
 
 If set, then the -f option must be exact file name.  If not set, then
 the -f option is the basename of a nodelist file.
-
-=cut
-
-    if ($opt_e) {
-        logging($log_file, $log_id, "Using exact file name $opt_f.");
-        $nodelist_file = $opt_f;
-    } else {
-        $nodelist_file = get_nodelist_filename($opt_f);
-    }
-
-} else { 
-        $nodelist_file = get_nodelist_filename("nodelist");
-}
-
 
 =item -t
 
@@ -348,6 +331,19 @@ sub load_ftn_nodelist {
     my $region = 0;
 
     $nodelist_directory = $ftndb_config->{Nodelist}->{Directory};
+
+    if ($opt_f) {
+
+        if ($opt_e) {
+            logging($log_file, $log_id, "Using exact file name $opt_f.");
+            $nodelist_file = $opt_f;
+        } else {
+            $nodelist_file = get_nodelist_filename($opt_f);
+        }
+
+    } else { 
+        $nodelist_file = get_nodelist_filename("nodelist");
+    }
 
     logging($log_file, $log_id, "Nodelist directory: '$nodelist_directory'");
     logging($log_file, $log_id, "Nodelist file: '$nodelist_file'");
