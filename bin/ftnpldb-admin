@@ -385,6 +385,14 @@ sub VERSION_MESSAGE {
 
 =head1 CONFIGURATION
 
+Configuration information not provided by the command line options are
+obtained from a configuration file.  That can be defined by setting the
+"-c" option, which is the path and file name of the configuration file
+to be used. If that is not defined, it looks for a file named ftnpldb.cfg
+in the current directory. The file contains configuration items listed
+outside of a named section as well as those listed within a named section,
+and blank lines and lines starting with a "#" are ignored.
+
 The first items in the file are those outside of a named section:
 
 =over 4
