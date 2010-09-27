@@ -15,7 +15,7 @@ $Getopt::Std::STANDARD_HELP_VERSION = 1;
 
 =head1 NAME
 
-ftnpldb-nodelist - Load information into a Nodelist table in an Fidonet/FTN SQL database.
+ftnpldb-nodelist - Fidonet/FTN Nodelist related processing using an SQL Database.
 
 =head1 VERSION
 
@@ -27,13 +27,17 @@ our $VERSION = 0.17;
 
 =head1 DESCRIPTION
 
-Initial load of a particular Fidonet/FTN St. Louis Format Nodelist into an SQL Database
-for Fidonet/FTN processing. The SQL Database engine is one for which a DBD module exists,
+This script both provides an example of using the FTN::Database and
+FTN::Database::Nodelist modules as well as providing some basic
+functionality related to using an SQL Database for Fidonet/FTN related
+processing.  The SQL Database engine is one for which a DBD module exists,
 defaulting to SQLite.
 
 =head1 SYNOPSIS
 
-C<ftnpldb-nodelist [-c config_file] [-t tablename] [-f nodelist_file] [-l log_file] [-d domain] [-n net] [-z zone] [-o outfile] [-e] [-v] [-x] load>
+C<ftnpldb-nodelist [-c config_file] [-t tablename] [-f nodelist_file] [-l log_file] [-d domain] [-n net] [-z zone] [-e] [-v] [-x] load>
+
+C<ftnpldb-nodelist [-c config_file] [-t tablename] [-l log_file] [-n net] [-z zone] [-o outfile] [-v] [-x] list>
 
 C<ftnpldb-nodelist [-h | --help]>
 
@@ -153,20 +157,6 @@ if ($db_type eq "SQLite") {
 
 }
 
-
-=item -n
-
-If set, it is the FTN Net number being operated on.
-
-=cut
-
-if ($opt_n) {
-
-    $net_number = $opt_n;
-    undef $opt_n;
-
-}
-
 =item -f
 
 The nodelist file.
@@ -201,6 +191,20 @@ if ($opt_t) {
 }
 else {
     $table_name = "Nodelist";     # default table name
+}
+
+=item -n
+
+If set, it is the FTN Net number being operated on.
+
+=cut
+
+if ($opt_n) {
+
+    $net_number = $opt_n;
+    logging($log_file, $log_id, "Defined Net: $net_number");
+    undef $opt_n;
+
 }
 
 =item -z
@@ -261,6 +265,12 @@ if ($opt_o) {
 This will load an FTN Nodelist database table in an SQL database
 server being used for Fidonet/FTN processing. 
 
+=item list
+
+This will list information from an FTN Nodelist database table in
+an SQL database server being used for Fidonet/FTN processing, by
+a specified zone and/or net number. 
+
 =back
 
 =cut
@@ -286,18 +296,19 @@ if (lc($command) eq "load") {
 
 exit();
 
-############################################
-# subroutines
-############################################
+################################################################################
+#	Subroutines
+################################################################################
 
 # Display of help message
-############################################
+########################################################################
 sub HELP_MESSAGE {
 
     my $fh = shift;
     
     print $fh "\n\tSynopsis:\n";
     print $fh "ftnpldb-nodelist [-c config_file] [options] load\n";
+    print $fh "ftnpldb-nodelist [-c config_file] [options] list\n";
     print $fh "ftnpldb-nodelist -h | --help\t= Display this help message.\n";
     print $fh "ftnpldb-nodelist --version\t= Display version message\n";
 
@@ -420,7 +431,8 @@ sub load_ftn_nodelist {
 	    print "$sysop\n";
 	}
 
-	# If zone_number is defined, then go to the next line if the zone number is not the same as zone_number 
+	# If zone_number is defined, then go to the next line if the zone
+	# number is not the same as zone_number 
 	if (defined $zone_number) {
 	    if ($zone != $zone_number) {
 		next;
@@ -470,9 +482,9 @@ sub load_ftn_nodelist {
     return();
 }
 
-################################################
+########################################################################
 # List information from FTN nodelist 
-################################################
+########################################################################
 sub list_ftn_nodelist {
 
     if (!defined $list_file) {
@@ -517,9 +529,9 @@ sub list_ftn_nodelist {
 
 }
 
-################################################
+########################################################################
 # get nodelist filename, given path & base name
-################################################
+########################################################################
 sub get_nodelist_filename {
 
     # Find the most recent version (by day number) when given a base name & dir
@@ -559,9 +571,9 @@ sub get_nodelist_filename {
 
 }
 
-########################################################################
+#########################################################################
 # Display Version message
-########################################################################
+#########################################################################
 sub VERSION_MESSAGE {
 
     my $fh = shift;
@@ -572,7 +584,7 @@ sub VERSION_MESSAGE {
 
 }
 
-########################################################################
+################################################################################
 
 =head1 CONFIGURATION
 
