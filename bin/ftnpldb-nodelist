@@ -3,7 +3,7 @@
 use warnings;
 use strict;
 use Getopt::Std;
-use vars qw/ $opt_c $opt_n $opt_f $opt_e $opt_l $opt_d $opt_o $opt_h $opt_t $opt_v $opt_x $opt_z /;
+use vars qw/ $opt_c $opt_n $opt_f $opt_e $opt_d $opt_o $opt_h $opt_t $opt_v $opt_x $opt_z /;
 use Config::Tiny;
 use File::Spec;
 
@@ -45,7 +45,7 @@ C<ftnpldb-nodelist --version>
 
 =cut
 
-getopts('c:n:f:l:d:t:o:ehvxz:');
+getopts('c:n:f:d:t:o:ehvxz:');
 
 if ($opt_h) {
     HELP_MESSAGE(*STDOUT);    #printing usage/help message
@@ -90,14 +90,6 @@ This would be the filename and path of a log file, with the default
 being ftnpldb.log in the current directory.
 
 =cut
-
-if ($opt_l) {
-    $log_file = $opt_l;
-    undef $opt_l;
-}
-else {
-    $log_file = "ftnpldb.log";
-}
 
 # Get the definition of the log file
 $log_file = $ftndb_config->{_}->{LogFile};	

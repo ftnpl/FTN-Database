@@ -3,7 +3,7 @@
 use warnings;
 use strict;
 use Getopt::Std;
-use vars qw/ $opt_c $opt_t $opt_d $opt_l $opt_h $opt_v $opt_x /;
+use vars qw/ $opt_c $opt_t $opt_d $opt_h $opt_v $opt_x /;
 use Config::Tiny;
 use File::Spec;
 
@@ -46,7 +46,7 @@ my ( $config_file, $db_type, $db_name, $db_user, $db_password, $database_name, $
 
 my $log_id = "DBADM";
 
-getopts('c:t:d:l:hvx');
+getopts('c:t:d:hvx');
 
 if ($opt_h) {
     HELP_MESSAGE(*STDOUT);
@@ -85,17 +85,8 @@ being ftnpldb.log in the current directory.
 
 =cut
 
-if ($opt_l) {
-    $log_file = $opt_l;
-    undef $opt_l;
-}
-else {
-    $log_file = "ftnpldb.log";
-}
-
 # Get the definition of the log file
 $log_file = $ftndb_config->{_}->{LogFile};	
-
 
 =item -x
 
