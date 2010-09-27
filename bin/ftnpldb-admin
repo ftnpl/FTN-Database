@@ -78,13 +78,6 @@ my $ftndb_config = Config::Tiny->new();
 $ftndb_config = Config::Tiny->read($config_file)
     or die "Could not open configuration file:  $config_file";
 
-=item -l
-
-This would be the filename and path of a log file, with the default
-being ftnpldb.log in the current directory.
-
-=cut
-
 # Get the definition of the log file
 $log_file = $ftndb_config->{_}->{LogFile};	
 
@@ -276,7 +269,6 @@ sub HELP_MESSAGE {
     print $fh "[-c config_file]\t= Name and path for configuration file.\n";
     print $fh "[-d databasename]\t= Database name being created or dropped.\n";
     print $fh "[-t tablename]\t= Nodelist table name;  defaults to \'Nodelist\'. \n";
-    print $fh "[-l log_file]\t= Log filename; defaults to ftnpldb.log in current dir.\n";
     print $fh "[-v]\t\t= Verbose option.\n";
     print $fh "[-x]\t\t= Debug option.\n\n";
 
@@ -393,6 +385,16 @@ sub VERSION_MESSAGE {
 
 =head1 CONFIGURATION
 
+The first items in the file are those outside of a named section:
+
+=over 4
+
+=item LogFile
+
+This is the rquired filename and path of a log file.
+
+=back
+
 The B<Database> section in the configuration file has the following
 keywords:
 
@@ -426,6 +428,9 @@ needed for that type of a database.
 
 This is an example of the contents of an ftnpldb.cfg file:
 
+    # ftnpldb.cfg
+    LogFile=/opt/ftndb/ftnpldb.log
+    
     [Database]
     Type=mysql
     Name=ftndbtst

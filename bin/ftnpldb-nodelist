@@ -35,9 +35,9 @@ defaulting to SQLite.
 
 =head1 SYNOPSIS
 
-C<ftnpldb-nodelist [-c config_file] [-t tablename] [-f nodelist_file] [-l log_file] [-d domain] [-n net] [-z zone] [-e] [-v] [-x] load>
+C<ftnpldb-nodelist [-c config_file] [-t tablename] [-f nodelist_file] [-d domain] [-n net] [-z zone] [-e] [-v] [-x] load>
 
-C<ftnpldb-nodelist [-c config_file] [-t tablename] [-l log_file] [-n net] [-z zone] [-o outfile] [-v] [-x] list>
+C<ftnpldb-nodelist [-c config_file] [-t tablename] [-n net] [-z zone] [-o outfile] [-v] [-x] list>
 
 C<ftnpldb-nodelist [-h | --help]>
 
@@ -83,13 +83,6 @@ else {
 my $ftndb_config = Config::Tiny->new();
 $ftndb_config = Config::Tiny->read($config_file)
     or die "Could not open configuration file:  $config_file";
-
-=item -l
-
-This would be the filename and path of a log file, with the default
-being ftnpldb.log in the current directory.
-
-=cut
 
 # Get the definition of the log file
 $log_file = $ftndb_config->{_}->{LogFile};	
@@ -312,7 +305,6 @@ sub HELP_MESSAGE {
     print $fh "[-c config_file]\t= Name and path for configuration file.\n";
     print $fh "[-t tablename]\t\t= Nodelist table name;  defaults to 'Nodelist'.\n";
     print $fh "[-f nodelist_file]\t= Nodelist filename, defaults to 'nodelist'.\n";
-    print $fh "[-l log_file]\t\t= Log filename;  defaults to ftnpldb.log in current dir)\n";
     print $fh "[-d domain]\t\t= Nodelist domain;  defaults to 'fidonet'.\n";
     print $fh "[-n net_number]\t= If present, then only the defined net 'net_number' is operated on.\n";
     print $fh "[-z zone_number]\t= If present, then only the defined zone 'zone_number' is loaded.\n";
@@ -584,6 +576,16 @@ sub VERSION_MESSAGE {
 
 =head1 CONFIGURATION
 
+The first items in the file are those outside of a named section:
+
+=over 4
+
+=item LogFile
+
+This is the required filename and path of a log file.
+
+=back
+
 The B<Database> section in the configuration file has the following
 keywords:
 
@@ -629,6 +631,9 @@ The directory where the FTN Nodelist files are located.
 This is an example of the contents of an ftnpldb.cfg file for use with
 FTN Nodelist related processing:
 
+    # ftnpldb.cfg
+    LogFile=/opt/ftndb/ftnpldb.log
+    
     [Database]
     Type=mysql
     Name=ftndbtst
