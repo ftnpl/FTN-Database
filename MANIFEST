@@ -2,7 +2,6 @@ Changes
 MANIFEST
 Makefile.PL
 README
-bin/listftndb
 bin/ftnpldb-nodelist
 bin/ftnpldb-admin
 doc/History

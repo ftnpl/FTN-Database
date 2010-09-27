@@ -217,7 +217,7 @@ up to the version at which they were last changed.
 
 =head1 SEE ALSO
 
- L<DBI>, L<FTN::Database::Nodelist>, L<ftndbadm>, L<listftndb>, L<ftndbadm>,
+ L<DBI>, L<FTN::Database::Nodelist>, L<ftndbadm>, L<ftndbadm>,
  and L<ftnpldb-nodelist>
 
 =head1 COPYRIGHT & LICENSE

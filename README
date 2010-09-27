@@ -39,7 +39,6 @@ the perldoc command.
     perldoc FTN::Database::Nodelist
     perldoc ftnpldb-nodelist
     perldoc ftnpldb-admin
-    perldoc net2file
 
 You can also look for information at:
 
