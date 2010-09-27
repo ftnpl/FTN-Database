@@ -1,5 +1,7 @@
 Revision history for FTN-Database (ftnpldb)
 
+0.18	dow mmm dd hh:mm 2010
+
 0.17	Mon Sep 27 15:22 2010
     - Rename bin/ftndbadm to bin/ftnpldb-admin.
     - Move definition of nodelist directory to the configuration file, using
