@@ -99,6 +99,10 @@ else {
     $log_file = "ftnpldb.log";
 }
 
+# Get the definition of the log file
+$log_file = $ftndb_config->{_}->{LogFile};	
+
+
 my $log_id = "nl2db";
 
 logging($log_file, $log_id, "Starting ftnpldb-nodelist... ");

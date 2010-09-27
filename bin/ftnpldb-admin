@@ -93,6 +93,10 @@ else {
     $log_file = "ftnpldb.log";
 }
 
+# Get the definition of the log file
+$log_file = $ftndb_config->{_}->{LogFile};	
+
+
 =item -x
 
 Debug option.
