@@ -10,11 +10,11 @@ FTN::Database::Nodelist - Fidonet/FTN Nodelist SQL Database operations.
 
 =head1 VERSION
 
-Version 0.15
+Version 0.17
 
 =cut
 
-our $VERSION = '0.15';
+our $VERSION = '0.17';
 
 =head1 DESCRIPTION
 
@@ -215,8 +215,7 @@ L<http://search.cpan.org/dist/FTN-Database>
 
 =head1 SEE ALSO
 
- L<FTN::Database>, L<ftndbadm>, L<listftndb>, L<ftndbadm>,
- and L<nl2ftndb>
+ L<FTN::Database>, L<ftndbadm>, L<ftndbadm>, and L<ftnpldb-nodelist>
 
 =head1 COPYRIGHT & LICENSE
 

@@ -15,15 +15,15 @@ $Getopt::Std::STANDARD_HELP_VERSION = 1;
 
 =head1 NAME
 
-ftndbadm - Administration of an SQL database for Fidonet/FTN processing.
+ftnpldb-admin - Administration of an SQL database for Fidonet/FTN processing.
 
 =head1 VERSION
 
-Version 0.15
+Version 0.17
 
 =cut
 
-our $VERSION = 0.15;
+our $VERSION = 0.17;
 
 =head1 DESCRIPTION
 
@@ -32,13 +32,13 @@ database engine is one for which a DBD module exists, defaulting to SQLite.
 
 =head1 SYNOPSIS
 
-C<ftndbadm -c config_file [options] [-d databasename] create|drop database>
+C<ftnpldb-admin -c config_file [options] [-d databasename] create|drop database>
 
-C<ftndbadm -c config_file [options] [-t tablename] create|drop table>
+C<ftnpldb-admin -c config_file [options] [-t tablename] create|drop table>
 
-C<ftndbadm [-h | --help]>
+C<ftnpldb-admin [-h | --help]>
 
-C<ftndbadm --version>
+C<ftnpldb-admin --version>
 
 =cut
 
@@ -272,10 +272,10 @@ sub HELP_MESSAGE {
     my $fh = shift;
     
     print $fh "\n\tSynopsis:\n";
-    print $fh "ftndbadm -c config_file [options] [-d databasename] create|drop database\n";
-    print $fh "ftndbadm -c config_file [options] [-t tablename] create|drop table\n";
-    print $fh "ftndbadm -h | --help\t= Display this help message.\n";
-    print $fh "ftndbadm --version\t= Display version message.\n\n";
+    print $fh "ftnpldb-admin -c config_file [options] [-d databasename] create|drop database\n";
+    print $fh "ftnpldb-admin -c config_file [options] [-t tablename] create|drop table\n";
+    print $fh "ftnpldb-admin -h | --help\t= Display this help message.\n";
+    print $fh "ftnpldb-admin --version\t= Display version message.\n\n";
 
     print $fh "\tOptions.\n";
     print $fh "[-c config_file]\t= Name and path for configuration file.\n";
@@ -388,7 +388,7 @@ sub VERSION_MESSAGE {
 
     my $fh = shift;
     
-    print $fh "ftndbadm version $VERSION\n";
+    print $fh "ftnpldb-admin version $VERSION\n";
 
     return();
 
@@ -442,7 +442,7 @@ This is an example of the contents of an ftnpldb.cfg file:
 Given that $CFGFILE is a configuration file, the following command line can be
 used to create an FTN Nodelist table in that database file:
 
-C<ftndbadm -c $CFGFILE -t Nodelist -v create table>
+C<ftnpldb-admin -c $CFGFILE -t Nodelist -v create table>
 
 =head1 AUTHOR
 
@@ -458,7 +458,7 @@ be notified, and then you'll automatically be notified of progress on your bug a
 
 You can find documentation for this module with the perldoc command.
 
-    perldoc ftndbadm
+    perldoc ftnpldb-admin
 
 
 You can also look for information at:
@@ -481,8 +481,7 @@ L<http://search.cpan.org/dist/FTN-Database>
 
 =head1 SEE ALSO
 
- L<FTN::Database>, L<FTN::Database::Nodelist>, L<listftndb>,
- and L<nl2ftndb>.
+ L<FTN::Database>, L<FTN::Database::Nodelist>, and L<ftnpldb-nodelist>.
 
 =head1 COPYRIGHT & LICENSE
 

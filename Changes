@@ -1,4 +1,14 @@
-Revision history for FTN-Database (ftnpldb) 
+Revision history for FTN-Database (ftnpldb)
+
+0.17	Mon Sep 27 15:22 2010
+    - Rename bin/ftndbadm to bin/ftnpldb-admin.
+    - Move definition of nodelist directory to the configuration file, using
+      the keyword Directory in the new section Nodelist.
+    - Rename bin/nl2ftndb to bin/ftnpldb-nodelist. Change how the -z FTN Zone
+      number parameter is coded. Change the -n option to being the definition
+      of an FTN Net number. Move the nodelist listing functionality from the 
+      bin/listftndb script to the bin/ftnpldb-nodelist script as the List
+      command, and remove the file bin/listftndb.
 
 0.16	Fri Sep 17 17:29 2010
     - Reorganize and move the code in the nl2ftndb script that does an

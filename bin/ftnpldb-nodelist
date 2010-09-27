@@ -3,7 +3,7 @@
 use warnings;
 use strict;
 use Getopt::Std;
-use vars qw/ $opt_c $opt_n $opt_f $opt_e $opt_l $opt_d $opt_h $opt_t $opt_v $opt_x $opt_z /;
+use vars qw/ $opt_c $opt_n $opt_f $opt_e $opt_l $opt_d $opt_o $opt_h $opt_t $opt_v $opt_x $opt_z /;
 use Config::Tiny;
 use File::Spec;
 
@@ -15,33 +15,37 @@ $Getopt::Std::STANDARD_HELP_VERSION = 1;
 
 =head1 NAME
 
-nl2ftndb - Load information into a Nodelist table in an Fidonet/FTN SQL database.
+ftnpldb-nodelist - Fidonet/FTN Nodelist related processing using an SQL Database.
 
 =head1 VERSION
 
-Version 0.16
+Version 0.17
 
 =cut
 
-our $VERSION = 0.16;
+our $VERSION = 0.17;
 
 =head1 DESCRIPTION
 
-Initial load of a particular Fidonet/FTN St. Louis Format Nodelist into an SQL Database
-for Fidonet/FTN processing. The SQL Database engine is one for which a DBD module exists,
+This script both provides an example of using the FTN::Database and
+FTN::Database::Nodelist modules as well as providing some basic
+functionality related to using an SQL Database for Fidonet/FTN related
+processing.  The SQL Database engine is one for which a DBD module exists,
 defaulting to SQLite.
 
 =head1 SYNOPSIS
 
-C<nl2ftndb -c config_file -n nodelist_directory [-t tablename] [-f nodelist_file] [-l log_file] [-d domain] [-z zone] [-e] [-v] [-x] load>
+C<ftnpldb-nodelist [-c config_file] [-t tablename] [-f nodelist_file] [-l log_file] [-d domain] [-n net] [-z zone] [-e] [-v] [-x] load>
 
-C<nl2ftndb [-h | --help]>
+C<ftnpldb-nodelist [-c config_file] [-t tablename] [-l log_file] [-n net] [-z zone] [-o outfile] [-v] [-x] list>
 
-C<nl2ftndb --version>
+C<ftnpldb-nodelist [-h | --help]>
+
+C<ftnpldb-nodelist --version>
 
 =cut
 
-getopts('c:n:f:l:d:t:ehvxz:');
+getopts('c:n:f:l:d:t:o:ehvxz:');
 
 if ($opt_h) {
     HELP_MESSAGE(*STDOUT);    #printing usage/help message
@@ -50,8 +54,8 @@ if ($opt_h) {
 
 my (
     $nodelist_directory, $nodelist_file, $db_handle, $sql_statement, $domain, $type,
-    $number,   $name,   $location,  $log_file, $command,
-    $sysop, $phone,  $bps, $flags,    $table_name, $db_name,
+    $number,   $name,   $location,  $log_file, $command, $zone_number, $net_number,
+    $sysop, $phone,  $bps, $flags,    $table_name, $db_name, $list_file,
     $db_user, $db_password, $db_type, $config_file
 );
 
@@ -97,7 +101,7 @@ else {
 
 my $log_id = "nl2db";
 
-logging($log_file, $log_id, "Starting nl2ftndb... ");
+logging($log_file, $log_id, "Starting ftnpldb-nodelist... ");
 
 =item -v
 
@@ -153,54 +157,17 @@ if ($db_type eq "SQLite") {
 
 }
 
-=item -n
-
-The nodelist directory being used.
-This is required, so if it is not set the program will exit displaying
-a help message.
-
-=cut
-
-if ($opt_n) {
-
-    $nodelist_directory = $opt_n;
-
 =item -f
 
 The nodelist file.
 If the -e option is also set, then this is an exact file name.  If -e is
-not set, then this is the basename of the nodelist files.
-
-=cut
-
-    if ($opt_f) {
+not set, then this is the basename of the nodelist files.  If -f is not
+set, then when needed it defaults to "nodelist".
 
 =item -e
 
 If set, then the -f option must be exact file name.  If not set, then
 the -f option is the basename of a nodelist file.
-
-=cut
-
-        if ($opt_e) {
-            logging($log_file, $log_id, "Using exact file name $opt_f.");
-            $nodelist_file = $opt_f;
-        }
-        else {
-            $nodelist_file = get_nodelist_filename($opt_f);
-        }
-
-    }
-    else { 
-        $nodelist_file = get_nodelist_filename("nodelist");
-    }
-
-}
-else {
-    print "\nThe Nodelist directory variable must be set... \n";
-    HELP_MESSAGE(*STDERR);
-    exit(1);
-}
 
 =item -t
 
@@ -226,18 +193,29 @@ else {
     $table_name = "Nodelist";     # default table name
 }
 
+=item -n
 
-my $zone_only = 0;     # Set default as zone 0, which is not used for zone numbers.
+If set, it is the FTN Net number being operated on.
+
+=cut
+
+if ($opt_n) {
+
+    $net_number = $opt_n;
+    logging($log_file, $log_id, "Defined Net: $net_number");
+    undef $opt_n;
+
+}
 
 =item -z
 
-If defined;  is the only zone to be loaded
+If defined;  is the only zone being operated on.
 
 =cut
 
 if ($opt_z) {
-    $zone_only = $opt_z;    # 
-    logging($log_file, $log_id, "Only loading Zone: $zone_only");
+    $zone_number = $opt_z; 
+    logging($log_file, $log_id, "Defined Zone: $zone_number");
     undef $opt_z;
 }
 
@@ -264,6 +242,20 @@ if ($opt_x) {
     logging($log_file, $log_id, "Debug mode is set");
 }
 
+=item -o
+
+Output file.
+This needs to be at least the filename and can also include a path.
+
+=back
+
+=cut
+
+if ($opt_o) {
+    $list_file = $opt_o; 
+    undef $opt_o;
+}
+
 =head1 COMMANDS
 
 =over
@@ -272,6 +264,12 @@ if ($opt_x) {
 
 This will load an FTN Nodelist database table in an SQL database
 server being used for Fidonet/FTN processing. 
+
+=item list
+
+This will list information from an FTN Nodelist database table in
+an SQL database server being used for Fidonet/FTN processing, by
+a specified zone and/or net number. 
 
 =back
 
@@ -285,6 +283,10 @@ if (lc($command) eq "load") {
 
     load_ftn_nodelist();
 
+} elsif (lc($command) eq "list") {
+
+    list_ftn_nodelist();
+
 } else {
     print STDERR "Unrecognized command.\n";
     HELP_MESSAGE(*STDERR);
@@ -294,29 +296,31 @@ if (lc($command) eq "load") {
 
 exit();
 
-############################################
-# subroutines
-############################################
+################################################################################
+#	Subroutines
+################################################################################
 
 # Display of help message
-############################################
+########################################################################
 sub HELP_MESSAGE {
 
     my $fh = shift;
     
     print $fh "\n\tSynopsis:\n";
-    print $fh "nl2ftndb -n nodelist_directory [-c config_file] [options] load\n";
-    print $fh "nl2ftndb -h | --help\t= Display this help message.\n";
-    print $fh "nl2ftndb --version\t= Display version message\n";
+    print $fh "ftnpldb-nodelist [-c config_file] [options] load\n";
+    print $fh "ftnpldb-nodelist [-c config_file] [options] list\n";
+    print $fh "ftnpldb-nodelist -h | --help\t= Display this help message.\n";
+    print $fh "ftnpldb-nodelist --version\t= Display version message\n";
 
     print $fh "\tOptions.\n";
-    print $fh "-n nodelist_directory\t= Nodelist directory\n";
     print $fh "[-c config_file]\t= Name and path for configuration file.\n";
     print $fh "[-t tablename]\t\t= Nodelist table name;  defaults to 'Nodelist'.\n";
     print $fh "[-f nodelist_file]\t= Nodelist filename, defaults to 'nodelist'.\n";
     print $fh "[-l log_file]\t\t= Log filename;  defaults to ftnpldb.log in current dir)\n";
     print $fh "[-d domain]\t\t= Nodelist domain;  defaults to 'fidonet'.\n";
+    print $fh "[-n net_number]\t= If present, then only the defined net 'net_number' is operated on.\n";
     print $fh "[-z zone_number]\t= If present, then only the defined zone 'zone_number' is loaded.\n";
+    print $fh "\t[-o outfile]\t\t= Output file and path.\n";
     print $fh "[-e]\t\t\t= If present, then nodelist_file is an exact filename\n";
     print $fh "[-v]\t\t\t= Verbose Mode\n";
     print $fh "[-x]\t\t\t= Debug Mode\n";
@@ -336,6 +340,21 @@ sub load_ftn_nodelist {
     my $node   = 0;
     my $point  = 0;
     my $region = 0;
+
+    $nodelist_directory = $ftndb_config->{Nodelist}->{Directory};
+
+    if ($opt_f) {
+
+        if ($opt_e) {
+            logging($log_file, $log_id, "Using exact file name $opt_f.");
+            $nodelist_file = $opt_f;
+        } else {
+            $nodelist_file = get_nodelist_filename($opt_f);
+        }
+
+    } else { 
+        $nodelist_file = get_nodelist_filename("nodelist");
+    }
 
     logging($log_file, $log_id, "Nodelist directory: '$nodelist_directory'");
     logging($log_file, $log_id, "Nodelist file: '$nodelist_file'");
@@ -412,9 +431,10 @@ sub load_ftn_nodelist {
 	    print "$sysop\n";
 	}
 
-	# If zone_only is defined, then go to the next line if the zone number is not the same as zone_only 
-	if ($zone_only > 0) {
-	    if ($zone != $zone_only) {
+	# If zone_number is defined, then go to the next line if the zone
+	# number is not the same as zone_number 
+	if (defined $zone_number) {
+	    if ($zone != $zone_number) {
 		next;
 	    }
 	}
@@ -462,9 +482,56 @@ sub load_ftn_nodelist {
     return();
 }
 
-################################################
+########################################################################
+# List information from FTN nodelist 
+########################################################################
+sub list_ftn_nodelist {
+
+    if (!defined $list_file) {
+	print "The output file option, -o, was not defined.\n";
+	HELP_MESSAGE();
+	exit(1);
+    }
+
+    # connect to database
+    my $db_handle = FTN::Database::open_ftndb($db_type, $db_name, $db_user, $db_password);
+
+    # build Select query sql statement
+    my $sql_statement = "SELECT * FROM $table_name WHERE zone = $zone_number and net = $net_number ";
+    $sql_statement .= "ORDER by node ASC";
+
+    # execute query
+    my $query_handle = $db_handle->prepare($sql_statement);
+    $query_handle->execute();
+
+    $query_handle->bind_columns(\my($id, $type, $zone, $net, $node, $point, $region, $name, $location, $sysop, $phone, $baud, $flags, $domain, $source, $updated));
+
+    local(*F);
+
+    open(F, ">$list_file") or die "Cannot open $list_file\n"; 
+
+    print F "Listing Zone $zone_number Net $net_number from FTN database:\n\n";
+
+    while($query_handle->fetch()) {
+	print F "$zone:$net/$node, $name, $location, $sysop, $phone, $baud, $flags\n";
+    }
+
+    close(F);
+
+    # finish query
+    $query_handle->finish;
+    undef $query_handle;
+
+    # disconnect from database
+    FTN::Database::close_ftndb($db_handle);
+
+    return ();
+
+}
+
+########################################################################
 # get nodelist filename, given path & base name
-################################################
+########################################################################
 sub get_nodelist_filename {
 
     # Find the most recent version (by day number) when given a base name & dir
@@ -504,20 +571,20 @@ sub get_nodelist_filename {
 
 }
 
-########################################################################
+#########################################################################
 # Display Version message
-########################################################################
+#########################################################################
 sub VERSION_MESSAGE {
 
     my $fh = shift;
     
-    print $fh "nl2ftndb version $VERSION\n";
+    print $fh "ftnpldb-nodelist version $VERSION\n";
 
     return();
 
 }
 
-########################################################################
+################################################################################
 
 =head1 CONFIGURATION
 
@@ -552,7 +619,19 @@ needed for that type of database.
 
 =back
 
-This is an example of the contents of an ftnpldb.cfg file:
+The B<Nodelist> section in the configuration file has the following
+keywords:
+
+=over 4
+
+=item Directory
+
+The directory where the FTN Nodelist files are located.
+
+=back
+
+This is an example of the contents of an ftnpldb.cfg file for use with
+FTN Nodelist related processing:
 
     [Database]
     Type=mysql
@@ -560,22 +639,23 @@ This is an example of the contents of an ftnpldb.cfg file:
     User=sysop
     Password=ftndbtst
 
+    [Nodelist]
+    Directory=/var/lib/ftn/nodelist
+
 =head1 EXAMPLES
 
-Given that $NLDIR is the directory where the nodelist files can be found
-and that NODELIST is the base nodelist filename and that $CFGFILE is an
+Given that NODELIST is the base nodelist filename and that $CFGFILE is an
 existing configuration file, the following command line can be used to
 load an FTN nodelist from a set of nodelist files all with the same
 basename of NODELIST:
 
-C<nl2ftndb -c $CFGFILE -n $NLDIR -f NODELIST -d fidonet -v load>
+C<ftnpldb-nodelist -c $CFGFILE -f NODELIST -d fidonet -v load>
 
-Given that $NLDIR is the directory where the nodelist files can be
-found and that $CFGFILE is an existing configuration file, the
+Given that $CFGFILE is an existing configuration file, the
 following command line can be used to load a specified zone of the
 specified domain from a specified nodelist:
 
-C<nl2ftndb -c $CFGFILE -n $NLDIR -f nodelist.197 -d fidonet -z 1 -e -v load>
+C<ftnpldb-nodelist -c $CFGFILE -f nodelist.197 -d fidonet -z 1 -e -v load>
 
 =head1 AUTHOR
 
@@ -591,7 +671,7 @@ be notified, and then you'll automatically be notified of progress on your bug a
 
 You can find documentation for this module with the perldoc command.
 
-    perldoc nl2ftndb
+    perldoc ftnpldb-nodelist
 
 
 You can also look for information at:
@@ -614,8 +694,7 @@ L<http://search.cpan.org/dist/FTN-Database>
 
 =head1 SEE ALSO
 
- L<FTN::Database>, L<FTN::Database::Nodelist>, L<ftndbadm>,
- L<ftndbadm>, and L<listftndb>
+ L<FTN::Database>, L<FTN::Database::Nodelist>, and L<ftnpldb-admin>.
 
 =head1 COPYRIGHT & LICENSE
 
