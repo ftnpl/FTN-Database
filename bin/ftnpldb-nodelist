@@ -501,7 +501,7 @@ sub list_ftn_nodelist {
     print F "Listing Zone $zone_number Net $net_number from FTN database:\n\n";
 
     while($query_handle->fetch()) {
-	print F "$zone:$net/$node, $name, $location, $sysop, $phone, $baud, $flags";
+	print F "$zone:$net/$node, $name, $location, $sysop, $phone, $baud, $flags\n";
     }
 
     close(F);
