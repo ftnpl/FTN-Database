@@ -352,7 +352,7 @@ sub load_ftn_nodelist {
 	or die logging($log_file, $log_id, "Cannot open $nodelist_directory/$nodelist_file");
 
     # connect to database
-    $db_handle = FTN::Database::open_ftndb(\$db_option);
+    $db_handle = FTN::Database::open_ftndb(\%db_option);
 
     #
     if ($opt_v) {
@@ -483,7 +483,7 @@ sub list_ftn_nodelist {
     }
 
     # connect to database
-    my $db_handle = FTN::Database::open_ftndb(\$db_option);
+    my $db_handle = FTN::Database::open_ftndb(\%db_option);
 
     # build Select query sql statement
     my $sql_statement = "SELECT * FROM $table_name WHERE zone = $zone_number and net = $net_number ";
