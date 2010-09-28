@@ -42,7 +42,7 @@ C<ftnpldb-admin --version>
 
 =cut
 
-my ( $config_file, $db_type, $db_name, $db_user, $db_password, $database_name, $table_name, $db_handle, $log_file, $command );
+my ( $config_file, $database_name, $table_name, $db_handle, $log_file, $command );
 
 my $log_id = "DBADM";
 
@@ -101,37 +101,40 @@ if ($opt_v) {
     logging($log_file, $log_id, "Verbose flag is set");
 }
 
-# Get the definition of the database type
-$db_type = $ftndb_config->{Database}->{Type};	
 
-if ($opt_v) { logging($log_file, $log_id, "Database type being used is $db_type") };
+my %db_option = ();
+
+# Get the definition of the database type
+$db_option{'Type'} = $ftndb_config->{Database}->{Type};	
+
+if ($opt_v) { logging($log_file, $log_id, "Database type being used is $db_option{'Type'}") };
 
 # Get the definition of the database name
-$db_name = $ftndb_config->{Database}->{Name};
+$db_option{'Name'} = $ftndb_config->{Database}->{Name};
 
-if ($opt_v) { logging($log_file, $log_id, "Database name being used is $db_name") };
+if ($opt_v) { logging($log_file, $log_id, "Database name being used is $db_option{'Name'}") };
 
 # Get the definition of the database user
-if ($db_type eq "SQLite") {
+if ($db_option{'Type'} eq "SQLite") {
 
-    $db_user = "";
+    $db_option{'User'} = "";
 
 } else {
-    $db_user = $ftndb_config->{Database}->{User};
+    $db_option{'User'} = $ftndb_config->{Database}->{User};
 
-    if ($opt_v) { logging($log_file, $log_id, "Database user being used is $db_user") };
+    if ($opt_v) { logging($log_file, $log_id, "Database user being used is $db_option{'User'}") };
 
 }
 
 # Get the definition of the database password
-if ($db_type eq "SQLite") {
+if ($db_option{'Type'} eq "SQLite") {
 
-    $db_password = ""; 
+    $db_option{'Password'} = ""; 
 
 } else {
 
-    $db_password = $ftndb_config->{Database}->{Password};
-    if ($opt_v) { logging($log_file, $log_id, "Database password being used is $db_password") };
+    $db_option{'Password'} = $ftndb_config->{Database}->{Password};
+    if ($opt_v) { logging($log_file, $log_id, "Database password being used is $db_option{'Password'}") };
 
 }
 
@@ -282,7 +285,7 @@ sub HELP_MESSAGE {
 sub create_ftn_database {
 
     # connect to database server
-    $db_handle = FTN::Database::open_ftndb($db_type, $db_name, $db_user, $db_password);
+    $db_handle = FTN::Database::open_ftndb(\$db_option);
 
     # drop the old database, if it exists.
     logging($log_file, $log_id, "Dropping existing $database_name if it already exists.");
@@ -305,7 +308,7 @@ sub create_ftn_database {
 sub drop_ftn_database {
 
     # connect to database server
-    $db_handle = FTN::Database::open_ftndb($db_type, $db_name, $db_user, $db_password);
+    $db_handle = FTN::Database::open_ftndb(\$db_option);
 
     # drop the old database, if it exists.
     logging($log_file, $log_id, "Dropping existing $database_name if it already exists.");
@@ -325,7 +328,7 @@ sub drop_ftn_database {
 sub create_ftn_nodelist_table {
 
     # connect to database
-    $db_handle = FTN::Database::open_ftndb($db_type, $db_name, $db_user, $db_password);
+    $db_handle = FTN::Database::open_ftndb(\$db_option);
 
     # drop the old nodelist table index, if it exists.
     FTN::Database::Nodelist::drop_ftnnode_index($db_handle);
@@ -354,7 +357,7 @@ sub create_ftn_nodelist_table {
 sub drop_ftn_table {
 
     # connect to database server
-    $db_handle = FTN::Database::open_ftndb($db_type, $db_name, $db_user, $db_password);
+    $db_handle = FTN::Database::open_ftndb(\$db_option);
 
     # drop the old database able, if it exists.
     logging($log_file, $log_id, "Dropping existing $table_name if it already exists.");
