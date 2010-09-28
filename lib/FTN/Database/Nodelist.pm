@@ -168,7 +168,7 @@ the database:
 
     use FTN::Database::Nodelist;
 
-    my $db_handle = open_ftndb($db_type, $db_name, $db_user, $db_pass);
+    my $db_handle = open_ftndb(\%db_option);
     create_nodelist_table($db_handle, $table_name);
     ...   (Load data to nodelist table)
     create_ftnnode_index($db_handle, $table_name);

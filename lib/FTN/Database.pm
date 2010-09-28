@@ -55,8 +55,9 @@ sub create_ftndb {
 
 Syntax:  $db_handle = open_ftndb(\%db_options);
 
-Open a database for Fidonet/FTN processing, where the referenced hash
-contains the following items:
+Open a database for Fidonet/FTN processing, where $db_handle is the
+database handle being returned to the calling program and the referenced
+hash contains the following items:
 
 =over
 
@@ -78,10 +79,6 @@ The database user, which should already have the neccesary priviledges.
 =item	Password
 
 The database password for the database user.
-
-=item	$db_handle
-
-The database handle being returned to the calling program.
 
 =back
 
@@ -150,7 +147,7 @@ An example of opening an FTN database, then closing it:
 
     use FTN::Database;
 
-    my $db_handle = open_ftndb($db_type, $db_name, $db_user, $db_pass);
+    my $db_handle = open_ftndb(\%db_option);
     ...
     close_ftndb($db_handle);
 
@@ -160,7 +157,13 @@ mysql database:
     use FTN::Database;
 
     my $database_name = "ftndbtst";
-    my $db_handle = open_ftndb("mysql", "mysql", $db_user, $db_pass);
+    my $db_option = {
+	Type = "mysql",
+	Name = "mysql",
+	User = $db_user,
+	Password = $db_password,
+    };
+    my $db_handle = open_ftndb(\%db_option);
     create_ftndb($db_handle, $database_name);
     ...
     close_ftndb($db_handle);
@@ -171,7 +174,13 @@ using a mysql database:
     use FTN::Database;
 
     my $database_name = "ftndbtst";
-    my $db_handle = open_ftndb("mysql", "mysql", $db_user, $db_pass);
+    my $db_option = {
+	Type = "mysql",
+	Name = "mysql",
+	User = $db_user,
+	Password = $db_password,
+    };
+    my $db_handle = open_ftndb(\%db_option);
     ...
     drop_ftndb($db_handle, $database_name);
     close_ftndb($db_handle);
