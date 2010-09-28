@@ -1,18 +1,12 @@
 To Do:
 
-
 General
 --------
-
-- Move the definition of the log file in the scripts to the configuration file.
 
 - Change to using the options hash from GetOpt::Std instead of the individual
 option variables like $opt_v.
 
 - Change to use placeholders for the dbi sql functions.
-
-- Change to useing a hash instead of individual options in the module
-subroutine calls.
 
 - Review all pod documentation and update/correct as neccessary.
 
@@ -21,13 +15,17 @@ subroutine calls.
 - Move the parsing of at least some options in the bin/* scripts into a
 subroutine, or subroutines depending on the options?
 
-- Organize the display of the options in the Help Message by which command
+- Organize the display of the options in a script Help Message by which command
 they are associated with.
 
-- Need to clarify the parameters for $db_name & $database? For instance;
-to differientate between the database name as part of the DSN used to connect
-to a database server and the name of a database being created or dropped on a
-server.
+- Variables should only be declared at the highest level they are needed; i.e.,
+if a variable is only used in a subroutine, it should only be declared there
+and not declared globally.
+
+- Need to clarify the parameters for $db_option{'Name'} & $database? For
+instance;  to differientate between the database name as part of the DSN used
+to connect to a database server and the name of a database being created or
+dropped on a server.
 
 - The option used to define which type of database to use does not currently
 do any error checking on that type;  the script will fail if a correct DBD name
@@ -41,7 +39,7 @@ scripts and modules regarding that, to generalize it.  (Derive function to
 validate it and add th at to the FTN::Database module?)
 
 - Change this TODO document into being a pod document, perhaps explicitly as
-something like FTN::Database::ToDo? 
+something like the module FTN::Database::ToDo? 
 
 - Separate out the submodules, like FTN::Database::Nodelist and
 FTN::Database::Echolist (when implemented), into separate distributions
@@ -51,7 +49,11 @@ so that only the functionality that's wanted needs to be installed?
 FTN::Database
 --------------
 - Export the commonly used functions by default.
-- Derive a generic drop_table subroutine from the drop_nodelist_table.
+- Rename the create_ftndb subroutine to create_ftn[db]_database.
+- Derive a generic drop_ftn_table subroutine from the drop_nodelist_table
+  function in FTN::Database::Nodelist.
+- Derive a generic drop_ftn_index subroutine from the drop_ftnnode_index
+  function in FTN::Database::Nodelist.
 - Create set_ftndb_acl subroutine? (Same reasoning as for create_ftndb.)
 - Possible function/subroutine that checks if a valid database table name is
   being used?  And corrects it if possible?
@@ -67,8 +69,8 @@ FTN::Database::Nodelist
   use the name get_nodelist_flag_count($dbh,$nodelist_flag).  Also add 
   something that counts the number of things like hubs, nodes marked as
   private, etc. 
-- Derive and move function to insert or update an entry from nl2ftndb. Separate
-  functions for insert & update, or different options in same function?
+- Derive and move function to insert or update an entry from ftnpldb-nodelist.
+  Separate functions for insert & update, or different options in same function?
 - Move get_nodelist_filename subroutine from the ftnpldb-nodelist script?
 - Use a different datatype than "TIMESTAMP" for the 'updated' field in the
   nodelist table?  (Not generic enough?)
@@ -99,7 +101,7 @@ ftnpldb-nodelist
   needed to make the data safe for insertion into the database as when
   using prepare/execute DBI automatically does any neccessary quoting 
   to insert the data safely.  Note that will still need to keep the code
-  for taking care of the EOLs because of cross platform issues.
+  for taking care of the EOLs because of cross platform issues?
 - Get quoteing working properly for entry into the database for fields like
   $location and $name, so do not have to take out characters like single
   quotes, etc.
@@ -109,17 +111,14 @@ ftnpldb-nodelist
   -z or -n options, and for all commands.  
 - Add cammands to create or drop the ftnnode index on the nodelist
   table?
-- Move create_ftn_nodelist_table to ftnpldb-nodelist, but also leave a generic
-  create_ftn_table subroutine in ftnpldb-admin. 
+- Move create_ftn_nodelist_table from ftnpldb-admin to ftnpldb-nodelist, but also
+  leave a generic create_ftn_table subroutine there in ftnpldb-admin. 
 - Change to using something like Text::Template for creating the output file of
   the List command?
 - Change default output to STDOUT for list command?;  i.e., print to the screen?
   Selected if the "-o" variable is not set?
 - Besides the print to screen output & output to text file, add option for html
   formatted output?  And/or just add formated output using a template file?
-- Variables should only be declared at the highest level they are needed; i.e.,
-  if a variable is only used in a subroutine, it should only be declared there
-  and not declared globally.
 - Script does not seem to properly handle a file that ends in just blank
   lines, instead of a content line or a ^Z character. (Should fail gracefully
   for a badly formatted file.)

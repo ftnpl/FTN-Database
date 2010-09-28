@@ -3,7 +3,7 @@
 use warnings;
 use strict;
 use Getopt::Std;
-use vars qw/ $opt_c $opt_t $opt_d $opt_l $opt_h $opt_v $opt_x /;
+use vars qw/ $opt_c $opt_t $opt_d $opt_h $opt_v $opt_x /;
 use Config::Tiny;
 use File::Spec;
 
@@ -19,11 +19,11 @@ ftnpldb-admin - Administration of an SQL database for Fidonet/FTN processing.
 
 =head1 VERSION
 
-Version 0.17
+Version 0.18
 
 =cut
 
-our $VERSION = 0.17;
+our $VERSION = 0.18;
 
 =head1 DESCRIPTION
 
@@ -42,11 +42,11 @@ C<ftnpldb-admin --version>
 
 =cut
 
-my ( $config_file, $db_type, $db_name, $db_user, $db_password, $database_name, $table_name, $db_handle, $log_file, $command );
+my ( $config_file, $database_name, $table_name, $db_handle, $log_file, $command );
 
 my $log_id = "DBADM";
 
-getopts('c:t:d:l:hvx');
+getopts('c:t:d:hvx');
 
 if ($opt_h) {
     HELP_MESSAGE(*STDOUT);
@@ -78,20 +78,8 @@ my $ftndb_config = Config::Tiny->new();
 $ftndb_config = Config::Tiny->read($config_file)
     or die "Could not open configuration file:  $config_file";
 
-=item -l
-
-This would be the filename and path of a log file, with the default
-being ftnpldb.log in the current directory.
-
-=cut
-
-if ($opt_l) {
-    $log_file = $opt_l;
-    undef $opt_l;
-}
-else {
-    $log_file = "ftnpldb.log";
-}
+# Get the definition of the log file
+$log_file = $ftndb_config->{_}->{LogFile};	
 
 =item -x
 
@@ -113,37 +101,40 @@ if ($opt_v) {
     logging($log_file, $log_id, "Verbose flag is set");
 }
 
-# Get the definition of the database type
-$db_type = $ftndb_config->{Database}->{Type};	
 
-if ($opt_v) { logging($log_file, $log_id, "Database type being used is $db_type") };
+my %db_option = ();
+
+# Get the definition of the database type
+$db_option{'Type'} = $ftndb_config->{Database}->{Type};	
+
+if ($opt_v) { logging($log_file, $log_id, "Database type being used is $db_option{'Type'}") };
 
 # Get the definition of the database name
-$db_name = $ftndb_config->{Database}->{Name};
+$db_option{'Name'} = $ftndb_config->{Database}->{Name};
 
-if ($opt_v) { logging($log_file, $log_id, "Database name being used is $db_name") };
+if ($opt_v) { logging($log_file, $log_id, "Database name being used is $db_option{'Name'}") };
 
 # Get the definition of the database user
-if ($db_type eq "SQLite") {
+if ($db_option{'Type'} eq "SQLite") {
 
-    $db_user = "";
+    $db_option{'User'} = "";
 
 } else {
-    $db_user = $ftndb_config->{Database}->{User};
+    $db_option{'User'} = $ftndb_config->{Database}->{User};
 
-    if ($opt_v) { logging($log_file, $log_id, "Database user being used is $db_user") };
+    if ($opt_v) { logging($log_file, $log_id, "Database user being used is $db_option{'User'}") };
 
 }
 
 # Get the definition of the database password
-if ($db_type eq "SQLite") {
+if ($db_option{'Type'} eq "SQLite") {
 
-    $db_password = ""; 
+    $db_option{'Password'} = ""; 
 
 } else {
 
-    $db_password = $ftndb_config->{Database}->{Password};
-    if ($opt_v) { logging($log_file, $log_id, "Database password being used is $db_password") };
+    $db_option{'Password'} = $ftndb_config->{Database}->{Password};
+    if ($opt_v) { logging($log_file, $log_id, "Database password being used is $db_option{'Password'}") };
 
 }
 
@@ -281,7 +272,6 @@ sub HELP_MESSAGE {
     print $fh "[-c config_file]\t= Name and path for configuration file.\n";
     print $fh "[-d databasename]\t= Database name being created or dropped.\n";
     print $fh "[-t tablename]\t= Nodelist table name;  defaults to \'Nodelist\'. \n";
-    print $fh "[-l log_file]\t= Log filename; defaults to ftnpldb.log in current dir.\n";
     print $fh "[-v]\t\t= Verbose option.\n";
     print $fh "[-x]\t\t= Debug option.\n\n";
 
@@ -295,7 +285,7 @@ sub HELP_MESSAGE {
 sub create_ftn_database {
 
     # connect to database server
-    $db_handle = FTN::Database::open_ftndb($db_type, $db_name, $db_user, $db_password);
+    $db_handle = FTN::Database::open_ftndb(\%db_option);
 
     # drop the old database, if it exists.
     logging($log_file, $log_id, "Dropping existing $database_name if it already exists.");
@@ -318,7 +308,7 @@ sub create_ftn_database {
 sub drop_ftn_database {
 
     # connect to database server
-    $db_handle = FTN::Database::open_ftndb($db_type, $db_name, $db_user, $db_password);
+    $db_handle = FTN::Database::open_ftndb(\%db_option);
 
     # drop the old database, if it exists.
     logging($log_file, $log_id, "Dropping existing $database_name if it already exists.");
@@ -338,7 +328,7 @@ sub drop_ftn_database {
 sub create_ftn_nodelist_table {
 
     # connect to database
-    $db_handle = FTN::Database::open_ftndb($db_type, $db_name, $db_user, $db_password);
+    $db_handle = FTN::Database::open_ftndb(\%db_option);
 
     # drop the old nodelist table index, if it exists.
     FTN::Database::Nodelist::drop_ftnnode_index($db_handle);
@@ -367,7 +357,7 @@ sub create_ftn_nodelist_table {
 sub drop_ftn_table {
 
     # connect to database server
-    $db_handle = FTN::Database::open_ftndb($db_type, $db_name, $db_user, $db_password);
+    $db_handle = FTN::Database::open_ftndb(\%db_option);
 
     # drop the old database able, if it exists.
     logging($log_file, $log_id, "Dropping existing $table_name if it already exists.");
@@ -397,6 +387,24 @@ sub VERSION_MESSAGE {
 ########################################################################
 
 =head1 CONFIGURATION
+
+Configuration information not provided by the command line options are
+obtained from a configuration file.  That can be defined by setting the
+"-c" option, which is the path and file name of the configuration file
+to be used. If that is not defined, it looks for a file named ftnpldb.cfg
+in the current directory. The file contains configuration items listed
+outside of a named section as well as those listed within a named section,
+and blank lines and lines starting with a "#" are ignored.
+
+The first items in the file are those outside of a named section:
+
+=over 4
+
+=item LogFile
+
+This is the rquired filename and path of a log file.
+
+=back
 
 The B<Database> section in the configuration file has the following
 keywords:
@@ -431,6 +439,9 @@ needed for that type of a database.
 
 This is an example of the contents of an ftnpldb.cfg file:
 
+    # ftnpldb.cfg
+    LogFile=/opt/ftndb/ftnpldb.log
+    
     [Database]
     Type=mysql
     Name=ftndbtst

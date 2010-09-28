@@ -10,11 +10,11 @@ FTN::Database - FTN SQL Database related operations for Fidonet/FTN related proc
 
 =head1 VERSION
 
-Version 0.17
+Version 0.18
 
 =cut
 
-our $VERSION = '0.17';
+our $VERSION = '0.18';
 
 =head1 DESCRIPTION
 
@@ -53,33 +53,32 @@ sub create_ftndb {
 
 =head2 open_ftndb
 
-Syntax:  $db_handle = open_ftndb($db_type, $db_name, $db_user, $db_pass);
+Syntax:  $db_handle = open_ftndb(\%db_options);
 
-Open a database for Fidonet/FTN processing, where:
+Open a database for Fidonet/FTN processing, where $db_handle is the
+database handle being returned to the calling program and the referenced
+hash contains the following items:
 
 =over
 
-=item	$db_type
+=item	Type
 
 The database type.  This needs to be a database type for which 
 a DBD module exists, the type being the name as used in the DBD
 module.  The default type to be used is SQLite.
 
-=item	$db_name
+=item	Name
 
-The database name.
+The name of the database to be opened.  If the Type is SQLite, this
+is a filename and path to the database file.
 
-=item	$db_user
+=item	User
 
 The database user, which should already have the neccesary priviledges.
 
-=item	$db_pass
+=item	Password
 
 The database password for the database user.
-
-=item	$db_handle
-
-The database handle being returned to the calling program.
 
 =back
 
@@ -89,9 +88,13 @@ sub open_ftndb {
 
     use DBI;
 
-    my($db_type, $db_name, $db_user, $db_pass) = @_;
+    # Get the hash reference to the information required for the connect
+    my $option = shift;
 
-    ( my $db_handle = DBI->connect( "dbi:$db_type:dbname=$db_name", $db_user, $db_pass ) )
+    ( my $db_handle = DBI->connect(
+    		"dbi:${$option}{'Type'}:dbname=${$option}{'Name'}",
+    		${$option}{'User'},
+    		${$option}{'Password'} ) )
 	or croak($DBI::errstr);
 
     return($db_handle);
@@ -144,7 +147,7 @@ An example of opening an FTN database, then closing it:
 
     use FTN::Database;
 
-    my $db_handle = open_ftndb($db_type, $db_name, $db_user, $db_pass);
+    my $db_handle = open_ftndb(\%db_option);
     ...
     close_ftndb($db_handle);
 
@@ -154,7 +157,13 @@ mysql database:
     use FTN::Database;
 
     my $database_name = "ftndbtst";
-    my $db_handle = open_ftndb("mysql", "mysql", $db_user, $db_pass);
+    my $db_option = {
+	Type = "mysql",
+	Name = "mysql",
+	User = $db_user,
+	Password = $db_password,
+    };
+    my $db_handle = open_ftndb(\%db_option);
     create_ftndb($db_handle, $database_name);
     ...
     close_ftndb($db_handle);
@@ -165,7 +174,13 @@ using a mysql database:
     use FTN::Database;
 
     my $database_name = "ftndbtst";
-    my $db_handle = open_ftndb("mysql", "mysql", $db_user, $db_pass);
+    my $db_option = {
+	Type = "mysql",
+	Name = "mysql",
+	User = $db_user,
+	Password = $db_password,
+    };
+    my $db_handle = open_ftndb(\%db_option);
     ...
     drop_ftndb($db_handle, $database_name);
     close_ftndb($db_handle);

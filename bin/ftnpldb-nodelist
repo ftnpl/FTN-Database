@@ -3,7 +3,7 @@
 use warnings;
 use strict;
 use Getopt::Std;
-use vars qw/ $opt_c $opt_n $opt_f $opt_e $opt_l $opt_d $opt_o $opt_h $opt_t $opt_v $opt_x $opt_z /;
+use vars qw/ $opt_c $opt_n $opt_f $opt_e $opt_d $opt_o $opt_h $opt_t $opt_v $opt_x $opt_z /;
 use Config::Tiny;
 use File::Spec;
 
@@ -19,11 +19,11 @@ ftnpldb-nodelist - Fidonet/FTN Nodelist related processing using an SQL Database
 
 =head1 VERSION
 
-Version 0.17
+Version 0.18
 
 =cut
 
-our $VERSION = 0.17;
+our $VERSION = 0.18;
 
 =head1 DESCRIPTION
 
@@ -35,9 +35,9 @@ defaulting to SQLite.
 
 =head1 SYNOPSIS
 
-C<ftnpldb-nodelist [-c config_file] [-t tablename] [-f nodelist_file] [-l log_file] [-d domain] [-n net] [-z zone] [-e] [-v] [-x] load>
+C<ftnpldb-nodelist [-c config_file] [-t tablename] [-f nodelist_file] [-d domain] [-n net] [-z zone] [-e] [-v] [-x] load>
 
-C<ftnpldb-nodelist [-c config_file] [-t tablename] [-l log_file] [-n net] [-z zone] [-o outfile] [-v] [-x] list>
+C<ftnpldb-nodelist [-c config_file] [-t tablename] [-n net] [-z zone] [-o outfile] [-v] [-x] list>
 
 C<ftnpldb-nodelist [-h | --help]>
 
@@ -45,7 +45,7 @@ C<ftnpldb-nodelist --version>
 
 =cut
 
-getopts('c:n:f:l:d:t:o:ehvxz:');
+getopts('c:n:f:d:t:o:ehvxz:');
 
 if ($opt_h) {
     HELP_MESSAGE(*STDOUT);    #printing usage/help message
@@ -55,8 +55,7 @@ if ($opt_h) {
 my (
     $nodelist_directory, $nodelist_file, $db_handle, $sql_statement, $domain, $type,
     $number,   $name,   $location,  $log_file, $command, $zone_number, $net_number,
-    $sysop, $phone,  $bps, $flags,    $table_name, $db_name, $list_file,
-    $db_user, $db_password, $db_type, $config_file
+    $sysop, $phone,  $bps, $flags,  $table_name, $list_file, $config_file
 );
 
 =head1 OPTIONS
@@ -84,20 +83,9 @@ my $ftndb_config = Config::Tiny->new();
 $ftndb_config = Config::Tiny->read($config_file)
     or die "Could not open configuration file:  $config_file";
 
-=item -l
+# Get the definition of the log file
+$log_file = $ftndb_config->{_}->{LogFile};	
 
-This would be the filename and path of a log file, with the default
-being ftnpldb.log in the current directory.
-
-=cut
-
-if ($opt_l) {
-    $log_file = $opt_l;
-    undef $opt_l;
-}
-else {
-    $log_file = "ftnpldb.log";
-}
 
 my $log_id = "nl2db";
 
@@ -123,37 +111,39 @@ if ($opt_x) {
     logging($log_file, $log_id, "Debug flag is set");
 }
 
-# Get the definition of the database type
-$db_type = $ftndb_config->{Database}->{Type};	
+my %db_option = ();
 
-if ($opt_v) { logging($log_file, $log_id, "Database type being used is $db_type") };
+# Get the definition of the database type
+$db_option{'Type'} = $ftndb_config->{Database}->{Type};	
+
+if ($opt_v) { logging($log_file, $log_id, "Database type being used is $db_option{'Type'}") };
 
 # Get the definition of the database name
-$db_name = $ftndb_config->{Database}->{Name};
+$db_option{'Name'} = $ftndb_config->{Database}->{Name};
 
-if ($opt_v) { logging($log_file, $log_id, "Database name being used is $db_name") };
+if ($opt_v) { logging($log_file, $log_id, "Database name being used is $db_option{'Name'}") };
 
 # Get the definition of the database user
-if ($db_type eq "SQLite") {
+if ($db_option{'Type'} eq "SQLite") {
 
-    $db_user = "";
+    $db_option{'User'} = "";
 
 } else {
-    $db_user = $ftndb_config->{Database}->{User};
+    $db_option{'User'} = $ftndb_config->{Database}->{User};
 
-    if ($opt_v) { logging($log_file, $log_id, "Database user being used is $db_user") };
+    if ($opt_v) { logging($log_file, $log_id, "Database user being used is $db_option{'User'}") };
 
 }
 
 # Get the definition of the database password
-if ($db_type eq "SQLite") {
+if ($db_option{'Type'} eq "SQLite") {
 
-    $db_password = ""; 
+    $db_option{'Password'} = ""; 
 
 } else {
 
-    $db_password = $ftndb_config->{Database}->{Password};
-    if ($opt_v) { logging($log_file, $log_id, "Database password being used is $db_password") };
+    $db_option{'Password'} = $ftndb_config->{Database}->{Password};
+    if ($opt_v) { logging($log_file, $log_id, "Database password being used is $db_option{'Password'}") };
 
 }
 
@@ -223,8 +213,6 @@ if ($opt_z) {
 
 If defined, this is the domain of the nodelist being loaded.  Defaults
 to fidonet.
-
-=back
 
 =cut
 
@@ -316,7 +304,6 @@ sub HELP_MESSAGE {
     print $fh "[-c config_file]\t= Name and path for configuration file.\n";
     print $fh "[-t tablename]\t\t= Nodelist table name;  defaults to 'Nodelist'.\n";
     print $fh "[-f nodelist_file]\t= Nodelist filename, defaults to 'nodelist'.\n";
-    print $fh "[-l log_file]\t\t= Log filename;  defaults to ftnpldb.log in current dir)\n";
     print $fh "[-d domain]\t\t= Nodelist domain;  defaults to 'fidonet'.\n";
     print $fh "[-n net_number]\t= If present, then only the defined net 'net_number' is operated on.\n";
     print $fh "[-z zone_number]\t= If present, then only the defined zone 'zone_number' is loaded.\n";
@@ -363,7 +350,7 @@ sub load_ftn_nodelist {
 	or die logging($log_file, $log_id, "Cannot open $nodelist_directory/$nodelist_file");
 
     # connect to database
-    $db_handle = FTN::Database::open_ftndb($db_type, $db_name, $db_user, $db_password);
+    $db_handle = FTN::Database::open_ftndb(\%db_option);
 
     #
     if ($opt_v) {
@@ -494,7 +481,7 @@ sub list_ftn_nodelist {
     }
 
     # connect to database
-    my $db_handle = FTN::Database::open_ftndb($db_type, $db_name, $db_user, $db_password);
+    my $db_handle = FTN::Database::open_ftndb(\%db_option);
 
     # build Select query sql statement
     my $sql_statement = "SELECT * FROM $table_name WHERE zone = $zone_number and net = $net_number ";
@@ -588,6 +575,24 @@ sub VERSION_MESSAGE {
 
 =head1 CONFIGURATION
 
+Configuration information not provided by the command line options are
+obtained from a configuration file.  That can be defined by setting the
+"-c" option, which is the path and file name of the configuration file
+to be used. If that is not defined, it looks for a file named ftnpldb.cfg
+in the current directory. The file contains configuration items listed
+outside of a named section as well as those listed within a named section,
+and blank lines and lines starting with a "#" are ignored.
+
+The first items in the file are those outside of a named section:
+
+=over 4
+
+=item LogFile
+
+This is the required filename and path of a log file.
+
+=back
+
 The B<Database> section in the configuration file has the following
 keywords:
 
@@ -633,6 +638,9 @@ The directory where the FTN Nodelist files are located.
 This is an example of the contents of an ftnpldb.cfg file for use with
 FTN Nodelist related processing:
 
+    # ftnpldb.cfg
+    LogFile=/opt/ftndb/ftnpldb.log
+    
     [Database]
     Type=mysql
     Name=ftndbtst

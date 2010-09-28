@@ -1,5 +1,13 @@
 Revision history for FTN-Database (ftnpldb)
 
+0.18	Tue Sep 28 16:43 2010
+    - Add an introductory paragraph to the CONFIGURATION documentation section
+      in bin/ftnpldb-admin and bin/ftnpldb-nodelist.
+    - Move the definition of the script log file from being a separate script
+      option to the LogFile item in the configuration file.
+    - Change the open_ftndb function to being called with a single reference
+      to a hash containing the items:  Type, Name, User, & Password.
+
 0.17	Mon Sep 27 15:22 2010
     - Rename bin/ftndbadm to bin/ftnpldb-admin.
     - Move definition of nodelist directory to the configuration file, using
