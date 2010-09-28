@@ -92,7 +92,7 @@ sub open_ftndb {
     use DBI;
 
     # Get the hash reference to the information required for the connect
-    my $option = @_;
+    my $option = shift;
 
     ( my $db_handle = DBI->connect(
     		"dbi:${$option}{'Type'}:dbname=${$option}{'Name'}",
