@@ -53,27 +53,29 @@ sub create_ftndb {
 
 =head2 open_ftndb
 
-Syntax:  $db_handle = open_ftndb($db_type, $db_name, $db_user, $db_pass);
+Syntax:  $db_handle = open_ftndb(\%db_options);
 
-Open a database for Fidonet/FTN processing, where:
+Open a database for Fidonet/FTN processing, where the referenced hash
+contains the following items:
 
 =over
 
-=item	$db_type
+=item	Type
 
 The database type.  This needs to be a database type for which 
 a DBD module exists, the type being the name as used in the DBD
 module.  The default type to be used is SQLite.
 
-=item	$db_name
+=item	Name
 
-The database name.
+The name of the database to be opened.  If the Type is SQLite, this
+is a filename and path to the database file.
 
-=item	$db_user
+=item	User
 
 The database user, which should already have the neccesary priviledges.
 
-=item	$db_pass
+=item	Password
 
 The database password for the database user.
 
@@ -89,9 +91,13 @@ sub open_ftndb {
 
     use DBI;
 
-    my($db_type, $db_name, $db_user, $db_pass) = @_;
+    # Get the hash reference to the information required for the connect
+    my $option = @_;
 
-    ( my $db_handle = DBI->connect( "dbi:$db_type:dbname=$db_name", $db_user, $db_pass ) )
+    ( my $db_handle = DBI->connect(
+    		"dbi:${$option}{'Type'}:dbname=${$option}{'Name'}",
+    		${$option}{'User'},
+    		${$option}{'Password'} ) )
 	or croak($DBI::errstr);
 
     return($db_handle);
