@@ -214,8 +214,6 @@ if ($opt_z) {
 If defined, this is the domain of the nodelist being loaded.  Defaults
 to fidonet.
 
-=back
-
 =cut
 
 if ($opt_d) {
