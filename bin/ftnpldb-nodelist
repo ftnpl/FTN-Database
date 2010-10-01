@@ -489,7 +489,7 @@ sub list_ftn_nodelist {
 	write ListFile;
     }
 
-    close(F);
+    close(ListFile);
 
     # finish query
     $query_handle->finish;
