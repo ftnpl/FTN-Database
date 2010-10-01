@@ -493,12 +493,10 @@ sub list_ftn_nodelist {
 
     $query_handle->bind_columns(\my($id, $type, $zone, $net, $node, $point, $region, $name, $location, $sysop, $phone, $baud, $flags, $domain, $source, $updated));
 
-    open(F, ">$list_file") or die "Cannot open $list_file\n"; 
-
-    print F "Listing Zone $zone_number Net $net_number from FTN database:\n\n";
+    open(ListFile, ">$list_file") or die "Cannot open $list_file\n"; 
 
     while($query_handle->fetch()) {
-	print F "$zone:$net/$node, $name, $location, $sysop, $phone, $baud, $flags\n";
+	write ListFile;
     }
 
     close(F);
@@ -511,6 +509,28 @@ sub list_ftn_nodelist {
     FTN::Database::close_ftndb($db_handle);
 
     return ();
+
+format ListFile_TOP =
+Zone @<<<<	Net @<<<< 
+$zone_number,	$net_number
+------------------------------------------------------------------------
+.
+
+format ListFile =
+Node:	@<<<<  
+	$node
+Name:	@<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	$name
+Sysop:	@<<<<<<<<<<<<<<<< 
+	$sysop
+Location: @<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	  $location
+Phone:	@<<<<<<<<<<<<<<<<	Baud:	@<<<<<
+	$phone,				$baud,
+Flags:	@<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< 
+	$flags
+
+.
 
 }
 
