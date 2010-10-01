@@ -368,6 +368,14 @@ sub load_ftn_nodelist {
 	logging($log_file, $log_id, "Loading database from nodelist $nodelist_file");
     }
 
+    #	Build SQL Statement for Prepare
+    $sql_statement = "INSERT INTO $table_name ";
+    $sql_statement .= "(type,zone,net,node,point,region,name,";
+    $sql_statement .= "location,sysop,phone,baud,flags,domain,source) ";
+    $sql_statement .= "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    my $insert_handle = $db_handle->prepare($sql_statement);
+
     while (<NODELIST>) {
 	if ( /^;/ || /^\cZ/ ) {
 
@@ -426,34 +434,16 @@ sub load_ftn_nodelist {
 	    }
 	}
     
-	#	Build Insert Statement
-	$sql_statement = "INSERT INTO $table_name ";
-
-	$sql_statement .= "(type,zone,net,node,point,region,name,";
-	$sql_statement .= "location,sysop,phone,baud,flags,domain,source) ";
-	$sql_statement .= "VALUES (";
-
-	$sql_statement .= "'$type', ";
-	$sql_statement .= "'$zone', ";
-	$sql_statement .= "'$net', ";
-	$sql_statement .= "'$node', ";
-	$sql_statement .= "'$point', ";
-	$sql_statement .= "'$region', ";
-	$sql_statement .= "'$name', ";
-	$sql_statement .= "'$location', ";
-	$sql_statement .= "'$sysop', ";
-	$sql_statement .= "'$phone', ";
-	$sql_statement .= "'$bps', ";
-	$sql_statement .= "'$flags', ";
-	$sql_statement .= "'$domain', ";
-	$sql_statement .= "'$nodelist_file') ";
-
 	#	Execute the insert SQL statment
-	$db_handle->do("$sql_statement ")
+	$insert_handle->execute($type, $zone, $net, $node, $point, $region,
+		 $name, $location, $sysop, $phone, $bps, $flags, $domain, $nodelist_file)
 	    or die logging($log_file, $log_id, $DBI::errstr);
 
     }
 
+    $insert_handle->finish;
+    undef $insert_handle;
+    
     if ($opt_v) { logging($log_file, $log_id, "Create ftnnode index"); }
     # Recreate ftnnode Index
     FTN::Database::Nodelist::create_ftnnode_index($db_handle, $table_name);
