@@ -493,8 +493,6 @@ sub list_ftn_nodelist {
 
     $query_handle->bind_columns(\my($id, $type, $zone, $net, $node, $point, $region, $name, $location, $sysop, $phone, $baud, $flags, $domain, $source, $updated));
 
-    local(*F);
-
     open(F, ">$list_file") or die "Cannot open $list_file\n"; 
 
     print F "Listing Zone $zone_number Net $net_number from FTN database:\n\n";
