@@ -386,13 +386,6 @@ sub load_ftn_nodelist {
 	( $type, $number, $name, $location, $sysop, $phone, $bps, $flags ) =
 	    split( ',', $_, 8 );
 
-	# originally took care of these by deleteing them
-	$name =~ tr/\'//d;    #  take care of single quotes in system name fields
-
-	$location =~ tr/\'//d;     #  take care of single quotes in location fields
-
-	$sysop =~ tr/\'//d;   # take care of single quotes in sysop name fields
-
 	# if $flags is undefined (i.e., nothing after the baud rate)
 	if ( !defined $flags ) {
 	    $flags = " ";
