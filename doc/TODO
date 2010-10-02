@@ -6,8 +6,6 @@ General
 - Change to using the options hash from GetOpt::Std instead of the individual
 option variables like $opt_v.
 
-- Change to use placeholders for the dbi sql functions.
-
 - Review all pod documentation and update/correct as neccessary.
 
 - Use the "if (defined $opt_l)" construct for checking options?
@@ -65,10 +63,10 @@ FTN::Database::Nodelist
 - Derive and move a function for executing queries on the nodelist table from
   the code used in the list_ftn_nodelist subroutine.
 - As part of adding statistics related functions, add a function that counts
-  the number of nodes that have a particular flag associated with it.  Could
+  the number of nodes that have a particular flag associated with it?  Could
   use the name get_nodelist_flag_count($dbh,$nodelist_flag).  Also add 
   something that counts the number of things like hubs, nodes marked as
-  private, etc. 
+  private, etc?
 - Derive and move function to insert or update an entry from ftnpldb-nodelist.
   Separate functions for insert & update, or different options in same function?
 - Move get_nodelist_filename subroutine from the ftnpldb-nodelist script?
@@ -82,29 +80,10 @@ ftnpldb-admin
 - Come up with a single option for the name of the object being created or
   dropped, to replace the -d & -t options for the database_name and the
   nodelist_table_name variables?  Perhaps "-N" ?
-- Add better error checking.
-- Add quiet option, -q, for logging only operation ? 
 
 
 ftnpldb-nodelist
 ----------------
-- Change to using placeholders in the insert nodelist code by:
-    Change the build sql statement code to being an 'prepare' function that
-  builds the insert sql statment using placeholders for the table fields.
-  Use the prepare cached version of it?  This will also allow moving that
-  part of it out of the loop, so only the execute is in the loop.  Later,
-  could move it into the F-D-NL module?  Use $insert_handle as the handle
-  returned by the prepare?
-    Change the 'do' function to an execute function on the handle from the
-  prepare.  (http://www.perlmonks.org/?node_id=7548)  This will also allow
-  removal of the existing code to removing single quotes and other code
-  needed to make the data safe for insertion into the database as when
-  using prepare/execute DBI automatically does any neccessary quoting 
-  to insert the data safely.  Note that will still need to keep the code
-  for taking care of the EOLs because of cross platform issues?
-- Get quoteing working properly for entry into the database for fields like
-  $location and $name, so do not have to take out characters like single
-  quotes, etc.
 - Move code for processing the -f & -e options into a separate subroutine, so
   it could be used by more than just the load command?
 - Add an option, like -r, for specifying a region number;  to be used like the
@@ -113,19 +92,13 @@ ftnpldb-nodelist
   table?
 - Move create_ftn_nodelist_table from ftnpldb-admin to ftnpldb-nodelist, but also
   leave a generic create_ftn_table subroutine there in ftnpldb-admin. 
-- Change to using something like Text::Template for creating the output file of
-  the List command?
-- Change default output to STDOUT for list command?;  i.e., print to the screen?
-  Selected if the "-o" variable is not set?
-- Besides the print to screen output & output to text file, add option for html
-  formatted output?  And/or just add formated output using a template file?
+- Add the type field to the List command output?  Redo the header (extra line)?
 - Script does not seem to properly handle a file that ends in just blank
   lines, instead of a content line or a ^Z character. (Should fail gracefully
   for a badly formatted file.)
 - The list of nodelist files is being reverse sorted when there are multiple
   nodelists of the same basename being processed;  that takes care of a set
   of files all from the same year but not ones that are from different years.
-- Add quiet option, -q, for logging only operation ? 
 - Add a test nodelist for use with this?...
 
 

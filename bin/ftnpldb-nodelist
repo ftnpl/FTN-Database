@@ -19,11 +19,11 @@ ftnpldb-nodelist - Fidonet/FTN Nodelist related processing using an SQL Database
 
 =head1 VERSION
 
-Version 0.18
+Version 0.19
 
 =cut
 
-our $VERSION = 0.18;
+our $VERSION = 0.19;
 
 =head1 DESCRIPTION
 
@@ -368,6 +368,14 @@ sub load_ftn_nodelist {
 	logging($log_file, $log_id, "Loading database from nodelist $nodelist_file");
     }
 
+    #	Build SQL Statement for Prepare
+    $sql_statement = "INSERT INTO $table_name ";
+    $sql_statement .= "(type,zone,net,node,point,region,name,";
+    $sql_statement .= "location,sysop,phone,baud,flags,domain,source) ";
+    $sql_statement .= "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    my $insert_handle = $db_handle->prepare($sql_statement);
+
     while (<NODELIST>) {
 	if ( /^;/ || /^\cZ/ ) {
 
@@ -377,13 +385,6 @@ sub load_ftn_nodelist {
 
 	( $type, $number, $name, $location, $sysop, $phone, $bps, $flags ) =
 	    split( ',', $_, 8 );
-
-	# originally took care of these by deleteing them
-	$name =~ tr/\'//d;    #  take care of single quotes in system name fields
-
-	$location =~ tr/\'//d;     #  take care of single quotes in location fields
-
-	$sysop =~ tr/\'//d;   # take care of single quotes in sysop name fields
 
 	# if $flags is undefined (i.e., nothing after the baud rate)
 	if ( !defined $flags ) {
@@ -426,34 +427,16 @@ sub load_ftn_nodelist {
 	    }
 	}
     
-	#	Build Insert Statement
-	$sql_statement = "INSERT INTO $table_name ";
-
-	$sql_statement .= "(type,zone,net,node,point,region,name,";
-	$sql_statement .= "location,sysop,phone,baud,flags,domain,source) ";
-	$sql_statement .= "VALUES (";
-
-	$sql_statement .= "'$type', ";
-	$sql_statement .= "'$zone', ";
-	$sql_statement .= "'$net', ";
-	$sql_statement .= "'$node', ";
-	$sql_statement .= "'$point', ";
-	$sql_statement .= "'$region', ";
-	$sql_statement .= "'$name', ";
-	$sql_statement .= "'$location', ";
-	$sql_statement .= "'$sysop', ";
-	$sql_statement .= "'$phone', ";
-	$sql_statement .= "'$bps', ";
-	$sql_statement .= "'$flags', ";
-	$sql_statement .= "'$domain', ";
-	$sql_statement .= "'$nodelist_file') ";
-
 	#	Execute the insert SQL statment
-	$db_handle->do("$sql_statement ")
+	$insert_handle->execute($type, $zone, $net, $node, $point, $region,
+		 $name, $location, $sysop, $phone, $bps, $flags, $domain, $nodelist_file)
 	    or die logging($log_file, $log_id, $DBI::errstr);
 
     }
 
+    $insert_handle->finish;
+    undef $insert_handle;
+    
     if ($opt_v) { logging($log_file, $log_id, "Create ftnnode index"); }
     # Recreate ftnnode Index
     FTN::Database::Nodelist::create_ftnnode_index($db_handle, $table_name);
@@ -493,17 +476,13 @@ sub list_ftn_nodelist {
 
     $query_handle->bind_columns(\my($id, $type, $zone, $net, $node, $point, $region, $name, $location, $sysop, $phone, $baud, $flags, $domain, $source, $updated));
 
-    local(*F);
-
-    open(F, ">$list_file") or die "Cannot open $list_file\n"; 
-
-    print F "Listing Zone $zone_number Net $net_number from FTN database:\n\n";
+    open(ListFile, ">$list_file") or die "Cannot open $list_file\n"; 
 
     while($query_handle->fetch()) {
-	print F "$zone:$net/$node, $name, $location, $sysop, $phone, $baud, $flags\n";
+	write ListFile;
     }
 
-    close(F);
+    close(ListFile);
 
     # finish query
     $query_handle->finish;
@@ -513,6 +492,28 @@ sub list_ftn_nodelist {
     FTN::Database::close_ftndb($db_handle);
 
     return ();
+
+format ListFile_TOP =
+Zone @<<<<	Net @<<<< 
+$zone_number,	$net_number
+------------------------------------------------------------------------
+.
+
+format ListFile =
+Node:	@<<<<  
+	$node
+Name:	@<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	$name
+Sysop:	@<<<<<<<<<<<<<<<< 
+	$sysop
+Location: @<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	  $location
+Phone:	@<<<<<<<<<<<<<<<<	Baud:	@<<<<<
+	$phone,				$baud,
+Flags:	@<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< 
+	$flags
+
+.
 
 }
 

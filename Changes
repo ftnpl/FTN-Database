@@ -1,5 +1,11 @@
 Revision history for FTN-Database (ftnpldb)
 
+0.19	Sat Oct 02 14:28 2010
+    - Use Perl format and the write command to format the output of the List
+      command in ftnpldb-nodelist.
+    - Change the load command in ftnpldb-nodelist to using the DBI prepare
+      function to set up the SQL nodelist table insert.
+
 0.18	Tue Sep 28 16:43 2010
     - Add an introductory paragraph to the CONFIGURATION documentation section
       in bin/ftnpldb-admin and bin/ftnpldb-nodelist.
