@@ -1,5 +1,7 @@
 Revision history for FTN-Database (ftnpldb)
 
+0.20	dow mmm dd hh:mm 2010
+
 0.19	Sat Oct 02 14:28 2010
     - Use Perl format and the write command to format the output of the List
       command in ftnpldb-nodelist.
