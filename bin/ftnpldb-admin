@@ -441,7 +441,7 @@ This is an example of the contents of an ftnpldb.cfg file:
 
     # ftnpldb.cfg
     LogFile=/opt/ftndb/ftnpldb.log
-    
+
     [Database]
     Type=mysql
     Name=ftndbtst

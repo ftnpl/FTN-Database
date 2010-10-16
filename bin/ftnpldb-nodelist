@@ -641,7 +641,7 @@ FTN Nodelist related processing:
 
     # ftnpldb.cfg
     LogFile=/opt/ftndb/ftnpldb.log
-    
+
     [Database]
     Type=mysql
     Name=ftndbtst
