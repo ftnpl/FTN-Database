@@ -359,7 +359,7 @@ sub drop_ftn_table {
     # connect to database server
     $db_handle = FTN::Database::open_ftndb(\%db_option);
 
-    # drop the old database able, if it exists.
+    # drop the old database table, if it exists.
     logging($log_file, $log_id, "Dropping existing $table_name if it already exists.");
     FTN::Database::Nodelist::drop_nodelist_table($db_handle, $table_name);
 
