@@ -305,9 +305,9 @@ sub HELP_MESSAGE {
     print $fh "[-t tablename]\t\t= Nodelist table name;  defaults to 'Nodelist'.\n";
     print $fh "[-f nodelist_file]\t= Nodelist filename, defaults to 'nodelist'.\n";
     print $fh "[-d domain]\t\t= Nodelist domain;  defaults to 'fidonet'.\n";
-    print $fh "[-n net_number]\t= If present, then only the defined net 'net_number' is operated on.\n";
-    print $fh "[-z zone_number]\t= If present, then only the defined zone 'zone_number' is loaded.\n";
-    print $fh "\t[-o outfile]\t\t= Output file and path.\n";
+    print $fh "[-n net_number]\t= If only, the only net to be operated on.\n";
+    print $fh "[-z zone_number]\t= If only, the only zone to be operated on.\n";
+    print $fh "[-o outfile]\t\t= Output file and path.\n";
     print $fh "[-e]\t\t\t= If present, then nodelist_file is an exact filename\n";
     print $fh "[-v]\t\t\t= Verbose Mode\n";
     print $fh "[-x]\t\t\t= Debug Mode\n";
