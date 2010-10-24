@@ -79,7 +79,7 @@ $ftndb_config = Config::Tiny->read($config_file)
     or die "Could not open configuration file:  $config_file";
 
 # Get the definition of the log file
-$log_file = $ftndb_config->{_}->{LogFile};	
+$log_file = $ftndb_config->{_}->{LogFile};
 
 =item -x
 
@@ -105,7 +105,7 @@ if ($opt_v) {
 my %db_option = ();
 
 # Get the definition of the database type
-$db_option{'Type'} = $ftndb_config->{Database}->{Type};	
+$db_option{'Type'} = $ftndb_config->{Database}->{Type};
 
 if ($opt_v) { logging($log_file, $log_id, "Database type being used is $db_option{'Type'}") };
 
@@ -129,7 +129,7 @@ if ($db_option{'Type'} eq "SQLite") {
 # Get the definition of the database password
 if ($db_option{'Type'} eq "SQLite") {
 
-    $db_option{'Password'} = ""; 
+    $db_option{'Password'} = "";
 
 } else {
 
@@ -224,7 +224,7 @@ if (lc($command) eq "create") {
 	HELP_MESSAGE(*STDERR);
 	exit 1;
 
-    }	# End parsing of 'create' command
+    }   # End parsing of 'create' command
 
 } elsif (lc($command) eq "drop") {
 
@@ -240,15 +240,15 @@ if (lc($command) eq "create") {
 	print STDERR "Unrecognized parameter for \'drop\' command.\n";
 	HELP_MESSAGE(*STDERR);
 	exit 1;
-	
-    }	# End parsing of 'drop' command
+
+    }   # End parsing of 'drop' command
 
 } else {
     print STDERR "Unrecognized command.\n";
     HELP_MESSAGE(*STDERR);
     exit 1;
 
-}	# End of command parsing.
+}       # End of command parsing.
 
 
 exit 0;
@@ -377,7 +377,7 @@ sub drop_ftn_table {
 sub VERSION_MESSAGE {
 
     my $fh = shift;
-    
+
     print $fh "ftnpldb-admin version $VERSION\n";
 
     return();
