@@ -76,7 +76,7 @@ else {
 #  Get configuration from file
 my $ftndb_config = Config::Tiny->new();
 $ftndb_config = Config::Tiny->read($config_file)
-    or die "Could not open configuration file:  $config_file";
+    or die "Could not open configuration file:  $config_file\n";
 
 # Get the definition of the log file
 $log_file = $ftndb_config->{_}->{LogFile};
