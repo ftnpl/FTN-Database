@@ -126,7 +126,7 @@ if ($opt_v) { logging($log_file, $log_id, "Database name being used is $db_optio
 # Get the definition of the database user
 if ($db_option{'Type'} eq "SQLite") {
 
-    $db_option{'User'} = "";
+    $db_option{'User'} = q{};
 
 } else {
     $db_option{'User'} = $ftndb_config->{Database}->{User};
@@ -138,7 +138,7 @@ if ($db_option{'Type'} eq "SQLite") {
 # Get the definition of the database password
 if ($db_option{'Type'} eq "SQLite") {
 
-    $db_option{'Password'} = ""; 
+    $db_option{'Password'} = q{}; 
 
 } else {
 
