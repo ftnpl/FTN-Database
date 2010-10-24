@@ -84,8 +84,7 @@ $ftndb_config = Config::Tiny->read($config_file)
     or die "Could not open configuration file:  $config_file";
 
 # Get the definition of the log file
-$log_file = $ftndb_config->{_}->{LogFile};	
-
+$log_file = $ftndb_config->{_}->{LogFile};
 
 my $log_id = "nl2db";
 
@@ -114,7 +113,7 @@ if ($opt_x) {
 my %db_option = ();
 
 # Get the definition of the database type
-$db_option{'Type'} = $ftndb_config->{Database}->{Type};	
+$db_option{'Type'} = $ftndb_config->{Database}->{Type};
 
 if ($opt_v) { logging($log_file, $log_id, "Database type being used is $db_option{'Type'}") };
 
@@ -138,7 +137,7 @@ if ($db_option{'Type'} eq "SQLite") {
 # Get the definition of the database password
 if ($db_option{'Type'} eq "SQLite") {
 
-    $db_option{'Password'} = q{}; 
+    $db_option{'Password'} = q{};
 
 } else {
 
@@ -204,7 +203,7 @@ If defined;  is the only zone being operated on.
 =cut
 
 if ($opt_z) {
-    $zone_number = $opt_z; 
+    $zone_number = $opt_z;
     logging($log_file, $log_id, "Defined Zone: $zone_number");
     undef $opt_z;
 }
@@ -220,7 +219,7 @@ if ($opt_d) {
     $domain = $opt_d;
 }
 else {
-    $domain = 'fidonet'; 
+    $domain = 'fidonet';
 }
 
 if ($opt_v) {                  # log domain name
@@ -240,7 +239,7 @@ This needs to be at least the filename and can also include a path.
 =cut
 
 if ($opt_o) {
-    $list_file = $opt_o; 
+    $list_file = $opt_o;
     undef $opt_o;
 }
 
@@ -280,7 +279,7 @@ if (lc($command) eq "load") {
     HELP_MESSAGE(*STDERR);
     exit 1;
 
-}	# End of command parsing.
+}       # End of command parsing.
 
 exit();
 
@@ -293,7 +292,7 @@ exit();
 sub HELP_MESSAGE {
 
     my $fh = shift;
-    
+
     print $fh "\n\tSynopsis:\n";
     print $fh "ftnpldb-nodelist [-c config_file] [options] load\n";
     print $fh "ftnpldb-nodelist [-c config_file] [options] list\n";
@@ -339,7 +338,7 @@ sub load_ftn_nodelist {
             $nodelist_file = get_nodelist_filename($opt_f);
         }
 
-    } else { 
+    } else {
         $nodelist_file = get_nodelist_filename("nodelist");
     }
 
@@ -389,9 +388,9 @@ sub load_ftn_nodelist {
 	# if $flags is undefined (i.e., nothing after the baud rate)
 	if ( !defined $flags ) {
 	    $flags = " ";
-	} 
+	}
 	else {
-	    $flags =~ s/\r?\n$//;	# else remove EOL (removes \r\n or \n but not \r) from $flags
+	    $flags =~ s/\r?\n$//;    # else remove EOL (removes \r\n or \n but not \r) from $flags
 	}
 
 	if ( $type eq "Zone" ) {    # Zone line
@@ -426,8 +425,8 @@ sub load_ftn_nodelist {
 		next;
 	    }
 	}
-    
-	#	Execute the insert SQL statment
+
+	#       Execute the insert SQL statment
 	$insert_handle->execute($type, $zone, $net, $node, $point, $region,
 		 $name, $location, $sysop, $phone, $bps, $flags, $domain, $nodelist_file)
 	    or die logging($log_file, $log_id, $DBI::errstr);
@@ -436,7 +435,7 @@ sub load_ftn_nodelist {
 
     $insert_handle->finish;
     undef $insert_handle;
-    
+
     if ($opt_v) { logging($log_file, $log_id, "Create ftnnode index"); }
     # Recreate ftnnode Index
     FTN::Database::Nodelist::create_ftnnode_index($db_handle, $table_name);
@@ -476,7 +475,7 @@ sub list_ftn_nodelist {
 
     $query_handle->bind_columns(\my($id, $type, $zone, $net, $node, $point, $region, $name, $location, $sysop, $phone, $baud, $flags, $domain, $source, $updated));
 
-    open(ListFile, ">$list_file") or die "Cannot open $list_file\n"; 
+    open(ListFile, ">$list_file") or die "Cannot open $list_file\n";
 
     while($query_handle->fetch()) {
 	write ListFile;
@@ -494,24 +493,24 @@ sub list_ftn_nodelist {
     return ();
 
 format ListFile_TOP =
-Zone @<<<<	Net @<<<< 
-$zone_number,	$net_number
+Zone @<<<<      Net @<<<<
+$zone_number,   $net_number
 ------------------------------------------------------------------------
 .
 
 format ListFile =
-Node:	@<<<<  
-	$node
-Name:	@<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-	$name
-Sysop:	@<<<<<<<<<<<<<<<< 
-	$sysop
+Node:     @<<<<
+          $node
+Name:     @<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+          $name
+Sysop:    @<<<<<<<<<<<<<<<<
+          $sysop
 Location: @<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-	  $location
-Phone:	@<<<<<<<<<<<<<<<<	Baud:	@<<<<<
-	$phone,				$baud,
-Flags:	@<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< 
-	$flags
+          $location
+Phone:    @<<<<<<<<<<<<<<<<       Baud:   @<<<<<
+          $phone,                         $baud
+Flags:    @<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+          $flags
 
 .
 
@@ -565,7 +564,7 @@ sub get_nodelist_filename {
 sub VERSION_MESSAGE {
 
     my $fh = shift;
-    
+
     print $fh "ftnpldb-nodelist version $VERSION\n";
 
     return();
