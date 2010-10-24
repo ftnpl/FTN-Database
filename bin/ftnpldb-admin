@@ -44,7 +44,7 @@ C<ftnpldb-admin --version>
 
 my ( $config_file, $database_name, $table_name, $db_handle, $log_file, $command );
 
-my $log_id = "DBADM";
+my $log_id = 'DBADM';
 
 getopts('c:t:d:hvx');
 
@@ -88,7 +88,7 @@ Debug option.
 =cut
 
 if ($opt_x) {
-    logging($log_file, $log_id, "Debug flag is set");
+    logging($log_file, $log_id, 'Debug flag is set');
 }
 
 =item -v
@@ -98,7 +98,7 @@ Verbose option.
 =cut
 
 if ($opt_v) {
-    logging($log_file, $log_id, "Verbose flag is set");
+    logging($log_file, $log_id, 'Verbose flag is set');
 }
 
 
@@ -115,9 +115,9 @@ $db_option{'Name'} = $ftndb_config->{Database}->{Name};
 if ($opt_v) { logging($log_file, $log_id, "Database name being used is $db_option{'Name'}") };
 
 # Get the definition of the database user
-if ($db_option{'Type'} eq "SQLite") {
+if ($db_option{'Type'} eq 'SQLite') {
 
-    $db_option{'User'} = "";
+    $db_option{'User'} = '';
 
 } else {
     $db_option{'User'} = $ftndb_config->{Database}->{User};
@@ -127,9 +127,9 @@ if ($db_option{'Type'} eq "SQLite") {
 }
 
 # Get the definition of the database password
-if ($db_option{'Type'} eq "SQLite") {
+if ($db_option{'Type'} eq 'SQLite') {
 
-    $db_option{'Password'} = "";
+    $db_option{'Password'} = '';
 
 } else {
 
@@ -161,7 +161,7 @@ to an underscore.
 
 if ($opt_t) {
     if ( $opt_t =~ /\./ ) {    # period in proposed table name?
-        logging($log_file, $log_id, "sqlite does not allow periods in table names.");
+        logging($log_file, $log_id, 'sqlite does not allow periods in table names.');
         $opt_t =~ tr/\./_/;    # change period to underscore
         $table_name = $opt_t;     #
         logging($log_file, $log_id, "Changed table name to $table_name.");
@@ -172,7 +172,7 @@ if ($opt_t) {
 
 }
 else {
-    $table_name = "Nodelist";     # default table name
+    $table_name = 'Nodelist';     # default table name
 }
 
 =head1 COMMANDS
@@ -209,13 +209,13 @@ server being used for Fidonet/FTN processing.
 #   if a command is found, then execute & exit
 #   if not;  display error message, then help message, then exit
 $command = shift;
-if (lc($command) eq "create") {
+if (lc($command) eq 'create') {
 
     $command = shift;
-    if (lc($command) eq "database") {
+    if (lc($command) eq 'database') {
 	create_ftn_database();
 
-    } elsif (lc($command) eq "table") {
+    } elsif (lc($command) eq 'table') {
 	#  Create an FTN nodelist table
 	create_ftn_nodelist_table();
 
@@ -226,13 +226,13 @@ if (lc($command) eq "create") {
 
     }   # End parsing of 'create' command
 
-} elsif (lc($command) eq "drop") {
+} elsif (lc($command) eq 'drop') {
 
     $command = shift;
-    if (lc($command) eq "database") {
+    if (lc($command) eq 'database') {
 	call drop_ftn_database();
 
-    } elsif (lc($command) eq "table") {
+    } elsif (lc($command) eq 'table') {
 	#  Drop an FTN nodelist table
 	drop_ftn_table();
 
