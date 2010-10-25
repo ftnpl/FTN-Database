@@ -88,7 +88,7 @@ $log_file = $ftndb_config->{_}->{LogFile};
 
 my $log_id = "nl2db";
 
-logging($log_file, $log_id, "Starting ftnpldb-nodelist... ");
+logging($log_file, $log_id, 'Starting ftnpldb-nodelist... ');
 
 =item -v
 
@@ -97,7 +97,7 @@ Verbose option.
 =cut
 
 if ($opt_v) {
-    logging($log_file, $log_id, "Verbose flag is set");
+    logging($log_file, $log_id, 'Verbose flag is set');
 }
 
 =item -x
@@ -107,7 +107,7 @@ Debug option.
 =cut
 
 if ($opt_x) {
-    logging($log_file, $log_id, "Debug flag is set");
+    logging($log_file, $log_id, 'Debug flag is set');
 }
 
 my %db_option = ();
@@ -123,7 +123,7 @@ $db_option{'Name'} = $ftndb_config->{Database}->{Name};
 if ($opt_v) { logging($log_file, $log_id, "Database name being used is $db_option{'Name'}") };
 
 # Get the definition of the database user
-if ($db_option{'Type'} eq "SQLite") {
+if ($db_option{'Type'} eq 'SQLite') {
 
     $db_option{'User'} = q{};
 
@@ -135,7 +135,7 @@ if ($db_option{'Type'} eq "SQLite") {
 }
 
 # Get the definition of the database password
-if ($db_option{'Type'} eq "SQLite") {
+if ($db_option{'Type'} eq 'SQLite') {
 
     $db_option{'Password'} = q{};
 
@@ -168,7 +168,7 @@ to an underscore.
 
 if ($opt_t) {
     if ( $opt_t =~ /\./ ) {    # period in proposed table name?
-        logging($log_file, $log_id, "sqlite does not allow periods in table names.");
+        logging($log_file, $log_id, 'sqlite does not allow periods in table names.');
         $opt_t =~ tr/\./_/;    # change period to underscore
         $table_name = $opt_t;     #
         logging($log_file, $log_id, "Changed table name to $table_name.");
@@ -179,7 +179,7 @@ if ($opt_t) {
 
 }
 else {
-    $table_name = "Nodelist";     # default table name
+    $table_name = 'Nodelist';     # default table name
 }
 
 =item -n
@@ -226,7 +226,7 @@ if ($opt_v) {                  # log domain name
     logging($log_file, $log_id, "Domain: '$domain'");
 }
 if ($opt_x) {
-    logging($log_file, $log_id, "Debug mode is set");
+    logging($log_file, $log_id, 'Debug mode is set');
 }
 
 =item -o
@@ -266,11 +266,11 @@ a specified zone and/or net number.
 #   if a command is found, then execute & exit
 #   if not;  display error message, then help message, then exit
 $command = shift;
-if (lc($command) eq "load") {
+if (lc($command) eq 'load') {
 
     load_ftn_nodelist();
 
-} elsif (lc($command) eq "list") {
+} elsif (lc($command) eq 'list') {
 
     list_ftn_nodelist();
 
@@ -360,7 +360,7 @@ sub load_ftn_nodelist {
     FTN::Database::Nodelist::remove_ftn_domain($db_handle, $table_name, $domain);
 
     # drop the old nodelist table index, if it exists.
-    logging($log_file, $log_id, "Dropping existing nodelist table index if it already exists.");
+    logging($log_file, $log_id, 'Dropping existing nodelist table index if it already exists.');
     FTN::Database::Nodelist::drop_ftnnode_index($db_handle);
 
     if ($opt_v) {
@@ -369,9 +369,9 @@ sub load_ftn_nodelist {
 
     #	Build SQL Statement for Prepare
     $sql_statement = "INSERT INTO $table_name ";
-    $sql_statement .= "(type,zone,net,node,point,region,name,";
-    $sql_statement .= "location,sysop,phone,baud,flags,domain,source) ";
-    $sql_statement .= "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql_statement .= '(type,zone,net,node,point,region,name,';
+    $sql_statement .= 'location,sysop,phone,baud,flags,domain,source) ';
+    $sql_statement .= 'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
     my $insert_handle = $db_handle->prepare($sql_statement);
 
@@ -387,23 +387,23 @@ sub load_ftn_nodelist {
 
 	# if $flags is undefined (i.e., nothing after the baud rate)
 	if ( !defined $flags ) {
-	    $flags = " ";
+	    $flags = ' ';
 	}
 	else {
 	    $flags =~ s/\r?\n$//;    # else remove EOL (removes \r\n or \n but not \r) from $flags
 	}
 
-	if ( $type eq "Zone" ) {    # Zone line
+	if ( $type eq 'Zone' ) {    # Zone line
 	    $zone = $number;
 	    $net  = $number;
 	    $node = 0;
 	}    #
-	elsif ( $type eq "Region" ) {    # Region line
+	elsif ( $type eq 'Region' ) {    # Region line
 	    $region = $number;
 	    $net    = $number;
 	    $node   = 0;
 	}
-	elsif ( $type eq "Host" ) {      # Host line
+	elsif ( $type eq 'Host' ) {      # Host line
 	    $net  = $number;
 	    $node = 0;
 	}
@@ -436,17 +436,17 @@ sub load_ftn_nodelist {
     $insert_handle->finish;
     undef $insert_handle;
 
-    if ($opt_v) { logging($log_file, $log_id, "Create ftnnode index"); }
+    if ($opt_v) { logging($log_file, $log_id, 'Create ftnnode index'); }
     # Recreate ftnnode Index
     FTN::Database::Nodelist::create_ftnnode_index($db_handle, $table_name);
 
-    if ($opt_v) { logging($log_file, $log_id, "Closing database"); }
+    if ($opt_v) { logging($log_file, $log_id, 'Closing database'); }
     # disconnect from database
     FTN::Database::close_ftndb($db_handle);
 
     close NODELIST;
 
-    logging($log_file, $log_id, "Nodelist table loaded... ");
+    logging($log_file, $log_id, 'Nodelist table loaded... ');
 
     return();
 }
@@ -467,7 +467,7 @@ sub list_ftn_nodelist {
 
     # build Select query sql statement
     my $sql_statement = "SELECT * FROM $table_name WHERE zone = $zone_number and net = $net_number ";
-    $sql_statement .= "ORDER by node ASC";
+    $sql_statement .= 'ORDER by node ASC';
 
     # execute query
     my $query_handle = $db_handle->prepare($sql_statement);
