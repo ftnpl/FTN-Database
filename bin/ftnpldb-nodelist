@@ -526,9 +526,9 @@ sub get_nodelist_filename {
     # Note that if there is more than one file with the same base name, it will
     # use the first one found.
 
-    my ( $i, @files );
-
     my ($basename) = @_;
+
+    my ( $i, @files );
 
     if ($opt_v) { logging($log_file, $log_id, "Searching for $basename files.") }
 
