@@ -86,7 +86,7 @@ $ftndb_config = Config::Tiny->read($config_file)
 # Get the definition of the log file
 $log_file = $ftndb_config->{_}->{LogFile};
 
-my $log_id = "nl2db";
+my $log_id = 'nl2db';
 
 logging($log_file, $log_id, 'Starting ftnpldb-nodelist... ');
 
@@ -339,13 +339,13 @@ sub load_ftn_nodelist {
         }
 
     } else {
-        $nodelist_file = get_nodelist_filename("nodelist");
+        $nodelist_file = get_nodelist_filename('nodelist');
     }
 
     logging($log_file, $log_id, "Nodelist directory: '$nodelist_directory'");
     logging($log_file, $log_id, "Nodelist file: '$nodelist_file'");
 
-    open NODELIST, "$nodelist_directory/$nodelist_file" 
+    open NODELIST, "$nodelist_directory/$nodelist_file"
 	or die logging($log_file, $log_id, "Cannot open $nodelist_directory/$nodelist_file");
 
     # connect to database
@@ -481,7 +481,7 @@ sub list_ftn_nodelist {
 	write ListFile;
     }
 
-    close(ListFile);
+    close ListFile;
 
     # finish query
     $query_handle->finish;
@@ -510,15 +510,15 @@ sub get_nodelist_filename {
 
     if ($opt_v) { logging($log_file, $log_id, "Searching for $basename files.") }
 
-    opendir( DIR, $nodelist_directory );
+    opendir DIR, $nodelist_directory;
     @files = reverse sort (grep( /$basename\.[0-9][0-9][0-9]$/i, readdir(DIR) ));
-    closedir(DIR);
+    closedir DIR;
 
     if ( $#files == -1 ) {
         logging($log_file, $log_id, "Nodelist files $basename not found");
-        print("\nNodelist files $basename not found.\n");
+        print "\nNodelist files $basename not found.\n";
         HELP_MESSAGE();
-        exit();
+        exit 0;
     }
     else {
         if ($opt_v) {
