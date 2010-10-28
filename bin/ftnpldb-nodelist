@@ -383,7 +383,7 @@ sub load_ftn_nodelist {
 	}
 
 	( $type, $number, $name, $location, $sysop, $phone, $bps, $flags ) =
-	    split( ',', $_, 8 );
+	    split( /,/, $_, 8 );
 
 	# if $flags is undefined (i.e., nothing after the baud rate)
 	if ( !defined $flags ) {
