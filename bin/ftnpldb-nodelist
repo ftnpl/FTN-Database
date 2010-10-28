@@ -19,11 +19,11 @@ ftnpldb-nodelist - Fidonet/FTN Nodelist related processing using an SQL Database
 
 =head1 VERSION
 
-Version 0.19
+Version 0.20
 
 =cut
 
-our $VERSION = 0.19;
+our $VERSION = 0.20;
 
 =head1 DESCRIPTION
 
@@ -84,12 +84,11 @@ $ftndb_config = Config::Tiny->read($config_file)
     or die "Could not open configuration file:  $config_file";
 
 # Get the definition of the log file
-$log_file = $ftndb_config->{_}->{LogFile};	
+$log_file = $ftndb_config->{_}->{LogFile};
 
+my $log_id = 'nl2db';
 
-my $log_id = "nl2db";
-
-logging($log_file, $log_id, "Starting ftnpldb-nodelist... ");
+logging($log_file, $log_id, 'Starting ftnpldb-nodelist... ');
 
 =item -v
 
@@ -98,7 +97,7 @@ Verbose option.
 =cut
 
 if ($opt_v) {
-    logging($log_file, $log_id, "Verbose flag is set");
+    logging($log_file, $log_id, 'Verbose flag is set');
 }
 
 =item -x
@@ -108,13 +107,13 @@ Debug option.
 =cut
 
 if ($opt_x) {
-    logging($log_file, $log_id, "Debug flag is set");
+    logging($log_file, $log_id, 'Debug flag is set');
 }
 
 my %db_option = ();
 
 # Get the definition of the database type
-$db_option{'Type'} = $ftndb_config->{Database}->{Type};	
+$db_option{'Type'} = $ftndb_config->{Database}->{Type};
 
 if ($opt_v) { logging($log_file, $log_id, "Database type being used is $db_option{'Type'}") };
 
@@ -124,9 +123,9 @@ $db_option{'Name'} = $ftndb_config->{Database}->{Name};
 if ($opt_v) { logging($log_file, $log_id, "Database name being used is $db_option{'Name'}") };
 
 # Get the definition of the database user
-if ($db_option{'Type'} eq "SQLite") {
+if ($db_option{'Type'} eq 'SQLite') {
 
-    $db_option{'User'} = "";
+    $db_option{'User'} = q{};
 
 } else {
     $db_option{'User'} = $ftndb_config->{Database}->{User};
@@ -136,9 +135,9 @@ if ($db_option{'Type'} eq "SQLite") {
 }
 
 # Get the definition of the database password
-if ($db_option{'Type'} eq "SQLite") {
+if ($db_option{'Type'} eq 'SQLite') {
 
-    $db_option{'Password'} = ""; 
+    $db_option{'Password'} = q{};
 
 } else {
 
@@ -169,7 +168,7 @@ to an underscore.
 
 if ($opt_t) {
     if ( $opt_t =~ /\./ ) {    # period in proposed table name?
-        logging($log_file, $log_id, "sqlite does not allow periods in table names.");
+        logging($log_file, $log_id, 'sqlite does not allow periods in table names.');
         $opt_t =~ tr/\./_/;    # change period to underscore
         $table_name = $opt_t;     #
         logging($log_file, $log_id, "Changed table name to $table_name.");
@@ -180,7 +179,7 @@ if ($opt_t) {
 
 }
 else {
-    $table_name = "Nodelist";     # default table name
+    $table_name = 'Nodelist';     # default table name
 }
 
 =item -n
@@ -204,7 +203,7 @@ If defined;  is the only zone being operated on.
 =cut
 
 if ($opt_z) {
-    $zone_number = $opt_z; 
+    $zone_number = $opt_z;
     logging($log_file, $log_id, "Defined Zone: $zone_number");
     undef $opt_z;
 }
@@ -220,14 +219,14 @@ if ($opt_d) {
     $domain = $opt_d;
 }
 else {
-    $domain = 'fidonet'; 
+    $domain = 'fidonet';
 }
 
 if ($opt_v) {                  # log domain name
     logging($log_file, $log_id, "Domain: '$domain'");
 }
 if ($opt_x) {
-    logging($log_file, $log_id, "Debug mode is set");
+    logging($log_file, $log_id, 'Debug mode is set');
 }
 
 =item -o
@@ -240,7 +239,7 @@ This needs to be at least the filename and can also include a path.
 =cut
 
 if ($opt_o) {
-    $list_file = $opt_o; 
+    $list_file = $opt_o;
     undef $opt_o;
 }
 
@@ -267,22 +266,22 @@ a specified zone and/or net number.
 #   if a command is found, then execute & exit
 #   if not;  display error message, then help message, then exit
 $command = shift;
-if (lc($command) eq "load") {
+if (lc($command) eq 'load') {
 
     load_ftn_nodelist();
 
-} elsif (lc($command) eq "list") {
+} elsif (lc($command) eq 'list') {
 
     list_ftn_nodelist();
 
 } else {
-    print STDERR "Unrecognized command.\n";
+    print {*STDERR} "Unrecognized command.\n";
     HELP_MESSAGE(*STDERR);
     exit 1;
 
-}	# End of command parsing.
+}       # End of command parsing.
 
-exit();
+exit 0;
 
 ################################################################################
 #	Subroutines
@@ -293,24 +292,24 @@ exit();
 sub HELP_MESSAGE {
 
     my $fh = shift;
-    
-    print $fh "\n\tSynopsis:\n";
-    print $fh "ftnpldb-nodelist [-c config_file] [options] load\n";
-    print $fh "ftnpldb-nodelist [-c config_file] [options] list\n";
-    print $fh "ftnpldb-nodelist -h | --help\t= Display this help message.\n";
-    print $fh "ftnpldb-nodelist --version\t= Display version message\n";
 
-    print $fh "\tOptions.\n";
-    print $fh "[-c config_file]\t= Name and path for configuration file.\n";
-    print $fh "[-t tablename]\t\t= Nodelist table name;  defaults to 'Nodelist'.\n";
-    print $fh "[-f nodelist_file]\t= Nodelist filename, defaults to 'nodelist'.\n";
-    print $fh "[-d domain]\t\t= Nodelist domain;  defaults to 'fidonet'.\n";
-    print $fh "[-n net_number]\t= If present, then only the defined net 'net_number' is operated on.\n";
-    print $fh "[-z zone_number]\t= If present, then only the defined zone 'zone_number' is loaded.\n";
-    print $fh "\t[-o outfile]\t\t= Output file and path.\n";
-    print $fh "[-e]\t\t\t= If present, then nodelist_file is an exact filename\n";
-    print $fh "[-v]\t\t\t= Verbose Mode\n";
-    print $fh "[-x]\t\t\t= Debug Mode\n";
+    print {$fh} "\n\tSynopsis:\n";
+    print {$fh} "ftnpldb-nodelist [-c config_file] [options] load\n";
+    print {$fh} "ftnpldb-nodelist [-c config_file] [options] list\n";
+    print {$fh} "ftnpldb-nodelist -h | --help\t= Display this help message.\n";
+    print {$fh} "ftnpldb-nodelist --version\t= Display version message\n";
+
+    print {$fh} "\tOptions.\n";
+    print {$fh} "[-c config_file]\t= Name and path for configuration file.\n";
+    print {$fh} "[-t tablename]\t\t= Nodelist table name;  defaults to 'Nodelist'.\n";
+    print {$fh} "[-f nodelist_file]\t= Nodelist filename, defaults to 'nodelist'.\n";
+    print {$fh} "[-d domain]\t\t= Nodelist domain;  defaults to 'fidonet'.\n";
+    print {$fh} "[-n net_number]\t= If only, the only net to be operated on.\n";
+    print {$fh} "[-z zone_number]\t= If only, the only zone to be operated on.\n";
+    print {$fh} "[-o outfile]\t\t= Output file and path.\n";
+    print {$fh} "[-e]\t\t\t= If present, then nodelist_file is an exact filename\n";
+    print {$fh} "[-v]\t\t\t= Verbose Mode\n";
+    print {$fh} "[-x]\t\t\t= Debug Mode\n";
 
     return();
 
@@ -321,6 +320,8 @@ sub HELP_MESSAGE {
 ########################################################################
 sub load_ftn_nodelist {
 
+    use constant EIGHT => 8;
+    
     #  set defaults
     my $zone   = 1;
     my $net    = 0;
@@ -339,14 +340,14 @@ sub load_ftn_nodelist {
             $nodelist_file = get_nodelist_filename($opt_f);
         }
 
-    } else { 
-        $nodelist_file = get_nodelist_filename("nodelist");
+    } else {
+        $nodelist_file = get_nodelist_filename('nodelist');
     }
 
     logging($log_file, $log_id, "Nodelist directory: '$nodelist_directory'");
     logging($log_file, $log_id, "Nodelist file: '$nodelist_file'");
 
-    open( NODELIST, "$nodelist_directory/$nodelist_file" )
+    open NODELIST, "$nodelist_directory/$nodelist_file"
 	or die logging($log_file, $log_id, "Cannot open $nodelist_directory/$nodelist_file");
 
     # connect to database
@@ -361,7 +362,7 @@ sub load_ftn_nodelist {
     FTN::Database::Nodelist::remove_ftn_domain($db_handle, $table_name, $domain);
 
     # drop the old nodelist table index, if it exists.
-    logging($log_file, $log_id, "Dropping existing nodelist table index if it already exists.");
+    logging($log_file, $log_id, 'Dropping existing nodelist table index if it already exists.');
     FTN::Database::Nodelist::drop_ftnnode_index($db_handle);
 
     if ($opt_v) {
@@ -370,9 +371,9 @@ sub load_ftn_nodelist {
 
     #	Build SQL Statement for Prepare
     $sql_statement = "INSERT INTO $table_name ";
-    $sql_statement .= "(type,zone,net,node,point,region,name,";
-    $sql_statement .= "location,sysop,phone,baud,flags,domain,source) ";
-    $sql_statement .= "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql_statement .= '(type,zone,net,node,point,region,name,';
+    $sql_statement .= 'location,sysop,phone,baud,flags,domain,source) ';
+    $sql_statement .= 'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
     my $insert_handle = $db_handle->prepare($sql_statement);
 
@@ -384,27 +385,27 @@ sub load_ftn_nodelist {
 	}
 
 	( $type, $number, $name, $location, $sysop, $phone, $bps, $flags ) =
-	    split( ',', $_, 8 );
+	    split /,/, $_, EIGHT ;
 
 	# if $flags is undefined (i.e., nothing after the baud rate)
 	if ( !defined $flags ) {
-	    $flags = " ";
-	} 
+	    $flags = q{ };
+	}
 	else {
-	    $flags =~ s/\r?\n$//;	# else remove EOL (removes \r\n or \n but not \r) from $flags
+	    $flags =~ s/\r?\n$//;    # else remove EOL (removes \r\n or \n but not \r) from $flags
 	}
 
-	if ( $type eq "Zone" ) {    # Zone line
+	if ( $type eq 'Zone' ) {    # Zone line
 	    $zone = $number;
 	    $net  = $number;
 	    $node = 0;
 	}    #
-	elsif ( $type eq "Region" ) {    # Region line
+	elsif ( $type eq 'Region' ) {    # Region line
 	    $region = $number;
 	    $net    = $number;
 	    $node   = 0;
 	}
-	elsif ( $type eq "Host" ) {      # Host line
+	elsif ( $type eq 'Host' ) {      # Host line
 	    $net  = $number;
 	    $node = 0;
 	}
@@ -426,8 +427,8 @@ sub load_ftn_nodelist {
 		next;
 	    }
 	}
-    
-	#	Execute the insert SQL statment
+
+	#       Execute the insert SQL statment
 	$insert_handle->execute($type, $zone, $net, $node, $point, $region,
 		 $name, $location, $sysop, $phone, $bps, $flags, $domain, $nodelist_file)
 	    or die logging($log_file, $log_id, $DBI::errstr);
@@ -436,18 +437,18 @@ sub load_ftn_nodelist {
 
     $insert_handle->finish;
     undef $insert_handle;
-    
-    if ($opt_v) { logging($log_file, $log_id, "Create ftnnode index"); }
+
+    if ($opt_v) { logging($log_file, $log_id, 'Create ftnnode index'); }
     # Recreate ftnnode Index
     FTN::Database::Nodelist::create_ftnnode_index($db_handle, $table_name);
 
-    if ($opt_v) { logging($log_file, $log_id, "Closing database"); }
+    if ($opt_v) { logging($log_file, $log_id, 'Closing database'); }
     # disconnect from database
     FTN::Database::close_ftndb($db_handle);
 
     close NODELIST;
 
-    logging($log_file, $log_id, "Nodelist table loaded... ");
+    logging($log_file, $log_id, 'Nodelist table loaded... ');
 
     return();
 }
@@ -460,7 +461,7 @@ sub list_ftn_nodelist {
     if (!defined $list_file) {
 	print "The output file option, -o, was not defined.\n";
 	HELP_MESSAGE();
-	exit(1);
+	exit 1;
     }
 
     # connect to database
@@ -468,7 +469,7 @@ sub list_ftn_nodelist {
 
     # build Select query sql statement
     my $sql_statement = "SELECT * FROM $table_name WHERE zone = $zone_number and net = $net_number ";
-    $sql_statement .= "ORDER by node ASC";
+    $sql_statement .= 'ORDER by node ASC';
 
     # execute query
     my $query_handle = $db_handle->prepare($sql_statement);
@@ -476,13 +477,13 @@ sub list_ftn_nodelist {
 
     $query_handle->bind_columns(\my($id, $type, $zone, $net, $node, $point, $region, $name, $location, $sysop, $phone, $baud, $flags, $domain, $source, $updated));
 
-    open(ListFile, ">$list_file") or die "Cannot open $list_file\n"; 
+    open(ListFile, ">$list_file") or die "Cannot open $list_file\n";
 
     while($query_handle->fetch()) {
 	write ListFile;
     }
 
-    close(ListFile);
+    close ListFile;
 
     # finish query
     $query_handle->finish;
@@ -494,24 +495,24 @@ sub list_ftn_nodelist {
     return ();
 
 format ListFile_TOP =
-Zone @<<<<	Net @<<<< 
-$zone_number,	$net_number
+Zone @<<<<      Net @<<<<
+$zone_number,   $net_number
 ------------------------------------------------------------------------
 .
 
 format ListFile =
-Node:	@<<<<  
-	$node
-Name:	@<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-	$name
-Sysop:	@<<<<<<<<<<<<<<<< 
-	$sysop
+Node:     @<<<<
+          $node
+Name:     @<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+          $name
+Sysop:    @<<<<<<<<<<<<<<<<
+          $sysop
 Location: @<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-	  $location
-Phone:	@<<<<<<<<<<<<<<<<	Baud:	@<<<<<
-	$phone,				$baud,
-Flags:	@<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< 
-	$flags
+          $location
+Phone:    @<<<<<<<<<<<<<<<<       Baud:   @<<<<<
+          $phone,                         $baud
+Flags:    @<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+          $flags
 
 .
 
@@ -527,21 +528,23 @@ sub get_nodelist_filename {
     # Note that if there is more than one file with the same base name, it will
     # use the first one found.
 
-    my ( $i, @files );
-
+    use constant MinusOne => -1;
+    
     my ($basename) = @_;
+
+    my ( $i, @files );
 
     if ($opt_v) { logging($log_file, $log_id, "Searching for $basename files.") }
 
-    opendir( DIR, $nodelist_directory );
-    @files = sort {$b cmp $a} (grep( /$basename\.[0-9][0-9][0-9]$/i, readdir(DIR) ));
-    closedir(DIR);
+    opendir DIR, $nodelist_directory;
+    @files = reverse sort (grep( /$basename\.[0-9][0-9][0-9]$/i, readdir(DIR) ));
+    closedir DIR;
 
-    if ( $#files == -1 ) {
+    if ( $#files == MinusOne ) {
         logging($log_file, $log_id, "Nodelist files $basename not found");
-        print("\nNodelist files $basename not found.\n");
+        print "\nNodelist files $basename not found.\n";
         HELP_MESSAGE();
-        exit();
+        exit 0;
     }
     else {
         if ($opt_v) {
@@ -565,8 +568,8 @@ sub get_nodelist_filename {
 sub VERSION_MESSAGE {
 
     my $fh = shift;
-    
-    print $fh "ftnpldb-nodelist version $VERSION\n";
+
+    print {$fh} "ftnpldb-nodelist version $VERSION\n";
 
     return();
 
@@ -641,7 +644,7 @@ FTN Nodelist related processing:
 
     # ftnpldb.cfg
     LogFile=/opt/ftndb/ftnpldb.log
-    
+
     [Database]
     Type=mysql
     Name=ftndbtst

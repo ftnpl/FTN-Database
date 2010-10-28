@@ -1,5 +1,15 @@
 Revision history for FTN-Database (ftnpldb)
 
+0.20	Thu Oct 20 19:33 2010
+    - Rewrite how the reverse sort in ftnpldb-nodelist is done.
+    - Builtins in ftnpldb-* scripts do not need to use parentheses.
+    - Use constant pragma in ftnpldb-nodelist for variable constants.
+    - Correct literal string interpolations in the ftnpldb-* scripts. 
+    - Rewrite how the split function call is done in ftnpldb-nodelist.
+    - Clean up white space and etc. in ftnpldb-admin and ftnpldb-nodelist.
+    - Correct how definitions of empty strings are done in ftnpldb-* scripts.
+    - Use braces for print file handles in ftnpldb-admin and ftnpldb-nodelist.
+
 0.19	Sat Oct 02 14:28 2010
     - Use Perl format and the write command to format the output of the List
       command in ftnpldb-nodelist.
