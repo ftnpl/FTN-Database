@@ -281,7 +281,7 @@ if (lc($command) eq 'load') {
 
 }       # End of command parsing.
 
-exit();
+exit 0;
 
 ################################################################################
 #	Subroutines
@@ -345,7 +345,7 @@ sub load_ftn_nodelist {
     logging($log_file, $log_id, "Nodelist directory: '$nodelist_directory'");
     logging($log_file, $log_id, "Nodelist file: '$nodelist_file'");
 
-    open( NODELIST, "$nodelist_directory/$nodelist_file" )
+    open NODELIST, "$nodelist_directory/$nodelist_file" 
 	or die logging($log_file, $log_id, "Cannot open $nodelist_directory/$nodelist_file");
 
     # connect to database
@@ -383,7 +383,7 @@ sub load_ftn_nodelist {
 	}
 
 	( $type, $number, $name, $location, $sysop, $phone, $bps, $flags ) =
-	    split( /,/, $_, 8 );
+	    split /,/, $_, 8 ;
 
 	# if $flags is undefined (i.e., nothing after the baud rate)
 	if ( !defined $flags ) {
@@ -459,7 +459,7 @@ sub list_ftn_nodelist {
     if (!defined $list_file) {
 	print "The output file option, -o, was not defined.\n";
 	HELP_MESSAGE();
-	exit(1);
+	exit 1;
     }
 
     # connect to database
