@@ -6,8 +6,6 @@ General
 - Change to using the options hash from GetOpt::Std instead of the individual
 option variables like $opt_v.
 
-- Review all pod documentation and update/correct as neccessary.
-
 - Use the "if (defined $opt_l)" construct for checking options?
 
 - Move the parsing of at least some options in the bin/* scripts into a
@@ -48,6 +46,9 @@ FTN::Database
 --------------
 - Export the commonly used functions by default.
 - Rename the create_ftndb subroutine to create_ftn[db]_database.
+- Derive a generic create_ftn_table subroutine from the create_nodelist_table
+  function in FTN::Database::Nodelist, using a variable in the sql for the
+  table definition. Then change the create_nodelist_table function to use it.
 - Derive a generic drop_ftn_table subroutine from the drop_nodelist_table
   function in FTN::Database::Nodelist.
 - Derive a generic drop_ftn_index subroutine from the drop_ftnnode_index
@@ -64,14 +65,17 @@ FTN::Database::Nodelist
   the code used in the list_ftn_nodelist subroutine.
 - As part of adding statistics related functions, add a function that counts
   the number of nodes that have a particular flag associated with it?  Could
-  use the name get_nodelist_flag_count($dbh,$nodelist_flag).  Also add 
-  something that counts the number of things like hubs, nodes marked as
-  private, etc?
+  use the name "get_nodelist_flag_count ($dbh, $table_name, $nodelist_flag)"
+  but how to build in extra parts of the search for things like "zone = 1"?
+  Also add something that counts the number of things like hubs, nodes marked
+  as private, etc?
 - Derive and move function to insert or update an entry from ftnpldb-nodelist.
   Separate functions for insert & update, or different options in same function?
 - Move get_nodelist_filename subroutine from the ftnpldb-nodelist script?
 - Use a different datatype than "TIMESTAMP" for the 'updated' field in the
   nodelist table?  (Not generic enough?)
+- Use a template framework of some sort instead of the builtin 'format' 
+  operations for the reporting functionality. 
 
   
 ftnpldb-admin
