@@ -387,7 +387,7 @@ sub load_ftn_nodelist {
 
 	# if $flags is undefined (i.e., nothing after the baud rate)
 	if ( !defined $flags ) {
-	    $flags = ' ';
+	    $flags = q{ };
 	}
 	else {
 	    $flags =~ s/\r?\n$//;    # else remove EOL (removes \r\n or \n but not \r) from $flags
