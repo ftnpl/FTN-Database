@@ -1,5 +1,7 @@
 Revision history for FTN-Database (ftnpldb)
 
+0.21	dow mmm dd hh:mm 2010
+
 0.20	Thu Oct 20 19:33 2010
     - Rewrite how the reverse sort in ftnpldb-nodelist is done.
     - Builtins in ftnpldb-* scripts do not need to use parentheses.
