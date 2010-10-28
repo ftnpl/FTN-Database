@@ -320,6 +320,8 @@ sub HELP_MESSAGE {
 ########################################################################
 sub load_ftn_nodelist {
 
+    use constant EIGHT => 8;
+    
     #  set defaults
     my $zone   = 1;
     my $net    = 0;
@@ -383,7 +385,7 @@ sub load_ftn_nodelist {
 	}
 
 	( $type, $number, $name, $location, $sysop, $phone, $bps, $flags ) =
-	    split /,/, $_, 8 ;
+	    split /,/, $_, EIGHT ;
 
 	# if $flags is undefined (i.e., nothing after the baud rate)
 	if ( !defined $flags ) {
@@ -504,6 +506,8 @@ sub get_nodelist_filename {
     # Note that if there is more than one file with the same base name, it will
     # use the first one found.
 
+    use constant MinusOne => -1;
+    
     my ($basename) = @_;
 
     my ( $i, @files );
@@ -514,7 +518,7 @@ sub get_nodelist_filename {
     @files = reverse sort (grep( /$basename\.[0-9][0-9][0-9]$/i, readdir(DIR) ));
     closedir DIR;
 
-    if ( $#files == -1 ) {
+    if ( $#files == MinusOne ) {
         logging($log_file, $log_id, "Nodelist files $basename not found");
         print "\nNodelist files $basename not found.\n";
         HELP_MESSAGE();
