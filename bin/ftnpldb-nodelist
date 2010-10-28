@@ -275,7 +275,7 @@ if (lc($command) eq 'load') {
     list_ftn_nodelist();
 
 } else {
-    print STDERR "Unrecognized command.\n";
+    print {*STDERR} "Unrecognized command.\n";
     HELP_MESSAGE(*STDERR);
     exit 1;
 
@@ -293,23 +293,23 @@ sub HELP_MESSAGE {
 
     my $fh = shift;
 
-    print $fh "\n\tSynopsis:\n";
-    print $fh "ftnpldb-nodelist [-c config_file] [options] load\n";
-    print $fh "ftnpldb-nodelist [-c config_file] [options] list\n";
-    print $fh "ftnpldb-nodelist -h | --help\t= Display this help message.\n";
-    print $fh "ftnpldb-nodelist --version\t= Display version message\n";
+    print {$fh} "\n\tSynopsis:\n";
+    print {$fh} "ftnpldb-nodelist [-c config_file] [options] load\n";
+    print {$fh} "ftnpldb-nodelist [-c config_file] [options] list\n";
+    print {$fh} "ftnpldb-nodelist -h | --help\t= Display this help message.\n";
+    print {$fh} "ftnpldb-nodelist --version\t= Display version message\n";
 
-    print $fh "\tOptions.\n";
-    print $fh "[-c config_file]\t= Name and path for configuration file.\n";
-    print $fh "[-t tablename]\t\t= Nodelist table name;  defaults to 'Nodelist'.\n";
-    print $fh "[-f nodelist_file]\t= Nodelist filename, defaults to 'nodelist'.\n";
-    print $fh "[-d domain]\t\t= Nodelist domain;  defaults to 'fidonet'.\n";
-    print $fh "[-n net_number]\t= If only, the only net to be operated on.\n";
-    print $fh "[-z zone_number]\t= If only, the only zone to be operated on.\n";
-    print $fh "[-o outfile]\t\t= Output file and path.\n";
-    print $fh "[-e]\t\t\t= If present, then nodelist_file is an exact filename\n";
-    print $fh "[-v]\t\t\t= Verbose Mode\n";
-    print $fh "[-x]\t\t\t= Debug Mode\n";
+    print {$fh} "\tOptions.\n";
+    print {$fh} "[-c config_file]\t= Name and path for configuration file.\n";
+    print {$fh} "[-t tablename]\t\t= Nodelist table name;  defaults to 'Nodelist'.\n";
+    print {$fh} "[-f nodelist_file]\t= Nodelist filename, defaults to 'nodelist'.\n";
+    print {$fh} "[-d domain]\t\t= Nodelist domain;  defaults to 'fidonet'.\n";
+    print {$fh} "[-n net_number]\t= If only, the only net to be operated on.\n";
+    print {$fh} "[-z zone_number]\t= If only, the only zone to be operated on.\n";
+    print {$fh} "[-o outfile]\t\t= Output file and path.\n";
+    print {$fh} "[-e]\t\t\t= If present, then nodelist_file is an exact filename\n";
+    print {$fh} "[-v]\t\t\t= Verbose Mode\n";
+    print {$fh} "[-x]\t\t\t= Debug Mode\n";
 
     return();
 
@@ -565,7 +565,7 @@ sub VERSION_MESSAGE {
 
     my $fh = shift;
 
-    print $fh "ftnpldb-nodelist version $VERSION\n";
+    print {$fh} "ftnpldb-nodelist version $VERSION\n";
 
     return();
 
