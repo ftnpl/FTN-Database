@@ -3,6 +3,20 @@ To Do:
 General
 --------
 
+- Change emphasis of distibution rather than name;  i.e. that it is an
+application consisting of related scripts and associated modules, rather
+than modules with associated scripts.
+
+- Change this TODO document into being a pod document, perhaps explicitly as
+something like the module FTN::Database::ToDo?  Or use the ftnpldb namespace
+instead?  And/or do ToDo POD files for each of the modules and scripts, with
+one being the primary/general ToDo?
+
+- Change base name of scripts from ftnpldb to ftndb?
+
+- Move code repository information and the distribution archive information
+from the README file to elsewhere.  POD in main module?  website and/or wiki?
+
 - Change to using the options hash from GetOpt::Std instead of the individual
 option variables like $opt_v.
 
@@ -14,14 +28,12 @@ subroutine, or subroutines depending on the options?
 - Organize the display of the options in a script Help Message by which command
 they are associated with.
 
+- Add an option, like -r, for specifying a region number;  to be used like the
+-z or -n options, and for all commands.
+
 - Variables should only be declared at the highest level they are needed; i.e.,
 if a variable is only used in a subroutine, it should only be declared there
 and not declared globally.
-
-- Need to clarify the parameters for $db_option{'Name'} & $database? For
-instance;  to differientate between the database name as part of the DSN used
-to connect to a database server and the name of a database being created or
-dropped on a server.
 
 - The option used to define which type of database to use does not currently
 do any error checking on that type;  the script will fail if a correct DBD name
@@ -34,12 +46,12 @@ issue where it is not a good idea to use them at all.  Redo the comments in
 scripts and modules regarding that, to generalize it.  (Derive function to
 validate it and add th at to the FTN::Database module?)
 
-- Change this TODO document into being a pod document, perhaps explicitly as
-something like the module FTN::Database::ToDo? 
-
 - Separate out the submodules, like FTN::Database::Nodelist and
 FTN::Database::Echolist (when implemented), into separate distributions
-so that only the functionality that's wanted needs to be installed?
+so that only the functionality that's wanted needs to be installed?  Or
+just do that separately as, for instance, part of the Debian packaging? 
+I.E.;  single source package, but separate binary packages for the libraries
+and scripts? 
 
 
 FTN::Database
@@ -74,10 +86,8 @@ FTN::Database::Nodelist
 - Move get_nodelist_filename subroutine from the ftnpldb-nodelist script?
 - Use a different datatype than "TIMESTAMP" for the 'updated' field in the
   nodelist table?  (Not generic enough?)
-- Use a template framework of some sort instead of the builtin 'format' 
-  operations for the reporting functionality. 
 
-  
+
 ftnpldb-admin
 -------------- 
 - Pass the variables to subroutines directly, rather than depend on the globals.
@@ -88,15 +98,16 @@ ftnpldb-admin
 
 ftnpldb-nodelist
 ----------------
+- The 'region' field for a zone independent node is not being set correctly
+  in the database;  example 2:2/0 is being set to region 19, or 1:1/0
+  which is being set to 0.  Should be set to the same as the zone number.
+- Need to add something to the database to reflect nodes being under a hub.
 - Move code for processing the -f & -e options into a separate subroutine, so
   it could be used by more than just the load command?
-- Add an option, like -r, for specifying a region number;  to be used like the
-  -z or -n options, and for all commands.  
 - Add cammands to create or drop the ftnnode index on the nodelist
   table?
-- Move create_ftn_nodelist_table from ftnpldb-admin to ftnpldb-nodelist, but also
-  leave a generic create_ftn_table subroutine there in ftnpldb-admin. 
-- Add the type field to the List command output?  Redo the header (extra line)?
+- Move create_ftn_nodelist_table from ftnpldb-admin to ftnpldb-nodelist, but
+  also leave a generic create_ftn_table subroutine there in ftnpldb-admin. 
 - Script does not seem to properly handle a file that ends in just blank
   lines, instead of a content line or a ^Z character. (Should fail gracefully
   for a badly formatted file.)
@@ -104,6 +115,9 @@ ftnpldb-nodelist
   nodelists of the same basename being processed;  that takes care of a set
   of files all from the same year but not ones that are from different years.
 - Add a test nodelist for use with this?...
+- Use a template framework of some sort instead of the builtin 'format'
+  operations for the reporting functionality. Add the type field to the
+  List command output?  Redo the header (extra line)?
 
 
 FTN::Database::Echolist
@@ -119,10 +133,9 @@ FTN::Database::Echolist
 
 Testing
 -------
-- Procedure in test script?    
+- Procedure in test script?
 1) get temp directory
 2) create working directory there
 3) ...  testing...
 4) remove test working directory
 5) done
-  
