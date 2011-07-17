@@ -675,9 +675,15 @@ Robert James Clay, C<< <jame at rocasa.us> >>
 
 =head1 BUGS
 
-Please report any bugs or feature requests to C<bug-ftn-database at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=FTN-Database>.  I will
-be notified, and then you'll automatically be notified of progress on your bug as I make changes.
+Please report any bugs or feature requests via the web interface at
+L<https://github.com/jame/FTN-Database/issues>. I will be notified,
+and then you'll automatically be notified of progress on your bug
+as I make changes.
+
+Note that you can also report any bugs or feature requests to
+C<bug-ftn-database at rt.cpan.org>, or through the web interface at
+L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=FTN-Database>; 
+however, the FTN-Database Issue tracker is preferred.
 
 =head1 SUPPORT
 
