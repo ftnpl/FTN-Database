@@ -10,11 +10,11 @@ FTN::Database - FTN SQL Database related operations for Fidonet/FTN related proc
 
 =head1 VERSION
 
-Version 0.20
+Version 0.21
 
 =cut
 
-our $VERSION = '0.20';
+our $VERSION = '0.21';
 
 =head1 DESCRIPTION
 
@@ -192,9 +192,15 @@ Robert James Clay, C<< <jame at rocasa.us> >>
 
 =head1 BUGS
 
-Please report any bugs or feature requests to C<bug-ftn-database at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=FTN-Database>. I will be
-notified, and then you'll automatically be notified of progress on your bug as I make changes.
+Please report any bugs or feature requests via the web interface at
+L<https://github.com/jame/FTN-Database/issues>. I will be notified,
+and then you'll automatically be notified of progress on your bug
+as I make changes.
+
+Note that you can also report any bugs or feature requests to
+C<bug-ftn-database at rt.cpan.org>, or through the web interface at
+L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=FTN-Database>;
+however, the FTN-Database Issue tracker is preferred.
 
 =head1 SUPPORT
 
@@ -207,17 +213,13 @@ You can also look for information at:
 
 =over 4
 
+=item * FTN-Database issue tracker
+
+L<https://github.com/jame/FTN-Database/issues>
+
 =item * RT: CPAN's request tracker
 
 L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=FTN-Database>
-
-=item * AnnoCPAN: Annotated CPAN documentation
-
-L<http://annocpan.org/dist/FTN-Database>
-
-=item * CPAN Ratings
-
-L<http://cpanratings.perl.org/d/FTN-Database>
 
 =item * Search CPAN
 
@@ -232,12 +234,12 @@ up to the version at which they were last changed.
 
 =head1 SEE ALSO
 
- L<DBI>, L<FTN::Database::Nodelist>, L<ftndbadm>, L<ftndbadm>,
+ L<DBI>, L<FTN::Database::Nodelist>, L<ftnpldb-admin>,
  and L<ftnpldb-nodelist>
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2010 Robert James Clay, all rights reserved.
+Copyright 2010-2011 Robert James Clay, all rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
