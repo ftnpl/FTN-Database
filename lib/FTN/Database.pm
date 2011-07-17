@@ -213,17 +213,13 @@ You can also look for information at:
 
 =over 4
 
+=item * FTN-Database issue tracker
+
+L<https://github.com/jame/FTN-Database/issues>
+
 =item * RT: CPAN's request tracker
 
 L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=FTN-Database>
-
-=item * AnnoCPAN: Annotated CPAN documentation
-
-L<http://annocpan.org/dist/FTN-Database>
-
-=item * CPAN Ratings
-
-L<http://cpanratings.perl.org/d/FTN-Database>
 
 =item * Search CPAN
 
