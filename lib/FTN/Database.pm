@@ -24,7 +24,7 @@ SQL database engine is one for which a DBD module exists, defaulting to SQLite.
 
 =head1 EXPORT
 
-The following functions are available in this module:  create_ftn_database, open_ftndb,
+The following functions are available in this module:  create_ftn_database, open_ftn_database,
 close_ftn_database, and drop_ftndb.
 
 =head1 FUNCTIONS
@@ -51,9 +51,9 @@ sub create_ftn_database {
     
 }
 
-=head2 open_ftndb
+=head2 open_ftn_database
 
-Syntax:  $db_handle = open_ftndb(\%db_options);
+Syntax:  $db_handle = open_ftn_database(\%db_options);
 
 Open a database for Fidonet/FTN processing, where $db_handle is the
 database handle being returned to the calling program and the referenced
@@ -84,7 +84,7 @@ The database password for the database user.
 
 =cut
 
-sub open_ftndb {
+sub open_ftn_database {
 
     use DBI;
 
@@ -147,7 +147,7 @@ An example of opening an FTN database, then closing it:
 
     use FTN::Database;
 
-    my $db_handle = open_ftndb(\%db_option);
+    my $db_handle = open_ftn_database(\%db_option);
     ...
     close_ftn_database($db_handle);
 
@@ -163,7 +163,7 @@ mysql database:
 	User = $db_user,
 	Password = $db_password,
     };
-    my $db_handle = open_ftndb(\%db_option);
+    my $db_handle = open_ftn_database(\%db_option);
     create_ftn_database($db_handle, $database_name);
     ...
     close_ftn_database($db_handle);
@@ -180,7 +180,7 @@ using a mysql database:
 	User = $db_user,
 	Password = $db_password,
     };
-    my $db_handle = open_ftndb(\%db_option);
+    my $db_handle = open_ftn_database(\%db_option);
     ...
     drop_ftndb($db_handle, $database_name);
     close_ftn_database($db_handle);
