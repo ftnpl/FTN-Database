@@ -1,5 +1,7 @@
 Revision history for FTN-Database (ftnpldb)
 
+0.23    dow Jul dd hh:mm 2011
+
 0.22    Sun Jul 24 22:31 2011
     - Some cleanup of white space in all files.
     - Rename the create_ftndb function to create_ftn_database.
