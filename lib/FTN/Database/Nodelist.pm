@@ -69,28 +69,6 @@ sub create_nodelist_table {
 
 }
 
-=head2 drop_nodelist_table
-
-Syntax:  drop_nodelist_table($db_handle, $table_name);
-
-Drop an FTN Nodelist table from an SQL database being used for Fidonet/FTN
-processing if it exists, where $db_handle is an existing open database handle
-and $table_name is the name of the table to be dropped.
-
-=cut
-
-sub drop_nodelist_table {
-
-    my($db_handle, $table_name) = @_;
-
-    my $sql_statement = "DROP TABLE IF EXISTS $table_name";
-
-    $db_handle->do("$sql_statement") or croak($DBI::errstr);
-
-    return(0);
-
-}
-
 =head2 create_ftnnode_index
 
 Syntax:  create_ftnnode_index($db_handle, $table_name);
