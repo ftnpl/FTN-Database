@@ -25,7 +25,7 @@ SQL database engine is one for which a DBD module exists, defaulting to SQLite.
 =head1 EXPORT
 
 The following functions are available in this module:  create_ftn_database, open_ftn_database,
-close_ftn_database, and drop_ftndb.
+close_ftn_database, and drop_ftn_database.
 
 =head1 FUNCTIONS
 
@@ -119,9 +119,9 @@ sub close_ftn_database {
     
 }
 
-=head2 drop_ftndb
+=head2 drop_ftn_database
 
-Syntax:  drop_ftndb($db_handle, $database_name);
+Syntax:  drop_ftn_database($db_handle, $database_name);
 
 Drop an SQL database being used for Fidonet/FTN processing if
 it exists, where $db_handle is an existing open database handle
@@ -129,7 +129,7 @@ and $database_name is the name of the database being dropped.
 
 =cut
 
-sub drop_ftndb {
+sub drop_ftn_database {
 
     my($db_handle, $database_name) = @_;
 
@@ -182,7 +182,7 @@ using a mysql database:
     };
     my $db_handle = open_ftn_database(\%db_option);
     ...
-    drop_ftndb($db_handle, $database_name);
+    drop_ftn_database($db_handle, $database_name);
     close_ftn_database($db_handle);
 
 
