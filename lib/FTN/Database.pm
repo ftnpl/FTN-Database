@@ -24,14 +24,14 @@ SQL database engine is one for which a DBD module exists, defaulting to SQLite.
 
 =head1 EXPORT
 
-The following functions are available in this module:  create_ftndb, open_ftndb,
+The following functions are available in this module:  create_ftn_database, open_ftndb,
 close_ftndb, and drop_ftndb.
 
 =head1 FUNCTIONS
 
-=head2 create_ftndb
+=head2 create_ftn_database
 
-Syntax:  create_ftndb($db_handle, $database_name);
+Syntax:  create_ftn_database($db_handle, $database_name);
 
 Create an SQL database for use for Fidonet/FTN processing, where
 $db_handle is an existing open database handle and $database_name
@@ -39,7 +39,7 @@ is the name of the database being created.
 
 =cut
 
-sub create_ftndb {
+sub create_ftn_database {
 
     my($db_handle, $database_name) = @_;
 
@@ -164,7 +164,7 @@ mysql database:
 	Password = $db_password,
     };
     my $db_handle = open_ftndb(\%db_option);
-    create_ftndb($db_handle, $database_name);
+    create_ftn_database($db_handle, $database_name);
     ...
     close_ftndb($db_handle);
 
