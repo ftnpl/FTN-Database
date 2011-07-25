@@ -19,11 +19,11 @@ ftnpldb-admin - Administration of an SQL database for Fidonet/FTN processing.
 
 =head1 VERSION
 
-Version 0.22
+Version 0.23
 
 =cut
 
-our $VERSION = 0.22;
+our $VERSION = 0.23;
 
 =head1 DESCRIPTION
 
@@ -233,7 +233,7 @@ if (lc($command) eq 'create') {
     call drop_ftn_database();
 
     } elsif (lc($command) eq 'table') {
-    #  Drop an FTN nodelist table
+    #  Drop an FTN table
     drop_ftn_table();
 
     } else {
@@ -335,7 +335,7 @@ sub create_ftn_nodelist_table {
 
     # drop the old nodelist table, if it exists.
     logging($log_file, $log_id, "Dropping existing nodelist table $table_name if it already exists.");
-    FTN::Database::Nodelist::drop_nodelist_table($db_handle, $table_name);
+    FTN::Database::drop_ftndb_table($db_handle, $table_name);
 
     # Create nodelist table
     FTN::Database::Nodelist::create_nodelist_table($db_handle, $table_name);
@@ -352,7 +352,7 @@ sub create_ftn_nodelist_table {
 }
 
 ########################################################################
-# Drop an FTN (nodelist) database table
+# Drop an FTN database table
 ########################################################################
 sub drop_ftn_table {
 
@@ -361,7 +361,7 @@ sub drop_ftn_table {
 
     # drop the old database table, if it exists.
     logging($log_file, $log_id, "Dropping existing $table_name if it already exists.");
-    FTN::Database::Nodelist::drop_nodelist_table($db_handle, $table_name);
+    FTN::Database::drop_ftndb_table($db_handle, $table_name);
 
     # disconnect from database
     FTN::Database::close_ftn_database($db_handle);
