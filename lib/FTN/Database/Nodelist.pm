@@ -88,7 +88,7 @@ sub drop_nodelist_table {
     $db_handle->do("$sql_statement") or croak($DBI::errstr);
 
     return(0);
-    
+
 }
 
 =head2 create_ftnnode_index
@@ -112,7 +112,7 @@ sub create_ftnnode_index {
     $db_handle->do("$sql_statement") or croak($DBI::errstr);
 
     return(0);
-    
+
 }
 
 =head2 drop_ftnnode_index
@@ -134,7 +134,7 @@ sub drop_ftnnode_index {
     $db_handle->do("$sql_statement") or croak($DBI::errstr);
 
     return(0);
-    
+
 }
 
 =head2 remove_ftn_domain
@@ -157,7 +157,7 @@ sub remove_ftn_domain {
     $db_handle->do("$sql_statement") or croak($DBI::errstr);
 
     return(0);
-    
+
 }
 
 =head1 EXAMPLES

@@ -213,16 +213,16 @@ if (lc($command) eq 'create') {
 
     $command = shift;
     if (lc($command) eq 'database') {
-	create_ftn_database();
+    create_ftn_database();
 
     } elsif (lc($command) eq 'table') {
-	#  Create an FTN nodelist table
-	create_ftn_nodelist_table();
+    #  Create an FTN nodelist table
+    create_ftn_nodelist_table();
 
     } else {
-	print {*STDERR} "Unrecognized parameter for \'create\' command.\n";
-	HELP_MESSAGE(*STDERR);
-	exit 1;
+    print {*STDERR} "Unrecognized parameter for \'create\' command.\n";
+    HELP_MESSAGE(*STDERR);
+    exit 1;
 
     }   # End parsing of 'create' command
 
@@ -230,16 +230,16 @@ if (lc($command) eq 'create') {
 
     $command = shift;
     if (lc($command) eq 'database') {
-	call drop_ftn_database();
+    call drop_ftn_database();
 
     } elsif (lc($command) eq 'table') {
-	#  Drop an FTN nodelist table
-	drop_ftn_table();
+    #  Drop an FTN nodelist table
+    drop_ftn_table();
 
     } else {
-	print {*STDERR} "Unrecognized parameter for \'drop\' command.\n";
-	HELP_MESSAGE(*STDERR);
-	exit 1;
+    print {*STDERR} "Unrecognized parameter for \'drop\' command.\n";
+    HELP_MESSAGE(*STDERR);
+    exit 1;
 
     }   # End parsing of 'drop' command
 
@@ -261,7 +261,7 @@ exit 0;
 sub HELP_MESSAGE {
 
     my $fh = shift;
-    
+
     print {$fh} "\n\tSynopsis:\n";
     print {$fh} "ftnpldb-admin -c config_file [options] [-d databasename] create|drop database\n";
     print {$fh} "ftnpldb-admin -c config_file [options] [-t tablename] create|drop table\n";

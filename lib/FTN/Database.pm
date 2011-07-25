@@ -48,7 +48,7 @@ sub create_ftn_database {
     $db_handle->do("$sql_statement") or croak($DBI::errstr);
 
     return(0);
-    
+
 }
 
 =head2 open_ftn_database
@@ -61,22 +61,22 @@ hash contains the following items:
 
 =over
 
-=item	Type
+=item   Type
 
 The database type.  This needs to be a database type for which 
 a DBD module exists, the type being the name as used in the DBD
 module.  The default type to be used is SQLite.
 
-=item	Name
+=item   Name
 
 The name of the database to be opened.  If the Type is SQLite, this
 is a filename and path to the database file.
 
-=item	User
+=item   User
 
 The database user, which should already have the neccesary priviledges.
 
-=item	Password
+=item   Password
 
 The database password for the database user.
 
@@ -92,13 +92,13 @@ sub open_ftn_database {
     my $option = shift;
 
     ( my $db_handle = DBI->connect(
-    		"dbi:${$option}{'Type'}:dbname=${$option}{'Name'}",
-    		${$option}{'User'},
-    		${$option}{'Password'} ) )
-	or croak($DBI::errstr);
+        "dbi:${$option}{'Type'}:dbname=${$option}{'Name'}",
+        ${$option}{'User'},
+        ${$option}{'Password'} ) )
+    or croak($DBI::errstr);
 
     return($db_handle);
-    
+
 }
 
 =head2 close_ftn_database
@@ -116,7 +116,7 @@ sub close_ftn_database {
     ( $db_handle->disconnect ) or croak($DBI::errstr);
 
     return(0);
-    
+
 }
 
 =head2 drop_ftn_database
@@ -138,7 +138,7 @@ sub drop_ftn_database {
     $db_handle->do("$sql_statement") or croak($DBI::errstr);
 
     return(0);
-    
+
 }
 
 =head1 EXAMPLES
@@ -158,10 +158,10 @@ mysql database:
 
     my $database_name = "ftndbtst";
     my $db_option = {
-	Type = "mysql",
-	Name = "mysql",
-	User = $db_user,
-	Password = $db_password,
+    Type = "mysql",
+    Name = "mysql",
+    User = $db_user,
+    Password = $db_password,
     };
     my $db_handle = open_ftn_database(\%db_option);
     create_ftn_database($db_handle, $database_name);
@@ -175,10 +175,10 @@ using a mysql database:
 
     my $database_name = "ftndbtst";
     my $db_option = {
-	Type = "mysql",
-	Name = "mysql",
-	User = $db_user,
-	Password = $db_password,
+    Type = "mysql",
+    Name = "mysql",
+    User = $db_user,
+    Password = $db_password,
     };
     my $db_handle = open_ftn_database(\%db_option);
     ...
