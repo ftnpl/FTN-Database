@@ -10,11 +10,11 @@ FTN::Database - FTN SQL Database related operations for Fidonet/FTN related proc
 
 =head1 VERSION
 
-Version 0.21
+Version 0.22
 
 =cut
 
-our $VERSION = '0.21';
+our $VERSION = '0.22';
 
 =head1 DESCRIPTION
 
@@ -24,14 +24,14 @@ SQL database engine is one for which a DBD module exists, defaulting to SQLite.
 
 =head1 EXPORT
 
-The following functions are available in this module:  create_ftndb, open_ftndb,
-close_ftndb, and drop_ftndb.
+The following functions are available in this module:  create_ftn_database, open_ftn_database,
+close_ftn_database, and drop_ftn_database.
 
 =head1 FUNCTIONS
 
-=head2 create_ftndb
+=head2 create_ftn_database
 
-Syntax:  create_ftndb($db_handle, $database_name);
+Syntax:  create_ftn_database($db_handle, $database_name);
 
 Create an SQL database for use for Fidonet/FTN processing, where
 $db_handle is an existing open database handle and $database_name
@@ -39,7 +39,7 @@ is the name of the database being created.
 
 =cut
 
-sub create_ftndb {
+sub create_ftn_database {
 
     my($db_handle, $database_name) = @_;
 
@@ -48,12 +48,12 @@ sub create_ftndb {
     $db_handle->do("$sql_statement") or croak($DBI::errstr);
 
     return(0);
-    
+
 }
 
-=head2 open_ftndb
+=head2 open_ftn_database
 
-Syntax:  $db_handle = open_ftndb(\%db_options);
+Syntax:  $db_handle = open_ftn_database(\%db_options);
 
 Open a database for Fidonet/FTN processing, where $db_handle is the
 database handle being returned to the calling program and the referenced
@@ -61,22 +61,22 @@ hash contains the following items:
 
 =over
 
-=item	Type
+=item   Type
 
 The database type.  This needs to be a database type for which 
 a DBD module exists, the type being the name as used in the DBD
 module.  The default type to be used is SQLite.
 
-=item	Name
+=item   Name
 
 The name of the database to be opened.  If the Type is SQLite, this
 is a filename and path to the database file.
 
-=item	User
+=item   User
 
 The database user, which should already have the neccesary priviledges.
 
-=item	Password
+=item   Password
 
 The database password for the database user.
 
@@ -84,7 +84,7 @@ The database password for the database user.
 
 =cut
 
-sub open_ftndb {
+sub open_ftn_database {
 
     use DBI;
 
@@ -92,36 +92,36 @@ sub open_ftndb {
     my $option = shift;
 
     ( my $db_handle = DBI->connect(
-    		"dbi:${$option}{'Type'}:dbname=${$option}{'Name'}",
-    		${$option}{'User'},
-    		${$option}{'Password'} ) )
-	or croak($DBI::errstr);
+        "dbi:${$option}{'Type'}:dbname=${$option}{'Name'}",
+        ${$option}{'User'},
+        ${$option}{'Password'} ) )
+    or croak($DBI::errstr);
 
     return($db_handle);
-    
+
 }
 
-=head2 close_ftndb
+=head2 close_ftn_database
 
-Syntax:  close_ftndb($db_handle);
+Syntax:  close_ftn_database($db_handle);
 
 Closing an FTN database, where $db_handle is an existing open database handle.
 
 =cut
 
-sub close_ftndb {
+sub close_ftn_database {
 
     my $db_handle = shift;
 
     ( $db_handle->disconnect ) or croak($DBI::errstr);
 
     return(0);
-    
+
 }
 
-=head2 drop_ftndb
+=head2 drop_ftn_database
 
-Syntax:  drop_ftndb($db_handle, $database_name);
+Syntax:  drop_ftn_database($db_handle, $database_name);
 
 Drop an SQL database being used for Fidonet/FTN processing if
 it exists, where $db_handle is an existing open database handle
@@ -129,7 +129,7 @@ and $database_name is the name of the database being dropped.
 
 =cut
 
-sub drop_ftndb {
+sub drop_ftn_database {
 
     my($db_handle, $database_name) = @_;
 
@@ -138,7 +138,7 @@ sub drop_ftndb {
     $db_handle->do("$sql_statement") or croak($DBI::errstr);
 
     return(0);
-    
+
 }
 
 =head1 EXAMPLES
@@ -147,9 +147,9 @@ An example of opening an FTN database, then closing it:
 
     use FTN::Database;
 
-    my $db_handle = open_ftndb(\%db_option);
+    my $db_handle = open_ftn_database(\%db_option);
     ...
-    close_ftndb($db_handle);
+    close_ftn_database($db_handle);
 
 An example of creating a database for FTN related processing, using a
 mysql database:
@@ -158,15 +158,15 @@ mysql database:
 
     my $database_name = "ftndbtst";
     my $db_option = {
-	Type = "mysql",
-	Name = "mysql",
-	User = $db_user,
-	Password = $db_password,
+    Type = "mysql",
+    Name = "mysql",
+    User = $db_user,
+    Password = $db_password,
     };
-    my $db_handle = open_ftndb(\%db_option);
-    create_ftndb($db_handle, $database_name);
+    my $db_handle = open_ftn_database(\%db_option);
+    create_ftn_database($db_handle, $database_name);
     ...
-    close_ftndb($db_handle);
+    close_ftn_database($db_handle);
 
 An example of dropping a database being used for FTN related processing,
 using a mysql database:
@@ -175,15 +175,15 @@ using a mysql database:
 
     my $database_name = "ftndbtst";
     my $db_option = {
-	Type = "mysql",
-	Name = "mysql",
-	User = $db_user,
-	Password = $db_password,
+    Type = "mysql",
+    Name = "mysql",
+    User = $db_user,
+    Password = $db_password,
     };
-    my $db_handle = open_ftndb(\%db_option);
+    my $db_handle = open_ftn_database(\%db_option);
     ...
-    drop_ftndb($db_handle, $database_name);
-    close_ftndb($db_handle);
+    drop_ftn_database($db_handle, $database_name);
+    close_ftn_database($db_handle);
 
 
 =head1 AUTHOR

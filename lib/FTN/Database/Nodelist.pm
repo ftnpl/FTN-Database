@@ -10,11 +10,11 @@ FTN::Database::Nodelist - Fidonet/FTN Nodelist SQL Database operations.
 
 =head1 VERSION
 
-Version 0.21
+Version 0.22
 
 =cut
 
-our $VERSION = '0.21';
+our $VERSION = '0.22';
 
 =head1 DESCRIPTION
 
@@ -88,7 +88,7 @@ sub drop_nodelist_table {
     $db_handle->do("$sql_statement") or croak($DBI::errstr);
 
     return(0);
-    
+
 }
 
 =head2 create_ftnnode_index
@@ -112,7 +112,7 @@ sub create_ftnnode_index {
     $db_handle->do("$sql_statement") or croak($DBI::errstr);
 
     return(0);
-    
+
 }
 
 =head2 drop_ftnnode_index
@@ -134,7 +134,7 @@ sub drop_ftnnode_index {
     $db_handle->do("$sql_statement") or croak($DBI::errstr);
 
     return(0);
-    
+
 }
 
 =head2 remove_ftn_domain
@@ -157,7 +157,7 @@ sub remove_ftn_domain {
     $db_handle->do("$sql_statement") or croak($DBI::errstr);
 
     return(0);
-    
+
 }
 
 =head1 EXAMPLES
@@ -168,11 +168,11 @@ the database:
 
     use FTN::Database::Nodelist;
 
-    my $db_handle = open_ftndb(\%db_option);
+    my $db_handle = open_ftn_database(\%db_option);
     create_nodelist_table($db_handle, $table_name);
     ...   (Load data to nodelist table)
     create_ftnnode_index($db_handle, $table_name);
-    close_ftndb($db_handle);
+    close_ftn_database($db_handle);
 
 =head1 AUTHOR
 

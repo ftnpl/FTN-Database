@@ -1,11 +1,12 @@
-To Do:
+FTN::Database To Do:
+
 
 General
 --------
 
-- Change emphasis of distibution rather than name;  i.e. that it is an
-application consisting of related scripts and associated modules, rather
-than modules with associated scripts.
+- Separate out the submodules, like FTN::Database::Nodelist and
+FTN::Database::Echolist (when implemented), into separate distributions
+so that only the functionality that's wanted needs to be installed?
 
 - Change this TODO document into being a pod document, perhaps explicitly as
 something like the module FTN::Database::ToDo?  Or use the ftnpldb namespace
@@ -37,27 +38,20 @@ and not declared globally.
 
 - The option used to define which type of database to use does not currently
 do any error checking on that type;  the script will fail if a correct DBD name
-is not used.  If do not explicitly do such error or other checking, document
-the standard names for DBI DBD modules like SQlite (default), mysql, cvs, and
-postgresql.
+is not used.  Get & use a list of the currently installed DBI DBD modules?  If
+do not explicitly do such error or other checking, document the standard names
+for DBI DBD modules like SQlite (default), mysql, cvs, and postgresql.
 
 - The use of special characters like periods in table names is a more general
 issue where it is not a good idea to use them at all.  Redo the comments in
 scripts and modules regarding that, to generalize it.  (Derive function to
 validate it and add th at to the FTN::Database module?)
 
-- Separate out the submodules, like FTN::Database::Nodelist and
-FTN::Database::Echolist (when implemented), into separate distributions
-so that only the functionality that's wanted needs to be installed?  Or
-just do that separately as, for instance, part of the Debian packaging? 
-I.E.;  single source package, but separate binary packages for the libraries
-and scripts? 
 
 
 FTN::Database
 --------------
 - Export the commonly used functions by default.
-- Rename the create_ftndb subroutine to create_ftn[db]_database.
 - Derive a generic create_ftn_table subroutine from the create_nodelist_table
   function in FTN::Database::Nodelist, using a variable in the sql for the
   table definition. Then change the create_nodelist_table function to use it.
@@ -73,6 +67,11 @@ FTN::Database
 FTN::Database::Nodelist
 ------------------------
 - Export the commonly used functions by default.
+- Two additional fields;  one for the year of the particular nodelist being
+  worked on, and one for the day number of the nodelist being worked on.  This
+  will allow historical nodelist information in the database. Separate index,
+  by year, day number, & nodelist(i.e., Fidonet or Linuxnet)?   Fields in DB
+  by default, with option to not use them?  Both fields would be small integers.
 - Derive and move a function for executing queries on the nodelist table from
   the code used in the list_ftn_nodelist subroutine.
 - As part of adding statistics related functions, add a function that counts
@@ -98,6 +97,8 @@ ftnpldb-admin
 
 ftnpldb-nodelist
 ----------------
+- Move create_ftn_nodelist_table from ftnpldb-admin to ftnpldb-nodelist, but
+  also leave a generic create_ftn_table subroutine there in ftnpldb-admin. 
 - The 'region' field for a zone independent node is not being set correctly
   in the database;  example 2:2/0 is being set to region 19, or 1:1/0
   which is being set to 0.  Should be set to the same as the zone number.
@@ -106,15 +107,13 @@ ftnpldb-nodelist
   it could be used by more than just the load command?
 - Add cammands to create or drop the ftnnode index on the nodelist
   table?
-- Move create_ftn_nodelist_table from ftnpldb-admin to ftnpldb-nodelist, but
-  also leave a generic create_ftn_table subroutine there in ftnpldb-admin. 
 - Script does not seem to properly handle a file that ends in just blank
   lines, instead of a content line or a ^Z character. (Should fail gracefully
   for a badly formatted file.)
 - The list of nodelist files is being reverse sorted when there are multiple
   nodelists of the same basename being processed;  that takes care of a set
   of files all from the same year but not ones that are from different years.
-- Add a test nodelist for use with this?...
+- Add a test nodelist for use with this?
 - Use a template framework of some sort instead of the builtin 'format'
   operations for the reporting functionality. Add the type field to the
   List command output?  Redo the header (extra line)?
