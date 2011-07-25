@@ -25,7 +25,7 @@ SQL database engine is one for which a DBD module exists, defaulting to SQLite.
 =head1 EXPORT
 
 The following functions are available in this module:  create_ftn_database, open_ftndb,
-close_ftndb, and drop_ftndb.
+close_ftn_database, and drop_ftndb.
 
 =head1 FUNCTIONS
 
@@ -101,15 +101,15 @@ sub open_ftndb {
     
 }
 
-=head2 close_ftndb
+=head2 close_ftn_database
 
-Syntax:  close_ftndb($db_handle);
+Syntax:  close_ftn_database($db_handle);
 
 Closing an FTN database, where $db_handle is an existing open database handle.
 
 =cut
 
-sub close_ftndb {
+sub close_ftn_database {
 
     my $db_handle = shift;
 
@@ -149,7 +149,7 @@ An example of opening an FTN database, then closing it:
 
     my $db_handle = open_ftndb(\%db_option);
     ...
-    close_ftndb($db_handle);
+    close_ftn_database($db_handle);
 
 An example of creating a database for FTN related processing, using a
 mysql database:
@@ -166,7 +166,7 @@ mysql database:
     my $db_handle = open_ftndb(\%db_option);
     create_ftn_database($db_handle, $database_name);
     ...
-    close_ftndb($db_handle);
+    close_ftn_database($db_handle);
 
 An example of dropping a database being used for FTN related processing,
 using a mysql database:
@@ -183,7 +183,7 @@ using a mysql database:
     my $db_handle = open_ftndb(\%db_option);
     ...
     drop_ftndb($db_handle, $database_name);
-    close_ftndb($db_handle);
+    close_ftn_database($db_handle);
 
 
 =head1 AUTHOR

@@ -172,7 +172,7 @@ the database:
     create_nodelist_table($db_handle, $table_name);
     ...   (Load data to nodelist table)
     create_ftnnode_index($db_handle, $table_name);
-    close_ftndb($db_handle);
+    close_ftn_database($db_handle);
 
 =head1 AUTHOR
 
