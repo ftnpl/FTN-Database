@@ -7,8 +7,8 @@ use vars qw/ $opt_c $opt_n $opt_f $opt_e $opt_d $opt_o $opt_h $opt_t $opt_v $opt
 use Config::Tiny;
 use File::Spec;
 
-use FTN::Database qw(&open_ftn_database &close_ftn_database);
-use FTN::Database::Nodelist qw(&create_ftnnode_index &drop_ftnnode_index);
+use FTN::Database qw(&open_ftn_database &close_ftn_database &drop_ftnnode_index);
+use FTN::Database::Nodelist qw(&create_ftnnode_index);
 use FTN::Log qw(&logging);
 
 $Getopt::Std::STANDARD_HELP_VERSION = 1;
@@ -361,9 +361,9 @@ sub load_ftn_nodelist {
     #   remove any and all entries where domain = $domain when doing an insert to the table
     FTN::Database::Nodelist::remove_ftn_domain($db_handle, $table_name, $domain);
 
-    # drop the old nodelist table index, if it exists.
-    logging($log_file, $log_id, 'Dropping existing nodelist table index if it already exists.');
-    FTN::Database::Nodelist::drop_ftnnode_index($db_handle);
+    # drop the old nodelist table index 'ftnnode', if it exists.
+    logging($log_file, $log_id, 'Dropping existing nodelist table index ftnnode if it already exists.');
+    FTN::Database::drop_ftn_index($db_handle, 'ftnnode');
 
     if ($opt_v) {
     logging($log_file, $log_id, "Loading database from nodelist $nodelist_file");
