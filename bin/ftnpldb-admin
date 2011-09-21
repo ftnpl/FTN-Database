@@ -19,11 +19,11 @@ ftnpldb-admin - Administration of an SQL database for Fidonet/FTN processing.
 
 =head1 VERSION
 
-Version 0.23
+Version 0.24
 
 =cut
 
-our $VERSION = 0.23;
+our $VERSION = 0.24;
 
 =head1 DESCRIPTION
 
@@ -335,7 +335,7 @@ sub create_ftn_nodelist_table {
 
     # drop the old nodelist table, if it exists.
     logging($log_file, $log_id, "Dropping existing nodelist table $table_name if it already exists.");
-    FTN::Database::drop_ftndb_table($db_handle, $table_name);
+    FTN::Database::drop_ftn_table($db_handle, $table_name);
 
     # Create nodelist table
     FTN::Database::Nodelist::create_nodelist_table($db_handle, $table_name);
@@ -361,7 +361,7 @@ sub drop_ftn_table {
 
     # drop the old database table, if it exists.
     logging($log_file, $log_id, "Dropping existing $table_name if it already exists.");
-    FTN::Database::drop_ftndb_table($db_handle, $table_name);
+    FTN::Database::drop_ftn_table($db_handle, $table_name);
 
     # disconnect from database
     FTN::Database::close_ftn_database($db_handle);
@@ -462,7 +462,7 @@ Robert James Clay, C<< <jame at rocasa.us> >>
 =head1 BUGS
 
 Please report any bugs or feature requests via the web interface at
-L<https://github.com/jame/FTN-Database/issues>. I will be notified,
+L<https://github.com/ftnpl/FTN-Database/issues>. I will be notified,
 and then you'll automatically be notified of progress on your bug
 as I make changes.
 
@@ -485,7 +485,7 @@ You can also look for information at:
 
 =item * FTN-Database issue tracker
 
-L<https://github.com/jame/FTN-Database/issues>
+L<https://github.com/ftnpl/FTN-Database/issues>
 
 =item * RT: CPAN's request tracker
 
