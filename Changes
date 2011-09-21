@@ -1,7 +1,11 @@
 Revision history for FTN-Database (ftnpldb)
 
-0.24    Day Mon dd hh:mm 2011
-    - Bump version to v0.24.
+0.24    Wed Sep 21 15:31 2011
+    - Correct GitHub ftnpl project Issues references.
+    - Rename the drop_ftndb_table function to drop_ftn_table.
+    - Derive a drop_ftn_index function from the drop_ftnnode_index function.
+    - Changed ftnpldb-nodelist script to use the new drop_ftn_index function.
+    - Removed the old drop_ftnnode_index function.
 
 0.23    Mon Jul 25 11:44 2011
     - Derive a drop_ftn_table function from the drop_nodelist_table function.
