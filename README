@@ -43,7 +43,7 @@ the perldoc command.
 You can also look for information at:
 
     FTN-Database Issue tracker
-        https://github.com/jame/FTN-Database/issues
+        https://github.com/ftnpl/FTN-Database/issues
 
     RT, CPAN's request tracker
         http://rt.cpan.org/NoAuth/Bugs.html?Dist=FTN-Database
