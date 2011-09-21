@@ -1,5 +1,8 @@
 Revision history for FTN-Database (ftnpldb)
 
+0.24    Day Mon dd hh:mm 2011
+    - Bump version to v0.24.
+
 0.23    Mon Jul 25 11:44 2011
     - Derive a drop_ftn_table function from the drop_nodelist_table function.
     - Change the ftnpldb-admin script to use the new drop_ftndb_table function.
