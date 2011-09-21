@@ -93,28 +93,6 @@ sub create_ftnnode_index {
 
 }
 
-=head2 drop_ftnnode_index
-
-Syntax:  drop_ftnnode_index($db_handle);
-
-Drop an index named ftnnode on an FTN Nodelist table in an SQL database being
-used for Fidonet/FTN processing if it exists, where $db_handle is an existing
-open database handle.
-
-=cut
-
-sub drop_ftnnode_index {
-
-    my $db_handle = shift;
-
-    my $sql_statement = "DROP INDEX IF EXISTS ftnnode";
-
-    $db_handle->do("$sql_statement") or croak($DBI::errstr);
-
-    return(0);
-
-}
-
 =head2 remove_ftn_domain
 
 Syntax:  remove_ftn_domain($db_handle, $table_name, $domain);
