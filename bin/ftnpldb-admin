@@ -7,8 +7,8 @@ use vars qw/ $opt_c $opt_t $opt_d $opt_h $opt_v $opt_x /;
 use Config::Tiny;
 use File::Spec;
 
-use FTN::Database qw(&create_ftn_database &drop_ftn_database &open_ftn_database &close_ftn_database &create_ftn_index);
-use FTN::Database::Nodelist qw(&create_nodelist_table &drop_nodelist_table &drop_ftnnode_index);
+use FTN::Database qw(&create_ftn_database &drop_ftn_database &open_ftn_database &close_ftn_database &create_ftn_index &drop_ftn_index);
+use FTN::Database::Nodelist qw(&create_nodelist_table &drop_nodelist_table);
 use FTN::Log qw(&logging);
 
 $Getopt::Std::STANDARD_HELP_VERSION = 1;
@@ -331,7 +331,7 @@ sub create_ftn_nodelist_table {
     $db_handle = FTN::Database::open_ftn_database(\%db_option);
 
     # drop the old nodelist table index, if it exists.
-    FTN::Database::Nodelist::drop_ftnnode_index($db_handle);
+    FTN::Database::drop_ftn_index($db_handle, 'ftnnode');
 
     # drop the old nodelist table, if it exists.
     logging($log_file, $log_id, "Dropping existing nodelist table $table_name if it already exists.");
