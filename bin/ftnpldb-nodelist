@@ -7,8 +7,8 @@ use vars qw/ $opt_c $opt_n $opt_f $opt_e $opt_d $opt_o $opt_h $opt_t $opt_v $opt
 use Config::Tiny;
 use File::Spec;
 
-use FTN::Database qw(&open_ftn_database &close_ftn_database &drop_ftnnode_index);
-use FTN::Database::Nodelist qw(&create_ftnnode_index);
+use FTN::Database qw(&open_ftn_database &close_ftn_database &create_ftn_index &drop_ftn_index);
+use FTN::Database::Nodelist;
 use FTN::Log qw(&logging);
 
 $Getopt::Std::STANDARD_HELP_VERSION = 1;
@@ -19,11 +19,11 @@ ftnpldb-nodelist - Fidonet/FTN Nodelist related processing using an SQL Database
 
 =head1 VERSION
 
-Version 0.24
+Version 0.25
 
 =cut
 
-our $VERSION = 0.24;
+our $VERSION = 0.25;
 
 =head1 DESCRIPTION
 
@@ -440,7 +440,9 @@ sub load_ftn_nodelist {
 
     if ($opt_v) { logging($log_file, $log_id, 'Create ftnnode index'); }
     # Recreate ftnnode Index
-    FTN::Database::Nodelist::create_ftnnode_index($db_handle, $table_name);
+    my $index_name = 'ftnnode';
+    my $index_fields = 'zone,net,node,point,domain';
+    FTN::Database::create_ftn_index($db_handle, $table_name, $index_name, $index_fields);
 
     if ($opt_v) { logging($log_file, $log_id, 'Closing database'); }
     # disconnect from database

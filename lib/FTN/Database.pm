@@ -10,11 +10,11 @@ FTN::Database - FTN SQL Database related operations for Fidonet/FTN related proc
 
 =head1 VERSION
 
-Version 0.24
+Version 0.25
 
 =cut
 
-our $VERSION = '0.24';
+our $VERSION = '0.25';
 
 =head1 DESCRIPTION
 
@@ -25,7 +25,7 @@ SQL database engine is one for which a DBD module exists, defaulting to SQLite.
 =head1 EXPORT
 
 The following functions are available in this module:  create_ftn_database, open_ftn_database,
-close_ftn_database, drop_ftn_database, drop_ftn_table, and drop_ftn_index.
+close_ftn_database, drop_ftn_database, drop_ftn_table, create_ftn_index, and drop_ftn_index.
 
 =head1 FUNCTIONS
 
@@ -156,6 +156,31 @@ sub drop_ftn_table {
     my($db_handle, $table_name) = @_;
 
     my $sql_statement = "DROP TABLE IF EXISTS $table_name";
+
+    $db_handle->do("$sql_statement") or croak($DBI::errstr);
+
+    return(0);
+
+}
+
+=head2 create_ftn_index
+
+Syntax:  create_ftn_index($db_handle, $table_name, $index_name, $indexed_fields);
+
+Create an index named $index_name on table $table_name in an SQL database being
+used for Fidonet/FTN processing;  where $db_handle is an existing open database
+handle, the $table_name is the name of the table that is being indexed, and
+$index_name is the name of the index itself.  The index is created on the
+fields listed in $indexed_fields, with the field names separated by commas.
+
+=cut
+
+sub create_ftn_index {
+
+    my($db_handle, $table_name, $index_name, $indexed_fields) = @_;
+
+    my $sql_statement = "CREATE INDEX $index_name ";
+    $sql_statement .= "ON $table_name ($indexed_fields) ";
 
     $db_handle->do("$sql_statement") or croak($DBI::errstr);
 

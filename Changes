@@ -1,5 +1,12 @@
 Revision history for FTN-Database (ftnpldb)
 
+0.25    Sun Nov 06 14:02 2011
+    - Correct the ftnpldb-admin script to use the drop_ftn_index subroutine.
+    - Derive the initial version of the new create_ftn_index subroutine from
+      the create_ftnnode_index function in FTN::Database::Nodelist.
+    - Change the ftnpldb-nodelist and ftnpldb-admin scripts to use the new
+      create_ftn_index subroutine.
+
 0.24    Wed Sep 21 15:31 2011
     - Correct GitHub ftnpl project Issues references.
     - Rename the drop_ftndb_table function to drop_ftn_table.
