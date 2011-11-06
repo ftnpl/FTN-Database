@@ -7,8 +7,8 @@ use vars qw/ $opt_c $opt_t $opt_d $opt_h $opt_v $opt_x /;
 use Config::Tiny;
 use File::Spec;
 
-use FTN::Database qw(&create_ftn_database &drop_ftn_database &open_ftn_database &close_ftn_database);
-use FTN::Database::Nodelist qw(&create_nodelist_table &drop_nodelist_table &create_ftnnode_index &drop_ftnnode_index);
+use FTN::Database qw(&create_ftn_database &drop_ftn_database &open_ftn_database &close_ftn_database &create_ftn_index);
+use FTN::Database::Nodelist qw(&create_nodelist_table &drop_nodelist_table &drop_ftnnode_index);
 use FTN::Log qw(&logging);
 
 $Getopt::Std::STANDARD_HELP_VERSION = 1;
@@ -341,7 +341,9 @@ sub create_ftn_nodelist_table {
     FTN::Database::Nodelist::create_nodelist_table($db_handle, $table_name);
 
     # Creating Index
-    FTN::Database::Nodelist::create_ftnnode_index($db_handle, $table_name);
+    my $index_name = 'ftnnode';
+    my $index_fields = 'zone,net,node,point,domain';
+    FTN::Database::create_ftn_index($db_handle, $table_name, $index_name, $index_fields);
 
     # disconnect from database
     FTN::Database::close_ftn_database($db_handle);
