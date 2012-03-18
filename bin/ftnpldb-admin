@@ -19,11 +19,11 @@ ftnpldb-admin - Administration of an SQL database for Fidonet/FTN processing.
 
 =head1 VERSION
 
-Version 0.28
+Version 0.29
 
 =cut
 
-our $VERSION = '0.28';
+our $VERSION = '0.29';
 
 =head1 DESCRIPTION
 
@@ -338,7 +338,7 @@ sub create_ftn_nodelist_table {
     FTN::Database::drop_ftn_table($db_handle, $table_name);
 
     # Create nodelist table
-    FTN::Database::Nodelist::create_nodelist_table($db_handle, $table_name);
+    FTN::Database::Nodelist::create_nodelist_table($db_handle, $table_name, $db_option{'Type'});
 
     # Creating Index
     my $index_name = 'ftnnode';

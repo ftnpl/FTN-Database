@@ -10,11 +10,11 @@ FTN::Database::Nodelist - Fidonet/FTN Nodelist SQL Database operations.
 
 =head1 VERSION
 
-Version 0.28
+Version 0.29
 
 =cut
 
-our $VERSION = '0.28';
+our $VERSION = '0.29';
 
 =head1 DESCRIPTION
 
@@ -31,21 +31,25 @@ drop_nodelist_table(), create_ftnnode_index(), remove_ftn_domain().
 
 =head2 create_nodelist_table
 
-Syntax:  create_nodelist_table($db_handle, $table_name);
+Syntax:  create_nodelist_table($db_handle, $table_name, $db_type);
 
 Create an FTN Nodelist table in an SQL database being used for Fidonet/FTN
-processing, where $db_handle is an existing open database handle and $table_name
-is the name of the table to be created.
+processing, where $db_handle is an existing open database handle, $table_name
+is the name of the table to be created, and $db_type is the type of database.
 
 =cut
 
 sub create_nodelist_table {
 
-    my($db_handle, $table_name) = @_;
+    my($db_handle, $table_name, $db_type) = @_;
 
     my $sql_statement = "CREATE TABLE $table_name( ";
-
-    $sql_statement .= "id	INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, ";
+    # If DB type is PostgreSQL, use SERIAL; else use INTEGER & AUTOINCREMENT
+    if ($db_type eq 'Pg') {
+        $sql_statement .= "id   SERIAL PRIMARY KEY NOT NULL, ";
+    } else {
+        $sql_statement .= "id   INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, ";
+    }
     $sql_statement .= "type      VARCHAR(6) DEFAULT '' NOT NULL, ";
     $sql_statement .= "zone      SMALLINT  DEFAULT '1' NOT NULL, ";
     $sql_statement .= "net       SMALLINT  DEFAULT '1' NOT NULL, ";

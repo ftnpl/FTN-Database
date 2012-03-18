@@ -1,5 +1,9 @@
 Revision history for FTN-Database (ftnpldb)
 
+0.29    Sun Mar 18 18:28 2012
+    - Use the database type for the 'id' field selection in the function
+      create_nodelist_table.
+
 0.28    Sun Mar 18 15:56 2012
     - Add $ftnyear and $yearday to the list_ftn_nodelist bind_columns call in
       ftnpldb-nodelist.
