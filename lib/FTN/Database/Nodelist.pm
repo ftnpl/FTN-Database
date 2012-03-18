@@ -52,7 +52,7 @@ sub create_nodelist_table {
     $sql_statement .= "node      SMALLINT  DEFAULT '1' NOT NULL, ";
     $sql_statement .= "point     SMALLINT  DEFAULT '0' NOT NULL, ";
     $sql_statement .= "region    SMALLINT  DEFAULT '0' NOT NULL, ";
-    $sql_statement .= "name      VARCHAR(32) DEFAULT '' NOT NULL, ";
+    $sql_statement .= "name      VARCHAR(48) DEFAULT '' NOT NULL, ";
     $sql_statement .= "location  VARCHAR(32) DEFAULT '' NOT NULL, ";
     $sql_statement .= "sysop     VARCHAR(32) DEFAULT '' NOT NULL, ";
     $sql_statement .= "phone     VARCHAR(20) DEFAULT '000-000-000-000' NOT NULL, ";
