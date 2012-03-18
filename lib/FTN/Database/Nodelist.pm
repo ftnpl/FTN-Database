@@ -57,7 +57,7 @@ sub create_nodelist_table {
     $sql_statement .= "sysop     VARCHAR(32) DEFAULT '' NOT NULL, ";
     $sql_statement .= "phone     VARCHAR(20) DEFAULT '000-000-000-000' NOT NULL, ";
     $sql_statement .= "baud      CHAR(6) DEFAULT '300' NOT NULL, ";
-    $sql_statement .= "flags     VARCHAR(64) DEFAULT ' ' NOT NULL, ";
+    $sql_statement .= "flags     VARCHAR(128) DEFAULT ' ' NOT NULL, ";
     $sql_statement .= "domain    VARCHAR(8) DEFAULT 'fidonet' NOT NULL, ";
     $sql_statement .= "source    VARCHAR(16) DEFAULT 'local' NOT NULL, ";
     $sql_statement .= "updated   TIMESTAMP(14) DEFAULT '' NOT NULL ";
