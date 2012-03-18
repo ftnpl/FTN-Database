@@ -1,5 +1,8 @@
 Revision history for FTN-Database (ftnpldb)
 
+0.26    Sun Mar 18 09:49 2011
+    - Start the development for v0.26.
+
 0.25    Sun Nov 06 14:02 2011
     - Correct the ftnpldb-admin script to use the drop_ftn_index subroutine.
     - Derive the initial version of the new create_ftn_index subroutine from
