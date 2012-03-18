@@ -51,27 +51,28 @@ validate it and add th at to the FTN::Database module?)
 
 FTN::Database
 --------------
-- Export the commonly used functions by default.
+- Export the commonly used functions by default?
+- The create_ftn_database function as currently coded really only works for
+  sqlite databases, because it uses an already open db handle and to get that
+  in for instance postgresql you need to define a database for the login.
 - Derive a generic create_ftn_table subroutine from the create_nodelist_table
   function in FTN::Database::Nodelist, using a variable in the sql for the
   table definition. Then change the create_nodelist_table function to use it.
-- Derive a generic drop_ftn_table subroutine from the drop_nodelist_table
-  function in FTN::Database::Nodelist.
-- Derive a generic drop_ftn_index subroutine from the drop_ftnnode_index
-  function in FTN::Database::Nodelist.
-- Create set_ftndb_acl subroutine? (Same reasoning as for create_ftndb.)
+- Create set_ftndb_acl subroutine? (Same reasoning as for create_ftn_database.)
 - Possible function/subroutine that checks if a valid database table name is
   being used?  And corrects it if possible?
 
 
 FTN::Database::Nodelist
 ------------------------
-- Export the commonly used functions by default.
-- Two additional fields;  one for the year of the particular nodelist being
-  worked on, and one for the day number of the nodelist being worked on.  This
-  will allow historical nodelist information in the database. Separate index,
-  by year, day number, & nodelist(i.e., Fidonet or Linuxnet)?   Fields in DB
-  by default, with option to not use them?  Both fields would be small integers.
+- Export the commonly used functions by default?
+- Add a function to enable reading the nodelist header; it will return a hash,
+  with at least the ftnyear and yearday information.
+- Derive and move function to insert or update an entry from ftnpldb-nodelist.
+  Separate functions for insert & update, or different options in same function?
+- Move get_nodelist_filename subroutine from the ftnpldb-nodelist script?
+- Use a different datatype than "TIMESTAMP" for the 'updated' field in the
+  nodelist table?  (Not generic enough?)
 - Derive and move a function for executing queries on the nodelist table from
   the code used in the list_ftn_nodelist subroutine.
 - As part of adding statistics related functions, add a function that counts
@@ -80,11 +81,12 @@ FTN::Database::Nodelist
   but how to build in extra parts of the search for things like "zone = 1"?
   Also add something that counts the number of things like hubs, nodes marked
   as private, etc?
-- Derive and move function to insert or update an entry from ftnpldb-nodelist.
-  Separate functions for insert & update, or different options in same function?
-- Move get_nodelist_filename subroutine from the ftnpldb-nodelist script?
-- Use a different datatype than "TIMESTAMP" for the 'updated' field in the
-  nodelist table?  (Not generic enough?)
+
+
+ftndbadm
+-------- 
+- Create a new version of the admin script, basing it on App::Cmd?  After moving
+  the functionality from ftnpldb-admin, could remove the ftnpldb-admin script.
 
 
 ftnpldb-admin
@@ -105,7 +107,16 @@ ftnpldb-nodelist
 - Need to add something to the database to reflect nodes being under a hub.
 - Move code for processing the -f & -e options into a separate subroutine, so
   it could be used by more than just the load command?
-- Add cammands to create or drop the ftnnode index on the nodelist
+- Two additional fields are now available in the nodelist table;  one for the
+  year of the particular nodelist being worked on and is named 'ftnyear', and
+  one for the day number of the nodelist being worked on and is named 'yearday'.
+  Both fields have been added to the default ftnode index. This will allows
+  historical nodelist information in the database by being able to have more
+  than just one of a particular type.  Need to add functionality to the 
+  script and/or module to enable this, including especially being able to
+  determine the two fields from information in the nodelist being loaded.
+  Change load command to only load new nodelist information. 
+- Add separate commands to create or drop the ftnnode index on the nodelist
   table?
 - Script does not seem to properly handle a file that ends in just blank
   lines, instead of a content line or a ^Z character. (Should fail gracefully
