@@ -1,7 +1,10 @@
 Revision history for FTN-Database (ftnpldb)
 
-0.28    Sun Mar 18 13:54 2012
-    - Started development for v0.28
+0.28    Sun Mar 18 15:56 2012
+    - Add $ftnyear and $yearday to the list_ftn_nodelist bind_columns call in
+      ftnpldb-nodelist.
+    - Change the default to 'now' and drop the "(14)" from TIMESTAMP for the
+      field 'updated' definition.
 
 0.27    Sun Mar 18 12:56 2012
     - Updated the doc/TODO file.
