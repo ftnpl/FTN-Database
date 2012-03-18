@@ -19,11 +19,11 @@ ftnpldb-nodelist - Fidonet/FTN Nodelist related processing using an SQL Database
 
 =head1 VERSION
 
-Version 0.27
+Version 0.28
 
 =cut
 
-our $VERSION = 0.27;
+our $VERSION = '0.28';
 
 =head1 DESCRIPTION
 
@@ -477,7 +477,8 @@ sub list_ftn_nodelist {
     my $query_handle = $db_handle->prepare($sql_statement);
     $query_handle->execute();
 
-    $query_handle->bind_columns(\my($id, $type, $zone, $net, $node, $point, $region, $name, $location, $sysop, $phone, $baud, $flags, $domain, $source, $updated));
+    $query_handle->bind_columns(\my($id, $type, $zone, $net, $node, $point, $region,
+     $name, $location, $sysop, $phone, $baud, $flags, $domain, $ftnyear, $yearday, $source, $updated));
 
     open(ListFile, ">$list_file") or die "Cannot open $list_file\n";
 

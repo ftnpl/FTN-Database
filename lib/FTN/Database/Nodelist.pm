@@ -10,11 +10,11 @@ FTN::Database::Nodelist - Fidonet/FTN Nodelist SQL Database operations.
 
 =head1 VERSION
 
-Version 0.27
+Version 0.28
 
 =cut
 
-our $VERSION = '0.27';
+our $VERSION = '0.28';
 
 =head1 DESCRIPTION
 
@@ -62,7 +62,7 @@ sub create_nodelist_table {
     $sql_statement .= "ftnyear   SMALLINT  DEFAULT '0' NOT NULL, ";
     $sql_statement .= "yearday   SMALLINT  DEFAULT '0' NOT NULL, ";
     $sql_statement .= "source    VARCHAR(16) DEFAULT 'local' NOT NULL, ";
-    $sql_statement .= "updated   TIMESTAMP(14) DEFAULT '' NOT NULL ";
+    $sql_statement .= "updated   TIMESTAMP DEFAULT 'now' NOT NULL ";
     $sql_statement .= ") ";
 
     $db_handle->do("$sql_statement ") or croak($DBI::errstr);
