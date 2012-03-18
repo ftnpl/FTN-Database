@@ -1,5 +1,8 @@
 Revision history for FTN-Database (ftnpldb)
 
+0.27    Sun Mar 18 11:25 2012
+    - Start the development for v0.27.
+
 0.26    Sun Mar 18 10:58 2012
     - Update the Copyright end year to 2012.
     - lib/FTN/Database/Nodelist.pm:
