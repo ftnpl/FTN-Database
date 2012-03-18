@@ -10,11 +10,11 @@ FTN::Database::Nodelist - Fidonet/FTN Nodelist SQL Database operations.
 
 =head1 VERSION
 
-Version 0.26
+Version 0.27
 
 =cut
 
-our $VERSION = '0.26';
+our $VERSION = '0.27';
 
 =head1 DESCRIPTION
 
@@ -59,6 +59,8 @@ sub create_nodelist_table {
     $sql_statement .= "baud      CHAR(6) DEFAULT '300' NOT NULL, ";
     $sql_statement .= "flags     VARCHAR(128) DEFAULT ' ' NOT NULL, ";
     $sql_statement .= "domain    VARCHAR(8) DEFAULT 'fidonet' NOT NULL, ";
+    $sql_statement .= "ftnyear   SMALLINT  DEFAULT '0' NOT NULL, ";
+    $sql_statement .= "yearday   SMALLINT  DEFAULT '0' NOT NULL, ";
     $sql_statement .= "source    VARCHAR(16) DEFAULT 'local' NOT NULL, ";
     $sql_statement .= "updated   TIMESTAMP(14) DEFAULT '' NOT NULL ";
     $sql_statement .= ") ";
@@ -85,7 +87,7 @@ sub create_ftnnode_index {
     my($db_handle, $table_name) = @_;
 
     my $sql_statement = "CREATE INDEX ftnnode ";
-    $sql_statement .= "ON $table_name (zone,net,node,point,domain) ";
+    $sql_statement .= "ON $table_name (zone,net,node,point,domain,ftnyear,yearday) ";
 
     $db_handle->do("$sql_statement") or croak($DBI::errstr);
 
