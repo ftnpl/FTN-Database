@@ -61,8 +61,8 @@ preferred avenues for support.
 Note that the code history for FTN-Database is available in a git repository
 at the Sourceforge project, as follows:
 
-git clone git://ftnpl.git.sourceforge.net/gitroot/ftnpl/ftn-database.git (Read Only)
-http://ftnpl.git.sourceforge.net/git/gitweb.cgi?p=ftnpl/ftn-database.git (Browse Online)
+http://git.code.sf.net/p/ftnpl/ftndb/code (Browse Online)
+git clone git://git.code.sf.net/p/ftnpl/ftndb/code (Read Only)
 
 Note also that in distribution archives created directly from the repository,
 the commit id can obtained like as follows:
