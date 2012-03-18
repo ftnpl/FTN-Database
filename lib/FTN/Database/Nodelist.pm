@@ -87,7 +87,7 @@ sub create_ftnnode_index {
     my($db_handle, $table_name) = @_;
 
     my $sql_statement = "CREATE INDEX ftnnode ";
-    $sql_statement .= "ON $table_name (zone,net,node,point,domain) ";
+    $sql_statement .= "ON $table_name (zone,net,node,point,domain,ftnyear,yearday) ";
 
     $db_handle->do("$sql_statement") or croak($DBI::errstr);
 
