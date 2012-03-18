@@ -10,11 +10,11 @@ FTN::Database::Nodelist - Fidonet/FTN Nodelist SQL Database operations.
 
 =head1 VERSION
 
-Version 0.25
+Version 0.26
 
 =cut
 
-our $VERSION = '0.25';
+our $VERSION = '0.26';
 
 =head1 DESCRIPTION
 
@@ -52,12 +52,12 @@ sub create_nodelist_table {
     $sql_statement .= "node      SMALLINT  DEFAULT '1' NOT NULL, ";
     $sql_statement .= "point     SMALLINT  DEFAULT '0' NOT NULL, ";
     $sql_statement .= "region    SMALLINT  DEFAULT '0' NOT NULL, ";
-    $sql_statement .= "name      VARCHAR(32) DEFAULT '' NOT NULL, ";
-    $sql_statement .= "location  VARCHAR(32) DEFAULT '' NOT NULL, ";
-    $sql_statement .= "sysop     VARCHAR(32) DEFAULT '' NOT NULL, ";
-    $sql_statement .= "phone     VARCHAR(20) DEFAULT '000-000-000-000' NOT NULL, ";
+    $sql_statement .= "name      VARCHAR(48) DEFAULT '' NOT NULL, ";
+    $sql_statement .= "location  VARCHAR(48) DEFAULT '' NOT NULL, ";
+    $sql_statement .= "sysop     VARCHAR(48) DEFAULT '' NOT NULL, ";
+    $sql_statement .= "phone     VARCHAR(32) DEFAULT '000-000-000-000' NOT NULL, ";
     $sql_statement .= "baud      CHAR(6) DEFAULT '300' NOT NULL, ";
-    $sql_statement .= "flags     VARCHAR(64) DEFAULT ' ' NOT NULL, ";
+    $sql_statement .= "flags     VARCHAR(128) DEFAULT ' ' NOT NULL, ";
     $sql_statement .= "domain    VARCHAR(8) DEFAULT 'fidonet' NOT NULL, ";
     $sql_statement .= "source    VARCHAR(16) DEFAULT 'local' NOT NULL, ";
     $sql_statement .= "updated   TIMESTAMP(14) DEFAULT '' NOT NULL ";
@@ -178,7 +178,7 @@ L<http://search.cpan.org/dist/FTN-Database>
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2010-2011 Robert James Clay, all rights reserved.
+Copyright 2010-2012 Robert James Clay, all rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
