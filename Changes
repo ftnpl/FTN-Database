@@ -1,7 +1,10 @@
 Revision history for FTN-Database (ftnpldb)
 
+0.28    Sun Mar 18 13:54 2012
+    - Started development for v0.28
+
 0.27    Sun Mar 18 12:56 2012
-    - Upated the doc/TODO file.
+    - Updated the doc/TODO file.
     - lib/FTN/Database/Nodelist.pm:
         Add the new field 'ftnyear' to the nodelist table definition.
         Add the new field 'yearday' to the nodelist table definition.
