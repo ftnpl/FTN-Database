@@ -303,8 +303,8 @@ up to the version at which they were last changed.
 
 =head1 SEE ALSO
 
- L<DBI>, L<FTN::Database::Nodelist>, L<ftnpldb-admin>,
- and L<ftnpldb-nodelist>
+ L<DBI>, L<FTN::Database::Nodelist>, L<ftndb-admin>,
+ and L<ftndb-nodelist>
 
 =head1 COPYRIGHT & LICENSE
 

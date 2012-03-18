@@ -12,7 +12,7 @@ DBD::SQLite	SQLite DBD Module is required by default, so should be installed.
 		not, one place they may be obtained is at CPAN (www.cpan.org).
 
 FTN::Log	Must be a least v0.02, for the 'logging' subroutine as used in 
-		the ftnpldb-nodelist and ftnpldb-admin scripts. If not already
+		the ftndb-nodelist and ftndb-admin scripts. If not already
 		installed, it can be obtained from CPAN (www.cpan.org) or from
 		the ftnpl project at Sourceforge.
 
@@ -37,8 +37,8 @@ the perldoc command.
 
     perldoc FTN::Database
     perldoc FTN::Database::Nodelist
-    perldoc ftnpldb-nodelist
-    perldoc ftnpldb-admin
+    perldoc ftndb-nodelist
+    perldoc ftndb-admin
 
 You can also look for information at:
 

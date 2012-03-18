@@ -9,11 +9,9 @@ FTN::Database::Echolist (when implemented), into separate distributions
 so that only the functionality that's wanted needs to be installed?
 
 - Change this TODO document into being a pod document, perhaps explicitly as
-something like the module FTN::Database::ToDo?  Or use the ftnpldb namespace
+something like the module FTN::Database::ToDo?  Or use the ftndb namespace
 instead?  And/or do ToDo POD files for each of the modules and scripts, with
 one being the primary/general ToDo?
-
-- Change base name of scripts from ftnpldb to ftndb?
 
 - Move code repository information and the distribution archive information
 from the README file to elsewhere.  POD in main module?  website and/or wiki?
@@ -68,9 +66,9 @@ FTN::Database::Nodelist
 - Export the commonly used functions by default?
 - Add a function to enable reading the nodelist header; it will return a hash,
   with at least the ftnyear and yearday information.
-- Derive and move function to insert or update an entry from ftnpldb-nodelist.
+- Derive and move function to insert or update an entry from ftndb-nodelist.
   Separate functions for insert & update, or different options in same function?
-- Move get_nodelist_filename subroutine from the ftnpldb-nodelist script?
+- Move get_nodelist_filename subroutine from the ftndb-nodelist script?
 - Use a different datatype than "TIMESTAMP" for the 'updated' field in the
   nodelist table?  (Not generic enough?)
 - Derive and move a function for executing queries on the nodelist table from
@@ -86,10 +84,10 @@ FTN::Database::Nodelist
 ftndbadm
 -------- 
 - Create a new version of the admin script, basing it on App::Cmd?  After moving
-  the functionality from ftnpldb-admin, could remove the ftnpldb-admin script.
+  the functionality from ftndb-admin, could remove the ftndb-admin script.
 
 
-ftnpldb-admin
+ftndb-admin
 -------------- 
 - Pass the variables to subroutines directly, rather than depend on the globals.
 - Come up with a single option for the name of the object being created or
@@ -97,10 +95,10 @@ ftnpldb-admin
   nodelist_table_name variables?  Perhaps "-N" ?
 
 
-ftnpldb-nodelist
+ftndb-nodelist
 ----------------
-- Move create_ftn_nodelist_table from ftnpldb-admin to ftnpldb-nodelist, but
-  also leave a generic create_ftn_table subroutine there in ftnpldb-admin. 
+- Move create_ftn_nodelist_table from ftndb-admin to ftndb-nodelist, but
+  also leave a generic create_ftn_table subroutine there in ftndb-admin. 
 - The 'region' field for a zone independent node is not being set correctly
   in the database;  example 2:2/0 is being set to region 19, or 1:1/0
   which is being set to 0.  Should be set to the same as the zone number.
@@ -137,7 +135,7 @@ FTN::Database::Echolist
   (at least) the following fields:  name, description, source.
 - Export by default the commonly used functions.
 - Create or drop an index on that basic echolist table.
-- Create an ftnpldb-echolist script, patterned after ftnpldb-nodelist, which
+- Create an ftndb-echolist script, patterned after ftndb-nodelist, which
   can be used to load the echolist table.
 
 

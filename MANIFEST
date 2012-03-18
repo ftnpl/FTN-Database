@@ -2,8 +2,8 @@ Changes
 MANIFEST
 Makefile.PL
 README
-bin/ftnpldb-nodelist
-bin/ftnpldb-admin
+bin/ftndb-nodelist
+bin/ftndb-admin
 doc/History
 doc/TODO
 lib/FTN/Database.pm

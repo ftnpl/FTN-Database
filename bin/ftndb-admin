@@ -15,7 +15,7 @@ $Getopt::Std::STANDARD_HELP_VERSION = 1;
 
 =head1 NAME
 
-ftnpldb-admin - Administration of an SQL database for Fidonet/FTN processing.
+ftndb-admin - Administration of an SQL database for Fidonet/FTN processing.
 
 =head1 VERSION
 
@@ -32,13 +32,13 @@ database engine is one for which a DBD module exists, defaulting to SQLite.
 
 =head1 SYNOPSIS
 
-C<ftnpldb-admin -c config_file [options] [-d databasename] create|drop database>
+C<ftndb-admin -c config_file [options] [-d databasename] create|drop database>
 
-C<ftnpldb-admin -c config_file [options] [-t tablename] create|drop table>
+C<ftndb-admin -c config_file [options] [-t tablename] create|drop table>
 
-C<ftnpldb-admin [-h | --help]>
+C<ftndb-admin [-h | --help]>
 
-C<ftnpldb-admin --version>
+C<ftndb-admin --version>
 
 =cut
 
@@ -60,7 +60,7 @@ if ($opt_h) {
 =item -c
 
 This is the filename and path of a configuration file, with the
-default being ftnpldb.cfg in the current directory.
+default being ftndb.cfg in the current directory.
 
 =cut
 
@@ -70,7 +70,7 @@ if ($opt_c) {
 }
 else {
     my $config_dir = File::Spec->curdir();
-    $config_file = File::Spec->join($config_dir, 'ftnpldb.cfg');
+    $config_file = File::Spec->join($config_dir, 'ftndb.cfg');
 }
 
 #  Get configuration from file
@@ -263,10 +263,10 @@ sub HELP_MESSAGE {
     my $fh = shift;
 
     print {$fh} "\n\tSynopsis:\n";
-    print {$fh} "ftnpldb-admin -c config_file [options] [-d databasename] create|drop database\n";
-    print {$fh} "ftnpldb-admin -c config_file [options] [-t tablename] create|drop table\n";
-    print {$fh} "ftnpldb-admin -h | --help\t= Display this help message.\n";
-    print {$fh} "ftnpldb-admin --version\t= Display version message.\n\n";
+    print {$fh} "ftndb-admin -c config_file [options] [-d databasename] create|drop database\n";
+    print {$fh} "ftndb-admin -c config_file [options] [-t tablename] create|drop table\n";
+    print {$fh} "ftndb-admin -h | --help\t= Display this help message.\n";
+    print {$fh} "ftndb-admin --version\t= Display version message.\n\n";
 
     print {$fh} "\tOptions.\n";
     print {$fh} "[-c config_file]\t= Name and path for configuration file.\n";
@@ -380,7 +380,7 @@ sub VERSION_MESSAGE {
 
     my $fh = shift;
 
-    print {$fh} "ftnpldb-admin version $VERSION\n";
+    print {$fh} "ftndb-admin version $VERSION\n";
 
     return();
 
@@ -393,7 +393,7 @@ sub VERSION_MESSAGE {
 Configuration information not provided by the command line options are
 obtained from a configuration file.  That can be defined by setting the
 "-c" option, which is the path and file name of the configuration file
-to be used. If that is not defined, it looks for a file named ftnpldb.cfg
+to be used. If that is not defined, it looks for a file named ftndb.cfg
 in the current directory. The file contains configuration items listed
 outside of a named section as well as those listed within a named section,
 and blank lines and lines starting with a "#" are ignored.
@@ -439,10 +439,10 @@ needed for that type of a database.
 
 =back
 
-This is an example of the contents of an ftnpldb.cfg file:
+This is an example of the contents of an ftndb.cfg file:
 
-    # ftnpldb.cfg
-    LogFile=/opt/ftndb/ftnpldb.log
+    # ftndb.cfg
+    LogFile=/opt/ftndb/ftndb.log
 
     [Database]
     Type=mysql
@@ -455,7 +455,7 @@ This is an example of the contents of an ftnpldb.cfg file:
 Given that $CFGFILE is a configuration file, the following command line can be
 used to create an FTN Nodelist table in that database file:
 
-C<ftnpldb-admin -c $CFGFILE -t Nodelist -v create table>
+C<ftndb-admin -c $CFGFILE -t Nodelist -v create table>
 
 =head1 AUTHOR
 
@@ -478,7 +478,7 @@ however, the FTN-Database Issue tracker is preferred.
 
 You can find documentation for this module with the perldoc command.
 
-    perldoc ftnpldb-admin
+    perldoc ftndb-admin
 
 
 You can also look for information at:
@@ -501,7 +501,7 @@ L<http://search.cpan.org/dist/FTN-Database>
 
 =head1 SEE ALSO
 
- L<FTN::Database>, L<FTN::Database::Nodelist>, and L<ftnpldb-nodelist>.
+ L<FTN::Database>, L<FTN::Database::Nodelist>, and L<ftndb-nodelist>.
 
 =head1 COPYRIGHT & LICENSE
 
