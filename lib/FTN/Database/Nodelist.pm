@@ -54,7 +54,7 @@ sub create_nodelist_table {
     $sql_statement .= "region    SMALLINT  DEFAULT '0' NOT NULL, ";
     $sql_statement .= "name      VARCHAR(48) DEFAULT '' NOT NULL, ";
     $sql_statement .= "location  VARCHAR(48) DEFAULT '' NOT NULL, ";
-    $sql_statement .= "sysop     VARCHAR(32) DEFAULT '' NOT NULL, ";
+    $sql_statement .= "sysop     VARCHAR(48) DEFAULT '' NOT NULL, ";
     $sql_statement .= "phone     VARCHAR(20) DEFAULT '000-000-000-000' NOT NULL, ";
     $sql_statement .= "baud      CHAR(6) DEFAULT '300' NOT NULL, ";
     $sql_statement .= "flags     VARCHAR(128) DEFAULT ' ' NOT NULL, ";
