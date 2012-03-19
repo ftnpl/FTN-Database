@@ -157,12 +157,14 @@ can be used to load the echolist table?
 
 =head1 SEE ALSO
 
- L<ftndb>, L<ftndbadm>, L<ftndb-admim>, L<ftndb-nodelist>, L<FTNDB>, L<FTNDB::Command::create>,
+ L<ftndbadm>, L<ftndb-admim>, L<ftndb-nodelist>, L<FTNDB>, L<FTNDB::Command::create>,
   L<FTNDB::Command::drop>, L<FTN::Database>, L<FTN::Database::Nodelist>
+
 
 =head1 AUTHOR
 
 Robert James Clay, C<< <jame at rocasa.us> >>
+
 
 =head1 COPYRIGHT & LICENSE
 
