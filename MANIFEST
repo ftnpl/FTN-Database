@@ -9,7 +9,7 @@ doc/History
 lib/FTNDB.pm
 lib/FTN/Database.pm
 lib/FTN/Database/Nodelist.pm
-lib/FTN/Database/ToDo.pm
+lib/FTN/Database/ToDo.pod
 lib/FTNDB/Config.pod
 lib/FTNDB/ToDo.pod
 lib/FTNDB/Command/create.pm
