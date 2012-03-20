@@ -1,7 +1,14 @@
-Revision history for FTN-Database (ftnpldb)
+Revision history for FTN-Database (ftnpldb) application
 
-0.30    Sun Mar 18 18:38 2012
-    - Start development for version v0.30
+0.30    Mon Mar 19 21:41 2012
+    - Move and rewrite the doc/TODO file to the separate ToDo files
+      lib/FTNDB/ToDo.pod and lib/FTN/Database/ToDo.pod.
+    - Change ftnpldb references in files to being ftndb instead, including
+      renameing bin/ftnpldb-admin to bin/ftndb-admin and bin/ftnpldb-nodelist
+      to bin/ftndb-nodelist.
+    - Create the initial set of files for the development of a replacement
+      administration script using App::Cmd and at least initially using the
+      name 'ftndbadm'.
 
 0.29    Sun Mar 18 18:28 2012
     - Use the database type for the 'id' field selection in the function
