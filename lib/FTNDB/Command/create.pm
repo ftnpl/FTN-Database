@@ -3,7 +3,7 @@ use FTNDB -command;
 
 =head1 NAME
 
-FTNDB::Command::create - The I<create> command for Fidonet/FTN related SQL Database processing.
+FTNDB::Command::create - The create command for Fidonet/FTN related SQL Database processing.
 
 =head1 DESCRIPTION
 
