@@ -5,25 +5,18 @@ use App::Cmd::Setup -app;
 
 FTNDB::Command::drop - The drop command for Fidonet/FTN Database processing.
 
-
 =head1 DESCRIPTION
 
 Administration of a database for Fidonet/FTN related processing. The SQL
 database engine is one for which a DBD module exists, defaulting to SQLite.
 
-
-=head1 SYNOPSIS
-
-C<ftndbadm -c config_file [options] drop database name>
-
-C<ftndbadm -c config_file [options] drop table name>
-
-
-=head1 COMMANDS
+=head2 COMMANDS
 
 =over
 
 =item drop database name
+
+C<ftndbadm -c config_file [options] drop database name>
 
 This will drop a database if it exists in an SQL database server
 being used for Fidonet/FTN processing, where I<name> is the name
@@ -31,15 +24,31 @@ of the database to be dropped.
 
 =item drop table name
 
+C<ftndbadm -c config_file [options] drop table name>
+
 This will drop a database table if it exists in an SQL database
 server being used for Fidonet/FTN processing, where I<name> is
 the name of the table to be dropped.
 
 =back
 
+=head2 FUNCTIONS
+
+=over
+
+=item I<usage_desc>
+
+Provides the command usage.
+
 =cut
 
 sub usage_desc { "ftndbadm %o database|table name" }
+
+=item I<execute>
+
+Execute the command
+
+=cut
 
 sub execute {
     my ($self, $opt, $args) = @_;
@@ -47,6 +56,12 @@ sub execute {
     print "The drop command is not yet implemented.\n";
 
 }
+
+=back
+
+=head1 AUTHOR
+
+Robert James Clay, C<< <jame at rocasa.us> >>
 
 =head1 BUGS
 

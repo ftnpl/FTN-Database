@@ -10,17 +10,13 @@ FTNDB::Command::create - The I<create> command for Fidonet/FTN related SQL Datab
 Administration of a database for Fidonet/FTN related processing. The SQL
 database engine is one for which a DBD module exists, defaulting to SQLite.
 
-=head1 SYNOPSIS
-
-C<ftndbadm -c config_file [options] create database name>
-
-C<ftndbadm -c config_file [options] create table name>
-
-=head1 COMMANDS
+=head2 COMMANDS
 
 =over
 
 =item create database name
+
+C<ftndbadm -c config_file [options] create database name>
 
 This will create a database an SQL database server being used
 for Fidonet/FTN processing, where I<name> is the name of the
@@ -29,6 +25,8 @@ it first, before going on to create it again.
 
 =item create table name
 
+C<ftndbadm -c config_file [options] create table name>
+
 This will create a nodelist table in an SQL database being used
 for Fidonet/FTN nodelist processing, where I<name> is the name
 of the table to be created. If it already exists, it will be
@@ -36,9 +34,23 @@ dropped it first before going on to create it again.
 
 =back
 
+=head2 FUNCTIONS
+
+=over
+
+=item I<usage_desc>
+
+Provides the command usage.
+
 =cut
 
 sub usage_desc { "ftndbadm %o database|table name" }
+
+=item I<execute>
+
+Execute the command
+
+=cut
 
 sub execute {
     my ($self, $opt, $args) = @_;
@@ -47,6 +59,7 @@ sub execute {
 
 }
 
+=back
 
 =head1 AUTHOR
 
