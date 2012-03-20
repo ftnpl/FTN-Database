@@ -1,5 +1,5 @@
 package FTNDB::Command::drop;
-use App::Cmd::Setup -app;
+use FTNDB -command;
 
 =head1 NAME
 
