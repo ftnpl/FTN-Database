@@ -3,11 +3,16 @@
 
 =head2 General
 
+
+Although the NAME entry is present, getting the following warning:
+$ perl Makefile.PL
+WARNING: Setting ABSTRACT via file 'lib/FTNDB.pm' failed
+
 Move code repository information and the distribution archive information
 from the README file to elsewhere.  POD in main module?  website and/or wiki?
 
 Add an option, like -r, for specifying a region number;  to be used like the
--z or -n options, and for all commands.
+zone (-z) or net (-n) options, and available all commands as needed.
 
 The option used to define which type of database to use does not currently
 do any error checking on that type;  the script will fail if a correct DBD name
@@ -20,12 +25,18 @@ issue where it is not a good idea to use them at all.  Redo the comments in
 scripts and modules regarding that, to generalize it.  (Derive function to
 validate it and add th at to the FTN::Database module?)
 
+Create FTNDB::Examples for example configuration files and scripts.
+
+Once the non database table related code in FTN::Database::Nodelist and
+FTN::Database::Nodelist is properly separated out, make ftn-database and
+ftndb into being separate distributions, creating a new branch 'ftn-database'
+in the git respository to track FTN::Database.
+
 
 =head2 ftndbadm
 
 Develop a new version of the ftndb-admin script, basing it on App::Cmd and at
-least initially having the name ftndbadm.  After moving the functionality from
-ftndb-admin, could remove the ftndb-admin script.
+least initially having the name ftndbadm. 
 
 
 =head2 FTNDB::Command::create.pm
@@ -33,6 +44,7 @@ ftndb-admin, could remove the ftndb-admin script.
 As part of the transistion to using App::Cmd; move the functionality for the
 I<create> command from bin/ftndb-admin and lib/FTNDB/Admin.pm to the new module
 for the create command.
+
 
 =head2 FTNDB::Command::drop.pm
 
@@ -43,7 +55,8 @@ for the drop command.
 
 =head2 FTNDB::Admin
 
-Rename and move FTN::Database to FTNDB::Admin.
+Rename and move FTN::Database to FTNDB::Admin, retaining the FTN::Database
+namespace for things like defining the FTN database tables.
 
 The create_ftn_database function as currently coded really only works for
 sqlite databases, because it uses an already open db handle and to get that
@@ -61,10 +74,16 @@ being used?  And corrects it if possible?
 
 =head2 FTNDB::Nodelist
 
-Rename and move FTN::Database::Nodelist to FTNDB::Nodelist.
+Move the code in FTN::Database::Nodelist to FTNDB::Nodelist.  Keep the separate
+namespace FTN::Database::Nodelist itself, since it already exists, for just
+the definition of a nodelist table.  Perhaps change that to be a function
+that returns the SQL code to define the table, instead of being code that
+does the creation of it (Which would work better with the generic 
+create_ftn_table function.)
 
 Add a function to enable reading the nodelist header; it will return a hash,
-with at least the ftnyear and yearday information.
+with at least the ftnyear and yearday information.  (Should really be a
+function of or an extension to FTN::Nodelist.)
 
 Derive and move function to insert or update an entry from ftndb-nodelist.
 Separate functions for insert & update, or different options in same function?
@@ -130,20 +149,6 @@ Remove the ftndb-admin script from the distribution once its functionality has
 been removed and/or replaced.
 
 
-=head2 FTNDB::Echolist
-
-Create an FTN Database module for echolists which:  Creates or Drops an
-echolist table, default name "Echolist"?  Basic table would consist of
-(at least) the following fields:  name, description, source.
-
-Export by default the commonly used functions.
-
-Create or drop an index on that basic echolist table.
-
-Create an ftndb-echolist script, patterned after ftndb-nodelist, which
-can be used to load the echolist table?
-
-
 =head2 Testing
 
 
@@ -160,11 +165,9 @@ can be used to load the echolist table?
  L<ftndbadm>, L<ftndb-admim>, L<ftndb-nodelist>, L<FTNDB>, L<FTNDB::Command::create>,
   L<FTNDB::Command::drop>, L<FTN::Database>, L<FTN::Database::Nodelist>
 
-
 =head1 AUTHOR
 
 Robert James Clay, C<< <jame at rocasa.us> >>
-
 
 =head1 COPYRIGHT & LICENSE
 

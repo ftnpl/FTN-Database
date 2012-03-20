@@ -11,6 +11,8 @@ issue where it is not a good idea to use them at all.  Redo the comments in
 scripts and modules regarding that, to generalize it.  (Derive function to
 validate it and add th at to the FTN::Database module?)
 
+Investigate the usage of SQL::Statement.  Possibly at least use it for testing?
+
 Once the non database table related code in FTN::Database::Nodelist and
 FTN::Database::Nodelist is properly separated out, make ftn-database and
 ftndb into being separate distributions, creating a new branch 'ftn-database'
