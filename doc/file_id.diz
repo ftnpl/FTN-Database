@@ -1,5 +1,5 @@
-FTN-Database  (ftnpldb)
-Modules and associated scripts which can be
+FTN-Database
+Scripts and associated Modules which can be
 used for Fidonet/FTN related processing in an
 SQL database supported by a Perl DBD module,
 defaulting to SQLite, and which includes FTN

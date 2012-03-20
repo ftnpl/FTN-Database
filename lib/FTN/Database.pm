@@ -10,11 +10,11 @@ FTN::Database - FTN SQL Database related operations for Fidonet/FTN related proc
 
 =head1 VERSION
 
-Version 0.29
+Version 0.30
 
 =cut
 
-our $VERSION = '0.29';
+our $VERSION = '0.30';
 
 =head1 DESCRIPTION
 
@@ -303,8 +303,8 @@ up to the version at which they were last changed.
 
 =head1 SEE ALSO
 
- L<DBI>, L<FTN::Database::Nodelist>, L<ftnpldb-admin>,
- and L<ftnpldb-nodelist>
+ L<DBI>, L<FTN::Database::Nodelist>, L<ftndb-admin>,
+ and L<ftndb-nodelist>
 
 =head1 COPYRIGHT & LICENSE
 

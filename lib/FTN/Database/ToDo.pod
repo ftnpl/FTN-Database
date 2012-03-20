@@ -1,0 +1,65 @@
+=head1 FTN-Database To Do
+
+
+=head2 General
+
+Move code repository information and the distribution archive information
+from the README file to elsewhere.  POD in main module?  website and/or wiki?
+
+The use of special characters like periods in table names is a more general
+issue where it is not a good idea to use them at all.  Redo the comments in
+scripts and modules regarding that, to generalize it.  (Derive function to
+validate it and add th at to the FTN::Database module?)
+
+Investigate the usage of SQL::Statement.  Possibly at least use it for testing?
+
+Once the non database table related code in FTN::Database::Nodelist and
+FTN::Database::Nodelist is properly separated out, make ftn-database and
+ftndb into being separate distributions, creating a new branch 'ftn-database'
+in the git respository to track FTN::Database.
+
+
+=head2 FTN::Database
+
+Move the code in FTN::Database to FTNDB::Admin. Retain the FTN::Database 
+namespace itself for information about the module.
+
+
+=head2 FTN::Database::Nodelist
+
+Move the code in FTN::Database::Nodelist to FTNDB::Nodelist.  Keep the separate
+namespace FTN::Database::Nodelist itself, since it already exists, for just
+the definition of a nodelist table.  Perhaps change that to be a function
+that returns the SQL code to define the table, instead of being code that
+does the creation of it.
+
+
+=head2 FTN:Database::Echolist
+
+Create an FTN Database module for echolists which:  Defines an Echolist table, default
+name "Echolist"?  Basic table would consist of (at least) the following fields:  name,
+description, source.
+
+
+=head1 SEE ALSO
+
+ L<ftndb>, L<ftndbadm>, L<ftndb-admim>, L<ftndb-nodelist>, L<FTNDB>, L<FTNDB::Command::create>,
+  L<FTNDB::Command::drop>, L<FTN::Database>, L<FTN::Database::Nodelist>
+
+
+=head1 AUTHOR
+
+Robert James Clay, C<< <jame at rocasa.us> >>
+
+=head1 COPYRIGHT & LICENSE
+
+Copyright 2012 Robert James Clay, all rights reserved.
+
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
+
+=cut
+
+
+
+
