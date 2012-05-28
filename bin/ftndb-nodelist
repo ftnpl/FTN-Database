@@ -8,7 +8,7 @@ use Config::Tiny;
 use File::Spec;
 
 use FTN::Database qw(&open_ftn_database &close_ftn_database &create_ftn_index &drop_ftn_index);
-use FTN::Database::Nodelist;
+use FTNDB::Nodelist;
 use FTN::Log qw(&logging);
 
 $Getopt::Std::STANDARD_HELP_VERSION = 1;
@@ -28,7 +28,7 @@ our $VERSION = '0.31';
 =head1 DESCRIPTION
 
 This script both provides an example of using the FTN::Database and
-FTN::Database::Nodelist modules as well as providing some basic
+FTNDB::Nodelist modules as well as providing some basic
 functionality related to using an SQL Database for Fidonet/FTN related
 processing.  The SQL Database engine is one for which a DBD module exists,
 defaulting to SQLite.
@@ -359,7 +359,7 @@ sub load_ftn_nodelist {
     }
 
     #   remove any and all entries where domain = $domain when doing an insert to the table
-    FTN::Database::Nodelist::remove_ftn_domain($db_handle, $table_name, $domain);
+    FTNDB::Nodelist::remove_ftn_domain($db_handle, $table_name, $domain);
 
     # drop the old nodelist table index 'ftnnode', if it exists.
     logging($log_file, $log_id, 'Dropping existing nodelist table index ftnnode if it already exists.');
@@ -715,7 +715,7 @@ L<http://search.cpan.org/dist/FTN-Database>
 
 =head1 SEE ALSO
 
- L<FTN::Database>, L<FTN::Database::Nodelist>, and L<ftndb-admin>.
+ L<FTN::Database>, L<FTNDB::Nodelist>, and L<ftndb-admin>.
 
 =head1 COPYRIGHT & LICENSE
 
