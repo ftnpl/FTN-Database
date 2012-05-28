@@ -7,11 +7,11 @@ FTNDB - Administration of SQL databases for Fidonet/FTN processing.
 
 =head1 VERSION
 
-Version 0.30
+Version 0.31
 
 =cut
 
-our $VERSION = '0.30';
+our $VERSION = '0.31';
 
 =head1 DESCRIPTION
 
@@ -80,7 +80,7 @@ L<http://search.cpan.org/dist/FTN-Database>
 =head1 SEE ALSO
 
  L<ftndbadm>, L<ftndb-admim>, L<ftndb-nodelist>, L<FTNDB>, L<FTNDB::Command::create>,
-  L<FTNDB::Command::drop>, L<FTN::Database>, L<FTN::Database::Nodelist>
+  L<FTNDB::Command::drop>, L<FTN::Database>, L<FTNDB::Nodelist>
 
 =head1 COPYRIGHT & LICENSE
 

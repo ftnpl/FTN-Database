@@ -1,5 +1,9 @@
 Revision history for FTN-Database (ftnpldb) application
 
+0.31    Mon May 28 12:55 2012
+    - Move FTN::Database::Nodelist to FTNDB::Nodelist and update modules and
+      scripts as neccessary.
+
 0.30    Mon Mar 19 21:41 2012
     - Move and rewrite the doc/TODO file to the separate ToDo files
       lib/FTNDB/ToDo.pod and lib/FTN/Database/ToDo.pod.
