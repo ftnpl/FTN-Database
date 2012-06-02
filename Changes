@@ -1,5 +1,10 @@
 Revision history for FTN-Database (ftnpldb) application
 
+0.32    Sat Jun  2 14:12 2012
+    - Rewrite the lib/FTN/Database/Nodelist.pm module to only include functions
+      that define the nodelist table fields (define_nodelist_table) and the
+      ftnnode index fields (ftnnode_index_fields) plus documentation for them.
+
 0.31    Mon May 28 12:55 2012
     - Move FTN::Database::Nodelist to FTNDB::Nodelist and update modules and
       scripts as neccessary.
