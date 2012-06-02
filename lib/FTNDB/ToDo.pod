@@ -5,8 +5,8 @@
 
 
 Although the NAME entry is present, getting the following warning:
-$ perl Makefile.PL
-WARNING: Setting ABSTRACT via file 'lib/FTNDB.pm' failed
+    $ perl Makefile.PL
+    WARNING: Setting ABSTRACT via file 'lib/FTNDB.pm' failed
 
 Move code repository information and the distribution archive information
 from the README file to elsewhere.  POD in main module?  website and/or wiki?
@@ -25,7 +25,7 @@ issue where it is not a good idea to use them at all.  Redo the comments in
 scripts and modules regarding that, to generalize it.  (Derive function to
 validate it and add th at to the FTN::Database module?)
 
-Create FTNDB::Examples for example configuration files and scripts.
+Create FTNDB::Examples for example configuration files and scripts?
 
 Once the non database table related code in FTN::Database::Nodelist and
 FTN::Database::Nodelist is properly separated out, make ftn-database and
@@ -56,7 +56,7 @@ for the drop command.
 =head2 FTNDB::Admin
 
 Rename and move FTN::Database to FTNDB::Admin, retaining the FTN::Database
-namespace for things like defining the FTN database tables.
+namespace for things like defining the FTN database tables?
 
 The create_ftn_database function as currently coded really only works for
 sqlite databases, because it uses an already open db handle and to get that
@@ -74,15 +74,11 @@ being used?  And corrects it if possible?
 
 =head2 FTNDB::Nodelist
 
-Move the code in FTN::Database::Nodelist to FTNDB::Nodelist.  Keep the separate
-namespace FTN::Database::Nodelist itself, since it already exists, for just
-the definition of a nodelist table.  Perhaps change that to be a function
-that returns the SQL code to define the table, instead of being code that
-does the creation of it (Which would work better with the generic 
-create_ftn_table function.)
+After create_ftn_table is available: rewrite create_nodelist_table to use that
+and the new define_nodelist_table function.
 
-Add a function to enable reading the nodelist header; it will return a hash,
-with at least the ftnyear and yearday information.  (Should really be a
+Add a function to enable getting the nodelist header information; it will return 
+a hash, with at least the ftnyear and yearday information.  (Should really be a
 function of or an extension to FTN::Nodelist.)
 
 Derive and move function to insert or update an entry from ftndb-nodelist.
@@ -110,7 +106,9 @@ The 'region' field for a zone independent node is not being set correctly
 in the database;  example 2:2/0 is being set to region 19, or 1:1/0
 which is being set to 0.  Should be set to the same as the zone number.
 
-Need to add something to the database to reflect nodes being under a hub.
+Need to add something to the database to reflect nodes being under a hub?
+(If there are no hub nodes in a particular net, then effectively the hub
+node for them all is the host node.)
 
 Move code for processing the -f & -e options into a separate subroutine, so
 it could be used by more than just the load command?
@@ -163,7 +161,7 @@ been removed and/or replaced.
 =head1 SEE ALSO
 
  L<ftndbadm>, L<ftndb-admim>, L<ftndb-nodelist>, L<FTNDB>, L<FTNDB::Command::create>,
-  L<FTNDB::Command::drop>, L<FTN::Database>, L<FTN::Database::Nodelist>
+  L<FTNDB::Command::drop>, L<FTN::Database>, L<FTNDB::Nodelist>, L<FTN::Database::Nodelist>
 
 =head1 AUTHOR
 
