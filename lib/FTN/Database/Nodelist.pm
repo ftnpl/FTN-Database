@@ -41,37 +41,27 @@ is the name of the table to be created, and $db_type is the type of database.
 
 sub define_nodelist_table {
 
-    my($db_handle, $table_name, $db_type) = @_;
+    my $table_fields = '';
 
-    my $sql_statement = "CREATE TABLE $table_name( ";
-    # If DB type is PostgreSQL, use SERIAL; else use INTEGER & AUTOINCREMENT
-    if ($db_type eq 'Pg') {
-        $sql_statement .= "id   SERIAL PRIMARY KEY NOT NULL, ";
-    } else {
-        $sql_statement .= "id   INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, ";
-    }
-    $sql_statement .= "type      VARCHAR(6) DEFAULT '' NOT NULL, ";
-    $sql_statement .= "zone      SMALLINT  DEFAULT '1' NOT NULL, ";
-    $sql_statement .= "net       SMALLINT  DEFAULT '1' NOT NULL, ";
-    $sql_statement .= "node      SMALLINT  DEFAULT '1' NOT NULL, ";
-    $sql_statement .= "point     SMALLINT  DEFAULT '0' NOT NULL, ";
-    $sql_statement .= "region    SMALLINT  DEFAULT '0' NOT NULL, ";
-    $sql_statement .= "name      VARCHAR(48) DEFAULT '' NOT NULL, ";
-    $sql_statement .= "location  VARCHAR(48) DEFAULT '' NOT NULL, ";
-    $sql_statement .= "sysop     VARCHAR(48) DEFAULT '' NOT NULL, ";
-    $sql_statement .= "phone     VARCHAR(32) DEFAULT '000-000-000-000' NOT NULL, ";
-    $sql_statement .= "baud      CHAR(6) DEFAULT '300' NOT NULL, ";
-    $sql_statement .= "flags     VARCHAR(128) DEFAULT ' ' NOT NULL, ";
-    $sql_statement .= "domain    VARCHAR(8) DEFAULT 'fidonet' NOT NULL, ";
-    $sql_statement .= "ftnyear   SMALLINT  DEFAULT '0' NOT NULL, ";
-    $sql_statement .= "yearday   SMALLINT  DEFAULT '0' NOT NULL, ";
-    $sql_statement .= "source    VARCHAR(16) DEFAULT 'local' NOT NULL, ";
-    $sql_statement .= "updated   TIMESTAMP DEFAULT 'now' NOT NULL ";
-    $sql_statement .= ") ";
+    $table_fields  = "type      VARCHAR(6) DEFAULT '' NOT NULL, ";
+    $table_fields .= "zone      SMALLINT  DEFAULT '1' NOT NULL, ";
+    $table_fields .= "net       SMALLINT  DEFAULT '1' NOT NULL, ";
+    $table_fields .= "node      SMALLINT  DEFAULT '1' NOT NULL, ";
+    $table_fields .= "point     SMALLINT  DEFAULT '0' NOT NULL, ";
+    $table_fields .= "region    SMALLINT  DEFAULT '0' NOT NULL, ";
+    $table_fields .= "name      VARCHAR(48) DEFAULT '' NOT NULL, ";
+    $table_fields .= "location  VARCHAR(48) DEFAULT '' NOT NULL, ";
+    $table_fields .= "sysop     VARCHAR(48) DEFAULT '' NOT NULL, ";
+    $table_fields .= "phone     VARCHAR(32) DEFAULT '000-000-000-000' NOT NULL, ";
+    $table_fields .= "baud      CHAR(6) DEFAULT '300' NOT NULL, ";
+    $table_fields .= "flags     VARCHAR(128) DEFAULT ' ' NOT NULL, ";
+    $table_fields .= "domain    VARCHAR(8) DEFAULT 'fidonet' NOT NULL, ";
+    $table_fields .= "ftnyear   SMALLINT  DEFAULT '0' NOT NULL, ";
+    $table_fields .= "yearday   SMALLINT  DEFAULT '0' NOT NULL, ";
+    $table_fields .= "source    VARCHAR(16) DEFAULT 'local' NOT NULL, ";
+    $table_fields .= "updated   TIMESTAMP DEFAULT 'now' NOT NULL ";
 
-    $db_handle->do("$sql_statement ") or croak($DBI::errstr);
-
-    return(0);
+    return($table_fields);
 
 }
 
