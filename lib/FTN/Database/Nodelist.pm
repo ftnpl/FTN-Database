@@ -88,14 +88,9 @@ index is created on the following fields:  zone, net, node, point, and domain.
 
 sub ftnnode_index_tables {
 
-    my($db_handle, $table_name) = @_;
+    my $table_list = 'zone,net,node,point,domain,ftnyear,yearday';
 
-    my $sql_statement = "CREATE INDEX ftnnode ";
-    $sql_statement .= "ON $table_name (zone,net,node,point,domain,ftnyear,yearday) ";
-
-    $db_handle->do("$sql_statement") or croak($DBI::errstr);
-
-    return(0);
+    return($table_list);
 
 }
 
