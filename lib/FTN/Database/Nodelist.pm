@@ -77,12 +77,12 @@ sub create_nodelist_table {
 
 =head2 ftnnode_index_fields
 
-Syntax:  ftnnode_index_fields($db_handle, $table_name);
+Syntax:  ftnnode_index_fields();
 
-Create an index named ftnnode on an FTN Nodelist table in an SQL database being
-used for Fidonet/FTN processing, where $db_handle is an existing open database
-handle and $table_name is the name of the table that is being indexed.  The
-index is created on the following fields:  zone, net, node, point, and domain.
+This is a function that returns a string containing a comma separated list of
+the fields that are intended for use in creating the ftnnode database index.
+The index contains the following fields:  zone, net, node, point, domain,
+ftnyear, and yearday.
 
 =cut
 
