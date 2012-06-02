@@ -24,14 +24,14 @@ SQL database engine is one for which a DBD module exists, defaulting to SQLite.
 
 =head1 EXPORT
 
-The following functions are available in this module:  create_nodelist_table(),
+The following functions are available in this module:  define_nodelist_table(),
 drop_nodelist_table(), ftnnode_index_fields(), remove_ftn_domain().
 
 =head1 FUNCTIONS
 
-=head2 create_nodelist_table
+=head2 define_nodelist_table
 
-Syntax:  create_nodelist_table($db_handle, $table_name, $db_type);
+Syntax:  define_nodelist_table($db_handle, $table_name, $db_type);
 
 Create an FTN Nodelist table in an SQL database being used for Fidonet/FTN
 processing, where $db_handle is an existing open database handle, $table_name
@@ -39,7 +39,7 @@ is the name of the table to be created, and $db_type is the type of database.
 
 =cut
 
-sub create_nodelist_table {
+sub define_nodelist_table {
 
     my($db_handle, $table_name, $db_type) = @_;
 
@@ -103,7 +103,7 @@ the database:
     use FTN::Database::Nodelist;
 
     my $db_handle = open_ftn_database(\%db_option);
-    create_nodelist_table($db_handle, $table_name);
+    define_nodelist_table($db_handle, $table_name);
     ...   (Load data to nodelist table)
     ftnnode_index_tables($db_handle, $table_name);
     close_ftn_database($db_handle);
