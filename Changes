@@ -1,5 +1,8 @@
 Revision history for FTN-Database (ftnpldb) application
 
+0.32    Sat Jun  2 mm:ss 2012
+    - Start development for v0.32..
+
 0.31    Mon May 28 12:55 2012
     - Move FTN::Database::Nodelist to FTNDB::Nodelist and update modules and
       scripts as neccessary.
