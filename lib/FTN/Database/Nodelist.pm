@@ -25,7 +25,7 @@ SQL database engine is one for which a DBD module exists, defaulting to SQLite.
 =head1 EXPORT
 
 The following functions are available in this module:  create_nodelist_table(),
-drop_nodelist_table(), ftnnode_index_tables(), remove_ftn_domain().
+drop_nodelist_table(), ftnnode_index_fields(), remove_ftn_domain().
 
 =head1 FUNCTIONS
 
@@ -75,9 +75,9 @@ sub create_nodelist_table {
 
 }
 
-=head2 ftnnode_index_tables
+=head2 ftnnode_index_fields
 
-Syntax:  ftnnode_index_tables($db_handle, $table_name);
+Syntax:  ftnnode_index_fields($db_handle, $table_name);
 
 Create an index named ftnnode on an FTN Nodelist table in an SQL database being
 used for Fidonet/FTN processing, where $db_handle is an existing open database
@@ -86,11 +86,11 @@ index is created on the following fields:  zone, net, node, point, and domain.
 
 =cut
 
-sub ftnnode_index_tables {
+sub ftnnode_index_fields {
 
-    my $table_list = 'zone,net,node,point,domain,ftnyear,yearday';
+    my $field_list = 'zone,net,node,point,domain,ftnyear,yearday';
 
-    return($table_list);
+    return($field_list);
 
 }
 
