@@ -99,29 +99,6 @@ sub create_ftnnode_index {
 
 }
 
-=head2 remove_ftn_domain
-
-Syntax:  remove_ftn_domain($db_handle, $table_name, $domain);
-
-Remove all entries for a particular FTN domain from an FTN nodelist table in an SQL
-database being used for FTN processing;  where $db_handle is an existing open database
-handle and $table_name is the name of the table from which the FTN domain $domain is
-being removed.
-
-=cut
-
-sub remove_ftn_domain {
-
-    my($db_handle, $table_name, $domain) = @_;
-
-    my $sql_statement = "DELETE FROM $table_name WHERE domain = '$domain'";
-
-    $db_handle->do("$sql_statement") or croak($DBI::errstr);
-
-    return(0);
-
-}
-
 =head1 EXAMPLES
 
 An example of opening an FTN database, then creating a nodelist table,
