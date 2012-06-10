@@ -14,16 +14,11 @@ validate it and add th at to the FTN::Database module?)
 Investigate the usage of SQL::Statement. Possibly at least use it for testing?
 
 Once the non database table related code in FTN::Database::Nodelist and
-ftndb-admin is properly separated out, make ftn-database and ftndbnl (for an
-FTN Nodelist related application) into being separate distributions.
-(Create a new branch 'ftn-database' in the existing git respository to track
-FTN::Database? Or create a new separate git repository?)
+ftndb-admin is properly separated out, make ftn-database and ftndb into being
+separate distributions. 
 
 
 =head2 FTN::Database
-
-Add create_ftn_table to FTN::Database from what is now the
-create_nodelist_table subroutine in FTNDB::Nodelist. 
 
 Move the code in FTN::Database to FTNDB::Admin? Retain the FTN::Database 
 namespace itself for information about the module. And basic definitions
@@ -34,7 +29,7 @@ of an FTN database?
 
 Need to update the definition of the timestamp field, and/or what the default 
 for it is.  Currently "now" is the default, but that results in the word 'now'
-being inserted into the field instead of a date/time timestamp (t least, in
+being inserted into the field instead of a date/time timestamp (at least, in
 a PostgreSQL database).  Check how the various databases handle timestamp fields
 again.
 

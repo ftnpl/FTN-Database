@@ -19,11 +19,11 @@ ftndb-nodelist - Fidonet/FTN Nodelist related processing using an SQL Database.
 
 =head1 VERSION
 
-Version 0.32
+Version 0.33
 
 =cut
 
-our $VERSION = '0.32';
+our $VERSION = '0.33';
 
 =head1 DESCRIPTION
 
@@ -266,7 +266,21 @@ a specified zone and/or net number.
 #   if a command is found, then execute & exit
 #   if not;  display error message, then help message, then exit
 $command = shift;
-if (lc($command) eq 'load') {
+if (lc($command) eq 'create') {
+
+    $command = shift;
+    if (lc($command) eq 'table') {
+    #  Create an FTN nodelist table
+    create_ftn_nodelist_table();
+
+    } else {
+    print {*STDERR} "Unrecognized parameter for \'create\' command.\n";
+    HELP_MESSAGE(*STDERR);
+    exit 1;
+
+    }   # End parsing of 'create' command
+
+} elsif (lc($command) eq 'load') {
 
     load_ftn_nodelist();
 
@@ -313,6 +327,37 @@ sub HELP_MESSAGE {
 
     return();
 
+}
+
+########################################################################
+# Create an FTN Nodelist table
+########################################################################
+sub create_ftn_nodelist_table {
+
+    # connect to database
+    $db_handle = FTN::Database::open_ftn_database(\%db_option);
+
+    # drop the old nodelist table index, if it exists.
+    FTN::Database::drop_ftn_index($db_handle, 'ftnnode');
+
+    # drop the old nodelist table, if it exists.
+    logging($log_file, $log_id, "Dropping existing nodelist table $table_name if it already exists.");
+    FTN::Database::drop_ftn_table($db_handle, $table_name);
+
+    # Create nodelist table
+    FTNDB::Nodelist::create_nodelist_table($db_handle, $table_name, $db_option{'Type'});
+
+    # Creating Index
+    my $index_name = 'ftnnode';
+    my $index_fields = 'zone,net,node,point,domain';
+    FTN::Database::create_ftn_index($db_handle, $table_name, $index_name, $index_fields);
+
+    # disconnect from database
+    FTN::Database::close_ftn_database($db_handle);
+
+    logging($log_file, $log_id, "Table $table_name created.");
+
+    return();
 }
 
 ########################################################################

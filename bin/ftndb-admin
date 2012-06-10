@@ -19,11 +19,11 @@ ftndb-admin - Administration of an SQL database for Fidonet/FTN processing.
 
 =head1 VERSION
 
-Version 0.32
+Version 0.33
 
 =cut
 
-our $VERSION = '0.32';
+our $VERSION = '0.33';
 
 =head1 DESCRIPTION
 
@@ -216,8 +216,8 @@ if (lc($command) eq 'create') {
     create_ftn_database();
 
     } elsif (lc($command) eq 'table') {
-    #  Create an FTN nodelist table
-    create_ftn_nodelist_table();
+    #  Create an FTN table
+    create_ftn_table();
 
     } else {
     print {*STDERR} "Unrecognized parameter for \'create\' command.\n";
@@ -323,27 +323,19 @@ sub drop_ftn_database {
 }
 
 ########################################################################
-# Create an FTN Nodelist table
+# Create an FTN table
 ########################################################################
-sub create_ftn_nodelist_table {
+sub create_ftn_table {
 
     # connect to database
     $db_handle = FTN::Database::open_ftn_database(\%db_option);
 
-    # drop the old nodelist table index, if it exists.
-    FTN::Database::drop_ftn_index($db_handle, 'ftnnode');
-
-    # drop the old nodelist table, if it exists.
-    logging($log_file, $log_id, "Dropping existing nodelist table $table_name if it already exists.");
+    # drop the old table, if it exists.
+    logging($log_file, $log_id, "Dropping existing table $table_name if it already exists.");
     FTN::Database::drop_ftn_table($db_handle, $table_name);
 
-    # Create nodelist table
-    FTNDB::Nodelist::create_nodelist_table($db_handle, $table_name, $db_option{'Type'});
-
-    # Creating Index
-    my $index_name = 'ftnnode';
-    my $index_fields = 'zone,net,node,point,domain';
-    FTN::Database::create_ftn_index($db_handle, $table_name, $index_name, $index_fields);
+    # Create table
+    FTN::Database::create_ftn_table($db_handle, $table_name, $define_fields, $db_option{'Type'});
 
     # disconnect from database
     FTN::Database::close_ftn_database($db_handle);

@@ -1,5 +1,10 @@
 Revision history for FTN-Database (ftnpldb) application
 
+0.33    Sun Jun 10 08:43 2012
+    - Copy create_ftn_nodelist_table from ftnpl-admin to ftnpl-nodelist
+    - Rewrite/Rename subroutine create_ftn_nodelist_table in ftnpl-admin 
+    - Add generic create_ftn_table subroutine to FTN::Database.
+
 0.32    Sat Jun  2 14:12 2012
     - Rewrite the lib/FTN/Database/Nodelist.pm module to only include functions
       that define the nodelist table fields (define_nodelist_table) and the
