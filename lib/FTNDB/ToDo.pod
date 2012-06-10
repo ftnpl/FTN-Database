@@ -12,7 +12,7 @@ Move code repository information and the distribution archive information
 from the README file to elsewhere.  POD in main module?  website and/or wiki?
 
 Add an option, like -r, for specifying a region number;  to be used like the
-zone (-z) or net (-n) options, and available all commands as needed.
+zone (-z) or net (-n) options, and available to all commands as needed.
 
 The option used to define which type of database to use does not currently
 do any error checking on that type;  the script will fail if a correct DBD name
@@ -23,15 +23,17 @@ for DBI DBD modules like SQlite (default), mysql, cvs, and postgresql.
 The use of special characters like periods in table names is a more general
 issue where it is not a good idea to use them at all.  Redo the comments in
 scripts and modules regarding that, to generalize it.  (Derive function to
-validate it and add th at to the FTN::Database module?)
+validate it and add that to the FTN::Database module?)
 
 Create FTNDB::Examples for example configuration files and scripts?
 
-Once the non database table related code in FTN::Database::Nodelist and
-FTN::Database::Nodelist is properly separated out, make ftn-database and
-ftndb into being separate distributions, creating a new branch 'ftn-database'
-in the git respository to track FTN::Database.
+Once the non database table related code in FTN::Database::Nodelist, etc. is
+properly separated out, make ftn-database and ftndb into being separate
+distributions, creating a new repository for just FTN::Database.
 
+Add script option for referencing an sql string for things like defining a table
+or other definitions.  Is "-s" already being used?
+.
 
 =head2 ftndbadm
 
@@ -62,9 +64,8 @@ The create_ftn_database function as currently coded really only works for
 sqlite databases, because it uses an already open db handle and to get that
 in for instance postgresql you need to define a database for the login.
 
-Derive a generic create_ftn_table subroutine from the create_nodelist_table
-function in FTN::Database::Nodelist, using a variable in the sql for the
-table definition. Then change the create_nodelist_table function to use it.
+Change the create_nodelist_table function to use the generic create_ftn_table
+subroutine?
 
 Create set_ftndb_acl subroutine? (Same reasoning as for create_ftn_database.)
 
@@ -80,6 +81,9 @@ and the new define_nodelist_table function.
 Add a function to enable getting the nodelist header information; it will return 
 a hash, with at least the ftnyear and yearday information.  (Should really be a
 function of or an extension to FTN::Nodelist.)
+
+Add a function that checks if an ftnyear:yearday combination is already in the
+database.
 
 Derive and move function to insert or update an entry from ftndb-nodelist.
 Separate functions for insert & update, or different options in same function?
@@ -99,9 +103,6 @@ as private, etc?
 
 =head2 ftndb-nodelist
 
-Move create_ftn_nodelist_table from ftndb-admin to ftndb-nodelist, but
-also leave a generic create_ftn_table subroutine there in ftndb-admin. 
-
 The 'region' field for a zone independent node is not being set correctly
 in the database;  example 2:2/0 is being set to region 19, or 1:1/0
 which is being set to 0.  Should be set to the same as the zone number.
@@ -116,12 +117,12 @@ it could be used by more than just the load command?
 Two additional fields are now available in the nodelist table;  one for the
 year of the particular nodelist being worked on and is named 'ftnyear', and
 one for the day number of the nodelist being worked on and is named 'yearday'.
-Both fields have been added to the default ftnode index. This will allows
+Both fields have been added to the default ftnnode index. This will allow
 historical nodelist information in the database by being able to have more
 than just one of a particular type.  Need to add functionality to the 
 script and/or module to enable this, including especially being able to
 determine the two fields from information in the nodelist being loaded.
-Change load command to only load new nodelist information. 
+Change load command to only load new nodelist information
 
 Add separate commands to create or drop the ftnnode index on the nodelist
 table?
@@ -133,6 +134,8 @@ for a badly formatted file.)
 The list of nodelist files is being reverse sorted when there are multiple
 nodelists of the same basename being processed;  that takes care of a set
 of files all from the same year but not ones that are from different years.
+Once ftnyear and yearday information for each file can be made available,
+the files can be sorted by that.
 
 Add a test nodelist for use with this?
 
@@ -144,7 +147,7 @@ List command output?  Redo the header (extra line)?
 =head2 ftndb-admin
 
 Remove the ftndb-admin script from the distribution once its functionality has
-been removed and/or replaced.
+been removed and/or replaced by ftndbadm.
 
 
 =head2 Testing
