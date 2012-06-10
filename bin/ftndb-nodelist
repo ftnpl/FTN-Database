@@ -266,7 +266,21 @@ a specified zone and/or net number.
 #   if a command is found, then execute & exit
 #   if not;  display error message, then help message, then exit
 $command = shift;
-if (lc($command) eq 'load') {
+if (lc($command) eq 'create') {
+
+    $command = shift;
+    if (lc($command) eq 'table') {
+    #  Create an FTN nodelist table
+    create_ftn_nodelist_table();
+
+    } else {
+    print {*STDERR} "Unrecognized parameter for \'create\' command.\n";
+    HELP_MESSAGE(*STDERR);
+    exit 1;
+
+    }   # End parsing of 'create' command
+
+} elsif (lc($command) eq 'load') {
 
     load_ftn_nodelist();
 
