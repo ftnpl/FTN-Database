@@ -1,10 +1,6 @@
 Revision history for FTN-Database (ftnpldb) application
 
-0.33    Sat Jun dd hh:mm 2012
-    ToDo:
-    - Add script option for a referencing an sql string for defining a table.
-    - Update help, scripts and modules as necessary.
-    Done:
+0.33    Sun Jun 10 08:43 2012
     - Copy create_ftn_nodelist_table from ftnpl-admin to ftnpl-nodelist
     - Rewrite/Rename subroutine create_ftn_nodelist_table in ftnpl-admin 
     - Add generic create_ftn_table subroutine to FTN::Database.
