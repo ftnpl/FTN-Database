@@ -141,6 +141,37 @@ sub drop_ftn_database {
 
 }
 
+=head2 create_ftn_table
+
+Syntax:  create_ftn_table($db_handle, $table_name, $define_fields, $db_type);
+
+Create a table in an SQL database to be used for Fidonet/FTN processing, where
+$db_handle is an existing open database handle, $table_name is the name of the
+table to be created, $define_fields is the sql to define the fields to be used
+for table except for an id field, and $db_type is the type of database.
+
+=cut
+
+sub create_ftn_table {
+
+    my($db_handle, $table_name, $define_fields, $db_type) = @_;
+
+    my $sql_statement = "CREATE TABLE $table_name( ";
+    # If DB type is PostgreSQL, use SERIAL; else use INTEGER & AUTOINCREMENT
+    if ($db_type eq 'Pg') {
+        $sql_statement .= "id   SERIAL PRIMARY KEY NOT NULL, ";
+    } else {
+        $sql_statement .= "id   INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, ";
+    }
+    $sql_statement .= $define_fields;
+    $sql_statement .= ") ";
+
+    $db_handle->do("$sql_statement ") or croak($DBI::errstr);
+
+    return(0);
+
+}
+
 =head2 drop_ftn_table
 
 Syntax:  drop_ftn_table($db_handle, $table_name);
