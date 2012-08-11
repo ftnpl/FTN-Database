@@ -1,5 +1,10 @@
 Revision history for FTN-Database (ftnpldb) application
 
+0.34    Sat Aug dd hh:mm 2012
+    ToDo:
+    - Update help, scripts and modules as necessary in preparation for the
+      separation of FTN::Database and ftndb into their own distributions.
+
 0.33    Sun Jun 10 08:43 2012
     - Copy create_ftn_nodelist_table from ftnpl-admin to ftnpl-nodelist
     - Rewrite/Rename subroutine create_ftn_nodelist_table in ftnpl-admin 
