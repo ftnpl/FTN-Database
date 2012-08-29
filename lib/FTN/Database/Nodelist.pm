@@ -18,9 +18,10 @@ our $VERSION = '0.34';
 
 =head1 DESCRIPTION
 
-FTN::Database::Nodelist is a Perl module containing common nodelist related subroutines
-for Fidonet/FTN Nodelist related processing on a Nodelist table in an SQL Database. The
-SQL database engine is one for which a DBD module exists, defaulting to SQLite.
+FTN::Database::Nodelist is a Perl module containing common nodelist related functions
+for Fidonet/FTN Nodelist related processing on a Nodelist table in an SQL Database,
+including one that defines the fields for such a Nodelist table. The SQL database
+engine is one for which a DBD module exists, defaulting to SQLite.
 
 =head1 EXPORT
 
@@ -182,7 +183,7 @@ zero.
 =item yearday
 
 The I<yearday> field is used to contain the three digit day of the year that
-a particular nodelist table entry is valid. Defaults to the number zero.
+a particular nodelist table entry is valid for. Defaults to the number zero.
 
 =cut
 

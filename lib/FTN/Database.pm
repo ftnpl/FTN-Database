@@ -18,13 +18,13 @@ our $VERSION = '0.34';
 
 =head1 DESCRIPTION
 
-FTN::Database is Perl modules containing common database related operations
-for Fidonet/FTN related SQL Database processing plus associated scripts.  The
-SQL database engine is one for which a DBD module exists, defaulting to SQLite.
+FTN::Database are Perl modules containing common database related operations
+and definitions for Fidonet/FTN related SQL Database processing. The SQL database
+engine is one for which a DBD module exists, defaulting to SQLite.
 
 =head1 EXPORT
 
-The following functions are available in this module:  create_ftn_database, open_ftn_database,
+The following functions are available in this module: create_ftn_database, open_ftn_database,
 close_ftn_database, drop_ftn_database, drop_ftn_table, create_ftn_index, and drop_ftn_index.
 
 =head1 FUNCTIONS
@@ -63,7 +63,7 @@ hash contains the following items:
 
 =item   Type
 
-The database type.  This needs to be a database type for which 
+The database type.  This needs to be a database type for which
 a DBD module exists, the type being the name as used in the DBD
 module.  The default type to be used is SQLite.
 
