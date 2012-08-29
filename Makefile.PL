@@ -5,8 +5,8 @@ use ExtUtils::MakeMaker;
 WriteMakefile(
     NAME                => 'FTN-Database',
     AUTHOR              => 'Robert James Clay <jame@rocasa.us>',
-    VERSION_FROM        => 'lib/FTNDB.pm',
-    ABSTRACT_FROM       => 'lib/FTNDB.pm',
+    VERSION_FROM        => 'lib/FTN/Database.pm',
+    ABSTRACT_FROM       => 'lib/FTN/Database.pm',
     LICENSE        	=> 'perl',
     EXE_FILES           => [ qw( bin/ftndbadm bin/ftndb-admin bin/ftndb-nodelist ) ],
     PL_FILES            => {},
