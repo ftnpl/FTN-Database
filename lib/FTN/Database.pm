@@ -293,14 +293,15 @@ Robert James Clay, C<< <jame at rocasa.us> >>
 =head1 BUGS
 
 Please report any bugs or feature requests via the web interface at
-L<https://github.com/ftnpl/FTN-Database/issues>. I will be notified,
-and then you'll automatically be notified of progress on your bug
-as I make changes.
+L<http://sourceforge.net/p/ftnpl/ftn-database/tickets/>. I will be
+notified, and then you'll automatically be notified of progress on
+your bug as I make changes.
 
 Note that you can also report any bugs or feature requests to
 C<bug-ftn-database at rt.cpan.org>, or through the web interface at
 L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=FTN-Database>;
-however, the FTN-Database Issue tracker is preferred.
+however, the FTN-Database Issue tracker at the SourceForge
+project  is preferred.
 
 =head1 SUPPORT
 
@@ -313,9 +314,9 @@ You can also look for information at:
 
 =over 4
 
-=item * FTN-Database issue tracker
+=item * FTN::Database issue tracker
 
-L<https://github.com/ftnpl/FTN-Database/issues>
+L<http://sourceforge.net/p/ftnpl/ftn-database/tickets/>
 
 =item * RT: CPAN's request tracker
 
@@ -325,17 +326,11 @@ L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=FTN-Database>
 
 L<http://search.cpan.org/dist/FTN-Database>
 
-Note that the version number in scripts matches up to the oldest version
-of the modules that they will run with.  The version in FTN::Database is
-always the primary version, while the version of the submodules matches
-up to the version at which they were last changed.
-
 =back
 
 =head1 SEE ALSO
 
- L<DBI>, L<FTN::Database::Nodelist>, L<ftndb-admin>,
- and L<ftndb-nodelist>
+ L<DBI>, L<FTN::Database::Nodelist>, L<FTN::Database::ToDo>
 
 =head1 COPYRIGHT & LICENSE
 

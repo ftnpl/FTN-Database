@@ -8,7 +8,7 @@ Required, neccessary and/or useful modules, etc.:
 
 DBD::SQLite SQLite DBD Module is required by default, so should be installed.
     Any other database engines will be named similarly and should be
-    installed if used.  May	already be installed on your system;  if
+    installed if used.  May already be installed on your system; if
     not, one place they may be obtained is at CPAN (www.cpan.org).
 
 
@@ -33,9 +33,8 @@ the perldoc command.
 
 You can also look for information at:
 
-<change to ftn-database tracker at SF>
     FTN-Database Issue tracker
-        https://github.com/ftnpl/FTN-Database/issues
+        http://sourceforge.net/p/ftnpl/ftn-database/tickets/
 
     RT, CPAN's request tracker
         http://rt.cpan.org/NoAuth/Bugs.html?Dist=FTN-Database
@@ -44,7 +43,7 @@ You can also look for information at:
         http://search.cpan.org/dist/FTN-Database
 
 
-The FTN-Database application is hosted at the 'Perl for FTN Systems' project
+The FTN-Database extension is hosted at the 'Perl for FTN Systems' project
 at SourceForge (ftnpl.sourceforge.net).  The ftnpl-user or ftnpl-develop mailing
 lists are available from the project site; however, the FTN echos like PERL or
 BBS_CARNIVAL can be used for discussions regarding it as well and are the

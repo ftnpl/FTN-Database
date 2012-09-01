@@ -255,14 +255,15 @@ Robert James Clay, C<< <jame at rocasa.us> >>
 =head1 BUGS
 
 Please report any bugs or feature requests via the web interface at
-L<https://github.com/ftnpl/FTN-Database/issues>. I will be notified,
+L<https://sourceforge.net/p/ftnpl/ftndb/tickets/>. I will be notified,
 and then you'll automatically be notified of progress on your bug
 as I make changes.
 
 Note that you can also report any bugs or feature requests to
 C<bug-ftn-database at rt.cpan.org>, or through the web interface at
 L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=FTN-Database>;
-however, the FTN-Database Issue tracker is preferred.
+however, the FTN-Database Issue tracker at the SourceForge project
+is preferred.
 
 
 =head1 SUPPORT
@@ -276,9 +277,9 @@ You can also look for information at:
 
 =over 4
 
-=item * FTN-Database issue tracker
+=item * FTN::Database issue tracker
 
-L<https://github.com/ftnpl/FTN-Database/issues>
+L<http://sourceforge.net/p/ftnpl/ftn-database/tickets/>
 
 =item * RT: CPAN's request tracker
 
@@ -292,7 +293,7 @@ L<http://search.cpan.org/dist/FTN-Database>
 
 =head1 SEE ALSO
 
- L<FTN::Database>, L<ftndb-admin>, L<ftndb-nodelist>,
+ L<FTN::Database>,  L<FTN::Database::ToDo>,
  L<http://www.ftsc.org/docs/fts-0005.003>
 
 =head1 COPYRIGHT & LICENSE
