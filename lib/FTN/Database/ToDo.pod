@@ -4,45 +4,63 @@
 =head2 General
 
 Move code repository information and the distribution archive information
-from the README file to elsewhere.  POD in main module?  website and/or wiki?
+from the README file to elsewhere. POD in main module?  website and/or wiki?
 
 Investigate the usage of SQL::Statement. Possibly at least use it for testing?
 
 
 =head2 FTN::Database
 
+The create_ftn_database function as currently coded really only works for
+sqlite databases, because it uses an already open db handle and to get that
+in for instance postgresql you need to define a database for the login.
+May need to add configuration items for a database superuser & its password
+as well as a default database.
+
+The option used to define which type of database to use does not currently
+do any error checking on that type; the script will fail if a correct DBD name
+is not used. Get & use a list of the currently installed DBI DBD modules?  If
+do not explicitly do such error or other checking, document the standard names
+for DBI DBD modules like SQlite (default), mysql, cvs, and postgresql.
+
 The use of special characters like periods in table names is a more general
-issue where it is not a good idea to use them at all.  Redo the comments in
-scripts and modules regarding that, to generalize it.  (Derive function to
-validate it and add th at to the FTN::Database module?)
+issue where it is not a good idea to use them at all. Redo the comments in
+scripts and modules regarding that, to generalize it. (Derive function to
+validate it and add that to the FTN::Database module?)
+
+Create set_ftn_acl subroutine? (Same reasoning as for create_ftn_database.)
+
+Possible function/subroutine that checks if a valid database table name is
+being used? And corrects it if possible?
+
 
 
 =head2 FTN::Database::Nodelist
 
 Need to update the definition of the timestamp field, and/or what the default 
-for it is.  Currently "now" is the default, but that results in the word 'now'
+for it is. Currently "now" is the default, but that results in the word 'now'
 being inserted into the field instead of a date/time timestamp (at least, in
-a PostgreSQL database).  Check how the various databases handle timestamp fields
+a PostgreSQL database). Check how the various databases handle timestamp fields
 again.
 
 
 =head2 FTN:Database::Echolist
 
 Create an FTN Database module for echolists which: Defines an Echolist table,
-default name "Echolist"?  Basic table would consist of (at least) the following
-fields:  name, description, source. Also include fields like: moderator?
+default name "Echolist"? Basic table would consist of (at least) the following
+fields: name, description, source. Also include fields like: moderator?
 
 
 =head2 FTN:Database::Forum
 
 Create an FTN Database module for message forum or conference areas which: Defines
-a forum/conference table, default name "Forum"?  Derive initial definition of the
+a forum/conference table, default name "Forum"? Derive initial definition of the
 table from that used in the areatable.pl script in the bbsdbpl application.
 
 
 =head1 SEE ALSO
 
-L<FTN::Database>, L<FTN::Database::Nodelist>
+ L<FTN::Database>, L<FTN::Database::Nodelist>
 
 
 =head1 AUTHOR
