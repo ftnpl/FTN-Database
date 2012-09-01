@@ -1,26 +1,15 @@
-Fidonet/FTN Database related processing (ftndb)
+Fidonet/FTN Database related processing (FTN-Database)
 
-Scripts and associated Modules which can be used for Fidonet/FTN related processing
-in an SQL database supported by a Perl DBD module, defaulting to SQLite, and which
-includes FTN Nodelist processing.
+Perl extension for Fidonet/FTN related processing in an SQL database supported
+by a Perl DBD module, defaulting to SQLite. Includes both general operations
+and specific operations like for Nodelist processing. 
 
 Required, neccessary and/or useful modules, etc.:
 
-App::Cmd    May already be installed on your system;  if not, one place it may
-    be obtained is at CPAN (www.cpan.org).
-
 DBD::SQLite SQLite DBD Module is required by default, so should be installed.
     Any other database engines will be named similarly and should be
-    installed if used.  May	already be installed on your system;  if
+    installed if used.  May already be installed on your system; if
     not, one place they may be obtained is at CPAN (www.cpan.org).
-
-FTN::Log    Must be a least v0.02, for the 'logging' subroutine as used in 
-    the ftndb-nodelist and ftndb-admin scripts. If not already
-    installed, it can be obtained from CPAN (www.cpan.org) or from
-    the ftnpl project at Sourceforge.
-
-Getopt::Std May already be installed on your system;  if not, one place
-    it may be obtained is at CPAN (www.cpan.org).
 
 
 INSTALLATION
@@ -38,28 +27,23 @@ SUPPORT AND DOCUMENTATION
 After installing, you can find documentation for this application with
 the perldoc command.
 
-    perldoc ftndb
-    perldoc FTNDB
     perldoc FTN::Database
     perldoc FTN::Database::Nodelist
-    perldoc ftndbadm
-    perldoc ftndb-admin
-    perldoc ftndb-nodelist
+    perldoc FTN::Database::ToDo
 
 You can also look for information at:
 
-<change to ftndb tracker at SF>
     FTN-Database Issue tracker
-        https://github.com/ftnpl/FTN-Database/issues
+        http://sourceforge.net/p/ftnpl/ftn-database/tickets/
 
     RT, CPAN's request tracker
-        http://rt.cpan.org/NoAuth/Bugs.html?Dist=ftndb
+        http://rt.cpan.org/NoAuth/Bugs.html?Dist=FTN-Database
 
     Search CPAN
-        http://search.cpan.org/dist/ftndb
+        http://search.cpan.org/dist/FTN-Database
 
 
-The FTN-Database application is hosted at the 'Perl for FTN Systems' project
+The FTN-Database extension is hosted at the 'Perl for FTN Systems' project
 at SourceForge (ftnpl.sourceforge.net).  The ftnpl-user or ftnpl-develop mailing
 lists are available from the project site; however, the FTN echos like PERL or
 BBS_CARNIVAL can be used for discussions regarding it as well and are the
@@ -68,12 +52,12 @@ preferred avenues for support.
 Note that the code history for FTN Database is available in a git repository
 at the Sourceforge project, as follows:
 
-http://git.code.sf.net/p/ftnpl/ftndb/code (Browse Online)
-git clone git://git.code.sf.net/p/ftnpl/ftndb/code (Read Only)
+http://git.code.sf.net/p/ftnpl/ftn-database/code (Browse Online)
+git clone git://git.code.sf.net/p/ftnpl/ftn-database/code (Read Only)
 
 Note also that in distribution archives created directly from the repository,
 the commit id can obtained like as follows:
-    zcat ftndb-n.nn.tar.gz | git get-tar-commit-id 
+    zcat ftn-database-n.nn.tar.gz | git get-tar-commit-id 
 
 COPYRIGHT AND LICENCE
 
