@@ -10,11 +10,11 @@ FTN::Database - FTN SQL Database related operations for Fidonet/FTN related proc
 
 =head1 VERSION
 
-Version 0.34
+Version 0.35
 
 =cut
 
-our $VERSION = '0.34';
+our $VERSION = '0.35';
 
 =head1 DESCRIPTION
 
@@ -47,7 +47,7 @@ sub create_ftn_database {
 
     $db_handle->do("$sql_statement") or croak($DBI::errstr);
 
-    return(0);
+    return 1;
 
 }
 
@@ -115,7 +115,7 @@ sub close_ftn_database {
 
     ( $db_handle->disconnect ) or croak($DBI::errstr);
 
-    return(0);
+    return 1;
 
 }
 
@@ -137,7 +137,7 @@ sub drop_ftn_database {
 
     $db_handle->do("$sql_statement") or croak($DBI::errstr);
 
-    return(0);
+    return 1;
 
 }
 
@@ -168,7 +168,7 @@ sub create_ftn_table {
 
     $db_handle->do("$sql_statement ") or croak($DBI::errstr);
 
-    return(0);
+    return 1;
 
 }
 
@@ -190,7 +190,7 @@ sub drop_ftn_table {
 
     $db_handle->do("$sql_statement") or croak($DBI::errstr);
 
-    return(0);
+    return 1;
 
 }
 
@@ -215,7 +215,7 @@ sub create_ftn_index {
 
     $db_handle->do("$sql_statement") or croak($DBI::errstr);
 
-    return(0);
+    return 1;
 
 }
 
@@ -237,7 +237,7 @@ sub drop_ftn_index {
 
     $db_handle->do("$sql_statement") or croak($DBI::errstr);
 
-    return(0);
+    return 1;
 
 }
 

@@ -1,5 +1,11 @@
 Revision history for FTN-Database (ftnpldb) application
 
+0.35    Fri Sep 28 00:17 2012
+    - Remove the t/boilerplate.t test script as it is no longer needed.
+    - Ensure the functions in FTN::Database return true to indicate success.
+    - Add TEST::Database to the required TEST modules in the Makefile.PL file
+      and move them to BUILD_REQUIRES.
+
 0.34    Sat Sep  1 19:10 2012
     - Separate out the FTN::Database Perl Modules and the FTN Database application
       into their own distributions.
