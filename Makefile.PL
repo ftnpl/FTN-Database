@@ -14,6 +14,7 @@ WriteMakefile(
         'DBD::SQLite'           => 0,
     },
     BUILD_REQUIRES => {
+        'Test::Database'        => 0,
         'Test::More'            => 0,
         'Test::Pod'             => 1.22,
         'Test::Pod::Coverage'   => 1.08,
