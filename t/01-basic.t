@@ -14,7 +14,7 @@ BEGIN {
 
     my %db_options = (
         Type => 'SQLite',
-        Name => 't/TEST.DB',
+        Name => ':memory:',
     );
 
     $db_handle = FTN::Database::open_ftn_database(\%db_options);
