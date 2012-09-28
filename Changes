@@ -1,5 +1,10 @@
 Revision history for FTN-Database (ftnpldb) application
 
+0.36    Fri Sep 28 18:20 2012
+    - Add 't/*.DB' to the files being cleaned in Makefile.PL
+    - Add the initial version of the t/01-basic.t test script and list it in
+      the MANIFEST file.
+
 0.35    Fri Sep 28 00:17 2012
     - Remove the t/boilerplate.t test script as it is no longer needed.
     - Ensure the functions in FTN::Database return true to indicate success.

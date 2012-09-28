@@ -20,5 +20,5 @@ WriteMakefile(
         'Test::Pod::Coverage'   => 1.08,
     },
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
-    clean               => { FILES => 'FTN-Database-*' },
+    clean               => { FILES => 'FTN-Database-* t/*.DB' },
 );
