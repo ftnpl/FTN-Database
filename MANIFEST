@@ -7,5 +7,6 @@ lib/FTN/Database.pm
 lib/FTN/Database/Nodelist.pm
 lib/FTN/Database/ToDo.pod
 t/00-load.t
+t/01-basic.t
 t/pod-coverage.t
 t/pod.t
