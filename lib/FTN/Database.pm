@@ -10,11 +10,11 @@ FTN::Database - FTN SQL Database related operations for Fidonet/FTN related proc
 
 =head1 VERSION
 
-Version 0.36
+Version 0.37
 
 =cut
 
-our $VERSION = '0.36';
+our $VERSION = '0.37';
 
 =head1 DESCRIPTION
 
