@@ -1,5 +1,8 @@
 Revision history for FTN-Database (ftnpldb) application
 
+0.36    dow mmm dd hh:mm yyyy
+    - Start v0.36 development.
+
 0.35    Fri Sep 28 00:17 2012
     - Remove the t/boilerplate.t test script as it is no longer needed.
     - Ensure the functions in FTN::Database return true to indicate success.
