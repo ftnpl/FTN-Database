@@ -1,5 +1,8 @@
 Revision history for FTN-Database (ftnpldb) application
 
+0.38    Day Jan dd hh:mm 2013
+    - Start development for v0.38.
+
 0.37    Fri Sep 28 19:48 2012
     - Add the initial version of the t/02-NodelistDB.t test script and list it in
       the MANIFEST file.
