@@ -22,7 +22,7 @@ BEGIN {
     ok( defined $db_handle, 'Open Nodelist DB' );
 
     $fields = FTN::Database::Nodelist::define_nodelist_table();
-    ok( FTN::Database::create_ftn_table($db_handle, 'Nodelist', $fields, 'SQLite'), 'Create Nodelist Table' );
+    ok( FTN::Database::create_ftn_table($db_handle, 'Nodelist', $fields), 'Create Nodelist Table' );
 
     $fields = FTN::Database::Nodelist::ftnnode_index_fields();
     ok( FTN::Database::create_ftn_index($db_handle, 'Nodelist', 'ftnnode', $fields), 'Create Nodelist Index' );

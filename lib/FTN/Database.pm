@@ -143,7 +143,7 @@ sub drop_ftn_database {
 
 =head2 create_ftn_table
 
-Syntax:  create_ftn_table($db_handle, $table_name, $define_fields, $db_type);
+Syntax:  create_ftn_table($db_handle, $table_name, $define_fields);
 
 Create a table in an SQL database to be used for Fidonet/FTN processing, where
 $db_handle is an existing open database handle, $table_name is the name of the
@@ -154,7 +154,7 @@ for table except for an id field, and $db_type is the type of database.
 
 sub create_ftn_table {
 
-    my($db_handle, $table_name, $define_fields, $db_type) = @_;
+    my($db_handle, $table_name, $define_fields) = @_;
 
     my $sql_statement = "CREATE TABLE $table_name( ";
     # If DB type is PostgreSQL, use SERIAL; else use INTEGER & AUTOINCREMENT
