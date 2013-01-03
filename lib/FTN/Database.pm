@@ -158,7 +158,7 @@ sub create_ftn_table {
 
     my $sql_statement = "CREATE TABLE $table_name( ";
     # If DB type is PostgreSQL, use SERIAL; else use INTEGER & AUTOINCREMENT
-    if ($db_type eq 'Pg') {
+    if ($db_handle->{Driver}->{Name} eq 'Pg') {
         $sql_statement .= "id   SERIAL PRIMARY KEY NOT NULL, ";
     } else {
         $sql_statement .= "id   INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, ";
