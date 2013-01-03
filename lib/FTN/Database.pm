@@ -145,10 +145,11 @@ sub drop_ftn_database {
 
 Syntax:  create_ftn_table($db_handle, $table_name, $define_fields);
 
-Create a table in an SQL database to be used for Fidonet/FTN processing, where
+Create a table in an SQL database to be used for Fidonet/FTN processing where
 $db_handle is an existing open database handle, $table_name is the name of the
-table to be created, $define_fields is the sql to define the fields to be used
-for table except for an id field, and $db_type is the type of database.
+table to be created, and $define_fields is the sql to define the fields to be
+used for the table except for an id field which is set according to the driver
+type.
 
 =cut
 
