@@ -1,5 +1,8 @@
 Revision history for FTN-Database (ftnpldb) application
 
+0.40    Fri Jan  4 08:10 2013
+    - Start development of v0.40
+
 0.39    Fri Jan  4 07:55 2013
     - Construct dsn string outside of connect in open_ftn_database function.
     - Add descriptions and handling of the Host and the Port options to the
