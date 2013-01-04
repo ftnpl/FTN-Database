@@ -10,11 +10,11 @@ FTN::Database - FTN SQL Database related operations for Fidonet/FTN related proc
 
 =head1 VERSION
 
-Version 0.37
+Version 0.38
 
 =cut
 
-our $VERSION = '0.37';
+our $VERSION = '0.38';
 
 =head1 DESCRIPTION
 
@@ -143,22 +143,23 @@ sub drop_ftn_database {
 
 =head2 create_ftn_table
 
-Syntax:  create_ftn_table($db_handle, $table_name, $define_fields, $db_type);
+Syntax:  create_ftn_table($db_handle, $table_name, $define_fields);
 
-Create a table in an SQL database to be used for Fidonet/FTN processing, where
+Create a table in an SQL database to be used for Fidonet/FTN processing where
 $db_handle is an existing open database handle, $table_name is the name of the
-table to be created, $define_fields is the sql to define the fields to be used
-for table except for an id field, and $db_type is the type of database.
+table to be created, and $define_fields is the sql to define the fields to be
+used for the table except for an id field which is set according to the driver
+type.
 
 =cut
 
 sub create_ftn_table {
 
-    my($db_handle, $table_name, $define_fields, $db_type) = @_;
+    my($db_handle, $table_name, $define_fields) = @_;
 
     my $sql_statement = "CREATE TABLE $table_name( ";
     # If DB type is PostgreSQL, use SERIAL; else use INTEGER & AUTOINCREMENT
-    if ($db_type eq 'Pg') {
+    if ($db_handle->{Driver}->{Name} eq 'Pg') {
         $sql_statement .= "id   SERIAL PRIMARY KEY NOT NULL, ";
     } else {
         $sql_statement .= "id   INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, ";

@@ -24,7 +24,7 @@ BEGIN {
     $fields .= "sysop      VARCHAR(48) DEFAULT '' NOT NULL, ";
     $fields .= "system      VARCHAR(48) DEFAULT '' NOT NULL, ";
     $fields .= "location      VARCHAR(48) DEFAULT '' NOT NULL ";
-    ok( FTN::Database::create_ftn_table($db_handle, 'Nodes', $fields, 'SQLite'), 'Create Table' );
+    ok( FTN::Database::create_ftn_table($db_handle, 'Nodes', $fields), 'Create Table' );
 
     $fields = "nodeaka, sysop";
     ok( FTN::Database::create_ftn_index($db_handle, 'Nodes', 'nodeidx', $fields), 'Create Index' );

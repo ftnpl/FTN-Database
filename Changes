@@ -1,5 +1,11 @@
 Revision history for FTN-Database (ftnpldb) application
 
+0.38    Thu Jan  3 19:11 2013
+    - Use $db_handle->{Driver}->{Name} to check the driver in create_ftn_table,
+      remove the $db_type parameter, and rewrite the function description.
+    - Rename test script t/02-NodelistDB.t to t/02-NodelistBasic.t and update 
+      its name in MANIFEST.
+
 0.37    Fri Sep 28 19:48 2012
     - Add the initial version of the t/02-NodelistDB.t test script and list it in
       the MANIFEST file.
