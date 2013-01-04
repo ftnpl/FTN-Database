@@ -1,7 +1,11 @@
 Revision history for FTN-Database (ftnpldb) application
 
-0.39    Thu Jan  3 hh:mm 2013
-    - Start development for v0.39.
+0.39    Fri Jan  4 07:55 2013
+    - Construct dsn string outside of connect in open_ftn_database function.
+    - Add descriptions and handling of the Host and the Port options to the
+      open_ftn_database function.
+    - Adding database name to dsn string in open_ftn_database is dependent on
+      the database driver type.
 
 0.38    Thu Jan  3 19:11 2013
     - Use $db_handle->{Driver}->{Name} to check the driver in create_ftn_table,
