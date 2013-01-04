@@ -10,11 +10,11 @@ FTN::Database - FTN SQL Database related operations for Fidonet/FTN related proc
 
 =head1 VERSION
 
-Version 0.38
+Version 0.39
 
 =cut
 
-our $VERSION = '0.38';
+our $VERSION = '0.39';
 
 =head1 DESCRIPTION
 
@@ -67,6 +67,16 @@ The database type.  This needs to be a database type for which
 a DBD module exists, the type being the name as used in the DBD
 module.  The default type to be used is SQLite.
 
+=item   Host
+
+The host name of the database server. If blank or not provided, a driver
+specific default is used. Not required If the Type is SQLite,
+
+=item   Port
+
+The port number for the database server. If blank or not provided, a driver
+specific default is used. Not required If the Type is SQLite,
+
 =item   Name
 
 The name of the database to be opened.  If the Type is SQLite, this
@@ -91,8 +101,29 @@ sub open_ftn_database {
     # Get the hash reference to the information required for the connect
     my $option = shift;
 
+    # Construct DSN for the database connection.
+    my $db_dsn = "dbi:${$option}{'Type'}";
+    # If DB type is MySQL, use "database" instead of "dbname" in DSN.
+    if (${$option}{'Type'} eq 'mysql') {
+        $db_dsn .= ":database=${$option}{'Name'}";
+    } else {
+        $db_dsn .= ":dbname=${$option}{'Name'}";
+    }
+    # If Host option exists and is not empty, add it to DSN.
+    if (exists ${$option}{'Host'}) {
+        if (${$option}{'Host'} ne '') {
+            $db_dsn .= ":host=${$option}{'Host'}";
+        }
+    }
+    # If Port option exists and is not empty, add it to DSN.
+    if (exists ${$option}{'Port'}) {
+        if (${$option}{'Port'} ne '') {
+            $db_dsn .= ":port=${$option}{'Port'}";
+        }
+    }
+
     ( my $db_handle = DBI->connect(
-        "dbi:${$option}{'Type'}:dbname=${$option}{'Name'}",
+        $db_dsn,
         ${$option}{'User'},
         ${$option}{'Password'} ) )
     or croak($DBI::errstr);
