@@ -109,6 +109,12 @@ sub open_ftn_database {
     } else {
         $db_dsn .= ":dbname=${$option}{'Name'}";
     }
+    # If Host option exists and is not empty, add it to DSN.
+    if (exists ${$option}{'Host'}) {
+        if (${$option}{'Host'} ne '') {
+            $db_dsn .= ":host=${$option}{'Host'}";
+        }
+    }
 
     ( my $db_handle = DBI->connect(
         $db_dsn,
