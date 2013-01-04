@@ -102,7 +102,13 @@ sub open_ftn_database {
     my $option = shift;
 
     # Construct DSN for the database connection.
-    my $db_dsn = "dbi:${$option}{'Type'}:dbname=${$option}{'Name'}";
+    my $db_dsn = "dbi:${$option}{'Type'}";
+    # If DB type is MySQL, use "database" instead of "dbname" in DSN.
+    if (${$option}{'Type'} eq 'mysql') {
+        $db_dsn .= ":database=${$option}{'Name'}";
+    } else {
+        $db_dsn .= ":dbname=${$option}{'Name'}";
+    }
 
     ( my $db_handle = DBI->connect(
         $db_dsn,
