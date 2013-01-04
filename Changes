@@ -1,5 +1,8 @@
 Revision history for FTN-Database (ftnpldb) application
 
+0.39    Thu Jan  3 hh:mm 2013
+    - Start development for v0.39.
+
 0.38    Thu Jan  3 19:11 2013
     - Use $db_handle->{Driver}->{Name} to check the driver in create_ftn_table,
       remove the $db_type parameter, and rewrite the function description.
