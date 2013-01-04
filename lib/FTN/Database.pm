@@ -101,8 +101,11 @@ sub open_ftn_database {
     # Get the hash reference to the information required for the connect
     my $option = shift;
 
+    # Construct DSN for the database connection.
+    my $db_dsn = "dbi:${$option}{'Type'}:dbname=${$option}{'Name'}";
+
     ( my $db_handle = DBI->connect(
-        "dbi:${$option}{'Type'}:dbname=${$option}{'Name'}",
+        $db_dsn,
         ${$option}{'User'},
         ${$option}{'Password'} ) )
     or croak($DBI::errstr);
