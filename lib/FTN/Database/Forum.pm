@@ -26,14 +26,13 @@ database engine is one for which a DBD module exists, defaulting to SQLite.
 =head1 EXPORT
 
 The following functions are available in this module: define_forum_table(),
-define_areasbbs_table(), drop_forum_table(), ftnmsg_index_fields(), and
-ftnareas_index_fields().
+define_areasbbs_table(), ftnmsg_index_fields(), and ftnareas_index_fields().
 
 =head1 FUNCTIONS
 
 =head2 define_forum_table
 
-Syntax:  define_forum_table();
+Syntax:  $fields = define_forum_table();
 
 This function returns a string that contains the SQL which defines a
 message conference/forum table for use in an SQL database being used
@@ -177,7 +176,7 @@ message being stored in the table.  Defaults to an empty string.
 
 =head2 define_areasbbs_table
 
-Syntax:  define_areas_table();
+Syntax:  $fields = define_areasbbs_table();
 
 This function returns a string that contains the SQL which defines an
 areasbbs table for use in an SQL database being used for Fidonet/FTN
@@ -289,7 +288,7 @@ Defaults to an I<L>. (Message/Forum areas only.)
 
 =head2 ftnmsg_index_fields
 
-Syntax:  ftnmsg_index_fields();
+Syntax:  $fields = ftnmsg_index_fields();
 
 This is a function that returns a string containing a comma separated list of
 the fields that are intended for use in creating the ftnmsg database index.
@@ -307,11 +306,11 @@ sub ftnmsg_index_fields {
 
 =head2 ftnareas_index_fields
 
-Syntax:  ftnareas_index_fields();
+Syntax:  $fields = ftnareas_index_fields();
 
 This is a function that returns a string containing a comma separated list of
 the fields that are intended for use in creating the ftnareas database index.
-The index contains the following fields: id,areaname.
+The index contains the following fields: areaname and bbsname.
 
 =cut
 
@@ -329,31 +328,34 @@ An example of opening an FTN database, then creating a forum table,
 loading data to it, then creating an index on it, and then closing
 the database connection:
 
+    use FTN::Database;
     use FTN::Database::Forum;
 
     my $db_handle = open_ftn_database(\%db_option);
-    define_forum_table($db_handle, $table_name);
+    $fields = define_forum_table();
+    create_ftn_table($db_handle, $table_name, $fields);
     ...   (Load data to forum table)
-    ftnnode_index_tables($db_handle, $table_name);
+    ftnmsg_index_tables($db_handle, $table_name);
     close_ftn_database($db_handle);
+
 
 =head1 AUTHOR
 
 Robert James Clay, C<< <jame at rocasa.us> >>
 
+
 =head1 BUGS
 
 Please report any bugs or feature requests via the web interface at
-L<http://sourceforge.net/p/ftnpl/ftn-database/tickets/>. I will be notified,
-and then you'll automatically be notified of progress on your bug
-as I make changes.
+L<http://sourceforge.net/p/ftnpl/ftn-database/tickets/>. I will be
+notified, and then you'll automatically be notified of progress on
+your bug as I make changes.
 
 Note that you can also report any bugs or feature requests to
 C<bug-ftn-database at rt.cpan.org>, or through the web interface at
 L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=FTN-Database>;
 however, the FTN-Database Issue tracker at the SourceForge project
 is preferred.
-
 
 =head1 SUPPORT
 
@@ -380,9 +382,16 @@ L<http://search.cpan.org/dist/FTN-Database>
 
 =back
 
+=head1 CREDITS
+
+The message/forum and areasbbs table definitions were originally derived from
+the bbsdbpl scripts areatable.pl and areasbbsadm.pl available at the FTN Perl
+project at SourceForge: L<http://ftnpl.sourceforge.net>
+
+
 =head1 SEE ALSO
 
- L<FTN::Database>, L<FTN::Database:Nodelist>, L<FTN::Database::ToDo>
+ L<FTN::Database>, L<FTN::Database::ToDo>
 
 =head1 COPYRIGHT & LICENSE
 

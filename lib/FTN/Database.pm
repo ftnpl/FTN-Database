@@ -174,13 +174,19 @@ sub drop_ftn_database {
 
 =head2 create_ftn_table
 
-Syntax:  create_ftn_table($db_handle, $table_name, $define_fields);
+Syntax:  create_ftn_table($db_handle, $table_name, $defined_fields);
 
 Create a table in an SQL database to be used for Fidonet/FTN processing where
 $db_handle is an existing open database handle, $table_name is the name of the
-table to be created, and $define_fields is the sql to define the fields to be
+table to be created, and $defined_fields is the sql to define the fields to be
 used for the table except for an id field which is set according to the driver
 type.
+
+The string defining the fields could be coded like this:
+    $defined_fields = "nodeaka     VARCHAR(23) DEFAULT '' NOT NULL, ";
+    $defined_fields .= "sysop      VARCHAR(48) DEFAULT '' NOT NULL, ";
+    $defined_fields .= "system     VARCHAR(48) DEFAULT '' NOT NULL, ";
+    $defined_fields .= "location   VARCHAR(48) DEFAULT '' NOT NULL ";
 
 =cut
 
@@ -288,12 +294,12 @@ mysql database:
 
     use FTN::Database;
 
-    my $database_name = "ftndbtst";
+    my $db_name = "ftndbtst";
     my $db_option = {
-    Type = "mysql",
-    Name = "mysql",
-    User = $db_user,
-    Password = $db_password,
+        Type = "mysql",
+        Name = $db_name,
+        User = $db_user,
+        Password = $db_password,
     };
     my $db_handle = open_ftn_database(\%db_option);
     create_ftn_database($db_handle, $database_name);
@@ -305,16 +311,16 @@ using a mysql database:
 
     use FTN::Database;
 
-    my $database_name = "ftndbtst";
+    my $db_name = "ftndbtst";
     my $db_option = {
-    Type = "mysql",
-    Name = "mysql",
-    User = $db_user,
-    Password = $db_password,
+        Type = 'mysql',
+        Name = $db_name,
+        User = $db_user,
+        Password = $db_password,
     };
     my $db_handle = open_ftn_database(\%db_option);
     ...
-    drop_ftn_database($db_handle, $database_name);
+    drop_ftn_database($db_handle, $db_name);
     close_ftn_database($db_handle);
 
 
@@ -362,7 +368,8 @@ L<http://search.cpan.org/dist/FTN-Database>
 
 =head1 SEE ALSO
 
- L<DBI>, L<FTN::Database::Nodelist>, L<FTN::Database::ToDo>
+ L<DBI>, L<FTN::Database::Nodelist>, L<FTN::Database::Forum>,
+ L<FTN::Database::ToDo>
 
 =head1 COPYRIGHT & LICENSE
 
