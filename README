@@ -28,6 +28,7 @@ After installing, you can find documentation for this application with
 the perldoc command.
 
     perldoc FTN::Database
+    perldoc FTN::Database::Forum
     perldoc FTN::Database::Nodelist
     perldoc FTN::Database::ToDo
 
@@ -44,7 +45,7 @@ You can also look for information at:
 
 
 The FTN-Database extension is hosted at the 'Perl for FTN Systems' project
-at SourceForge (ftnpl.sourceforge.net).  The ftnpl-user or ftnpl-develop mailing
+at SourceForge (ftnpl.sourceforge.net). The ftnpl-user or ftnpl-develop mailing
 lists are available from the project site; however, the FTN echos like PERL or
 BBS_CARNIVAL can be used for discussions regarding it as well and are the
 preferred avenues for support.
@@ -61,7 +62,7 @@ the commit id can obtained like as follows:
 
 COPYRIGHT AND LICENCE
 
-Copyright (C) 2012 Robert James Clay
+Copyright (C) 2010-2013 Robert James Clay
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

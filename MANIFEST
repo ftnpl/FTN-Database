@@ -4,10 +4,12 @@ Makefile.PL
 README
 doc/History
 lib/FTN/Database.pm
+lib/FTN/Database/Forum.pm
 lib/FTN/Database/Nodelist.pm
 lib/FTN/Database/ToDo.pod
 t/00-load.t
 t/01-basic.t
 t/02-NodelistBasic.t
+t/03-ForumBasic.t
 t/pod-coverage.t
 t/pod.t

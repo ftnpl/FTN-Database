@@ -1,5 +1,10 @@
 Revision history for FTN-Database (ftnpldb) application
 
+0.40    Fri Jan  4 14:17 2013
+    - Miscellaneous updates and corrections to the documenation.  
+    - Add FTN::Database::Forum module as lib/FTN/Database/Forum.pm, and an
+      initial test script t/03-ForumBasic.t for it.
+
 0.39    Fri Jan  4 07:55 2013
     - Construct dsn string outside of connect in open_ftn_database function.
     - Add descriptions and handling of the Host and the Port options to the

@@ -10,11 +10,11 @@ FTN::Database::Nodelist - Fidonet/FTN Nodelist SQL Database operations.
 
 =head1 VERSION
 
-Version 0.39
+Version 0.40
 
 =cut
 
-our $VERSION = '0.39';
+our $VERSION = '0.40';
 
 =head1 DESCRIPTION
 
@@ -32,7 +32,7 @@ drop_nodelist_table(), ftnnode_index_fields(), remove_ftn_domain().
 
 =head2 define_nodelist_table
 
-Syntax:  define_nodelist_table();
+Syntax:  $fields = define_nodelist_table();
 
 This function returns a string that contains the SQL which defines a
 Nodelist table for use in an SQL database being used for Fidonet/FTN
@@ -217,7 +217,7 @@ nodelist table entry was last updated. Defaults to now.
 
 =head2 ftnnode_index_fields
 
-Syntax:  ftnnode_index_fields();
+Syntax:  $fields = ftnnode_index_fields();
 
 This is a function that returns a string containing a comma separated list of
 the fields that are intended for use in creating the ftnnode database index.
@@ -240,10 +240,12 @@ An example of opening an FTN database, then creating a nodelist table,
 loading data to it, then creating an index on it, and the closing
 the database:
 
+    use FTN::Database;
     use FTN::Database::Nodelist;
 
     my $db_handle = open_ftn_database(\%db_option);
-    define_nodelist_table($db_handle, $table_name);
+    $fields = define_nodelist_table();
+    create_ftn_table($db_handle, $table_name, $fields);
     ...   (Load data to nodelist table)
     ftnnode_index_tables($db_handle, $table_name);
     close_ftn_database($db_handle);
@@ -255,9 +257,9 @@ Robert James Clay, C<< <jame at rocasa.us> >>
 =head1 BUGS
 
 Please report any bugs or feature requests via the web interface at
-L<https://sourceforge.net/p/ftnpl/ftndb/tickets/>. I will be notified,
-and then you'll automatically be notified of progress on your bug
-as I make changes.
+L<https://sourceforge.net/p/ftnpl/ftn-database/tickets/>. I will be
+notified, and then you'll automatically be notified of progress on
+your bug as I make changes.
 
 Note that you can also report any bugs or feature requests to
 C<bug-ftn-database at rt.cpan.org>, or through the web interface at
@@ -298,7 +300,7 @@ L<http://search.cpan.org/dist/FTN-Database>
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2010-2012 Robert James Clay, all rights reserved.
+Copyright 2010-2013 Robert James Clay, all rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
