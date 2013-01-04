@@ -67,6 +67,16 @@ The database type.  This needs to be a database type for which
 a DBD module exists, the type being the name as used in the DBD
 module.  The default type to be used is SQLite.
 
+=item   Host
+
+The host name of the database server. If blank or not provided, a driver
+specific default is used. Not required If the Type is SQLite,
+
+=item   Port
+
+The port number for the database server. If blank or not provided, a driver
+specific default is used. Not required If the Type is SQLite,
+
 =item   Name
 
 The name of the database to be opened.  If the Type is SQLite, this
