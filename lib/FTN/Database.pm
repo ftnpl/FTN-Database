@@ -366,8 +366,13 @@ L<http://search.cpan.org/dist/FTN-Database>
 
 =back
 
-=head1 SEE ALSO
+=head1 REPOSITORIES
 
+L<http://sourceforge.net/p/ftnpl/ftn-database/code>
+L<https://github.com/ftnpl/FTN-Database>
+
+=head1 SEE ALSO
+ 
  L<DBI>, L<FTN::Database::Nodelist>, L<FTN::Database::Forum>,
  L<FTN::Database::ToDo>
 
