@@ -1,8 +1,10 @@
 Changes
 MANIFEST
+MANIFEST.SKIP
 Makefile.PL
 README
 doc/History
+doc/file_id.diz
 lib/FTN/Database.pm
 lib/FTN/Database/Forum.pm
 lib/FTN/Database/Nodelist.pm
