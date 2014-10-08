@@ -19,6 +19,17 @@ WriteMakefile(
         'Test::Pod'             => 1.22,
         'Test::Pod::Coverage'   => 1.08,
     },
+    (eval { ExtUtils::MakeMaker->VERSION(6.46) } ? (META_MERGE => {
+        'meta-spec' => { version => 2 },
+         resources => {
+             repository => {
+                type => 'git',
+                url  => 'git.code.sf.net/p/ftnpl/ftn-database/code',
+                web  => 'http://sourceforge.net/p/ftnpl/ftn-database/code',
+             },
+         }})
+        : ()
+    ),
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean               => { FILES => 'FTN-Database-* t/*.DB' },
 );
