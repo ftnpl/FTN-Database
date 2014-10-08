@@ -10,11 +10,11 @@ FTN::Database - FTN SQL Database related operations for Fidonet/FTN related proc
 
 =head1 VERSION
 
-Version 0.40
+Version 0.41
 
 =cut
 
-our $VERSION = '0.40';
+our $VERSION = '0.41';
 
 =head1 DESCRIPTION
 
@@ -366,14 +366,19 @@ L<http://search.cpan.org/dist/FTN-Database>
 
 =back
 
-=head1 SEE ALSO
+=head1 REPOSITORIES
 
+L<http://sourceforge.net/p/ftnpl/ftn-database/code>
+L<https://github.com/ftnpl/FTN-Database>
+
+=head1 SEE ALSO
+ 
  L<DBI>, L<FTN::Database::Nodelist>, L<FTN::Database::Forum>,
  L<FTN::Database::ToDo>
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2010-2013 Robert James Clay, all rights reserved.
+Copyright 2010-2014 Robert James Clay, all rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

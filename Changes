@@ -1,7 +1,13 @@
 Revision history for FTN-Database (ftnpldb) application
 
+0.41    Wed Oct  8 08:20 2014
+    - Add initial version of the MANIFEST.SKIP file.
+    . Add code repository information to POD in lib/FTN/Database.pm.
+    - Add code repository information to META section in Makefile.PL.
+    - Add initial version of '.travis.yml' for use at GitHub mirror.
+
 0.40    Fri Jan  4 14:17 2013
-    - Miscellaneous updates and corrections to the documenation.  
+    - Miscellaneous updates and corrections to the documenation.
     - Add FTN::Database::Forum module as lib/FTN/Database/Forum.pm, and an
       initial test script t/03-ForumBasic.t for it.
 
