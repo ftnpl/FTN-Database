@@ -1,7 +1,6 @@
 Revision history for FTN-Database (ftnpldb) application
 
-        Thu Oct  9 03:58 2014
-    - Start development for v0.42
+0.42    Thu Oct  9 04:09 2014
     - Correct spelling of Test::Pod & Test::Pod::Coverage in '.travis.yml file.
 
 0.41    Wed Oct  8 08:20 2014
