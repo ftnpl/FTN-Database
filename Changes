@@ -1,5 +1,8 @@
 Revision history for FTN-Database (ftnpldb) application
 
+0.42    Thu Oct  9 04:09 2014
+    - Correct spelling of Test::Pod & Test::Pod::Coverage in '.travis.yml file.
+
 0.41    Wed Oct  8 08:20 2014
     - Add initial version of the MANIFEST.SKIP file.
     . Add code repository information to POD in lib/FTN/Database.pm.

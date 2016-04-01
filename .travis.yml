@@ -8,8 +8,8 @@ before_install:
    - "cpanm DBI"
    - "cpanm DBD::SQLite"
    - "cpanm Test::More"
-   - "cpanm Test::POD"
-   - "cpanm Test::POD::Coverage"
+   - "cpanm Test::Pod"
+   - "cpanm Test::Pod::Coverage"
    - "cpanm Devel::Cover::Report::Coveralls"
 
 script:
